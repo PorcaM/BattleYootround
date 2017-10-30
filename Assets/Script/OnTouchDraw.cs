@@ -3,21 +3,70 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class OnTouchDraw : MonoBehaviour {
+    public Texture2D sourceTex;
+    public Rect sourceRect;
 
-    public Texture2D heightmap;
-    public Vector3 size = new Vector3(100, 10, 100);
+    private Touch tempTouchs;
+    private Vector3 touchedPos;
+    private bool touchOn;
+    private Color[] blacks;
+    private Color[] whites;
 
-	// Use this for initialization
-	void Start () {
+
+    void Start()
+    {
+        blacks = new Color[10 * 10];
+        for(int i=0; i< blacks.Length; i++)
+        {
+            blacks[i] = Color.black;
+        }
+
+        whites = new Color[2000 * 2000];
+        for(int i=0; i<whites.Length; i++)
+        {
+            whites[i] = Color.white;
+        }
+
+        sourceTex.SetPixels(whites);
+        sourceTex.Apply();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        int x = Mathf.FloorToInt(transform.position.x / size.x * heightmap.width);
-        int z = Mathf.FloorToInt(transform.position.z / size.z * heightmap.height);
-        Vector3 pos = transform.position;
-        pos.y = heightmap.GetPixel(x, z).grayscale * size.y;
-        Debug.Log(pos);
-        Debug.Log(heightmap.GetPixels());
+
+    private void Update()
+    {
+        touchOn = false;
+        if (Input.GetMouseButton(0))
+        {
+            int x = Mathf.FloorToInt(Input.mousePosition.x);
+            int y = Mathf.FloorToInt(Input.mousePosition.y);
+            Debug.Log(x);
+            Debug.Log(y);
+            
+            Vector3 pos = Camera.main.ScreenToViewportPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+
+
+            x -= 5;
+            y -= 5;
+
+            sourceTex.SetPixels(x, y, 10, 10, blacks);
+            sourceTex.Apply();
+        }
+        //touchOn = false;
+        //if (Input.touchCount > 0)
+        //{
+        //    for(int i=0; i<Input.touchCount; i++)
+        //    {
+        //        tempTouchs = Input.GetTouch(i);
+        //        if(tempTouchs.phase == TouchPhase.Began)
+        //        {
+        //            touchedPos = Camera.main.ScreenToWorldPoint(tempTouchs.position);
+        //            touchOn = true;
+
+        //            Debug.Log(touchedPos);
+
+        //            break;
+        //        }
+        //    }
+        //}
     }
+
 }
