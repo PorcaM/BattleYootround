@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Deck : MonoBehaviour {
     private const int deckSize = 5;
@@ -16,10 +17,18 @@ public class Deck : MonoBehaviour {
 
     public bool CheckIntegrity()
     {
-        for (int i = 0; i < DeckSize; i++)
-        {
-            units.Contains(units[i]);
-        }
-        return true;
+        bool integrity = true;
+        if (IsRedundancy())
+            integrity = false;
+        return integrity;
+    }
+
+    // TODO Configure which algorithm is better. 
+    private bool IsRedundancy()
+    {
+        bool redundancy;
+        redundancy = units.GroupBy(unit => unit).Any(c => c.Count() > 1);
+        // redundancy = units.Distinct().Count() != units.Count();
+        return redundancy;
     }
 }
