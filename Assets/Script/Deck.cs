@@ -15,10 +15,25 @@ public class Deck : MonoBehaviour {
         }
     }
 
+    public List<Unit> Units
+    {
+        get
+        {
+            return units;
+        }
+
+        set
+        {
+            units = value;
+        }
+    }
+
     public bool CheckIntegrity()
     {
         bool integrity = true;
         if (IsRedundancy())
+            integrity = false;
+        if (!IsAppropriateSize())
             integrity = false;
         return integrity;
     }
@@ -27,8 +42,13 @@ public class Deck : MonoBehaviour {
     private bool IsRedundancy()
     {
         bool redundancy;
-        redundancy = units.GroupBy(unit => unit).Any(c => c.Count() > 1);
+        redundancy = Units.GroupBy(unit => unit).Any(c => c.Count() > 1);
         // redundancy = units.Distinct().Count() != units.Count();
         return redundancy;
+    }
+
+    private bool IsAppropriateSize()
+    {
+        return Units.Count() == DeckSize;
     }
 }
