@@ -67,6 +67,12 @@ public class UnitInstance : MonoBehaviour {
     {
         Enemies = FindEnemies();
         UnitInstance closestEnemy = FindClosestUnit(Enemies);
+        if (closestEnemy == null)
+        {
+            Debug.Log("Battle End.");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Yoot");
+            return;
+        }
         double distance = CalcDistance(closestEnemy);
         if (distance > MyUnit.Range)
             Move(closestEnemy);
@@ -96,6 +102,8 @@ public class UnitInstance : MonoBehaviour {
 
     private UnitInstance FindClosestUnit(UnitInstance[] units)
     {
+        if (units.Length == 0)
+            return null;
         UnitInstance closestUnit = units[0];
         double closestDistance = CalcDistance(units[0]);
         foreach(UnitInstance unit in units)
