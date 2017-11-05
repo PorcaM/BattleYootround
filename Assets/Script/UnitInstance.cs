@@ -37,6 +37,7 @@ public class UnitInstance : MonoBehaviour {
     {
         MyUnit = new Unit();
         MyUnit.Init();
+        SetEnemyTag();
     }
 
     public void UnderAttack(double damage)
@@ -67,12 +68,6 @@ public class UnitInstance : MonoBehaviour {
     {
         Enemies = FindEnemies();
         UnitInstance closestEnemy = FindClosestUnit(Enemies);
-        if (closestEnemy == null)
-        {
-            Debug.Log("Battle End.");
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Yoot");
-            return;
-        }
         double distance = CalcDistance(closestEnemy);
         if (distance > MyUnit.Range)
             Move(closestEnemy);
@@ -82,8 +77,6 @@ public class UnitInstance : MonoBehaviour {
 
     private UnitInstance[] FindEnemies()
     {
-        if (enemyTag == null)
-            SetEnemyTag();
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag(enemyTag);
         UnitInstance[] enemies = new UnitInstance[enemyObjects.Length];
         for (int i = 0; i < enemyObjects.Length; i++)

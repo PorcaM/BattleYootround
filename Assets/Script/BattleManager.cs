@@ -10,10 +10,8 @@ public class BattleManager : MonoBehaviour {
     private GameObject[] enemies;
     private GameObject[] allies;
 
-    private const int unitCount = 3;
+    private const int unitCount = 6;
 
-
-    // Use this for initialization
     void Start () {
         CreateEnemies();
         CreateAllies();
@@ -23,7 +21,7 @@ public class BattleManager : MonoBehaviour {
     {
         for (int i = 0; i < unitCount; i++)
         {
-            Vector3 position = new Vector3(i*2, 3, 10);
+            Vector3 position = new Vector3(i*2-1, 3, 10);
             Quaternion quaternion = new Quaternion();
             Instantiate(enemy, position, quaternion);
         }
@@ -33,18 +31,19 @@ public class BattleManager : MonoBehaviour {
     {
         for (int i = 0; i < unitCount; i++)
         {
-            Vector3 position = new Vector3(i*2, 3, -10);
+            Vector3 position = new Vector3(i*2-1, 3, -10);
             Quaternion quaternion = new Quaternion();
             Instantiate(ally, position, quaternion);
         }
     }
 
-    // Update is called once per frame
-    void Update () {
+
+    void Update()
+    {
         IdentifyUnits();
         if (IsBattleOver())
-            winner = GetWinner();
-	}
+            FinishBattle();
+    }
 
     private void IdentifyUnits()
     {
@@ -58,6 +57,13 @@ public class BattleManager : MonoBehaviour {
             return true;
         else
             return false;
+    }
+
+    private void FinishBattle()
+    {
+        winner = GetWinner();
+        // TODO 위너 값을 윷 씬에 전달해줘야 함
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Yoot");
     }
 
     private int GetWinner()
