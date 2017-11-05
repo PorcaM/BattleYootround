@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+public class Unit
 {
     public enum Type { Basic, Warrior, Archer, HorseSoldier, Spearman, Thief, Wizard, Paladin };
     private Type type;
@@ -81,7 +81,7 @@ public class Unit : MonoBehaviour
     {
         type = Type.Basic;
         Damage = 10.0;
-        Range = 1.0;
+        Range = 10.0;
         Hp = 50.0;
         MovementSpeed = 3.0;
         AttackSpeed = 1.0;

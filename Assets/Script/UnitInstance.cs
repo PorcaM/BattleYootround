@@ -4,10 +4,23 @@ using UnityEngine;
 
 public class UnitInstance : MonoBehaviour {
     private Unit myUnit;
-    private List<UnitInstance> enemies;
+    private UnitInstance[] enemies;
+    private string enemyTag;
     
+    public Unit MyUnit
+    {
+        get
+        {
+            return myUnit;
+        }
 
-    public List<UnitInstance> Enemies
+        set
+        {
+            myUnit = value;
+        }
+    }
+
+    public UnitInstance[] Enemies
     {
         get
         {
@@ -20,17 +33,10 @@ public class UnitInstance : MonoBehaviour {
         }
     }
 
-    public Unit MyUnit
+    void Start()
     {
-        get
-        {
-            return myUnit;
-        }
-
-        set
-        {
-            myUnit = value;
-        }
+        MyUnit = new Unit();
+        MyUnit.Init();
     }
 
     public void UnderAttack(double damage)
@@ -49,7 +55,7 @@ public class UnitInstance : MonoBehaviour {
 
     private void Die()
     {
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
     void Update()
@@ -59,6 +65,7 @@ public class UnitInstance : MonoBehaviour {
 
     public void DoBattle()
     {
+        Enemies = FindEnemies();
         UnitInstance closestEnemy = FindClosestUnit(Enemies);
         double distance = CalcDistance(closestEnemy);
         if (distance > MyUnit.Range)
@@ -67,7 +74,27 @@ public class UnitInstance : MonoBehaviour {
             Attack(closestEnemy);
     }
 
-    private UnitInstance FindClosestUnit(List<UnitInstance> units)
+    private UnitInstance[] FindEnemies()
+    {
+        if (enemyTag == null)
+            SetEnemyTag();
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag(enemyTag);
+        UnitInstance[] enemies = new UnitInstance[enemyObjects.Length];
+        for (int i = 0; i < enemyObjects.Length; i++)
+        {
+            enemies[i] = enemyObjects[i].GetComponent<UnitInstance>();
+        }
+        return enemies;
+    }
+
+    private void SetEnemyTag()
+    {
+        enemyTag = "AllyUnit";
+        if (this.tag == "AllyUnit")
+            enemyTag = "EnemyUnit";
+    }
+
+    private UnitInstance FindClosestUnit(UnitInstance[] units)
     {
         UnitInstance closestUnit = units[0];
         double closestDistance = CalcDistance(units[0]);
