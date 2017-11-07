@@ -4,30 +4,96 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    public enum YootCount { Nak, Do, Gae, Gul, Yoot, Mo, BackDo = 1 };
+    public enum ProcessState { NotMyTurn, Throw, SelectHorse, MoveHorse, End };
+    private ProcessState currentState;
     private GameObject[] horseObjects;
+    private YootGame.YootCount yootCount;
+    private Horse selectedHorse;
+
+    public ProcessState CurrentState
+    {
+        get
+        {
+            return currentState;
+        }
+
+        set
+        {
+            currentState = value;
+        }
+    }
+
+    public Horse SelectedHorse
+    {
+        get
+        {
+            return selectedHorse;
+        }
+
+        set
+        {
+            selectedHorse = value;
+        }
+    }
 
     void Start()
     {
         horseObjects = GameObject.FindGameObjectsWithTag("AllyHorse");
+        CurrentState = ProcessState.NotMyTurn;
     }
 
-    void ProceedTurn()
+    void Update()
     {
-        YootCount yootCount = ThrowYoot();
-        if (yootCount == YootCount.Nak)
-            return;
-        else
-            MoveHorse();
+        Debug.Log("CurrentState: " + currentState);
+        ProceedTurn();
     }
 
-    private YootCount ThrowYoot()
+    private void ProceedTurn()
     {
-        return YootCount.Do;
+        switch (CurrentState)
+        {
+            case ProcessState.NotMyTurn:
+                return;
+            case ProcessState.Throw:
+                ThrowYoot();
+                break;
+            case ProcessState.SelectHorse:
+                SelectHorse();
+                break;
+            case ProcessState.MoveHorse:
+                MoveHorse();
+                break;
+            case ProcessState.End:
+                EndTurn();
+                break;
+        }
+    }
+
+    private void ThrowYoot()
+    {
+        yootCount = YootThrowManager.Throw();
+        Debug.Log(yootCount);
+        CurrentState = ProcessState.SelectHorse;
+    }
+
+    private void SelectHorse()
+    {
+        // wait click
+    }
+
+    public void GoMoveState()
+    {
+        CurrentState = ProcessState.MoveHorse;
     }
 
     private void MoveHorse()
     {
+        selectedHorse.Move(yootCount);
+    }
 
+    private void EndTurn()
+    {
+        SelectedHorse = null;
+        CurrentState = ProcessState.NotMyTurn;
     }
 }
