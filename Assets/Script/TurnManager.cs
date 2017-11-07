@@ -44,7 +44,6 @@ public class TurnManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("CurrentState: " + currentState);
         ProceedTurn();
     }
 
@@ -72,8 +71,14 @@ public class TurnManager : MonoBehaviour
     private void ThrowYoot()
     {
         yootCount = YootThrowManager.Throw();
-        Debug.Log(yootCount);
-        CurrentState = ProcessState.SelectHorse;
+        Debug.Log("Throw: " + yootCount);
+        if (yootCount == YootGame.YootCount.Nak)
+        {
+            EndTurn();
+            return;
+        }
+        else
+            CurrentState = ProcessState.SelectHorse;
     }
 
     private void SelectHorse()
@@ -81,14 +86,10 @@ public class TurnManager : MonoBehaviour
         // wait click
     }
 
-    public void GoMoveState()
-    {
-        CurrentState = ProcessState.MoveHorse;
-    }
-
     private void MoveHorse()
     {
-        selectedHorse.Move(yootCount);
+        SelectedHorse.Move(yootCount);
+        EndTurn();
     }
 
     private void EndTurn()
