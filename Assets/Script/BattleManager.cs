@@ -5,7 +5,7 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour {
     public GameObject enemy;
     public GameObject ally;
-    public int winner = -1;
+    static public int winner;
 
     private GameObject[] enemies;
     private GameObject[] allies;
@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour {
     void Start () {
         CreateEnemies();
         CreateAllies();
+        winner = -1;
 	}
 
     private void CreateEnemies()

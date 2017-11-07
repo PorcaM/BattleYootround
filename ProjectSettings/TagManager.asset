@@ -6,6 +6,8 @@ TagManager:
   tags:
   - AllyUnit
   - EnemyUnit
+  - AllyHorse
+  - EnemyHorse
   layers:
   - Default
   - TransparentFX
