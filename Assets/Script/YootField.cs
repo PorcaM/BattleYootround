@@ -42,4 +42,10 @@ public class YootField : MonoBehaviour {
     {
         Id = id;
     }
+
+    public void Arrive(Horse horse)
+    {
+        horses.Add(horse);
+        horse.transform.position = transform.position;
+    }
 }

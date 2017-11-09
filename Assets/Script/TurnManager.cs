@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    public enum ProcessState { NotMyTurn, Throw, SelectHorse, MoveHorse, End };
+    public enum ProcessState { WaitTurn, Throw, SelectHorse, MoveHorse, End };
     private ProcessState currentState;
     private GameObject[] horseObjects;
     private YootGame.YootCount yootCount;
@@ -39,7 +39,7 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         horseObjects = GameObject.FindGameObjectsWithTag("AllyHorse");
-        CurrentState = ProcessState.NotMyTurn;
+        CurrentState = ProcessState.WaitTurn;
     }
 
     void Update()
@@ -51,7 +51,7 @@ public class TurnManager : MonoBehaviour
     {
         switch (CurrentState)
         {
-            case ProcessState.NotMyTurn:
+            case ProcessState.WaitTurn:
                 return;
             case ProcessState.Throw:
                 ThrowYoot();
@@ -64,6 +64,8 @@ public class TurnManager : MonoBehaviour
                 break;
             case ProcessState.End:
                 EndTurn();
+                break;
+            default:
                 break;
         }
     }
@@ -95,6 +97,6 @@ public class TurnManager : MonoBehaviour
     private void EndTurn()
     {
         SelectedHorse = null;
-        CurrentState = ProcessState.NotMyTurn;
+        CurrentState = ProcessState.WaitTurn;
     }
 }
