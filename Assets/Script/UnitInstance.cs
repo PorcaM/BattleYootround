@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitInstance : MonoBehaviour {
+    public UnitHealthBar unitHealthBar;
+
     private Unit myUnit;
     private UnitInstance[] enemies;
     private string enemyTag;
+    public double currentHP;
+    private const float attackCooltime = 1.0f;
+    private float attackCooldown;
     
     public Unit MyUnit
     {
@@ -33,16 +38,32 @@ public class UnitInstance : MonoBehaviour {
         }
     }
 
+    public double CurrentHP
+    {
+        get
+        {
+            return currentHP;
+        }
+
+        set
+        {
+            currentHP = value;
+            unitHealthBar.CurrentHealth = currentHP;
+        }
+    }
+
     void Start()
     {
         MyUnit = new Unit();
         MyUnit.Init();
+        unitHealthBar.MaxHealth = MyUnit.Hp;
+        CurrentHP = MyUnit.Hp;
         SetEnemyTag();
     }
 
     public void UnderAttack(double damage)
     {
-        MyUnit.Hp -= damage;
+        CurrentHP -= damage;
         if (IsDead())
         {
             Die();
@@ -51,7 +72,7 @@ public class UnitInstance : MonoBehaviour {
 
     private bool IsDead()
     {
-        return MyUnit.Hp <= 0.0;
+        return currentHP <= 0.0;
     }
 
     private void Die()
@@ -124,6 +145,14 @@ public class UnitInstance : MonoBehaviour {
 
     private void Attack(UnitInstance targetUnit)
     {
-        targetUnit.UnderAttack(MyUnit.Damage);
+        if (attackCooldown > 0.0f)
+        {
+            attackCooldown -= Time.deltaTime * (float)MyUnit.AttackSpeed;
+        }
+        else
+        {
+            targetUnit.UnderAttack(MyUnit.Damage);
+            attackCooldown = attackCooltime;
+        }
     }
 }

@@ -7,6 +7,7 @@ public class Unit
     public enum Type { Basic, Warrior, Archer, HorseSoldier, Spearman, Thief, Wizard, Paladin };
     private Type type;
     private double damage;
+    private double armor;
     private double range;
     private double hp;
     private double movementSpeed;
@@ -77,10 +78,24 @@ public class Unit
         }
     }
 
+    public double Armor
+    {
+        get
+        {
+            return armor;
+        }
+
+        set
+        {
+            armor = value;
+        }
+    }
+
     public void Init()
     {
         type = Type.Basic;
         Damage = 10.0;
+        Armor = 0.0;
         Range = 10.0;
         Hp = 50.0;
         MovementSpeed = 3.0;

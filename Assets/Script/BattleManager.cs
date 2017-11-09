@@ -12,6 +12,11 @@ public class BattleManager : MonoBehaviour {
 
     private const int unitCount = 6;
 
+    void Awake()
+    {
+        Screen.SetResolution(720, 1280, true);
+    }
+
     void Start () {
         CreateEnemies();
         CreateAllies();
