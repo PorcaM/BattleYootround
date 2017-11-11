@@ -20,7 +20,7 @@ public class TestScreenShot : MonoBehaviour
     // optimize for many screenshots will not destroy any objects so future screenshots will be fast
     public bool optimizeForManyScreenshots = true;
 
-    // configure with raw, jpg, pngm (simple raw format)
+    // configure with raw, jpg, png (simple raw format)
     public enum Format { RAW, JPG, PNG};
     public Format format = Format.JPG;
 
