@@ -5,30 +5,33 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/Title.unity
     guid: 1d2151ec9a482a844a0ee8de6c4b04b3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/Match.unity
     guid: 9e42b4c4e00f7ca44b3a8899e5a3ce00
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/Battle.unity
     guid: fe25c1891e366c44cb6429774d95b963
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/DeckEditor.unity
     guid: 494c0e0e30d8c364ab0972b50ac360a6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/Result.unity
     guid: 8ae32fc59679eb7479f677f9928ce76b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/SkinSelect.unity
     guid: b8ec65f7d0c7dfc4a9c7621b9e73577a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/SpellbookEditor.unity
     guid: 66c7f94909ebec24291c0c5176111f67
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/TestThrow.unity
     guid: 21e35db39f8ba92438a196d587e8a019
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/Yoot.unity
     guid: 65dc60825b46dd746ab4861d55d28c1c
+  - enabled: 1
+    path: Assets/Scene/TestDraw.unity
+    guid: bf940e94a32c47e4dbfd3fafc651a7e0
