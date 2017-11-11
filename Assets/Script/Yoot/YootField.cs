@@ -47,5 +47,6 @@ public class YootField : MonoBehaviour {
     {
         horses.Add(horse);
         horse.transform.position = transform.position;
+        horse.currentLocation = this;
     }
 }

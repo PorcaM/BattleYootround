@@ -3,14 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class YootPlayer : MonoBehaviour {
+    public GameObject horsePref;
+    public Horse[] horses;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

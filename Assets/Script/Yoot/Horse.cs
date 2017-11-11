@@ -6,9 +6,20 @@ public class Horse : MonoBehaviour {
     public enum State { Ready, Running, Finished };
     public enum RunningRoute { Outside, Vertical, Horizon, Shortest };
     public TurnManager turnManager;
+    public YootField currentLocation;
 
     private State state;
     private RunningRoute runningRoute;
+
+    public void Init()
+    {
+        state = State.Ready;
+    }
+
+    void Update()
+    {
+
+    }
 
     public void StartRunning()
     {
