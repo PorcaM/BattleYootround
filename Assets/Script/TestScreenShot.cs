@@ -20,9 +20,9 @@ public class TestScreenShot : MonoBehaviour
     // optimize for many screenshots will not destroy any objects so future screenshots will be fast
     public bool optimizeForManyScreenshots = true;
 
-    // configure with raw, jpg, png, or ppm (simple raw format)
-    public enum Format { RAW, JPG, PNG, PPM };
-    public Format format = Format.PPM;
+    // configure with raw, jpg, pngm (simple raw format)
+    public enum Format { RAW, JPG, PNG};
+    public Format format = Format.JPG;
 
     // folder to write output (defaults to data path)
     public string folder;
@@ -35,7 +35,6 @@ public class TestScreenShot : MonoBehaviour
 
     // commands
     private bool captureScreenshot = false;
-    private bool captureVideo = false;
 
     // create a unique filename using a one-up variable
     private string uniqueFilename(int width, int height)
@@ -79,10 +78,8 @@ public class TestScreenShot : MonoBehaviour
     {
         // check keyboard 'k' for one time screenshot capture and holding down 'v' for continious screenshots
         captureScreenshot |= Input.GetKeyDown("k");
-        //captureVideo = Input.GetKey("v");
-        captureVideo = false;       // 비디오 기능 사용안함.
 
-        if (captureScreenshot || captureVideo)
+        if (captureScreenshot)
         {
             captureScreenshot = false;
 
@@ -129,13 +126,6 @@ public class TestScreenShot : MonoBehaviour
             else if (format == Format.JPG)
             {
                 fileData = screenShot.EncodeToJPG();
-            }
-            else // ppm
-            {
-                // create a file header for ppm formatted file
-                string headerStr = string.Format("P6\n{0} {1}\n255\n", rect.width, rect.height);
-                fileHeader = System.Text.Encoding.ASCII.GetBytes(headerStr);
-                fileData = screenShot.GetRawTextureData();
             }
 
             // create new thread to save the image to file (only operation that can be done in background)
