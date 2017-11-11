@@ -8,6 +8,8 @@ TagManager:
   - EnemyUnit
   - AllyHorse
   - EnemyHorse
+  - Drawing
+  - Test
   layers:
   - Default
   - TransparentFX
