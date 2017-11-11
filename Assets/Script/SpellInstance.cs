@@ -5,6 +5,35 @@ using UnityEngine;
 public class SpellInstance : MonoBehaviour {
     private Spell mySpell;
     private float cooldown;
+    private float ratio;
+
+    public float Cooldown
+    {
+        get
+        {
+            return cooldown;
+        }
+
+        set
+        {
+            cooldown = value;
+            if (cooldown < 0.0f)
+                cooldown = 0.0f;
+        }
+    }
+
+    public float Ratio
+    {
+        get
+        {
+            return ratio;
+        }
+
+        set
+        {
+            ratio = value;
+        }
+    }
 
     void Start()
     {
@@ -14,19 +43,20 @@ public class SpellInstance : MonoBehaviour {
 
     void Update()
     {
-        cooldown -= Time.deltaTime;
+        Cooldown -= Time.deltaTime;
+        Ratio = Cooldown / mySpell.Cooltime;
     }
 
     public void Activate()
     {
-        if (cooldown <= 0.0f)
+        if (Cooldown <= 0.0f)
         {
             Debug.Log(mySpell.Name + " Activate");
-            cooldown = mySpell.Cooltime;
+            Cooldown = mySpell.Cooltime;
         }
         else
         {
-
+            Debug.Log("cooldown: " + Cooldown);
         }
     }
 }
