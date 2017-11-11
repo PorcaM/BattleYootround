@@ -14,16 +14,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Battle.unity
     guid: fe25c1891e366c44cb6429774d95b963
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/DeckEditor.unity
     guid: 494c0e0e30d8c364ab0972b50ac360a6
   - enabled: 1
     path: Assets/Scene/Result.unity
     guid: 8ae32fc59679eb7479f677f9928ce76b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/SkinSelect.unity
     guid: b8ec65f7d0c7dfc4a9c7621b9e73577a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/SpellbookEditor.unity
     guid: 66c7f94909ebec24291c0c5176111f67
   - enabled: 1
@@ -32,3 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Yoot.unity
     guid: 65dc60825b46dd746ab4861d55d28c1c
+  - enabled: 0
+    path: Assets/Scene/Server.unity
+    guid: 01588821966ea60488958464c43b94b9
+  - enabled: 1
+    path: Assets/Scene/TestBattle.unity
+    guid: 170a0fc709ea4b54ea96ddb872083748
