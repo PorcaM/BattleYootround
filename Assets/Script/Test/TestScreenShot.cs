@@ -10,6 +10,9 @@ using System.IO;
 
 public class TestScreenShot : MonoBehaviour
 {
+    public UnityEngine.UI.Text debugText;
+    private string debugMessage;
+
     // 4k = 3840 x 2160   1080p = 1920 x 1080
     public int captureWidth = 360;
     public int captureHeight = 640;
@@ -206,7 +209,8 @@ public class TestScreenShot : MonoBehaviour
             if (fileHeader != null) f.Write(fileHeader, 0, fileHeader.Length);
             f.Write(fileData, 0, fileData.Length);
             f.Close();
-            Debug.Log(string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length));        // filename 이거 좀 guiText로
+            debugMessage = string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length);
+            Debug.Log(debugMessage);
         }).Start();
 
         // unhide optional game object if set
@@ -220,5 +224,16 @@ public class TestScreenShot : MonoBehaviour
             screenShot = null;
         }
 
+    }
+
+    void Update()
+    {
+        UpdateDebugText(debugMessage);
+    }
+
+    private void UpdateDebugText(string message)
+    {
+        debugText.text = message;
+        debugText.fontSize = 32;
     }
 }
