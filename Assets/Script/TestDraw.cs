@@ -15,37 +15,7 @@ public class TestDraw : MonoBehaviour {
 
     void Update ()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            thisTrail = (GameObject)Instantiate(trailPrefab,
-                                                    this.transform.position,
-                                                    Quaternion.identity);
-
-            Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float rayDistance;
-            if (objPlane.Raycast(mRay, out rayDistance))
-            {
-                startPos = mRay.GetPoint(rayDistance);
-            }
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float rayDistance;
-            if (objPlane.Raycast(mRay, out rayDistance))
-            {
-                //Debug.Log(thisTrail);
-                thisTrail.transform.position = mRay.GetPoint(rayDistance);
-            }
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            Debug.Log("Ended");
-            Debug.Log(thisTrail);
-            if (Vector3.Distance(thisTrail.transform.position, startPos) < 0.1)
-                Destroy(thisTrail);
-        }
-        /*
+        // 터치 시작
         if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             || Input.GetMouseButtonDown(0))
         {
@@ -56,29 +26,25 @@ public class TestDraw : MonoBehaviour {
             Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             float rayDistance;
             if (objPlane.Raycast(mRay, out rayDistance))
-            { 
                 startPos = mRay.GetPoint(rayDistance);
-            }
         }
+        // 터치 시작 후 움직임
         else if (((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
              || Input.GetMouseButton(0)))
         {
             Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             float rayDistance;
             if (objPlane.Raycast(mRay, out rayDistance))
-            {
-                //Debug.Log(thisTrail);
                 thisTrail.transform.position = mRay.GetPoint(rayDistance);
-            }
         }
+        // 터치 종료
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             || Input.GetMouseButtonUp(0))
         {
-            Debug.Log("Ended");
-            Debug.Log(thisTrail);
+            // 너무 적은 위치를 움직였을 경우 무시 (삭제)
             if (Vector3.Distance(thisTrail.transform.position, startPos) < 0.1)
                 Destroy(thisTrail);
         }
-        */
+        
     }
 }
