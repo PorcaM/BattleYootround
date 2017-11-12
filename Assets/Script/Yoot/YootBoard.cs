@@ -4,33 +4,52 @@ using UnityEngine;
 
 public class YootBoard : MonoBehaviour {
     public GameObject fieldPref;
-    private static List<GameObject> fields;
+    public static List<GameObject> fieldObjects;
 
     public static List<GameObject> Fields
     {
         get
         {
-            return fields;
+            return fieldObjects;
         }
 
         set
         {
-            fields = value;
+            fieldObjects = value;
         }
     }
 
     void Start()
     {
-        Init();
+        Fields = YootFieldFactory.CreateYootFields(fieldPref, transform);
+        YootBoard.Init();
     }
 
-    private void Init()
+    public static void Init()
     {
-        Fields = YootFieldFactory.CreateYootFields(fieldPref, transform);
+        for (int i = 0; i < Fields.Count; ++i)
+        {
+            Fields[i].GetComponent<YootField>().Id = i;
+        }
     }
 
     public static YootField GetStartPoint()
     {
         return Fields[0].GetComponent<YootField>();
+    }
+
+    public static YootField GetDestination(YootField source, YootGame.YootCount yootCount)
+    {
+        GameObject destinationObject = Fields[GetDestinationId(source.Id, (int)yootCount)];
+        return destinationObject.GetComponent<YootField>();
+    }
+
+    private static int GetDestinationId(int source, int yootCount)
+    {
+        int destination;
+        destination = source + yootCount;
+        if (destination > 19)
+            destination = 0;
+        return destination;
     }
 }

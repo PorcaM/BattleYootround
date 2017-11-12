@@ -828,6 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0992221ea832ac499eff62a3f6924eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugText: {fileID: 553364059}
   captureWidth: 360
   captureHeight: 640
   hideGameObject: {fileID: 0}

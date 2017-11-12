@@ -12,8 +12,11 @@ public class RaySensor : MonoBehaviour {
             {
                 if (hit.collider != null)
                 {
-                    Debug.Log("hit");
-                    Debug.Log(hit.collider.name);
+                    Horse horse = hit.collider.GetComponentInParent<Horse>();
+                    if (horse)
+                    {
+                        horse.Selected();
+                    }
                 }
             }
         }

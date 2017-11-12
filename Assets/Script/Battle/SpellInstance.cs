@@ -51,7 +51,7 @@ public class SpellInstance : MonoBehaviour {
     {
         if (Cooldown <= 0.0f)
         {
-            Debug.Log(mySpell.Name + " Activate");
+            Debug.Log(mySpell.SpellName + " Activate");
             Cooldown = mySpell.Cooltime;
         }
         else
