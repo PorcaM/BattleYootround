@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<BYData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Player>
+		<Id>test</Id>
+		<Level>1</Level>
+		<CurrentEXP>0</CurrentEXP>
+		<MaxEXP>2</MaxEXP>
+		<Deck>
+			<Id1>-1</Id1>
+			<Id2>-1</Id2>
+			<Id3>-1</Id3>
+			<Id4>-1</Id4>
+			<Id5>-1</Id5>
+		</Deck>
+		<Spellbook>
+			<Id1>-1</Id1>
+			<Id2>-1</Id2>
+			<Id3>-1</Id3>
+			<Id4>-1</Id4>
+		</Spellbook>
+	</Player>
+</BYData>

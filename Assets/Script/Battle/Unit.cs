@@ -5,13 +5,27 @@ using UnityEngine;
 public class Unit
 {
     public enum Type { Basic, Warrior, Archer, HorseSoldier, Spearman, Thief, Wizard, Paladin };
-    private Type type;
+    public Type type;
+    private int id;
     private double damage;
     private double armor;
     private double range;
     private double hp;
     private double movementSpeed;
     private double attackSpeed;
+    
+
+    public int Id
+    {
+        get
+        {
+            return id;
+        }
+        set
+        {
+            id = value;
+        }
+    }
 
     public double Damage
     {
