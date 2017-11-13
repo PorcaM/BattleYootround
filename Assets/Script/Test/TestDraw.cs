@@ -42,8 +42,8 @@ public class TestDraw : MonoBehaviour {
             || Input.GetMouseButtonUp(0))
         {
             // 너무 적은 위치를 움직였을 경우 무시 (삭제)
-            if (Vector3.Distance(thisTrail.transform.position, startPos) < 0.1)
-                Destroy(thisTrail);
+            //if (Vector3.Distance(thisTrail.transform.position, startPos) < 0.1)
+            //    Destroy(thisTrail);
         }
         
     }
