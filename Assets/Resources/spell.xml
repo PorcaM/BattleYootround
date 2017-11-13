@@ -4,15 +4,15 @@
 		<Id>1</Id>
 		<SpellName>Basic</SpellName>
 		<Attribute>
-			<Type>Square</Type>
-			<Damage>0</Damage>
-			<Duration>4</Duration>
+			<Type>Attack</Type>
+			<Damage>10</Damage>
+			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Attack</Type>
-			<Radius>2</Radius>
-			<X>10</X>
-			<Y>3</Y>
+			<Type>Square</Type>
+			<Radius>0</Radius>
+			<X>4</X>
+			<Y>2</Y>
 		</Range>
 		<Cooltime>10</Cooltime>
 	</Spell>
@@ -20,15 +20,15 @@
 		<Id>2</Id>
 		<SpellName>Storm</SpellName>
 		<Attribute>
-			<Type>Circle</Type>
-			<Damage>2</Damage>
-			<Duration>0</Duration>
+			<Type>Attack</Type>
+			<Damage>10</Damage>
+			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Attack</Type>
-			<Radius>0</Radius>
-			<X>10</X>
-			<Y>3</Y>
+			<Type>Circle</Type>
+			<Radius>2</Radius>
+			<X>0</X>
+			<Y>0</Y>
 		</Range>
 		<Cooltime>10</Cooltime>
 	</Spell>
@@ -36,15 +36,15 @@
 		<Id>3</Id>
 		<SpellName>Fire</SpellName>
 		<Attribute>
-			<Type>Square</Type>
-			<Damage>0</Damage>
-			<Duration>4</Duration>
+			<Type>Attack</Type>
+			<Damage>20</Damage>
+			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Attack</Type>
-			<Radius>2</Radius>
-			<X>20</X>
-			<Y>3</Y>
+			<Type>Square</Type>
+			<Radius>0</Radius>
+			<X>4</X>
+			<Y>2</Y>
 		</Range>
 		<Cooltime>10</Cooltime>
 	</Spell>
@@ -52,15 +52,15 @@
 		<Id>4</Id>
 		<SpellName>Water</SpellName>
 		<Attribute>
-			<Type>Square</Type>
-			<Damage>0</Damage>
-			<Duration>4</Duration>
+			<Type>Attack</Type>
+			<Damage>30</Damage>
+			<Duration>0.1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Attack</Type>
-			<Radius>2</Radius>
-			<X>30</X>
-			<Y>0.1</Y>
+			<Type>Square</Type>
+			<Radius>0</Radius>
+			<X>4</X>
+			<Y>2</Y>
 		</Range>
 		<Cooltime>10</Cooltime>
 	</Spell>
@@ -68,15 +68,15 @@
 		<Id>5</Id>
 		<SpellName>Death</SpellName>
 		<Attribute>
-			<Type>Unit</Type>
-			<Damage>0</Damage>
-			<Duration>0</Duration>
+			<Type>Attack</Type>
+			<Damage>300</Damage>
+			<Duration>0.1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Attack</Type>
+			<Type>Unit</Type>
 			<Radius>0</Radius>
-			<X>300</X>
-			<Y>0.1</Y>
+			<X>0</X>
+			<Y>0</Y>
 		</Range>
 		<Cooltime>15</Cooltime>
 	</Spell>
@@ -84,15 +84,15 @@
 		<Id>6</Id>
 		<SpellName>SteamPack</SpellName>
 		<Attribute>
-			<Type>Unit</Type>
-			<Damage>0</Damage>
-			<Duration>0</Duration>
+			<Type>Assist</Type>
+			<Damage>1.5</Damage>
+			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Assist</Type>
+			<Type>Unit</Type>
 			<Radius>0</Radius>
-			<X>1.5</X>
-			<Y>3</Y>
+			<X>0</X>
+			<Y>0</Y>
 		</Range>
 		<Cooltime>10</Cooltime>
 	</Spell>
@@ -100,15 +100,15 @@
 		<Id>7</Id>
 		<SpellName>Grasping</SpellName>
 		<Attribute>
-			<Type>Square</Type>
+			<Type>Assist</Type>
 			<Damage>0</Damage>
-			<Duration>2</Duration>
+			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Assist</Type>
-			<Radius>2</Radius>
-			<X>0</X>
-			<Y>3</Y>
+			<Type>Square</Type>
+			<Radius>0</Radius>
+			<X>2</X>
+			<Y>2</Y>
 		</Range>
 		<Cooltime>10</Cooltime>
 	</Spell>
@@ -116,15 +116,15 @@
 		<Id>8</Id>
 		<SpellName>Heal</SpellName>
 		<Attribute>
-			<Type>Circle</Type>
-			<Damage>3</Damage>
-			<Duration>0</Duration>
+			<Type>Assist</Type>
+			<Damage>100</Damage>
+			<Duration>0.1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Assist</Type>
-			<Radius>0</Radius>
-			<X>100</X>
-			<Y>0.1</Y>
+			<Type>Circle</Type>
+			<Radius>3</Radius>
+			<X>0</X>
+			<Y>0</Y>
 		</Range>
 		<Cooltime>15</Cooltime>
 	</Spell>
@@ -132,15 +132,15 @@
 		<Id>9</Id>
 		<SpellName>Cleanse</SpellName>
 		<Attribute>
-			<Type>Unit</Type>
+			<Type>Assist</Type>
 			<Damage>0</Damage>
-			<Duration>0</Duration>
+			<Duration>0.1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Assist</Type>
+			<Type>Unit</Type>
 			<Radius>0</Radius>
 			<X>0</X>
-			<Y>0.1</Y>
+			<Y>0</Y>
 		</Range>
 		<Cooltime>15</Cooltime>
 	</Spell>
@@ -148,15 +148,15 @@
 		<Id>10</Id>
 		<SpellName>Stun</SpellName>
 		<Attribute>
-			<Type>Circle</Type>
-			<Damage>3</Damage>
-			<Duration>0</Duration>
+			<Type>Assist</Type>
+			<Damage>0</Damage>
+			<Duration>1.5</Duration>
 		</Attribute>
 		<Range>
-			<Type>Assist</Type>
-			<Radius>0</Radius>
+			<Type>Circle</Type>
+			<Radius>3</Radius>
 			<X>0</X>
-			<Y>1.5</Y>
+			<Y>0</Y>
 		</Range>
 		<Cooltime>15</Cooltime>
 	</Spell>
@@ -164,15 +164,15 @@
 		<Id>11</Id>
 		<SpellName>Infection</SpellName>
 		<Attribute>
-			<Type>Unit</Type>
+			<Type>Assist</Type>
 			<Damage>0</Damage>
-			<Duration>0</Duration>
+			<Duration>0.1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Assist</Type>
+			<Type>Unit</Type>
 			<Radius>0</Radius>
 			<X>0</X>
-			<Y>0.1</Y>
+			<Y>0</Y>
 		</Range>
 		<Cooltime>20</Cooltime>
 	</Spell>
@@ -180,15 +180,15 @@
 		<Id>12</Id>
 		<SpellName>Silence</SpellName>
 		<Attribute>
-			<Type>Void</Type>
+			<Type>Special</Type>
 			<Damage>0</Damage>
-			<Duration>0</Duration>
+			<Duration>5</Duration>
 		</Attribute>
 		<Range>
-			<Type>Special</Type>
+			<Type>Void</Type>
 			<Radius>0</Radius>
 			<X>0</X>
-			<Y>5</Y>
+			<Y>0</Y>
 		</Range>
 		<Cooltime>30</Cooltime>
 	</Spell>
@@ -196,15 +196,15 @@
 		<Id>13</Id>
 		<SpellName>Reflection</SpellName>
 		<Attribute>
-			<Type>Void</Type>
+			<Type>Special</Type>
 			<Damage>0</Damage>
-			<Duration>0</Duration>
+			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Special</Type>
+			<Type>Void</Type>
 			<Radius>0</Radius>
 			<X>0</X>
-			<Y>3</Y>
+			<Y>0</Y>
 		</Range>
 		<Cooltime>30</Cooltime>
 	</Spell>

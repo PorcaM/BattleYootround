@@ -9,10 +9,14 @@ public class TestXML : MonoBehaviour {
     public TextAsset Unit;
 
     private Spell[] spell = new Spell[13];
-    private Unit[] unit = new Unit[7];
+    private Unit[] unit = new Unit[8];
     
     // Use this for initialization
     void Start () {
+        for (int i = 0; i < 13; i++)
+            spell[i] = new Spell();
+        for (int i = 0; i < 8; i++)
+            unit[i] = new Unit();
         LoadXML();
         Print();
 	}
@@ -51,9 +55,6 @@ public class TestXML : MonoBehaviour {
         int pos = 0;
         foreach (XmlNode node in Spell_nodes)
         {
-            Debug.Log("[id] :" + node.SelectSingleNode("Id").InnerText);
-            spell[pos].Init();
-            Debug.Log(spell[pos].Id);
             spell[pos].Id = int.Parse(node.SelectSingleNode("Id").InnerText);
             spell[pos].SpellName = node.SelectSingleNode("SpellName").InnerText;
             XmlNodeList Range_node = node.SelectNodes("Range");
@@ -71,13 +72,12 @@ public class TestXML : MonoBehaviour {
             }
             XmlNodeList Attribute_node = node.SelectNodes("Attribute");
             spell[pos].type = (Spell.Type)System.Enum.Parse(typeof(Spell.Type), Attribute_node[0].SelectSingleNode("Type").InnerText);
-            spell[pos].Damage = int.Parse(Attribute_node[0].SelectSingleNode("Damage").InnerText);
-            spell[pos].Duration = int.Parse(Attribute_node[0].SelectSingleNode("Duration").InnerText);
+            spell[pos].Damage = float.Parse(Attribute_node[0].SelectSingleNode("Damage").InnerText);
+            spell[pos].Duration = float.Parse(Attribute_node[0].SelectSingleNode("Duration").InnerText);
 
-            spell[pos].Cooltime = int.Parse(node.SelectSingleNode("Cooltime").InnerText);
+            spell[pos].Cooltime = float.Parse(node.SelectSingleNode("Cooltime").InnerText);
 
             pos++;
-            Debug.Log(pos);
         }
 
         // Unit 데이터
@@ -96,7 +96,6 @@ public class TestXML : MonoBehaviour {
             unit[pos].AttackSpeed = int.Parse(node.SelectSingleNode("AttackSpeed").InnerText);
 
             pos++;
-            Debug.Log(pos);
         }
     }
 }

@@ -32,7 +32,7 @@
 	</Unit>
 	<Unit>
 		<Id>3</Id>
-		<Type>Knight</Type>
+		<Type>HorseSoldier</Type>
 		<Damage>10</Damage>
 		<Armor>0</Armor>
 		<Range>2</Range>
@@ -42,7 +42,7 @@
 	</Unit>
 	<Unit>
 		<Id>4</Id>
-		<Type>Pikeman</Type>
+		<Type>Spearman</Type>
 		<Damage>15</Damage>
 		<Armor>0</Armor>
 		<Range>2</Range>
@@ -52,7 +52,7 @@
 	</Unit>
 	<Unit>
 		<Id>5</Id>
-		<Type>Ranger</Type>
+		<Type>Rogue</Type>
 		<Damage>10</Damage>
 		<Armor>0</Armor>
 		<Range>1</Range>
@@ -62,7 +62,7 @@
 	</Unit>
 	<Unit>
 		<Id>6</Id>
-		<Type>Mage</Type>
+		<Type>Wizard</Type>
 		<Damage>15</Damage>
 		<Armor>0</Armor>
 		<Range>3</Range>
