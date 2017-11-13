@@ -6,7 +6,7 @@ public class Spell : MonoBehaviour {
     public enum Type { Attack,Assist,Special};
     public Type type;
     private int id;
-    private string name;
+    private string spellName;
     private Range range;
     private float damage;
     private float duration;
@@ -22,19 +22,6 @@ public class Spell : MonoBehaviour {
         set
         {
             id = value;
-        }
-    }
-
-    public string Name
-    {
-        get
-        {
-            return name;
-        }
-
-        set
-        {
-            name = value;
         }
     }
 
@@ -90,11 +77,24 @@ public class Spell : MonoBehaviour {
         }
     }
 
+    public string SpellName
+    {
+        get
+        {
+            return spellName;
+        }
+
+        set
+        {
+            spellName = value;
+        }
+    }
+
     public void Init()
     {
         type = Type.Attack;
         Id = 0;
-        Name = "Basic";
+        SpellName = "Basic";
         Range = new CircleRange(5.0f);
         Damage = 20.0f;
         Duration = 0.0f;

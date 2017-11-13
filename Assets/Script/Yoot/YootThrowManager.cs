@@ -12,6 +12,6 @@ public class YootThrowManager : MonoBehaviour {
     private static YootGame.YootCount SimpleRandom()
     {
         int count = Enum.GetValues(typeof(YootGame.YootCount)).Length;
-        return (YootGame.YootCount) UnityEngine.Random.Range(0, count);
+        return (YootGame.YootCount)UnityEngine.Random.Range(0, count) - 1;
     }
 }

@@ -3,17 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Horse : MonoBehaviour {
-    public enum State { Ready, Running, Finished };
+    public enum RaceState { Ready, Running, Finished };
     public enum RunningRoute { Outside, Vertical, Horizon, Shortest };
     public TurnManager turnManager;
+    public YootPlayer yootPlayer;
     public YootField currentLocation;
+    public Transform button;
 
-    private State state;
+    private RaceState state;
     private RunningRoute runningRoute;
 
-    public void Init()
+    public RaceState State
     {
-        state = State.Ready;
+        get
+        {
+            return state;
+        }
+
+        set
+        {
+            state = value;
+            UpdateStateButton();
+            if (yootPlayer)
+                yootPlayer.JudgeGameResult();
+        }
+    }
+
+    public TurnManager TurnManager
+    {
+        get
+        {
+            if (turnManager == null)
+            {
+                turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+            }
+            return turnManager;
+        }
+    }
+
+    private void UpdateStateButton()
+    {
+        if (button)
+        {
+            button.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = state.ToString();
+        }
+    }
+
+    public void Init(YootPlayer yootPlayer)
+    {
+        State = RaceState.Ready;
+        this.yootPlayer = yootPlayer;
     }
 
     void Update()
@@ -23,19 +62,29 @@ public class Horse : MonoBehaviour {
 
     public void StartRunning()
     {
-        state = State.Running;
+        State = RaceState.Running;
         runningRoute = RunningRoute.Outside;
         YootBoard.GetStartPoint().Arrive(this);
     }
 
     public void Move(YootGame.YootCount yootCount)
     {
-        Debug.Log("Horse.Move()");
+        YootField destination = YootBoard.GetDestination(currentLocation, yootCount);
+        currentLocation.Leave(this);
+        if (destination == YootBoard.GetStartPoint())
+        {
+            State = RaceState.Finished;
+            transform.position = new Vector3(3, 0, -6);
+        }
+        else
+            destination.Arrive(this);
     }
 
     public void Selected()
     {
-        turnManager.SelectedHorse = this;
-        turnManager.CurrentState = TurnManager.ProcessState.MoveHorse;
+        if (state != RaceState.Running)
+            return;
+        TurnManager.SelectedHorse = this;
+        TurnManager.CurrentState = TurnManager.ProcessState.MoveHorse;
     }
 }

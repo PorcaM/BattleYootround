@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class YootField : MonoBehaviour {
-    private int id;
-    private List<Horse> horses;
+    public int id;
+    public List<Horse> horses;
 
     public int Id
     {
@@ -34,7 +34,6 @@ public class YootField : MonoBehaviour {
 
     void Start()
     {
-        Id = -1;
         Horses = new List<Horse>();
     }
 
@@ -48,5 +47,10 @@ public class YootField : MonoBehaviour {
         horses.Add(horse);
         horse.transform.position = transform.position;
         horse.currentLocation = this;
+    }
+
+    public void Leave(Horse horse)
+    {
+        horses.Remove(horse);
     }
 }

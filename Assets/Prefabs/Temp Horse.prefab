@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114476196178510498}
   m_Layer: 0
   m_Name: Temp Horse
-  m_TagString: Untagged
+  m_TagString: AllyHorse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnManager: {fileID: 0}
+  currentLocation: {fileID: 0}
+  button: {fileID: 0}
 --- !u!136 &136265056907285840
 CapsuleCollider:
   m_ObjectHideFlags: 1
