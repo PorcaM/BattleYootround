@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Xml;
 
-public class TestXML : MonoBehaviour {
+public class XMLParsing : MonoBehaviour {
     public TextAsset Player;
     public TextAsset Spell;
     public TextAsset Unit;
@@ -29,7 +29,7 @@ public class TestXML : MonoBehaviour {
         }
         foreach (Unit u in unit)
         {
-            Debug.Log(u.type.ToString());
+            Debug.Log(u.UnitClass.ToString());
         }
     }
 
@@ -87,13 +87,13 @@ public class TestXML : MonoBehaviour {
         foreach (XmlNode node in Unit_nodes)
         {
             unit[pos].Id = int.Parse(node.SelectSingleNode("Id").InnerText);
-            unit[pos].type = (Unit.Type)System.Enum.Parse(typeof(Unit.Type), node.SelectSingleNode("Type").InnerText);
-            unit[pos].Damage = int.Parse(node.SelectSingleNode("Damage").InnerText);
-            unit[pos].Armor = int.Parse(node.SelectSingleNode("Armor").InnerText);
-            unit[pos].Range = int.Parse(node.SelectSingleNode("Range").InnerText);
-            unit[pos].Hp = int.Parse(node.SelectSingleNode("Hp").InnerText);
-            unit[pos].MovementSpeed = int.Parse(node.SelectSingleNode("MovementSpeed").InnerText);
-            unit[pos].AttackSpeed = int.Parse(node.SelectSingleNode("AttackSpeed").InnerText);
+            unit[pos].UnitClass = (Unit.ClassType)System.Enum.Parse(typeof(Unit.ClassType), node.SelectSingleNode("Type").InnerText);
+            unit[pos].Damage = double.Parse(node.SelectSingleNode("Damage").InnerText);
+            unit[pos].Armor = double.Parse(node.SelectSingleNode("Armor").InnerText);
+            unit[pos].Range = double.Parse(node.SelectSingleNode("Range").InnerText);
+            unit[pos].Hp = double.Parse(node.SelectSingleNode("Hp").InnerText);
+            unit[pos].MovementSpeed = double.Parse(node.SelectSingleNode("MovementSpeed").InnerText);
+            unit[pos].AttackSpeed = double.Parse(node.SelectSingleNode("AttackSpeed").InnerText);
 
             pos++;
         }

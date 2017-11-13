@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit
 {
-    public enum Type { Basic, Warrior, Archer, HorseSoldier, Spearman, Rogue, Wizard, Paladin };
-    public Type type;
+    public enum ClassType { Basic, Warrior, Archer, HorseSoldier, Spearman, Rogue, Wizard, Paladin };
+    private ClassType unitClass;
     private int id;
     private double damage;
     private double armor;
@@ -105,9 +105,22 @@ public class Unit
         }
     }
 
+    public ClassType UnitClass
+    {
+        get
+        {
+            return unitClass;
+        }
+
+        set
+        {
+            unitClass = value;
+        }
+    }
+
     public void Init()
     {
-        type = Type.Basic;
+        UnitClass = ClassType.Basic;
         Damage = 10.0;
         Armor = 0.0;
         Range = 10.0;
