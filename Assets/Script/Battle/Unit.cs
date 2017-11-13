@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Unit
 {
-    public enum Type { Basic, Warrior, Archer, HorseSoldier, Spearman, Thief, Wizard, Paladin };
-    private Type type;
+    public enum ClassType { Basic, Warrior, Archer, HorseSoldier, Spearman, Thief, Wizard, Paladin };
+    private ClassType unitClass;
     private double damage;
     private double armor;
     private double range;
@@ -91,9 +91,22 @@ public class Unit
         }
     }
 
+    public ClassType UnitClass
+    {
+        get
+        {
+            return unitClass;
+        }
+
+        set
+        {
+            unitClass = value;
+        }
+    }
+
     public void Init()
     {
-        type = Type.Basic;
+        UnitClass = ClassType.Basic;
         Damage = 10.0;
         Armor = 0.0;
         Range = 10.0;

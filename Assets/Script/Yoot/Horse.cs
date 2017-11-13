@@ -41,6 +41,19 @@ public class Horse : MonoBehaviour {
         }
     }
 
+    public RunningRoute RunningRoute1
+    {
+        get
+        {
+            return runningRoute;
+        }
+
+        set
+        {
+            runningRoute = value;
+        }
+    }
+
     private void UpdateStateButton()
     {
         if (button)
@@ -63,7 +76,7 @@ public class Horse : MonoBehaviour {
     public void StartRunning()
     {
         State = RaceState.Running;
-        runningRoute = RunningRoute.Outside;
+        RunningRoute1 = RunningRoute.Outside;
         YootBoard.GetStartPoint().Arrive(this);
     }
 
