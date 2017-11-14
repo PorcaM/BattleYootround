@@ -858,6 +858,7 @@ GameObject:
   - component: {fileID: 800390321}
   - component: {fileID: 800390320}
   - component: {fileID: 800390322}
+  - component: {fileID: 800390323}
   m_Layer: 0
   m_Name: TurnManager
   m_TagString: Untagged
@@ -876,6 +877,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29f52ffb9d72ff459d3b3c38872d0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yootThrowManager: {fileID: 800390323}
+  currentState: 0
 --- !u!4 &800390321
 Transform:
   m_ObjectHideFlags: 0
@@ -901,6 +904,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnManager: {fileID: 800390320}
+  enemyHorse: {fileID: 1028563337649782, guid: 359bc3989b878654ba7b5b90c68ce761, type: 2}
+--- !u!114 &800390323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 800390319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b526ff23918ef4b888a8fceb6d891b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnManager: {fileID: 800390320}
+  currentState: 0
 --- !u!1 &896312058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,7 +1702,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Go battle
+  m_Text: Gen temp enemy
 --- !u!222 &1734260666
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1989,9 +2006,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 219304004}
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 800390322}
+        m_MethodName: TestEnemyHorse
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

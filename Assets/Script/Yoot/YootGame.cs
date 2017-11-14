@@ -6,6 +6,7 @@ public class YootGame : MonoBehaviour {
     public enum Mode { Solo, Network };
     public enum YootCount { Nak, Do, Gae, Gul, Yoot, Mo, BackDo = -1 };
     public TurnManager turnManager;
+    public GameObject enemyHorse;
 
     private Mode mode;
 
@@ -13,6 +14,12 @@ public class YootGame : MonoBehaviour {
     {
         mode = Mode.Solo;
         HorseRoute.Init();
+    }
+
+    public void TestEnemyHorse()
+    {
+        GameObject horse = Instantiate(enemyHorse) as GameObject;
+        YootBoard.Fields[10].GetComponent<YootField>().Arrive(horse.GetComponent<Horse>());
     }
 
     void Update()

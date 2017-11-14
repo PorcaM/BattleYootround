@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c5340265b7f29854dbacebd962c3e4e7, type: 2}
+  - {fileID: 2100000, guid: 323d5c26254c7104c9f3830597ed6450, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -142,3 +142,4 @@ MonoBehaviour:
   yootPlayer: {fileID: 0}
   currentLocation: {fileID: 0}
   button: {fileID: 0}
+  currentRoute: 0
