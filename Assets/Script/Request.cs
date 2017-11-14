@@ -10,7 +10,7 @@ public class Request : MonoBehaviour {
     [Header("TitlePanel")]
     public InputField IdField;
     
-    string address = "165.246.42.24/test.php";
+    string address = "165.246.42.24/upload.php";
 
 
     // Use this for initialization

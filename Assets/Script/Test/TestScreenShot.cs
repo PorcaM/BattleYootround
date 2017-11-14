@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Net;
 
 // Screen Recorder will save individual images of active scene in any resolution and of a specific image format
 // including raw, jpg, png, and ppm.  Raw and PPM are the fastest image formats for saving.
@@ -10,6 +13,8 @@ using System.IO;
 
 public class TestScreenShot : MonoBehaviour
 {
+    string address = "165.246.42.24/upload.php";
+
     public UnityEngine.UI.Text debugText1;
     private string debugMessage1 = "filename";
     public UnityEngine.UI.Text debugText2;
@@ -121,26 +126,29 @@ public class TestScreenShot : MonoBehaviour
         {
             fileData = screenShot.EncodeToJPG();
         }
-        /*
+
         // create new thread to save the image to file (only operation that can be done in background)
+        /*
         new System.Threading.Thread(() =>
         {
             // create file and write optional header with image bytes
+            
             var f = System.IO.File.Create(filename);
             if (fileHeader != null) f.Write(fileHeader, 0, fileHeader.Length);
             f.Write(fileData, 0, fileData.Length);
             f.Close();
-            debugMessage = string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length);
-            Debug.Log(debugMessage);
+       
+            debugMessage1 = string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length);
+            Debug.Log(debugMessage1);
         }).Start();
         */
 
-        // create file and write optional header with image bytes
-        var f = System.IO.File.Create(filename);
-        if (fileHeader != null) f.Write(fileHeader, 0, fileHeader.Length);
-        f.Write(fileData, 0, fileData.Length);
-        f.Close();
-        debugMessage1 = string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length);
+        
+        WWWForm form = new WWWForm();
+        form.AddBinaryData("data", fileData, "test.jpg", "image/jpg");
+        StartCoroutine(Call(address, form));
+        
+        debugMessage1 = string.Format("Send {0}", filename);
         Debug.Log(debugMessage1);
 
         // unhide optional game object if set
@@ -172,5 +180,40 @@ public class TestScreenShot : MonoBehaviour
     {
         debugText2.text = message;
         debugText2.fontSize = 32;
+    }
+
+
+    public IEnumerator Call(string _address, WWWForm form)
+    {
+        WWW wwwUrl = POST(_address, form);
+        yield return wwwUrl;
+        Debug.Log(wwwUrl.text);
+    }
+
+    public WWW GET(string url)
+    {
+        WWW www = new WWW(url);
+        StartCoroutine(WaitForRequest(www));
+        return www;
+    }
+
+    public WWW POST(string url, WWWForm form)
+    {   WWW www = new WWW(url, form);
+        StartCoroutine(WaitForRequest(www));
+        return www;
+    }
+
+    private IEnumerator WaitForRequest(WWW www)
+    {
+        yield return www;
+        // check for errors
+        if (www.error == null)
+        {
+            Debug.Log("WWW Ok!: " + www.text);
+        }
+        else
+        {
+            Debug.Log("WWW Error: " + www.error);
+        }
     }
 }
