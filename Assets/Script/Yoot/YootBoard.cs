@@ -39,8 +39,9 @@ public class YootBoard : MonoBehaviour {
         return Fields[0].GetComponent<YootField>();
     }
 
-    public static YootField GetDestination(YootField source, YootGame.YootCount yootCount)
+    public static YootField GetDestination(Horse horse, YootGame.YootCount yootCount)
     {
+        YootField source = horse.currentLocation;
         GameObject destinationObject = Fields[GetDestinationId(source.Id, (int)yootCount)];
         return destinationObject.GetComponent<YootField>();
     }

@@ -82,7 +82,7 @@ public class Horse : MonoBehaviour {
 
     public void Move(YootGame.YootCount yootCount)
     {
-        YootField destination = YootBoard.GetDestination(currentLocation, yootCount);
+        YootField destination = YootBoard.GetDestination(this, yootCount);
         currentLocation.Leave(this);
         if (destination == YootBoard.GetStartPoint())
         {
@@ -97,7 +97,6 @@ public class Horse : MonoBehaviour {
     {
         if (state != RaceState.Running)
             return;
-        TurnManager.SelectedHorse = this;
-        TurnManager.CurrentState = TurnManager.ProcessState.MoveHorse;
+        TurnManager.HorseIsSelected(this);
     }
 }

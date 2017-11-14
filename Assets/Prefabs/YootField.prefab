@@ -124,9 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451a5e68ded36b84997b436e8f49de88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  back: {fileID: 0}
-  next: {fileID: 0}
-  side: {fileID: 0}
+  id: 0
+  horses: []
+  normal: {fileID: 2100000, guid: a9b9c422ea817a54c8963efdc3d63ad8, type: 2}
+  waitSelect: {fileID: 2100000, guid: 323d5c26254c7104c9f3830597ed6450, type: 2}
 --- !u!136 &136989687572682382
 CapsuleCollider:
   m_ObjectHideFlags: 1

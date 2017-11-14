@@ -17,6 +17,11 @@ public class RaySensor : MonoBehaviour {
                     {
                         horse.Selected();
                     }
+                    YootField field = hit.collider.GetComponentInParent<YootField>();
+                    if (field)
+                    {
+                        field.Selected();
+                    }
                 }
             }
         }

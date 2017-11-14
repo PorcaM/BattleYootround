@@ -5,6 +5,21 @@ using UnityEngine;
 public class YootField : MonoBehaviour {
     public int id;
     public List<Horse> horses;
+    public Material normal;
+    public Material waitSelect;
+
+    private TurnManager turnManager;
+    public TurnManager TurnManager
+    {
+        get
+        {
+            if (turnManager == null)
+            {
+                turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+            }
+            return turnManager;
+        }
+    }
 
     public int Id
     {
@@ -52,5 +67,20 @@ public class YootField : MonoBehaviour {
     public void Leave(Horse horse)
     {
         horses.Remove(horse);
+    }
+
+    public void Selected()
+    {
+        TurnManager.FieldIsSelected(this);
+    }
+
+    public void WaitSelect()
+    {
+        transform.GetChild(0).GetComponent<Renderer>().material = waitSelect;
+    }
+
+    public void NotWaitSelect()
+    {
+        transform.GetChild(0).GetComponent<Renderer>().material = normal;
     }
 }
