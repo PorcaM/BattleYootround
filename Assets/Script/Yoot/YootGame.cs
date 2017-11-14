@@ -6,7 +6,6 @@ public class YootGame : MonoBehaviour {
     public enum Mode { Solo, Network };
     public enum YootCount { Nak, Do, Gae, Gul, Yoot, Mo, BackDo = -1 };
     public TurnManager turnManager;
-    public YootBoard yootBoard;
 
     private Mode mode;
 

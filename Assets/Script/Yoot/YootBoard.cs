@@ -21,6 +21,7 @@ public class YootBoard : MonoBehaviour {
 
     void Start()
     {
+        YootFieldFactory.radius = 4.0f;
         Fields = YootFieldFactory.CreateYootFields(fieldPref, transform);
         YootBoard.Init();
     }

@@ -8,7 +8,7 @@ public class YootFieldFactory : MonoBehaviour {
     public const int VerticalCount = 5;
     public const int HorizonCount = 5;
 
-    private static float radius = 4.0f;
+    public static float radius = 4.0f;
 
     public static List<GameObject> CreateYootFields(GameObject fieldPref, Transform parent)
     {
