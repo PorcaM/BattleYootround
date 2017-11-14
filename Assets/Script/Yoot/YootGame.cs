@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class YootGame : MonoBehaviour {
     public enum Mode { Solo, Network };
-    public enum YootCount { Nak, Do, Gae, Gul, Yoot, Mo, BackDo };
+    public enum YootCount { Nak, Do, Gae, Gul, Yoot, Mo, BackDo = -1 };
     public TurnManager turnManager;
+    public YootBoard yootBoard;
 
     private Mode mode;
 
@@ -21,5 +22,10 @@ public class YootGame : MonoBehaviour {
             if (turnManager.CurrentState == TurnManager.ProcessState.WaitTurn)
                 turnManager.CurrentState = TurnManager.ProcessState.Throw;
         }
+    }
+
+    public static void Win()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
     }
 }

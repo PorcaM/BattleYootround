@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 
 // Screen Recorder will save individual images of active scene in any resolution and of a specific image format
 // including raw, jpg, png, and ppm.  Raw and PPM are the fastest image formats for saving.
@@ -13,14 +12,14 @@ using System.Net;
 
 public class TestScreenShot : MonoBehaviour
 {
-    string address = "165.246.42.24/upload.php";
-
     public UnityEngine.UI.Text debugText1;
-    private string debugMessage1 = "filename";
+    private string debugMessage1 = "path1";
     public UnityEngine.UI.Text debugText2;
-    private string debugMessage2 = "folder";
-    //public UnityEngine.UI.Text debugText3;
-    //private string debugMessage3 = "text";
+    private string debugMessage2 = "myPath";
+    public UnityEngine.UI.Text debugText3;
+    private string debugMessage3 = "ImageNum";
+
+    public InputField SpellName;
 
     // 4k = 3840 x 2160   1080p = 1920 x 1080
     public int captureWidth = 360;
@@ -33,7 +32,7 @@ public class TestScreenShot : MonoBehaviour
     public bool optimizeForManyScreenshots = true;
 
     // configure with raw, jpg, png (simple raw format)
-    public enum Format { RAW, JPG, PNG};
+    public enum Format { RAW, JPG, PNG };
     public Format format = Format.JPG;
 
     // folder to write output (defaults to data path)
@@ -45,46 +44,64 @@ public class TestScreenShot : MonoBehaviour
     private Texture2D screenShot;
     private int counter = 0; // image #
 
-    // commands
-    private bool captureScreenshot = false;
+    // 그려진 Trail을 Clear하기 위한 용도
+    private GameObject[] Trails;
 
+    private void Start()
+    {
+        debugText1.enabled = false;
+    }
+    
     // create a unique filename using a one-up variable
     private string uniqueFilename(int width, int height)
     {
-        // if folder not specified by now use a good default
-        if (folder == null || folder.Length == 0)
+        // Save누를때마다 경로 설정함
+
+        // 안드로이드 경로
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            folder = Application.persistentDataPath;
+            folder = folder.Substring(0, folder.LastIndexOf('/'));
+            folder = Path.Combine(folder, "screenshots");
+            folder = Path.Combine(folder, SpellName.text);
+        }
+        // 유니티 경로
+        else if (Application.isEditor)
         {
             folder = Application.dataPath;
-            debugMessage2 = string.Format("Application dataPath: {0}", folder);
-            Debug.Log(debugMessage2);
-            if (Application.isEditor)
-            {
-                // put screenshots in folder above asset path so unity doesn't index the files
-                var stringPath = folder + "/..";
-                folder = Path.GetFullPath(stringPath);
-            }
-            folder += "/screenshots";
-
-            // make sure directoroy exists
-            System.IO.Directory.CreateDirectory(folder);
-
-            // count number of files of specified format in folder
-            string mask = string.Format("screen_{0}x{1}*.{2}", width, height, format.ToString().ToLower());
-            counter = Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length;
+            var stringPath = folder + "/..";
+            folder = Path.GetFullPath(stringPath);
+            folder = Path.Combine(folder, "screenshots");
+            folder = Path.Combine(folder, SpellName.text);
         }
+        debugMessage2 = string.Format("myPath: {0}", folder);
+        Debug.Log(debugMessage2);
+        // make sure directoroy exists
+        System.IO.Directory.CreateDirectory(folder);
+
+        // count number of files of specified format in folder
+        string mask = string.Format("screen_{0}x{1}*.{2}", width, height, format.ToString().ToLower());
+        counter = Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length;
+        
 
         // use width, height, and counter for unique file name
         var filename = string.Format("{0}/screen_{1}x{2}_{3}.{4}", folder, width, height, counter, format.ToString().ToLower());
-
-        // up counter for next call
-        ++counter;
 
         // return unique filename
         return filename;
     }
 
+    public void Clear()
+    {
+        Trails = GameObject.FindGameObjectsWithTag("Drawing");
+        foreach (GameObject trail in Trails)
+        {
+            Destroy(trail);
+        }
+    }
     public void Save()
     {
+
         // create screenshot objects if needed
         if (renderTexture == null)
         {
@@ -128,7 +145,7 @@ public class TestScreenShot : MonoBehaviour
         }
 
         // create new thread to save the image to file (only operation that can be done in background)
-        /*
+        
         new System.Threading.Thread(() =>
         {
             // create file and write optional header with image bytes
@@ -137,19 +154,13 @@ public class TestScreenShot : MonoBehaviour
             if (fileHeader != null) f.Write(fileHeader, 0, fileHeader.Length);
             f.Write(fileData, 0, fileData.Length);
             f.Close();
-       
-            debugMessage1 = string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length);
-            Debug.Log(debugMessage1);
+            //debugMessage1 = string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length);
+            //Debug.Log(debugMessage1);
         }).Start();
-        */
+        
 
-        
-        WWWForm form = new WWWForm();
-        form.AddBinaryData("data", fileData, "test.jpg", "image/jpg");
-        StartCoroutine(Call(address, form));
-        
-        debugMessage1 = string.Format("Send {0}", filename);
-        Debug.Log(debugMessage1);
+        debugMessage3 = string.Format("#{0} Image saved", counter);
+        Debug.Log(debugMessage3);
 
         // unhide optional game object if set
         if (hideGameObject != null) hideGameObject.SetActive(true);
@@ -162,13 +173,15 @@ public class TestScreenShot : MonoBehaviour
             screenShot = null;
         }
 
+        Clear();
+
     }
 
     void Update()
     {
         UpdateDebug1Text(debugMessage1);
         UpdateDebug2Text(debugMessage2);
-        //UpdateDebugText(debugText3, debugMessage3);
+        UpdateDebug3Text(debugMessage3);
     }
 
     private void UpdateDebug1Text(string message)
@@ -181,39 +194,9 @@ public class TestScreenShot : MonoBehaviour
         debugText2.text = message;
         debugText2.fontSize = 32;
     }
-
-
-    public IEnumerator Call(string _address, WWWForm form)
+    private void UpdateDebug3Text(string message)
     {
-        WWW wwwUrl = POST(_address, form);
-        yield return wwwUrl;
-        Debug.Log(wwwUrl.text);
-    }
-
-    public WWW GET(string url)
-    {
-        WWW www = new WWW(url);
-        StartCoroutine(WaitForRequest(www));
-        return www;
-    }
-
-    public WWW POST(string url, WWWForm form)
-    {   WWW www = new WWW(url, form);
-        StartCoroutine(WaitForRequest(www));
-        return www;
-    }
-
-    private IEnumerator WaitForRequest(WWW www)
-    {
-        yield return www;
-        // check for errors
-        if (www.error == null)
-        {
-            Debug.Log("WWW Ok!: " + www.text);
-        }
-        else
-        {
-            Debug.Log("WWW Error: " + www.error);
-        }
+        debugText3.text = message;
+        debugText3.fontSize = 32;
     }
 }

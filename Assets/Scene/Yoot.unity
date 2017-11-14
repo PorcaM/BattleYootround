@@ -112,12 +112,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &67593256 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114476196178510498, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69,
-    type: 2}
-  m_PrefabInternal: {fileID: 2124689338}
-  m_Script: {fileID: 11500000, guid: ec492e69d86a37546aa28af8aaad20cc, type: 3}
 --- !u!1 &214581538
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +188,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 67593256}
+      - m_Target: {fileID: 0}
         m_MethodName: StartRunning
         m_Mode: 1
         m_Arguments:
@@ -341,7 +335,7 @@ RectTransform:
   - {fileID: 1945025424}
   - {fileID: 1158956881}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -467,6 +461,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 386429160}
+  - component: {fileID: 386429161}
   m_Layer: 0
   m_Name: YootPlayer
   m_TagString: Untagged
@@ -487,6 +482,20 @@ Transform:
   m_Father: {fileID: 2016542013}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &386429161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 386429159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8dd0bb29b074d4abe707b0f249b656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horsePref: {fileID: 1547337007631392, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69, type: 2}
+  horseStatusPannel: {fileID: 1171609338}
+  ownedHorses: []
 --- !u!1 &390466410
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +691,7 @@ GameObject:
   - component: {fileID: 525739690}
   - component: {fileID: 525739689}
   m_Layer: 0
-  m_Name: ray
+  m_Name: Ray
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -696,7 +705,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 525739688}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 188de5601166b80488f2f5587ddf833b, type: 3}
+  m_Script: {fileID: 11500000, guid: edb9fd9f992db384caf8f7ae21e955af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &525739690
@@ -705,12 +714,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 525739688}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 2016542013}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &758390686
 GameObject:
@@ -837,7 +846,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &800390319
 GameObject:
@@ -892,6 +901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnManager: {fileID: 800390320}
+  yootBoard: {fileID: 0}
 --- !u!1 &896312058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,9 +1013,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1542706958}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1158956880
 GameObject:
@@ -1416,12 +1427,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1542706953}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 1104625533}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1630449080
 GameObject:
@@ -1831,8 +1842,9 @@ Transform:
   m_Children:
   - {fileID: 800390321}
   - {fileID: 386429160}
+  - {fileID: 525739690}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2017135368
 GameObject:
@@ -2112,50 +2124,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1001 &2124689338
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4266963849625152, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -1.74
-      objectReference: {fileID: 0}
-    - target: {fileID: 4266963849625152, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4266963849625152, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 1.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 4266963849625152, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4266963849625152, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4266963849625152, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4266963849625152, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4266963849625152, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69, type: 2}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114476196178510498, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69,
-        type: 2}
-      propertyPath: turnManager
-      value: 
-      objectReference: {fileID: 800390320}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 8231b8bd0776dbd4b8b3b4e9f802ef69, type: 2}
-  m_IsPrefabParent: 0

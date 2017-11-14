@@ -38,6 +38,8 @@ public class TestDraw : MonoBehaviour {
                 thisTrail.transform.position = mRay.GetPoint(rayDistance);
         }
         // 터치 종료
+        // 점을 찍고싶어할수도 있어서 일단 주석처리함
+        /*
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             || Input.GetMouseButtonUp(0))
         {
@@ -45,6 +47,7 @@ public class TestDraw : MonoBehaviour {
             if (Vector3.Distance(thisTrail.transform.position, startPos) < 0.1)
                 Destroy(thisTrail);
         }
+        */
         
     }
 }

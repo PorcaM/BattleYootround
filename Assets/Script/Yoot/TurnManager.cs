@@ -6,7 +6,6 @@ public class TurnManager : MonoBehaviour
 {
     public enum ProcessState { WaitTurn, Throw, SelectHorse, MoveHorse, End };
     private ProcessState currentState;
-    private GameObject[] horseObjects;
     private YootGame.YootCount yootCount;
     private Horse selectedHorse;
 
@@ -38,7 +37,6 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        horseObjects = GameObject.FindGameObjectsWithTag("AllyHorse");
         CurrentState = ProcessState.WaitTurn;
     }
 

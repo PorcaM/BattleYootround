@@ -25,9 +25,9 @@ public class Request : MonoBehaviour {
 
     public void btnClick()
     {
-
         StartCoroutine(Call(address));
     }
+   
 
     public IEnumerator Call(string _address)
     {
@@ -36,6 +36,7 @@ public class Request : MonoBehaviour {
         //WWWForm cForm = new WWWForm();
         //cForm.AddField("id", IdField.text);
         //WWW wwwUrl = new WWW(_address, cForm);
+
         Dictionary<string, string> dict = new Dictionary<string, string>();
         dict.Add("id", IdField.text);
         WWW wwwUrl = POST(_address, dict );
@@ -52,10 +53,12 @@ public class Request : MonoBehaviour {
 
     public WWW POST(string url, Dictionary<string, string> post)
     {
+        
         WWWForm form = new WWWForm();
 
         foreach(KeyValuePair<string, string> post_arg in post)
         {
+            Debug.Log(post_arg.Key + ":" + post_arg.Value);
             form.AddField(post_arg.Key, post_arg.Value);
         }
 
@@ -67,6 +70,7 @@ public class Request : MonoBehaviour {
     private IEnumerator WaitForRequest(WWW www)
     {
         yield return www;
+        Debug.Log("WaitForRequest()");
         // check for errors
         if (www.error == null)
         {

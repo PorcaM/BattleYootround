@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TestRemoveRender : MonoBehaviour
 {
-    public GameObject[] Trails;
+    private GameObject[] Trails;
 
     // Use this for initialization
     void Start()
