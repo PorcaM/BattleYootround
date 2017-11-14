@@ -7,6 +7,7 @@ public class YootField : MonoBehaviour {
     public List<Horse> horses;
     public Material normal;
     public Material waitSelect;
+    public Horse.RunningRoute milestone;
 
     private TurnManager turnManager;
     public TurnManager TurnManager
@@ -62,6 +63,8 @@ public class YootField : MonoBehaviour {
         horses.Add(horse);
         horse.transform.position = transform.position;
         horse.currentLocation = this;
+        if (milestone != Horse.RunningRoute.Outside)
+            horse.CurrentRoute = milestone;
     }
 
     public void Leave(Horse horse)

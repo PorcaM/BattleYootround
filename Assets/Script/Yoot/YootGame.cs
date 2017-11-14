@@ -12,6 +12,7 @@ public class YootGame : MonoBehaviour {
     void Start()
     {
         mode = Mode.Solo;
+        HorseRoute.Init();
     }
 
     void Update()

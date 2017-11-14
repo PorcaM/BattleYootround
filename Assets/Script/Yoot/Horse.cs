@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Horse : MonoBehaviour {
     public enum RaceState { Ready, Running, Finished };
-    public enum RunningRoute { Outside, Vertical, Horizon, Shortest };
+    public enum RunningRoute { Outside, Horizon, Vertical, Shortest };
     public TurnManager turnManager;
     public YootPlayer yootPlayer;
     public YootField currentLocation;
     public Transform button;
 
     private RaceState state;
-    private RunningRoute runningRoute;
+    public RunningRoute currentRoute;
 
     public RaceState State
     {
@@ -41,16 +41,16 @@ public class Horse : MonoBehaviour {
         }
     }
 
-    public RunningRoute RunningRoute1
+    public RunningRoute CurrentRoute
     {
         get
         {
-            return runningRoute;
+            return currentRoute;
         }
 
         set
         {
-            runningRoute = value;
+            currentRoute = value;
         }
     }
 
@@ -68,15 +68,10 @@ public class Horse : MonoBehaviour {
         this.yootPlayer = yootPlayer;
     }
 
-    void Update()
-    {
-
-    }
-
     public void StartRunning()
     {
         State = RaceState.Running;
-        RunningRoute1 = RunningRoute.Outside;
+        CurrentRoute = RunningRoute.Outside;
         YootBoard.GetStartPoint().Arrive(this);
     }
 
