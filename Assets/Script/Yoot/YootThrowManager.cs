@@ -4,9 +4,27 @@ using UnityEngine;
 using System;
 
 public class YootThrowManager : MonoBehaviour {
-    public static YootGame.YootCount Throw()
+    public TurnManager turnManager;
+    public enum ProcessState { Start, Wait };
+    public ProcessState currentState;
+
+    void Start()
     {
-        return SimpleRandom();
+        currentState = ProcessState.Wait;
+    }
+
+    public void StartThrow()
+    {
+        currentState = ProcessState.Start;
+    }
+
+    void Update()
+    {
+        if (currentState == ProcessState.Start)
+        {
+            turnManager.RecvThrowResult(SimpleRandom());
+            currentState = ProcessState.Wait;
+        }
     }
 
     private static YootGame.YootCount SimpleRandom()

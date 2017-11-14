@@ -19,7 +19,7 @@ public class YootGame : MonoBehaviour {
         if (mode == Mode.Solo)
         {
             if (turnManager.CurrentState == TurnManager.ProcessState.WaitTurn)
-                turnManager.CurrentState = TurnManager.ProcessState.Throw;
+                turnManager.StartTurn();
         }
     }
 

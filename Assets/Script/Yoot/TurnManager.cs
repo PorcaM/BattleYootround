@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    public enum ProcessState { WaitTurn, Throw, WaitHorse, WaitField, End };
-    private ProcessState currentState;
+    public enum ProcessState { WaitTurn, WaitThrow, WaitHorse, WaitField, End };
+
+    public YootThrowManager yootThrowManager;
+
+    public ProcessState currentState;
     private YootGame.YootCount yootCount;
     private Horse selectedHorse;
 
@@ -47,22 +50,24 @@ public class TurnManager : MonoBehaviour
         ProceedTurn();
     }
 
+    public void StartTurn()
+    {
+        yootThrowManager.StartThrow();
+        CurrentState = ProcessState.WaitThrow;
+    }
+
     private void ProceedTurn()
     {
         switch (CurrentState)
         {
-            case ProcessState.WaitTurn:
-                return;
-            case ProcessState.Throw:
-                ThrowYoot();
-                break;
-            case ProcessState.WaitHorse:
-            case ProcessState.WaitField:
-                break;
             case ProcessState.End:
                 EndTurn();
                 break;
             default:
+            case ProcessState.WaitTurn:
+            case ProcessState.WaitThrow:
+            case ProcessState.WaitHorse:
+            case ProcessState.WaitField:
                 break;
         }
     }
@@ -88,15 +93,18 @@ public class TurnManager : MonoBehaviour
     {
         if (CurrentState == ProcessState.WaitField)
         {
-            highlitedField.Highlight(false);
-            MoveHorse();
-            EndTurn();
+            if (field == highlitedField)
+            {
+                highlitedField.Highlight(false);
+                MoveHorse();
+                EndTurn();
+            }
         }
     }
 
-    private void ThrowYoot()
+    public void RecvThrowResult(YootGame.YootCount yootCount)
     {
-        yootCount = YootThrowManager.Throw();
+        this.yootCount = yootCount;
         Debug.Log("Throw: " + yootCount);
         if (yootCount == YootGame.YootCount.Nak)
         {
