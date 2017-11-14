@@ -74,13 +74,16 @@ public class YootField : MonoBehaviour {
         TurnManager.FieldIsSelected(this);
     }
 
-    public void WaitSelect()
+    public void Highlight(bool flag)
     {
-        transform.GetChild(0).GetComponent<Renderer>().material = waitSelect;
-    }
+        if (flag)
+        {
+            transform.GetChild(0).GetComponent<Renderer>().material = waitSelect;
+        }
+        else
+        {
+            transform.GetChild(0).GetComponent<Renderer>().material = normal;
 
-    public void NotWaitSelect()
-    {
-        transform.GetChild(0).GetComponent<Renderer>().material = normal;
+        }
     }
 }

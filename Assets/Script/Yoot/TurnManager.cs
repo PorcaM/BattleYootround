@@ -9,6 +9,8 @@ public class TurnManager : MonoBehaviour
     private YootGame.YootCount yootCount;
     private Horse selectedHorse;
 
+    private YootField highlitedField;
+
     public ProcessState CurrentState
     {
         get
@@ -70,9 +72,15 @@ public class TurnManager : MonoBehaviour
         if (CurrentState == ProcessState.WaitHorse)
         {
             selectedHorse = horse;
-            YootField destination = YootBoard.GetDestination(horse, yootCount);
-            destination.WaitSelect();
+            highlitedField = YootBoard.GetDestination(horse, yootCount);
+            highlitedField.Highlight(true);
             CurrentState = ProcessState.WaitField;
+        }
+        else if (currentState == ProcessState.WaitField)
+        {
+            highlitedField.Highlight(false);
+            CurrentState = ProcessState.WaitHorse;
+            HorseIsSelected(horse);
         }
     }
 
@@ -80,7 +88,7 @@ public class TurnManager : MonoBehaviour
     {
         if (CurrentState == ProcessState.WaitField)
         {
-            field.NotWaitSelect();
+            highlitedField.Highlight(false);
             MoveHorse();
             EndTurn();
         }
