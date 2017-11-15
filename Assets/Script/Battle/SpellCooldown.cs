@@ -9,6 +9,6 @@ public class SpellCooldown : MonoBehaviour {
     void Update()
     {
         float ratio = spellInstance.Ratio;
-        image.fillAmount = 1 - ratio;
+        // image.fillAmount = 1 - ratio;
     }
 }

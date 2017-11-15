@@ -10,6 +10,11 @@ public class YootGame : MonoBehaviour {
 
     private Mode mode;
 
+    void Awake()
+    {
+        Screen.SetResolution(720, 1280, true);
+    }
+
     void Start()
     {
         mode = Mode.Solo;

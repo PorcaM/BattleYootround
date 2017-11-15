@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Horse : MonoBehaviour {
-    public enum RaceState { Ready, Running, Finished };
+    public enum RaceState { Ready, Running, Finished, Together };
     public enum RunningRoute { Outside, Horizon, Vertical, Shortest };
     public TurnManager turnManager;
     public YootPlayer yootPlayer;

@@ -5,29 +5,32 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour {
     public GameObject enemy;
     public GameObject ally;
+    public GameObject mainCamera;
     static public int winner;
 
     private GameObject[] enemies;
     private GameObject[] allies;
 
-    private const int unitCount = 6;
-
-    void Awake()
-    {
-        Screen.SetResolution(720, 1280, true);
-    }
+    private const int unitCount = 6;    
 
     void Start () {
+        
+	}
+
+    public void Init()
+    {
         CreateEnemies();
         CreateAllies();
         winner = -1;
-	}
+        mainCamera.transform.position = new Vector3(transform.position.x, 30, transform.position.z);
+    }
 
     private void CreateEnemies()
     {
         for (int i = 0; i < unitCount; i++)
         {
             Vector3 position = new Vector3(i*2-1, 3, 10);
+            position += transform.position;
             Quaternion quaternion = new Quaternion();
             Instantiate(enemy, position, quaternion);
         }
@@ -38,6 +41,7 @@ public class BattleManager : MonoBehaviour {
         for (int i = 0; i < unitCount; i++)
         {
             Vector3 position = new Vector3(i*2-1, 3, -10);
+            position += transform.position;
             Quaternion quaternion = new Quaternion();
             Instantiate(ally, position, quaternion);
         }
@@ -68,8 +72,7 @@ public class BattleManager : MonoBehaviour {
     private void FinishBattle()
     {
         winner = GetWinner();
-        // TODO 위너 값을 윷 씬에 전달해줘야 함
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Yoot");
+        mainCamera.transform.position = new Vector3(0, 15, 0);
     }
 
     private int GetWinner()

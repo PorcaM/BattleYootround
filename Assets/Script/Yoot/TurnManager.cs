@@ -117,6 +117,10 @@ public class TurnManager : MonoBehaviour
 
     private void MoveHorse()
     {
+        //foreach (Horse horse in SelectedHorse.currentLocation.horses)
+        //{
+        //    horse.Move(yootCount);
+        //}
         SelectedHorse.Move(yootCount);
     }
 

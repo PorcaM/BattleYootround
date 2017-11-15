@@ -8,6 +8,7 @@ public class YootField : MonoBehaviour {
     public Material normal;
     public Material waitSelect;
     public Horse.RunningRoute milestone;
+    public BattleManager battleManager;
 
     private TurnManager turnManager;
     public TurnManager TurnManager
@@ -65,6 +66,23 @@ public class YootField : MonoBehaviour {
         horse.currentLocation = this;
         if (milestone != Horse.RunningRoute.Outside)
             horse.CurrentRoute = milestone;
+        if (IsEncounter())
+        {
+            if(horses[0].tag == horses[1].tag)
+            {
+                horses[0].State = Horse.RaceState.Together;
+                horses[1].State = Horse.RaceState.Together;
+            }
+            else
+            {
+                battleManager.Init();
+            }
+        }
+    }
+
+    private bool IsEncounter()
+    {
+        return horses.Count > 1;
     }
 
     public void Leave(Horse horse)
