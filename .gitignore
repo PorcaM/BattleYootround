@@ -10,6 +10,7 @@
 /Assets/AssetStoreTools*
 /client_test_Data
 /server_test_Data
+/screenshots
 # Visual Studio 2015 cache directory
 /.vs/
 
