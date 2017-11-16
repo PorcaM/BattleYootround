@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class UnitHealthBar : MonoBehaviour {
-    public Texture2D healthBar;
-    public double currentHealth;
-    public double maxHealth;
+    public float currentHealth;
+    public float maxHealth;
     public Vector3 screenPos;
     public float percentage;
 
-    public double MaxHealth
+    public float MaxHealth
     {
         get
         {
@@ -22,7 +22,7 @@ public class UnitHealthBar : MonoBehaviour {
         }
     }
 
-    public double CurrentHealth
+    public float CurrentHealth
     {
         get
         {
@@ -32,16 +32,22 @@ public class UnitHealthBar : MonoBehaviour {
         set
         {
             currentHealth = value;
+            percentage = currentHealth / maxHealth;
         }
     }
 
     void OnGUI()
     {
         //Gets coordinate our object on screen
-         screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        screenPos = Camera.main.WorldToScreenPoint(transform.position);
         float top = Screen.height - screenPos.y;
         float left = screenPos.x;
-        percentage = (float)(CurrentHealth / MaxHealth);
-        GUI.DrawTexture(new Rect(left, top, (50 * percentage), 5), healthBar);
+        float width = 50;
+        float height = 5;
+        if (percentage != 0.0f)
+        {
+            EditorGUI.DrawRect(new Rect(left, top, width, height), Color.red);
+            EditorGUI.DrawRect(new Rect(left, top, (width * percentage), height), Color.green);
+        }
     }
 }

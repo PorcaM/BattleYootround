@@ -36,7 +36,7 @@
 		<Damage>10</Damage>
 		<Armor>0</Armor>
 		<Range>2</Range>
-		<Hp>50</Hp>
+		<Hp>0</Hp>
 		<MovementSpeed>5</MovementSpeed>
 		<AttackSpeed>1</AttackSpeed>
 	</Unit>

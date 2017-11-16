@@ -75,5 +75,8 @@ public class BattleManager : MonoBehaviour {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyUnitTag);
         foreach (GameObject obj in enemies)
             Destroy(obj);
+        GameObject[] deads = GameObject.FindGameObjectsWithTag("DeadUnit");
+        foreach (GameObject obj in deads)
+            Destroy(obj);
     }
 }

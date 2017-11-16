@@ -31,9 +31,11 @@ public class UnitInstanceFactory : MonoBehaviour {
     {
         Vector3 position = GetPosition(num, unit.Id); // TODO 위치로 바꿔야 함
         GameObject gameObject = CreateObject(unitObject, position);
-        gameObject.tag = unitTag;
-        gameObject.AddComponent<UnitInstance>().Init(unit);
-        // gameObject.AddComponent<UnitHealthBar>();
+        gameObject.tag = unitTag;        
+        UnitInstance unitInstance = gameObject.AddComponent<UnitInstance>();
+        unitInstance.unitAnimation = gameObject.AddComponent<UnitAnimation>();
+        unitInstance.unitHealthBar = gameObject.AddComponent<UnitHealthBar>();
+        unitInstance.Init(unit);
     }
 
     private Vector3 GetPosition(int num, int row)

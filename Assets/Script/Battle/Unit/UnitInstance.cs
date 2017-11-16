@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class UnitInstance : MonoBehaviour {
     public UnitHealthBar unitHealthBar;
+    public UnitAnimation unitAnimation;
     public string enemyTag;
+    public enum State { Alive, Dead }
+    public State currentState;
     
     public Unit.ClassType unitClass;
     public int id;
@@ -12,7 +15,7 @@ public class UnitInstance : MonoBehaviour {
     public float armor;
     public float range;
     public float currentHP;
-    public float maxHp;
+    private float maxHp;
     public float movementSpeed;
     public float attackSpeed;
 
@@ -31,6 +34,7 @@ public class UnitInstance : MonoBehaviour {
             currentHP = value;
             if (currentHP < 0.0f)
                 currentHP = 0.0f;
+            unitHealthBar.CurrentHealth = currentHP;
         }
     }
 
@@ -49,6 +53,20 @@ public class UnitInstance : MonoBehaviour {
         }
     }
 
+    public float MaxHp
+    {
+        get
+        {
+            return maxHp;
+        }
+
+        set
+        {
+            maxHp = value;
+            unitHealthBar.MaxHealth = maxHp;
+        }
+    }
+
     public void Init(Unit unit)
     {
         unitClass = unit.UnitClass;
@@ -56,10 +74,11 @@ public class UnitInstance : MonoBehaviour {
         damage = (float)unit.Damage;
         armor = (float)unit.Armor;
         range = (float)unit.Range;
-        CurrentHP = maxHp = (float)unit.Hp;
+        CurrentHP = MaxHp = (float)unit.Hp;
         movementSpeed = (float)unit.MovementSpeed;
         attackSpeed = (float)unit.AttackSpeed;
         SetEnemyTag();
+        currentState = State.Alive;
     }
 
     private void SetEnemyTag()
@@ -88,7 +107,9 @@ public class UnitInstance : MonoBehaviour {
 
     public void Die()
     {
-        Destroy(gameObject);
+        currentState = State.Dead;
+        tag = "DeadUnit";
+        unitAnimation.SetAction(UnitAnimation.Actions.Die);
     }
 
     void Update()
@@ -154,7 +175,7 @@ public class UnitInstance : MonoBehaviour {
     private void MoveForward()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
-
+        unitAnimation.SetAction(UnitAnimation.Actions.Move);
     }
 
     private void Attack(UnitInstance target)
@@ -163,6 +184,7 @@ public class UnitInstance : MonoBehaviour {
         {
             target.UnderAttack(damage);
             attackCooldown = attackCooltime;
+            unitAnimation.SetAction(UnitAnimation.Actions.Attack);
         }
     }
 
