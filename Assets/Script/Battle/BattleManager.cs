@@ -9,9 +9,10 @@ public class BattleManager : MonoBehaviour {
     public GameObject BattleUI;
     public UnitInstanceFactory allyUnitInstanceFactory;
     public UnitInstanceFactory enemyUnitInstanceFactory;
+    public string AllyUnitTag = "AllyUnit";
+    public string EnemyUnitTag = "EnemyUnit";
 
-    private GameObject[] enemies;
-    private GameObject[] allies;
+    private Vector3 backupPos;
 
     void Start () {
         
@@ -20,8 +21,9 @@ public class BattleManager : MonoBehaviour {
     public void Init()
     {
         gameObject.SetActive(true);
-        CreateUnits();
         winner = -1;
+        CreateUnits();
+        backupPos = mainCamera.transform.position;
         mainCamera.transform.position = new Vector3(transform.position.x, 30, transform.position.z);
         YootUI.SetActive(false);
         BattleUI.SetActive(true);
@@ -29,49 +31,49 @@ public class BattleManager : MonoBehaviour {
 
     private void CreateUnits()
     {
-        allyUnitInstanceFactory.unitTag = "AllyUnit";
+        allyUnitInstanceFactory.unitTag = AllyUnitTag;
         allyUnitInstanceFactory.CreateUnits();
-        enemyUnitInstanceFactory.unitTag = "EnemyUnit";
+        enemyUnitInstanceFactory.unitTag = EnemyUnitTag;
         enemyUnitInstanceFactory.CreateUnits();
     }
 
     void Update()
     {
-        IdentifyUnits();
         if (IsBattleOver())
             FinishBattle();
     }
 
-    private void IdentifyUnits()
-    {
-        allies = GameObject.FindGameObjectsWithTag("AllyUnit");
-        enemies = GameObject.FindGameObjectsWithTag("EnemyUnit");
-    }
-
     private bool IsBattleOver()
     {
-        if (allies.Length == 0 || enemies.Length == 0)
+        if (GameObject.FindGameObjectsWithTag(AllyUnitTag).Length == 0)
+        {
+            winner = 1;
             return true;
-        else
-            return false;
+        }
+        else if (GameObject.FindGameObjectsWithTag(EnemyUnitTag).Length == 0)
+        {
+            winner = 0;
+            return true;
+        }
+        else return false;
     }
 
     private void FinishBattle()
     {
-        winner = GetWinner();
-        mainCamera.transform.position = new Vector3(0, 15, 0);
+        DestroyUnits();
+        mainCamera.transform.position = backupPos;
         YootUI.SetActive(true);
-        YootUI.SetActive(false);
+        BattleUI.SetActive(false);
         gameObject.SetActive(false);
     }
 
-    private int GetWinner()
+    private void DestroyUnits()
     {
-        int winner = -1;
-        if (allies.Length == 0)
-            winner = 1;
-        if (enemies.Length == 0)
-            winner = 0;
-        return winner;
+        GameObject[] allies = GameObject.FindGameObjectsWithTag(AllyUnitTag);
+        foreach(GameObject obj in allies)
+            Destroy(obj);
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyUnitTag);
+        foreach (GameObject obj in enemies)
+            Destroy(obj);
     }
 }
