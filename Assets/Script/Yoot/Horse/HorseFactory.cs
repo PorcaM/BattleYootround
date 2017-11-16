@@ -13,6 +13,7 @@ public class HorseFactory : MonoBehaviour {
         Horse horse = horseObj.GetComponent<Horse>();
         horse.owner = owner;
         horse.currentLocation = YootBoard.GetStartPoint();
+        horse.weight = 1;
         return horseObj;
     }
 }

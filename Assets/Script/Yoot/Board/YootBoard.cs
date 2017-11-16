@@ -23,7 +23,6 @@ public class YootBoard : MonoBehaviour
     private void CreateFields()
     {
         yootFieldFactory.radius = radius;
-        yootFieldFactory.parent = transform;
         fieldObjs = yootFieldFactory.CreateYootFields();
     }
 

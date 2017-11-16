@@ -57,7 +57,7 @@ public class YootField : MonoBehaviour {
             else
             {
                 battleManager.caller = this;
-                battleManager.Init();
+                battleManager.SetupBattle();
             }
         }
     }

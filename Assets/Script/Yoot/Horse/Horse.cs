@@ -7,6 +7,7 @@ public class Horse : MonoBehaviour {
     public TurnManager turnManager;
     public YootField currentLocation;
     public YootPlayer owner;
+    public int weight;
 
     public RaceState currentState;
     public HorseRoute.Type routeType;

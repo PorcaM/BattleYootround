@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
-    public GameObject mainCamera;
-    static public int winner;
+    static public int winnerID;
     public GameObject YootUI;
     public GameObject BattleUI;
     public UnitInstanceFactory allyUnitInstanceFactory;
@@ -14,20 +13,25 @@ public class BattleManager : MonoBehaviour {
 
     public YootField caller;
 
-    private Transform backupCamera;
-
-    void Start () {
-        
-	}
+    public CameraHandler cameraHandler;
 
     public void Init()
     {
+        gameObject.SetActive(false);
+    }
+
+    public void StartBattle()
+    {
+        SetupBattle();
+    }
+    
+    public void SetupBattle()
+    {
         gameObject.SetActive(true);
-        winner = -1;
+        winnerID = -1;
         CreateUnits();
-        backupCamera = Camera.main.transform;
-        mainCamera.transform.position = new Vector3(transform.position.x, 10, transform.position.z);
-        mainCamera.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+        cameraHandler.Backup();
+        cameraHandler.GoBattleField();
         YootUI.SetActive(false);
         BattleUI.SetActive(true);
     }
@@ -50,12 +54,12 @@ public class BattleManager : MonoBehaviour {
     {
         if (GameObject.FindGameObjectsWithTag(AllyUnitTag).Length == 0)
         {
-            winner = 1;
+            winnerID = 1;
             return true;
         }
         else if (GameObject.FindGameObjectsWithTag(EnemyUnitTag).Length == 0)
         {
-            winner = 0;
+            winnerID = 0;
             return true;
         }
         else return false;
@@ -64,15 +68,14 @@ public class BattleManager : MonoBehaviour {
     private void FinishBattle()
     {
         DestroyUnits();
-        mainCamera.transform.position = backupCamera.position;
-        mainCamera.transform.rotation = backupCamera.rotation;
+        cameraHandler.Recover();
         YootUI.SetActive(true);
         BattleUI.SetActive(false);
         gameObject.SetActive(false);
-        Debug.Log("Winner: " + winner);
+        Debug.Log("Winner: " + winnerID);
         if (caller)
         {
-            caller.HandleBattlResult(winner);
+            caller.HandleBattlResult(winnerID);
         }
     }
 
