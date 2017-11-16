@@ -32,6 +32,7 @@ public class YootPlayer : MonoBehaviour {
         {
             horseTokenButtons[i] = horseStatusPannel.transform.GetChild(i);
             ownedHorses[i].button = horseTokenButtons[i];
+            UnityEngine.UI.Button materialButton = horseTokenButtons[i].GetComponent<UnityEngine.UI.Button>();
             horseTokenButtons[i].GetChild(0).GetComponent<UnityEngine.UI.Text>().text = ownedHorses[i].State.ToString();
             horseTokenButtons[i].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(ownedHorses[i].StartRunning);
         }
@@ -39,6 +40,7 @@ public class YootPlayer : MonoBehaviour {
 
     public void JudgeGameResult()
     {
+        Debug.Log("hello");
         bool win = true;
         for (int i = 0; i < numHorse; ++i)
         {

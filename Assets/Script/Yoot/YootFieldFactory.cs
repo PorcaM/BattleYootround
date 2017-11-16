@@ -23,6 +23,8 @@ public class YootFieldFactory : MonoBehaviour {
             else
                 pos = GetHorizonPos(i);
             GameObject newObject = Instantiate(fieldPref, pos, Quaternion.identity, parent) as GameObject;
+            newObject.GetComponent<YootField>().Id = i;
+            newObject.name = "YootField" + i;
             fields.Add(newObject);
         }
         return fields;

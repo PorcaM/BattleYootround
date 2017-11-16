@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Deck : MonoBehaviour {
+public class Deck : MonoBehaviour{
     private const int deckSize = 5;
-    private List<Unit> units = new List<Unit>(DeckSize);
+    public List<Unit> units = new List<Unit>(DeckSize);
 
     public static int DeckSize
     {
@@ -50,5 +50,17 @@ public class Deck : MonoBehaviour {
     private bool IsAppropriateSize()
     {
         return Units.Count() == DeckSize;
+    }
+
+    public new string ToString()
+    {
+        string text = "Deck: ";
+        foreach (Unit unit in units)
+        {
+            text += unit.UnitClass.ToString();
+            text += ", ";
+        }
+        text += "\n";
+        return text;
     }
 }

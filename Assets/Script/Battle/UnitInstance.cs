@@ -4,41 +4,21 @@ using UnityEngine;
 
 public class UnitInstance : MonoBehaviour {
     public UnitHealthBar unitHealthBar;
-
-    private Unit myUnit;
-    private UnitInstance[] enemies;
-    private string enemyTag;
-    public double currentHP;
-    private const float attackCooltime = 1.0f;
-    private float attackCooldown;
     
-    public Unit MyUnit
-    {
-        get
-        {
-            return myUnit;
-        }
+    public Unit.ClassType unitClass;
+    public int id;
+    public float damage;
+    public float armor;
+    public float range;
+    public float currentHP;
+    public float maxHp;
+    public float movementSpeed;
+    public float attackSpeed;
 
-        set
-        {
-            myUnit = value;
-        }
-    }
+    public const float attackCooltime = 1.0f;
+    public float attackCooldown;
 
-    public UnitInstance[] Enemies
-    {
-        get
-        {
-            return enemies;
-        }
-
-        set
-        {
-            enemies = value;
-        }
-    }
-
-    public double CurrentHP
+    public float CurrentHP
     {
         get
         {
@@ -48,20 +28,24 @@ public class UnitInstance : MonoBehaviour {
         set
         {
             currentHP = value;
-            unitHealthBar.CurrentHealth = currentHP;
+            if (currentHP < 0.0f)
+                currentHP = 0.0f;
         }
     }
 
-    void Start()
+    public void Init(Unit unit)
     {
-        MyUnit = new Unit();
-        MyUnit.Init();
-        unitHealthBar.MaxHealth = MyUnit.Hp;
-        CurrentHP = MyUnit.Hp;
-        SetEnemyTag();
+        unitClass = unit.UnitClass;
+        id = unit.Id;
+        damage = (float)unit.Damage;
+        armor = (float)unit.Armor;
+        range = (float)unit.Range;
+        CurrentHP = maxHp = (float)unit.Hp;
+        movementSpeed = (float)unit.MovementSpeed;
+        attackSpeed = (float)unit.AttackSpeed;
     }
 
-    public void UnderAttack(double damage)
+    public void UnderAttack(float damage)
     {
         CurrentHP -= damage;
         if (IsDead())
@@ -70,14 +54,14 @@ public class UnitInstance : MonoBehaviour {
         }
     }
 
-    private bool IsDead()
+    public bool IsDead()
     {
-        return currentHP <= 0.0;
+        return CurrentHP <= 0.0f;
     }
 
-    private void Die()
+    public void Die()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     void Update()
@@ -85,12 +69,13 @@ public class UnitInstance : MonoBehaviour {
         DoBattle();
     }
 
-    public void DoBattle()
+    private void DoBattle()
     {
-        Enemies = FindEnemies();
+        
+        UnitInstance[] Enemies = FindEnemies();
         UnitInstance closestEnemy = FindClosestUnit(Enemies);
-        double distance = CalcDistance(closestEnemy);
-        if (distance > MyUnit.Range)
+        float distance = CalcDistance(closestEnemy);
+        if (distance > range)
             Move(closestEnemy);
         else
             Attack(closestEnemy);
@@ -98,7 +83,7 @@ public class UnitInstance : MonoBehaviour {
 
     private UnitInstance[] FindEnemies()
     {
-        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag(enemyTag);
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag(GetEnemyTag());
         UnitInstance[] enemies = new UnitInstance[enemyObjects.Length];
         for (int i = 0; i < enemyObjects.Length; i++)
         {
@@ -106,12 +91,22 @@ public class UnitInstance : MonoBehaviour {
         }
         return enemies;
     }
-
-    private void SetEnemyTag()
+    
+    private string GetEnemyTag()
     {
-        enemyTag = "AllyUnit";
-        if (this.tag == "AllyUnit")
-            enemyTag = "EnemyUnit";
+        if (tag == "AllyUnit")
+        {
+            return "EnemyUnit";
+        }
+        else if (tag == "EnemyUnit")
+        {
+            return "AllyUnit";
+        }
+        else
+        {
+            Debug.Log("Invalid unit tag");
+            return "";
+        }
     }
 
     private UnitInstance FindClosestUnit(UnitInstance[] units)
@@ -119,17 +114,17 @@ public class UnitInstance : MonoBehaviour {
         if (units.Length == 0)
             return null;
         UnitInstance closestUnit = units[0];
-        double closestDistance = CalcDistance(units[0]);
+        float closestDistance = CalcDistance(units[0]);
         foreach(UnitInstance unit in units)
         {
-            double distance = CalcDistance(unit);
+            float distance = CalcDistance(unit);
             if (closestDistance > distance)
                 closestUnit = unit;
         }
         return closestUnit;
     }
 
-    private double CalcDistance(UnitInstance targetUnit)
+    private float CalcDistance(UnitInstance targetUnit)
     {
         Vector3 myPosition = transform.position;
         Vector3 targetPosition = targetUnit.transform.position;
@@ -140,18 +135,18 @@ public class UnitInstance : MonoBehaviour {
     {
         Vector3 direction = targetUnit.transform.position - transform.position;
         direction.Normalize();
-        transform.Translate(direction * Time.deltaTime * (float)MyUnit.MovementSpeed);
+        transform.Translate(direction * Time.deltaTime * movementSpeed);
     }
 
     private void Attack(UnitInstance targetUnit)
     {
         if (attackCooldown > 0.0f)
         {
-            attackCooldown -= Time.deltaTime * (float)MyUnit.AttackSpeed;
+            attackCooldown -= Time.deltaTime * attackSpeed;
         }
         else
         {
-            targetUnit.UnderAttack(MyUnit.Damage);
+            targetUnit.UnderAttack(damage);
             attackCooldown = attackCooltime;
         }
     }

@@ -9,6 +9,7 @@ public class YootField : MonoBehaviour {
     public Material waitSelect;
     public Horse.RunningRoute milestone;
     public BattleManager battleManager;
+    private bool destFlag;
 
     private TurnManager turnManager;
     public TurnManager TurnManager
@@ -46,6 +47,20 @@ public class YootField : MonoBehaviour {
         set
         {
             horses = value;
+        }
+    }
+
+    public bool DestFlag
+    {
+        get
+        {
+            return destFlag;
+        }
+
+        set
+        {
+            destFlag = value;
+            Highlight(destFlag);
         }
     }
 
@@ -99,12 +114,14 @@ public class YootField : MonoBehaviour {
     {
         if (flag)
         {
-            transform.GetChild(0).GetComponent<Renderer>().material = waitSelect;
+            cakeslice.Outline outline = GetComponent<cakeslice.Outline>();
+            outline.eraseRenderer = false;
+            outline.color = 1;
         }
         else
         {
-            transform.GetChild(0).GetComponent<Renderer>().material = normal;
-
+            cakeslice.Outline outline = GetComponent<cakeslice.Outline>();
+            outline.eraseRenderer = true;
         }
     }
 }

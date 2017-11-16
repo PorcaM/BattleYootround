@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spell : MonoBehaviour {
+public class Spell {
     public enum Type { Attack,Assist,Special};
     public Type type;
     private int id;
@@ -12,6 +12,8 @@ public class Spell : MonoBehaviour {
     private float duration;
     private float cooltime;
 
+
+    #region Properties
     public int Id
     {
         get
@@ -89,6 +91,7 @@ public class Spell : MonoBehaviour {
             spellName = value;
         }
     }
+    #endregion
 
     public void Init()
     {
@@ -99,5 +102,17 @@ public class Spell : MonoBehaviour {
         Damage = 20.0f;
         Duration = 0.0f;
         Cooltime = 5.0f;
+    }
+
+    public void Copy(Spell spell)
+    {
+        Debug.Log(spell.SpellName);
+        type = spell.type;
+        id = spell.Id;
+        spellName = spell.SpellName;
+        range = spell.Range;
+        damage = spell.Damage;
+        duration = spell.Duration;
+        cooltime = spell.Cooltime;
     }
 }

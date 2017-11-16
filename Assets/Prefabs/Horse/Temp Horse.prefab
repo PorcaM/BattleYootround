@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33448088033952990}
   - component: {fileID: 23902066813506382}
   - component: {fileID: 64937570905945978}
+  - component: {fileID: 114466577353754224}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -127,6 +128,17 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: a297c42aa1d7c0d4f9b71edbf5288ede, type: 3}
+--- !u!114 &114466577353754224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200994186149624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 403f005a023a8a846a0f87da16329e53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114532425574531854
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -11,6 +11,7 @@ public class Horse : MonoBehaviour {
     public Transform button;
 
     private RaceState state;
+    
     public RunningRoute currentRoute;
 
     public RaceState State
@@ -70,9 +71,12 @@ public class Horse : MonoBehaviour {
 
     public void StartRunning()
     {
-        State = RaceState.Running;
-        CurrentRoute = RunningRoute.Outside;
-        YootBoard.GetStartPoint().Arrive(this);
+        if (State == RaceState.Ready)
+        {
+            State = RaceState.Running;
+            CurrentRoute = RunningRoute.Outside;
+            YootBoard.GetStartPoint().Arrive(this);
+        }
     }
 
     public void Move(YootGame.YootCount yootCount)

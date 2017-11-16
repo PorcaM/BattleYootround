@@ -78,12 +78,12 @@ public class TurnManager : MonoBehaviour
         {
             selectedHorse = horse;
             highlitedField = YootBoard.GetDestination(horse, yootCount);
-            highlitedField.Highlight(true);
+            highlitedField.DestFlag = true;
             CurrentState = ProcessState.WaitField;
         }
         else if (currentState == ProcessState.WaitField)
         {
-            highlitedField.Highlight(false);
+            highlitedField.DestFlag = false;
             CurrentState = ProcessState.WaitHorse;
             HorseIsSelected(horse);
         }
@@ -95,7 +95,7 @@ public class TurnManager : MonoBehaviour
         {
             if (field == highlitedField)
             {
-                highlitedField.Highlight(false);
+                highlitedField.DestFlag = false;
                 MoveHorse();
                 EndTurn();
             }

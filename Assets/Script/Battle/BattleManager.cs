@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
-    public GameObject enemy;
-    public GameObject ally;
     public GameObject mainCamera;
     static public int winner;
+    public GameObject YootUI;
+    public GameObject BattleUI;
+    public UnitInstanceFactory allyUnitInstanceFactory;
+    public UnitInstanceFactory enemyUnitInstanceFactory;
 
     private GameObject[] enemies;
     private GameObject[] allies;
-
-    private const int unitCount = 6;    
 
     void Start () {
         
@@ -19,34 +19,14 @@ public class BattleManager : MonoBehaviour {
 
     public void Init()
     {
-        CreateEnemies();
-        CreateAllies();
+        gameObject.SetActive(true);
+        allyUnitInstanceFactory.CreateUnits("AllyUnit");
+        enemyUnitInstanceFactory.CreateUnits("EnemyUnit");
         winner = -1;
         mainCamera.transform.position = new Vector3(transform.position.x, 30, transform.position.z);
+        YootUI.SetActive(false);
+        BattleUI.SetActive(true);
     }
-
-    private void CreateEnemies()
-    {
-        for (int i = 0; i < unitCount; i++)
-        {
-            Vector3 position = new Vector3(i*2-1, 3, 10);
-            position += transform.position;
-            Quaternion quaternion = new Quaternion();
-            Instantiate(enemy, position, quaternion);
-        }
-    }
-
-    private void CreateAllies()
-    {
-        for (int i = 0; i < unitCount; i++)
-        {
-            Vector3 position = new Vector3(i*2-1, 3, -10);
-            position += transform.position;
-            Quaternion quaternion = new Quaternion();
-            Instantiate(ally, position, quaternion);
-        }
-    }
-
 
     void Update()
     {
@@ -73,6 +53,9 @@ public class BattleManager : MonoBehaviour {
     {
         winner = GetWinner();
         mainCamera.transform.position = new Vector3(0, 15, 0);
+        YootUI.SetActive(true);
+        YootUI.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     private int GetWinner()

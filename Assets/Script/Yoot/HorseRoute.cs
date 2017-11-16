@@ -22,7 +22,7 @@ public static class HorseRoute
     public static int GetDestIndex(int[] route, int srcID, int amount)
     {
         int goal = System.Array.IndexOf(route, srcID) + amount;
-        if (goal < 0) goal = goal += route.Length;
+        if (goal < 0) goal += route.Length;
         if (goal >= route.Length) goal = 0;
         return goal;
     }

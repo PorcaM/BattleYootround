@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Spellbook : MonoBehaviour {
+public class Spellbook : MonoBehaviour{
     private const int spellbookSize = 4;
-    private List<Spell> spells = new List<Spell>(SpellbookSize);
+    public List<Spell> spells = new List<Spell>(SpellbookSize);
 
+    #region Properties
     public static int SpellbookSize
     {
         get
@@ -27,6 +28,7 @@ public class Spellbook : MonoBehaviour {
             spells = value;
         }
     }
+#endregion
 
     public bool CheckIntegrity()
     {
@@ -50,5 +52,17 @@ public class Spellbook : MonoBehaviour {
     private bool IsAppropriateSize()
     {
         return Spells.Count() == SpellbookSize;
+    }
+
+    public new string ToString()
+    {
+        string text = "Spellbook: ";
+        foreach (Spell spell in spells)
+        {
+            text += spell.SpellName;
+            text += ", ";
+        }
+        text += "\n";
+        return text;
     }
 }

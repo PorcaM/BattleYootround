@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Equipment : MonoBehaviour {
-    public Deck deck;
+public class TestEquipment : MonoBehaviour {
     public Spellbook spellbook;
+    public Deck deck;
+    public Equipment equipment;
 
 	// Use this for initialization
 	void Start () {
-        DontDestroyOnLoad(transform.gameObject);
-    }
+        equipment.TempInit();
+        Debug.Log(equipment.ToString());
+	}
 	
 	// Update is called once per frame
 	void Update () {

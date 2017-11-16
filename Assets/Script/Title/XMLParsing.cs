@@ -2,100 +2,114 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Xml;
+using System;
 
 public class XMLParsing : MonoBehaviour {
     public TextAsset Player;
     public TextAsset Spell;
     public TextAsset Unit;
 
-    private Spell[] spell = new Spell[13];
-    private Unit[] unit = new Unit[8];
+    public PlayerProfile playerProfile;
+
+    public List<Spell> spells;
+    public List<Unit> units;
     
     // Use this for initialization
     void Start () {
-        for (int i = 0; i < 13; i++)
-            spell[i] = new Spell();
-        for (int i = 0; i < 8; i++)
-            unit[i] = new Unit();
-        LoadXML();
-        Print();
-	}
-	
-    private void Print()
+        AllocateMemory();
+        // ParsePlayerXML();
+        ParseSpellRecord();
+        ParseUnitRecord();
+        InitRecords();
+    }
+
+    private void AllocateMemory()
     {
-        foreach(Spell s in spell)
+        spells = new List<Spell>();
+        units = new List<Unit>();
+    }
+
+    private void ParsePlayerXML()
+    {
+        XmlDocument PlayerXML = new XmlDocument();
+        PlayerXML.LoadXml(Player.text);
+        XmlNodeList playerNodes = PlayerXML.SelectNodes("BYData/Player");
+        foreach (XmlNode node in playerNodes)
         {
-            Debug.Log(s.SpellName);
-        }
-        foreach (Unit u in unit)
-        {
-            Debug.Log(u.UnitClass.ToString());
+            playerProfile.level = Int32.Parse(node.SelectSingleNode("Level").InnerText);
+            playerProfile.exp = Int32.Parse(node.SelectSingleNode("CurrentEXP").InnerText);
         }
     }
 
-    private void LoadXML()
+    private void ParseSpellRecord()
     {
-        XmlDocument PlayerXML = new XmlDocument();
         XmlDocument SpellXML = new XmlDocument();
-        XmlDocument UnitXML = new XmlDocument();
-
-        // Player 데이터
-        PlayerXML.LoadXml(Player.text);
-        XmlNodeList Player_nodes = PlayerXML.SelectNodes("BYData/Player");
-        foreach(XmlNode node in Player_nodes)
-        {
-            Debug.Log("[id] :" + node.SelectSingleNode("Id").InnerText);
-            Debug.Log("[level] :" + node.SelectSingleNode("Level").InnerText);
-            Debug.Log("[currentEXP] :" + node.SelectSingleNode("CurrentEXP").InnerText);
-        }
-
-        // Spell 데이터
         SpellXML.LoadXml(Spell.text);
-        XmlNodeList Spell_nodes = SpellXML.SelectNodes("BYData/Spell");
-        int pos = 0;
-        foreach (XmlNode node in Spell_nodes)
+        XmlNodeList nodes = SpellXML.SelectNodes("BYData/Spell");
+        foreach (XmlNode node in nodes)
         {
-            spell[pos].Id = int.Parse(node.SelectSingleNode("Id").InnerText);
-            spell[pos].SpellName = node.SelectSingleNode("SpellName").InnerText;
-            XmlNodeList Range_node = node.SelectNodes("Range");
-            if(Range_node[0].SelectSingleNode("Type").InnerText == "Square")
-            {
-                int x = int.Parse(Range_node[0].SelectSingleNode("X").InnerText);
-                int y = int.Parse(Range_node[0].SelectSingleNode("Y").InnerText);
-                Vector2 range = new Vector2(x, y);
-                spell[pos].Range = new RectRange(range);
-            }
-            else
-            {
-                float radius = float.Parse(Range_node[0].SelectSingleNode("Radius").InnerText);
-                spell[pos].Range = new CircleRange(radius);
-            }
-            XmlNodeList Attribute_node = node.SelectNodes("Attribute");
-            spell[pos].type = (Spell.Type)System.Enum.Parse(typeof(Spell.Type), Attribute_node[0].SelectSingleNode("Type").InnerText);
-            spell[pos].Damage = float.Parse(Attribute_node[0].SelectSingleNode("Damage").InnerText);
-            spell[pos].Duration = float.Parse(Attribute_node[0].SelectSingleNode("Duration").InnerText);
-
-            spell[pos].Cooltime = float.Parse(node.SelectSingleNode("Cooltime").InnerText);
-
-            pos++;
+            spells.Add(CreateSpellByParing(node));
         }
+    }
+
+    private Spell CreateSpellByParing(XmlNode node)
+    {
+        Spell spell = new Spell();
+        spell.Id = int.Parse(node.SelectSingleNode("Id").InnerText);
+        spell.SpellName = node.SelectSingleNode("SpellName").InnerText;
+        XmlNodeList Range_node = node.SelectNodes("Range");
+        if (Range_node[0].SelectSingleNode("Type").InnerText == "Square")
+        {
+            int x = int.Parse(Range_node[0].SelectSingleNode("X").InnerText);
+            int y = int.Parse(Range_node[0].SelectSingleNode("Y").InnerText);
+            Vector2 range = new Vector2(x, y);
+            spell.Range = new RectRange(range);
+        }
+        else
+        {
+            float radius = float.Parse(Range_node[0].SelectSingleNode("Radius").InnerText);
+            spell.Range = new CircleRange(radius);
+        }
+        XmlNodeList Attribute_node = node.SelectNodes("Attribute");
+        spell.type = (Spell.Type)System.Enum.Parse(typeof(Spell.Type), Attribute_node[0].SelectSingleNode("Type").InnerText);
+        spell.Damage = float.Parse(Attribute_node[0].SelectSingleNode("Damage").InnerText);
+        spell.Duration = float.Parse(Attribute_node[0].SelectSingleNode("Duration").InnerText);
+        spell.Cooltime = float.Parse(node.SelectSingleNode("Cooltime").InnerText);
+        return spell;
+    }
+
+    private void ParseUnitRecord()
+    {
+        XmlDocument UnitXML = new XmlDocument();
 
         // Unit 데이터
         UnitXML.LoadXml(Unit.text);
-        XmlNodeList Unit_nodes = UnitXML.SelectNodes("BYData/Unit");
-        pos = 0;
-        foreach (XmlNode node in Unit_nodes)
+        XmlNodeList Nodes = UnitXML.SelectNodes("BYData/Unit");
+        foreach (XmlNode node in Nodes)
         {
-            unit[pos].Id = int.Parse(node.SelectSingleNode("Id").InnerText);
-            unit[pos].UnitClass = (Unit.ClassType)System.Enum.Parse(typeof(Unit.ClassType), node.SelectSingleNode("Type").InnerText);
-            unit[pos].Damage = double.Parse(node.SelectSingleNode("Damage").InnerText);
-            unit[pos].Armor = double.Parse(node.SelectSingleNode("Armor").InnerText);
-            unit[pos].Range = double.Parse(node.SelectSingleNode("Range").InnerText);
-            unit[pos].Hp = double.Parse(node.SelectSingleNode("Hp").InnerText);
-            unit[pos].MovementSpeed = double.Parse(node.SelectSingleNode("MovementSpeed").InnerText);
-            unit[pos].AttackSpeed = double.Parse(node.SelectSingleNode("AttackSpeed").InnerText);
-
-            pos++;
+            units.Add(CreateUnitByParing(node));
         }
+    }
+
+    private Unit CreateUnitByParing(XmlNode node)
+    {
+        Unit unit = new Unit
+        {
+            Id = int.Parse(node.SelectSingleNode("Id").InnerText),
+            UnitClass = (Unit.ClassType)System.Enum.Parse(typeof(Unit.ClassType), node.SelectSingleNode("Type").InnerText),
+            Damage = double.Parse(node.SelectSingleNode("Damage").InnerText),
+            Armor = double.Parse(node.SelectSingleNode("Armor").InnerText),
+            Range = double.Parse(node.SelectSingleNode("Range").InnerText),
+            Hp = double.Parse(node.SelectSingleNode("Hp").InnerText),
+            MovementSpeed = double.Parse(node.SelectSingleNode("MovementSpeed").InnerText),
+            AttackSpeed = double.Parse(node.SelectSingleNode("AttackSpeed").InnerText)
+        };
+        return unit;
+    }
+
+    private void InitRecords()
+    {
+        SpellRecord.Init(spells.ToArray());
+        UnitRecord.Init(units.ToArray());
     }
 }
