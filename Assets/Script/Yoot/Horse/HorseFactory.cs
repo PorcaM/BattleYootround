@@ -12,7 +12,7 @@ public class HorseFactory : MonoBehaviour {
         GameObject horseObj = Instantiate(horseModel, horseParent) as GameObject;
         Horse horse = horseObj.GetComponent<Horse>();
         horse.owner = owner;
-        horse.StartRunning();
+        horse.currentLocation = YootBoard.GetStartPoint();
         return horseObj;
     }
 }

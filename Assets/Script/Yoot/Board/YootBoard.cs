@@ -10,16 +10,14 @@ public class YootBoard : MonoBehaviour
     public YootFieldFactory yootFieldFactory;
     public float radius = 4.0f;
 
-    void Start()
-    {
-        Init();
-    }
+    public static bool isReady = false;
 
     public void Init()
     {
         CreateFields();
         InitMilestone();
         RemoveDulication();
+        isReady = true;
     }
 
     private void CreateFields()

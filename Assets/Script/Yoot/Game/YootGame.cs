@@ -8,6 +8,8 @@ public class YootGame : MonoBehaviour {
     public enum YootCount { Nak, Do, Gae, Gul, Yoot, Mo, BackDo = -1 };
     public TurnManager turnManager;
     public GameObject enemyHorse;
+    public YootBoard yootBoard;
+    public YootPlayer yootPlayer;
 
     void Awake()
     {
@@ -16,12 +18,14 @@ public class YootGame : MonoBehaviour {
 
     void Start()
     {
-        HorseRoute.Init();
+        Init();
     }
 
     public void Init()
     {
-
+        HorseRoute.Init();
+        yootBoard.Init();
+        yootPlayer.Init();
     }
 
     public void TestEnemyHorse()

@@ -12,8 +12,10 @@ public class YootPlayer : MonoBehaviour {
     public string tagPrefix;
     public int playerID;
 
-    void Start()
+    public void Init()
     {
+        if (YootBoard.isReady)
+            horseManager.SetupHorses();
     }
 
     public void StartNewHorse()

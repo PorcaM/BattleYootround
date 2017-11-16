@@ -54,7 +54,6 @@ public class Horse : MonoBehaviour {
 
     public void Selected()
     {
-        if (currentState == RaceState.Running)
-            owner.turnManager.SelectHorse(this);
+        owner.turnManager.SelectHorse(this);
     }
 }
