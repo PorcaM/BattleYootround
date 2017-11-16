@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33449882957512342}
   - component: {fileID: 136141293104571578}
   - component: {fileID: 23883023998533342}
-  - component: {fileID: 95310386804970784}
   - component: {fileID: 114838365433488574}
   - component: {fileID: 114741934319258510}
   m_Layer: 0
@@ -86,23 +85,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347830272786950}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!95 &95310386804970784
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347830272786950}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114741934319258510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,9 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  horses: []
-  normal: {fileID: 2100000, guid: a9b9c422ea817a54c8963efdc3d63ad8, type: 2}
-  waitSelect: {fileID: 2100000, guid: 323d5c26254c7104c9f3830597ed6450, type: 2}
+  guests: []
   milestone: 0
   battleManager: {fileID: 0}
 --- !u!136 &136141293104571578
