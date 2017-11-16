@@ -102,12 +102,11 @@ public class UnitInstance : MonoBehaviour {
         GameObject[] objs = GameObject.FindGameObjectsWithTag(enemyTag);
         if (IsEnemyExist(objs))
         {
-            GameObject closestObject = FindClosestObject(objs);
-            float distance = Vector3.Distance(closestObject.transform.position, transform.position);
-            if (IsInAttackRange(distance))
-                MoveTo(closestObject.transform);
+            GameObject closest = FindClosestObject(objs);
+            if (IsInAttackRange(closest.transform.position))
+                Attack(closest.GetComponent<UnitInstance>());
             else
-                Attack(closestObject.GetComponent<UnitInstance>());
+                MoveTo(closest.transform);
         }
     }
 
@@ -132,9 +131,10 @@ public class UnitInstance : MonoBehaviour {
         return closestObject;
     }
 
-    private bool IsInAttackRange(float distance)
+    private bool IsInAttackRange(Vector3 point)
     {
-        return distance > range * 2;
+        float distance = Vector3.Distance(point, transform.position);
+        return distance < range * 2;
     }
         
     private void MoveTo(Transform target)
