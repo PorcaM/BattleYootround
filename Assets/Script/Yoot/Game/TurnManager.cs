@@ -4,95 +4,40 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    public YootPlayer owner;
     public enum ProcessState { WaitTurn, WaitThrow, WaitHorse, WaitField, End };
-
-    public YootThrowManager yootThrowManager;
-
     public ProcessState currentState;
-    private YootGame.YootCount yootCount;
-    private Horse selectedHorse;
-
-    private YootField highlitedField;
-    public YootPlayer yootPlayer;
-
-    public ProcessState CurrentState
-    {
-        get
-        {
-            return currentState;
-        }
-
-        set
-        {
-            currentState = value;
-        }
-    }
-
-    public Horse SelectedHorse
-    {
-        get
-        {
-            return selectedHorse;
-        }
-
-        set
-        {
-            selectedHorse = value;
-        }
-    }
-
-    void Start()
-    {
-        CurrentState = ProcessState.WaitTurn;
-    }
-
-    void Update()
-    {
-        ProceedTurn();
-    }
+    public YootThrowManager yootThrowManager;
+    public YootGame.YootCount yootCount;
+    public Horse selectedHorse;
+    public YootField highlitedField;
 
     public void StartTurn()
     {
         yootThrowManager.StartThrow();
-        CurrentState = ProcessState.WaitThrow;
+        currentState = ProcessState.WaitThrow;
     }
 
-    private void ProceedTurn()
+    public void SelectHorse(Horse horse)
     {
-        switch (CurrentState)
-        {
-            case ProcessState.End:
-                EndTurn();
-                break;
-            default:
-            case ProcessState.WaitTurn:
-            case ProcessState.WaitThrow:
-            case ProcessState.WaitHorse:
-            case ProcessState.WaitField:
-                break;
-        }
-    }
-
-    public void HorseIsSelected(Horse horse)
-    {
-        if (CurrentState == ProcessState.WaitHorse)
+        if (currentState == ProcessState.WaitHorse)
         {
             selectedHorse = horse;
             highlitedField = YootBoard.GetDestination(horse, yootCount);
             highlitedField.DestFlag = true;
-            CurrentState = ProcessState.WaitField;
+            currentState = ProcessState.WaitField;
         }
         else if (currentState == ProcessState.WaitField)
         {
             highlitedField.DestFlag = false;
-            CurrentState = ProcessState.WaitHorse;
-            HorseIsSelected(horse);
+            currentState = ProcessState.WaitHorse;
+            SelectHorse(horse);
         }
     }
 
-    public void FieldIsSelected(YootField field)
+    public void SelectField(YootField field)
     {
-        if (CurrentState == ProcessState.WaitField)
+        if (currentState == ProcessState.WaitField)
         {
             if (field == highlitedField)
             {
@@ -113,18 +58,18 @@ public class TurnManager : MonoBehaviour
             return;
         }
         else
-            CurrentState = ProcessState.WaitHorse;
+            currentState = ProcessState.WaitHorse;
     }
 
     private void MoveHorse()
     {
-        SelectedHorse.Move(yootCount);
-        yootPlayer.JudgeGameResult();
+        selectedHorse.Move(yootCount);
+        owner.JudgeGameResult();
     }
 
     private void EndTurn()
     {
-        SelectedHorse = null;
-        CurrentState = ProcessState.WaitTurn;
+        selectedHorse = null;
+        currentState = ProcessState.WaitTurn;
     }
 }

@@ -14,7 +14,7 @@ public class BattleManager : MonoBehaviour {
 
     public YootField caller;
 
-    private Vector3 backupPos;
+    private Camera backupCamera;
 
     void Start () {
         
@@ -25,8 +25,9 @@ public class BattleManager : MonoBehaviour {
         gameObject.SetActive(true);
         winner = -1;
         CreateUnits();
-        backupPos = mainCamera.transform.position;
+        backupCamera = Camera.main;
         mainCamera.transform.position = new Vector3(transform.position.x, 10, transform.position.z);
+        mainCamera.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
         YootUI.SetActive(false);
         BattleUI.SetActive(true);
     }
@@ -63,7 +64,8 @@ public class BattleManager : MonoBehaviour {
     private void FinishBattle()
     {
         DestroyUnits();
-        mainCamera.transform.position = backupPos;
+        mainCamera.transform.position = backupCamera.transform.position;
+        mainCamera.transform.rotation = backupCamera.transform.rotation;
         YootUI.SetActive(true);
         BattleUI.SetActive(false);
         gameObject.SetActive(false);

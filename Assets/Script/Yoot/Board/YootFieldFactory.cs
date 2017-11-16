@@ -10,27 +10,44 @@ public class YootFieldFactory : MonoBehaviour
     public const int VerticalCount = 5;
     public const int HorizonCount = 5;
 
-    public float radius = 4.0f;
+    public GameObject fieldObj;
+    public float radius;
+    public Transform parent;
 
-    public List<GameObject> CreateYootFields(GameObject fieldPref, Transform parent)
+    public List<GameObject> CreateYootFields()
     {
         List<GameObject> fields = new List<GameObject>();
         for (int i = 0; i < YootFieldCount; i++)
         {
-            Vector3 pos;
-            if (IsOutside(i))
-                pos = GetOutsidePos(i);
-            else if (IsVertical(i))
-                pos = GetVerticalPos(i);
-            else
-                pos = GetHorizonPos(i);
-            GameObject newObject = Instantiate(fieldPref, pos, Quaternion.identity, parent) as GameObject;
-            newObject.GetComponent<YootField>().Id = i;
-            newObject.name = "YootField" + i;
-            newObject.GetComponent<YootField>().battleManager = battleManager;
-            fields.Add(newObject);
+            GameObject yfObj = CreateYootField(i);
+            fields.Add(yfObj);
         }
         return fields;
+    }
+
+    public GameObject CreateYootField(int i)
+    {
+        Vector3 pos = GetPosition(i);
+        Quaternion quaternion = Quaternion.identity;
+        GameObject yfObj = Instantiate(fieldObj, pos, quaternion, parent) as GameObject;
+        yfObj.name = "YootField" + i;
+        YootField field = yfObj.GetComponent<YootField>();
+        field.id = i;
+        field.milestone = HorseRoute.Type.Summer;
+        field.battleManager = battleManager;
+        return yfObj;
+    }
+
+    private Vector3 GetPosition(int i)
+    {
+        Vector3 pos;
+        if (IsOutside(i))
+            pos = GetOutsidePos(i);
+        else if (IsVertical(i))
+            pos = GetVerticalPos(i);
+        else
+            pos = GetHorizonPos(i);
+        return pos;
     }
 
     private bool IsOutside(int index)

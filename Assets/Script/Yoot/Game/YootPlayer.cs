@@ -3,48 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class YootPlayer : MonoBehaviour {
-    public GameObject horsePref;
-    public GameObject horseStatusPannel;
-    private Transform[] horseTokenButtons;
     private const int numHorse = 4;
-    public int currentHorse;
-    public Horse[] ownedHorses;
 
     public HorseFactory horseFactory;
-    public List<GameObject> createdHorses;
-    public UnityEngine.UI.Text numRunnerText;
-    public int numFinished;
+    public HorseManager horseManager;
+    public TurnManager turnManager;
+    public UIHandler uiHandler;
+    public string tagPrefix;
+    public int playerID;
 
     void Start()
     {
-        createdHorses = new List<GameObject>();
     }
 
     public void StartNewHorse()
     {
-        if (createdHorses.Count < numHorse)
-        {
-            GameObject gameObject = horseFactory.CreateHorse();
-            gameObject.GetComponent<Horse>().Init();
-            gameObject.GetComponent<Horse>().StartRunning();
-            gameObject.GetComponent<Horse>().yootPlayer = this;
-            createdHorses.Add(gameObject);
-            numRunnerText.text = createdHorses.Count.ToString();
-        }
-        else
-            return;
+        horseManager.StartNewHorse();        
     }
 
     public void JudgeGameResult()
     {
-        Debug.Log(numFinished);
-        if(numFinished == 4)
-        {
+        if (horseManager.IsGameOver())
             Win();
-        }
     }
 
-    public void Win()
+    private void Win()
+    {
+        Debug.Log("Player " + playerID + " Win!!");
+    }
+
+    public void Register(Horse horse)
     {
 
     }

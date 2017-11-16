@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HorseFactory : MonoBehaviour {
+    public YootPlayer owner;
     public GameObject horseModel;
+    public Transform horseParent;
 
     public GameObject CreateHorse()
     {
-        GameObject gameObject = Instantiate(horseModel) as GameObject;
-        return gameObject;
+        GameObject horseObj = Instantiate(horseModel, horseParent) as GameObject;
+        Horse horse = horseObj.GetComponent<Horse>();
+        horse.owner = owner;
+        horse.StartRunning();
+        return horseObj;
     }
 }

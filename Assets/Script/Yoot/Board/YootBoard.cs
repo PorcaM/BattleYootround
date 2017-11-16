@@ -4,55 +4,55 @@ using UnityEngine;
 
 public class YootBoard : MonoBehaviour
 {
+    public enum Route { Spring, Summer, Autumn, Winter };
     public GameObject fieldPref;
-    public static List<GameObject> fieldObjects;
+    public static List<GameObject> fieldObjs;
     public YootFieldFactory yootFieldFactory;
-
-    public static List<GameObject> Fields
-    {
-        get
-        {
-            return fieldObjects;
-        }
-
-        set
-        {
-            fieldObjects = value;
-        }
-    }
+    public float radius = 4.0f;
 
     void Start()
     {
-        yootFieldFactory.radius = 4.0f;
-        Fields = yootFieldFactory.CreateYootFields(fieldPref, transform);
         Init();
     }
 
-    public static void Init()
+    public void Init()
     {
-        for (int i = 0; i < Fields.Count; ++i)
-        {
-            YootField field = Fields[i].GetComponent<YootField>();
-            field.Id = i;
-            if (i == 5) field.milestone = Horse.RunningRoute.Horizon;
-            if (i == 10) field.milestone = Horse.RunningRoute.Vertical;
-            if (i == 22) field.milestone = Horse.RunningRoute.Shortest;
-            if (i == 27) Fields[i].SetActive(false);
-        }
+        CreateFields();
+        InitMilestone();
+        RemoveDulication();
     }
+
+    private void CreateFields()
+    {
+        yootFieldFactory.radius = radius;
+        yootFieldFactory.parent = transform;
+        fieldObjs = yootFieldFactory.CreateYootFields();
+    }
+
+    private void InitMilestone()
+    {
+        fieldObjs[5].GetComponent<YootField>().milestone = HorseRoute.Type.Autumn;
+        fieldObjs[10].GetComponent<YootField>().milestone = HorseRoute.Type.Spring;
+        fieldObjs[22].GetComponent<YootField>().milestone = HorseRoute.Type.Winter;
+    }
+
+    private void RemoveDulication()
+    {
+        fieldObjs[27].SetActive(false);
+    }    
 
     public static YootField GetStartPoint()
     {
-        return Fields[0].GetComponent<YootField>();
+        return fieldObjs[0].GetComponent<YootField>();
     }
 
     public static YootField GetDestination(Horse horse, YootGame.YootCount yootCount)
     {
         YootField source = horse.currentLocation;
-        int[] route = HorseRoute.routes[(int)horse.CurrentRoute];
-        int destIndex = HorseRoute.GetDestIndex(route, source.Id, (int)yootCount);
+        int[] route = HorseRoute.routes[(int)horse.routeType];
+        int destIndex = HorseRoute.GetDestIndex(route, source.id, (int)yootCount);
         int destFieldID = route[destIndex];
-        GameObject destinationObject = Fields[destFieldID];
+        GameObject destinationObject = fieldObjs[destFieldID];
         return destinationObject.GetComponent<YootField>();
     }
 }

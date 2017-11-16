@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class YootField : MonoBehaviour {
     public int id;
-    public List<Horse> horses;
-    public Material normal;
-    public Material waitSelect;
-    public Horse.RunningRoute milestone;
+    public List<Horse> guests;
+    public HorseRoute.Type milestone;
     public BattleManager battleManager;
     private bool destFlag;
 
@@ -21,32 +18,6 @@ public class YootField : MonoBehaviour {
                 turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
             }
             return turnManager;
-        }
-    }
-
-    public int Id
-    {
-        get
-        {
-            return id;
-        }
-
-        set
-        {
-            id = value;
-        }
-    }
-
-    public List<Horse> Horses
-    {
-        get
-        {
-            return horses;
-        }
-
-        set
-        {
-            horses = value;
         }
     }
 
@@ -66,27 +37,22 @@ public class YootField : MonoBehaviour {
 
     void Start()
     {
-        Horses = new List<Horse>();
-    }
-
-    public void Init(int id)
-    {
-        Id = id;
+        guests = new List<Horse>();
     }
 
     public void Arrive(Horse horse)
     {
-        horses.Add(horse);
+        guests.Add(horse);
         horse.transform.position = transform.position;
         horse.currentLocation = this;
-        if (milestone != Horse.RunningRoute.Outside)
-            horse.CurrentRoute = milestone;
+        if (milestone != HorseRoute.Type.Summer)
+            horse.routeType = milestone;
         if (IsEncounter())
         {
-            if(horses[0].tag == horses[1].tag)
+            if(guests[0].tag == guests[1].tag)
             {
-                horses[0].State = Horse.RaceState.Together;
-                horses[1].State = Horse.RaceState.Together;
+                guests[0].currentState = Horse.RaceState.Together;
+                guests[1].currentState = Horse.RaceState.Together;
             }
             else
             {
@@ -103,7 +69,7 @@ public class YootField : MonoBehaviour {
             looserTag = "EnemyHorse";
         else
             looserTag = "AllyHorse";
-        foreach (Horse horse in horses)
+        foreach (Horse horse in guests)
         {
             if (horse.tag == looserTag)
                 horse.Defeat();
@@ -112,17 +78,17 @@ public class YootField : MonoBehaviour {
 
     private bool IsEncounter()
     {
-        return horses.Count > 1;
+        return guests.Count > 1;
     }
 
     public void Leave(Horse horse)
     {
-        horses.Remove(horse);
+        guests.Remove(horse);
     }
 
     public void Selected()
     {
-        TurnManager.FieldIsSelected(this);
+        TurnManager.SelectField(this);
     }
 
     public void Highlight(bool flag)

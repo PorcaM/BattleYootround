@@ -4,67 +4,28 @@ using UnityEngine;
 
 public class Horse : MonoBehaviour {
     public enum RaceState { Ready, Running, Finished, Together };
-    public enum RunningRoute { Outside, Horizon, Vertical, Shortest };
     public TurnManager turnManager;
     public YootField currentLocation;
-    public Transform button;
-    public YootPlayer yootPlayer;
+    public YootPlayer owner;
 
-    private RaceState state;
+    public RaceState currentState;
+    public HorseRoute.Type routeType;
     
-    public RunningRoute currentRoute;
-
-    public RaceState State
-    {
-        get
-        {
-            return state;
-        }
-
-        set
-        {
-            state = value;
-        }
-    }
-
-    public TurnManager TurnManager
-    {
-        get
-        {
-            if (turnManager == null)
-            {
-                turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
-            }
-            return turnManager;
-        }
-    }
-
-    public RunningRoute CurrentRoute
-    {
-        get
-        {
-            return currentRoute;
-        }
-
-        set
-        {
-            currentRoute = value;
-        }
-    }
-
-    public void Init()
-    {
-        State = RaceState.Ready;
-    }
-
     public void StartRunning()
     {
-        if (State == RaceState.Ready)
-        {
-            State = RaceState.Running;
-            CurrentRoute = RunningRoute.Outside;
-            YootBoard.GetStartPoint().Arrive(this);
-        }
+        if (IsReady())
+            StandOnStartline();
+    }
+
+    private bool IsReady()
+    {
+        return currentState == RaceState.Ready;
+    }
+
+    private void StandOnStartline()
+    {
+        currentState = RaceState.Running;
+        YootBoard.GetStartPoint().Arrive(this);
     }
 
     public void Move(YootGame.YootCount yootCount)
@@ -73,8 +34,8 @@ public class Horse : MonoBehaviour {
         currentLocation.Leave(this);
         if (destination == YootBoard.GetStartPoint())
         {
-            State = RaceState.Finished;
-            yootPlayer.numFinished++;
+            currentState = RaceState.Finished;
+            // owner.numFinished++;
             Destroy(gameObject);
         }
         else
@@ -83,18 +44,17 @@ public class Horse : MonoBehaviour {
 
     public void Defeat()
     {
-        if (yootPlayer)
+        if (owner)
         {
-            yootPlayer.createdHorses.Remove(gameObject);
-            yootPlayer.numRunnerText.text = yootPlayer.createdHorses.Count.ToString();
+            // owner.createdHorses.Remove(gameObject);
+            // owner.numRunnerText.text = owner.createdHorses.Count.ToString();
         }
         Destroy(gameObject);
     }
 
     public void Selected()
     {
-        if (state != RaceState.Running)
-            return;
-        TurnManager.HorseIsSelected(this);
+        if (currentState == RaceState.Running)
+            owner.turnManager.SelectHorse(this);
     }
 }
