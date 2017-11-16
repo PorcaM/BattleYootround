@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UnitInstance : MonoBehaviour {
     public UnitHealthBar unitHealthBar;
+    public string enemyTag;
     
     public Unit.ClassType unitClass;
     public int id;
@@ -16,7 +17,7 @@ public class UnitInstance : MonoBehaviour {
     public float attackSpeed;
 
     public const float attackCooltime = 1.0f;
-    public float attackCooldown;
+    private float attackCooldown;
 
     public float CurrentHP
     {
@@ -33,6 +34,21 @@ public class UnitInstance : MonoBehaviour {
         }
     }
 
+    public float AttackCooldown
+    {
+        get
+        {
+            return attackCooldown;
+        }
+
+        set
+        {
+            attackCooldown = value;
+            if (attackCooldown < 0.0f)
+                attackCooldown = 0.0f;
+        }
+    }
+
     public void Init(Unit unit)
     {
         unitClass = unit.UnitClass;
@@ -43,6 +59,17 @@ public class UnitInstance : MonoBehaviour {
         CurrentHP = maxHp = (float)unit.Hp;
         movementSpeed = (float)unit.MovementSpeed;
         attackSpeed = (float)unit.AttackSpeed;
+        SetEnemyTag();
+    }
+
+    private void SetEnemyTag()
+    {
+        if (tag == "AllyUnit")
+            enemyTag = "EnemyUnit";
+        else if (tag == "EnemyUnit")
+            enemyTag = "AllyUnit";
+        else
+            Debug.Log("Invalid unit tag");
     }
 
     public void UnderAttack(float damage)
@@ -67,87 +94,85 @@ public class UnitInstance : MonoBehaviour {
     void Update()
     {
         DoBattle();
+        UpdateAttackCooltime();
     }
 
     private void DoBattle()
     {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag(enemyTag);
+        if (IsEnemyExist(objs))
+        {
+            GameObject closestObject = FindClosestObject(objs);
+            float distance = Vector3.Distance(closestObject.transform.position, transform.position);
+            if (IsInAttackRange(distance))
+                MoveTo(closestObject.transform);
+            else
+                Attack(closestObject.GetComponent<UnitInstance>());
+        }
+    }
+
+    private bool IsEnemyExist(GameObject[] objs)
+    {
+        return objs.Length > 0;
+    }
+
+    private GameObject FindClosestObject(GameObject[] objs)
+    {
+        float minDistance = Vector3.Distance(objs[0].transform.position, transform.position);
+        GameObject closestObject = objs[0];
+        foreach(GameObject obj in objs)
+        {
+            float distance = Vector3.Distance(obj.transform.position, transform.position);
+            if (distance < minDistance)
+            {
+                closestObject = obj;
+                minDistance = distance;
+            }
+        }
+        return closestObject;
+    }
+
+    private bool IsInAttackRange(float distance)
+    {
+        return distance > range * 2;
+    }
         
-        UnitInstance[] Enemies = FindEnemies();
-        UnitInstance closestEnemy = FindClosestUnit(Enemies);
-        float distance = CalcDistance(closestEnemy);
-        if (distance > range)
-            Move(closestEnemy);
-        else
-            Attack(closestEnemy);
+    private void MoveTo(Transform target)
+    {
+        RotateTo(target);
+        MoveForward();
     }
 
-    private UnitInstance[] FindEnemies()
+    private void RotateTo(Transform target)
     {
-        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag(GetEnemyTag());
-        UnitInstance[] enemies = new UnitInstance[enemyObjects.Length];
-        for (int i = 0; i < enemyObjects.Length; i++)
-        {
-            enemies[i] = enemyObjects[i].GetComponent<UnitInstance>();
-        }
-        return enemies;
-    }
-    
-    private string GetEnemyTag()
-    {
-        if (tag == "AllyUnit")
-        {
-            return "EnemyUnit";
-        }
-        else if (tag == "EnemyUnit")
-        {
-            return "AllyUnit";
-        }
-        else
-        {
-            Debug.Log("Invalid unit tag");
-            return "";
-        }
+        Vector3 targetDir = target.position - transform.position;
+        float step = movementSpeed * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
+        transform.rotation = Quaternion.LookRotation(newDir);
     }
 
-    private UnitInstance FindClosestUnit(UnitInstance[] units)
+    private void MoveForward()
     {
-        if (units.Length == 0)
-            return null;
-        UnitInstance closestUnit = units[0];
-        float closestDistance = CalcDistance(units[0]);
-        foreach(UnitInstance unit in units)
-        {
-            float distance = CalcDistance(unit);
-            if (closestDistance > distance)
-                closestUnit = unit;
-        }
-        return closestUnit;
+        transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
+
     }
 
-    private float CalcDistance(UnitInstance targetUnit)
+    private void Attack(UnitInstance target)
     {
-        Vector3 myPosition = transform.position;
-        Vector3 targetPosition = targetUnit.transform.position;
-        return Vector3.Distance(targetPosition, myPosition);
-    }
-    
-    private void Move(UnitInstance targetUnit)
-    {
-        Vector3 direction = targetUnit.transform.position - transform.position;
-        direction.Normalize();
-        transform.Translate(direction * Time.deltaTime * movementSpeed);
-    }
-
-    private void Attack(UnitInstance targetUnit)
-    {
-        if (attackCooldown > 0.0f)
+        if (IsAttackable())
         {
-            attackCooldown -= Time.deltaTime * attackSpeed;
-        }
-        else
-        {
-            targetUnit.UnderAttack(damage);
+            target.UnderAttack(damage);
             attackCooldown = attackCooltime;
         }
+    }
+
+    private bool IsAttackable()
+    {
+        return AttackCooldown <= 0.0f;
+    }
+
+    private void UpdateAttackCooltime()
+    {
+        AttackCooldown -= Time.deltaTime * attackSpeed;
     }
 }

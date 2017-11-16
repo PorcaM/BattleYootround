@@ -6,6 +6,7 @@ public class UnitInstanceFactory : MonoBehaviour {
     public string unitTag;
     public Equipment equipment;
     public Transform spawnPoint;
+    public Transform LookatPoint;
     public Transform UnitParent;
     public UnitModels unitModels;
 
@@ -30,9 +31,9 @@ public class UnitInstanceFactory : MonoBehaviour {
     {
         Vector3 position = GetPosition(num, unit.Id); // TODO 위치로 바꿔야 함
         GameObject gameObject = CreateObject(unitObject, position);
+        gameObject.tag = unitTag;
         gameObject.AddComponent<UnitInstance>().Init(unit);
         // gameObject.AddComponent<UnitHealthBar>();
-        gameObject.tag = unitTag;
     }
 
     private Vector3 GetPosition(int num, int row)
@@ -44,7 +45,15 @@ public class UnitInstanceFactory : MonoBehaviour {
 
     private GameObject CreateObject( GameObject unitObject, Vector3 position)
     {
-        GameObject gameObject = Instantiate(unitObject, position, Quaternion.identity, UnitParent) as GameObject;
+        Quaternion rotation = GetRotationLookAt(LookatPoint.position, position);
+        GameObject gameObject = Instantiate(unitObject, position, rotation, UnitParent) as GameObject;
         return gameObject;
+    }
+
+    private Quaternion GetRotationLookAt(Vector3 point, Vector3 position)
+    {
+        Vector3 relativePos = point - position;
+        Quaternion rotation = Quaternion.LookRotation(relativePos);
+        return rotation;
     }
 }
