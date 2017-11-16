@@ -20,7 +20,7 @@ public class BattleManager : MonoBehaviour {
     public void Init()
     {
         gameObject.SetActive(true);
-        
+        CreateUnits();
         winner = -1;
         mainCamera.transform.position = new Vector3(transform.position.x, 30, transform.position.z);
         YootUI.SetActive(false);

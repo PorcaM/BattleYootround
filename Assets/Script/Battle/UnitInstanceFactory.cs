@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitInstanceFactory : MonoBehaviour {
+    public string unitTag;
     public Equipment equipment;
     public Transform spawnPoint;
     public Transform UnitParent;
-    public const int instancePerUnit = 3;
+    public UnitModels unitModels;
 
-    public string unitTag;
-    
-    public GameObject[] units = new GameObject[7];
+    public const int instancePerUnit = 3;
 
     public void CreateUnits()
     {
@@ -21,8 +20,8 @@ public class UnitInstanceFactory : MonoBehaviour {
         {
             for (int i = 0; i < instancePerUnit; i++)
             {
-                GameObject unitObject = units[unit.Id];
-                CreateUnit(unit, unitObject, i);
+                GameObject unitModel = unitModels.models[unit.Id];
+                CreateUnit(unit, unitModel, i);
             }
         }
     }
