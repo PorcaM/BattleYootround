@@ -20,12 +20,19 @@ public class BattleManager : MonoBehaviour {
     public void Init()
     {
         gameObject.SetActive(true);
-        allyUnitInstanceFactory.CreateUnits("AllyUnit");
-        enemyUnitInstanceFactory.CreateUnits("EnemyUnit");
+        
         winner = -1;
         mainCamera.transform.position = new Vector3(transform.position.x, 30, transform.position.z);
         YootUI.SetActive(false);
         BattleUI.SetActive(true);
+    }
+
+    private void CreateUnits()
+    {
+        allyUnitInstanceFactory.unitTag = "AllyUnit";
+        allyUnitInstanceFactory.CreateUnits();
+        enemyUnitInstanceFactory.unitTag = "EnemyUnit";
+        enemyUnitInstanceFactory.CreateUnits();
     }
 
     void Update()
