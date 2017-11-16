@@ -90,8 +90,23 @@ public class YootField : MonoBehaviour {
             }
             else
             {
+                battleManager.caller = this;
                 battleManager.Init();
             }
+        }
+    }
+
+    public void HandleBattlResult(int winner)
+    {
+        string looserTag;
+        if (winner == 0)
+            looserTag = "EnemyHorse";
+        else
+            looserTag = "AllyHorse";
+        foreach (Horse horse in horses)
+        {
+            if (horse.tag == looserTag)
+                horse.Defeat();
         }
     }
 

@@ -13,6 +13,7 @@ public class TurnManager : MonoBehaviour
     private Horse selectedHorse;
 
     private YootField highlitedField;
+    public YootPlayer yootPlayer;
 
     public ProcessState CurrentState
     {
@@ -117,11 +118,8 @@ public class TurnManager : MonoBehaviour
 
     private void MoveHorse()
     {
-        //foreach (Horse horse in SelectedHorse.currentLocation.horses)
-        //{
-        //    horse.Move(yootCount);
-        //}
         SelectedHorse.Move(yootCount);
+        yootPlayer.JudgeGameResult();
     }
 
     private void EndTurn()

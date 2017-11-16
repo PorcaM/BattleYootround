@@ -39,6 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4664525031640128}
   - component: {fileID: 114532425574531854}
+  - component: {fileID: 114957621809540828}
   m_Layer: 0
   m_Name: Temp Horse
   m_TagString: AllyHorse
@@ -155,3 +156,15 @@ MonoBehaviour:
   currentLocation: {fileID: 0}
   button: {fileID: 0}
   currentRoute: 0
+--- !u!114 &114957621809540828
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1835649989681892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 314e92fd04645094286697520fe2b2e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destinations: []

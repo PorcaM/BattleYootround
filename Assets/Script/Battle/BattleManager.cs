@@ -12,6 +12,8 @@ public class BattleManager : MonoBehaviour {
     public string AllyUnitTag = "AllyUnit";
     public string EnemyUnitTag = "EnemyUnit";
 
+    public YootField caller;
+
     private Vector3 backupPos;
 
     void Start () {
@@ -65,6 +67,11 @@ public class BattleManager : MonoBehaviour {
         YootUI.SetActive(true);
         BattleUI.SetActive(false);
         gameObject.SetActive(false);
+        Debug.Log(winner);
+        if (caller)
+        {
+            caller.HandleBattlResult(winner);
+        }
     }
 
     private void DestroyUnits()

@@ -6,9 +6,9 @@ public class Horse : MonoBehaviour {
     public enum RaceState { Ready, Running, Finished, Together };
     public enum RunningRoute { Outside, Horizon, Vertical, Shortest };
     public TurnManager turnManager;
-    public YootPlayer yootPlayer;
     public YootField currentLocation;
     public Transform button;
+    public YootPlayer yootPlayer;
 
     private RaceState state;
     
@@ -24,9 +24,6 @@ public class Horse : MonoBehaviour {
         set
         {
             state = value;
-            UpdateStateButton();
-            if (yootPlayer)
-                yootPlayer.JudgeGameResult();
         }
     }
 
@@ -55,18 +52,9 @@ public class Horse : MonoBehaviour {
         }
     }
 
-    private void UpdateStateButton()
-    {
-        if (button)
-        {
-            button.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = state.ToString();
-        }
-    }
-
-    public void Init(YootPlayer yootPlayer)
+    public void Init()
     {
         State = RaceState.Ready;
-        this.yootPlayer = yootPlayer;
     }
 
     public void StartRunning()
@@ -86,10 +74,21 @@ public class Horse : MonoBehaviour {
         if (destination == YootBoard.GetStartPoint())
         {
             State = RaceState.Finished;
-            transform.position = new Vector3(3, 0, -6);
+            yootPlayer.numFinished++;
+            Destroy(gameObject);
         }
         else
             destination.Arrive(this);
+    }
+
+    public void Defeat()
+    {
+        if (yootPlayer)
+        {
+            yootPlayer.createdHorses.Remove(gameObject);
+            yootPlayer.numRunnerText.text = yootPlayer.createdHorses.Count.ToString();
+        }
+        Destroy(gameObject);
     }
 
     public void Selected()

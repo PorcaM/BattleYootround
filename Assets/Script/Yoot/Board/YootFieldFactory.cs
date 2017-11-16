@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YootFieldFactory : MonoBehaviour {
+public class YootFieldFactory : MonoBehaviour
+{
+    public BattleManager battleManager;
     public const int YootFieldCount = 30;
     public const int OutsideCount = 20;
     public const int VerticalCount = 5;
     public const int HorizonCount = 5;
 
-    public static float radius = 4.0f;
+    public float radius = 4.0f;
 
-    public static List<GameObject> CreateYootFields(GameObject fieldPref, Transform parent)
+    public List<GameObject> CreateYootFields(GameObject fieldPref, Transform parent)
     {
         List<GameObject> fields = new List<GameObject>();
         for (int i = 0; i < YootFieldCount; i++)
@@ -25,17 +27,18 @@ public class YootFieldFactory : MonoBehaviour {
             GameObject newObject = Instantiate(fieldPref, pos, Quaternion.identity, parent) as GameObject;
             newObject.GetComponent<YootField>().Id = i;
             newObject.name = "YootField" + i;
+            newObject.GetComponent<YootField>().battleManager = battleManager;
             fields.Add(newObject);
         }
         return fields;
     }
 
-    private static bool IsOutside(int index)
+    private bool IsOutside(int index)
     {
         return index < OutsideCount;
     }
 
-    private static Vector3 GetOutsidePos(int index)
+    private Vector3 GetOutsidePos(int index)
     {
         const float startAngle = 270.0f;
         const float intervalAngle = 18.0f;
@@ -45,12 +48,12 @@ public class YootFieldFactory : MonoBehaviour {
         return new Vector3(x, 0, z);
     }
 
-    private static bool IsVertical(int index)
+    private bool IsVertical(int index)
     {
         return index < (OutsideCount + VerticalCount);
     }
 
-    private static Vector3 GetVerticalPos(int index)
+    private Vector3 GetVerticalPos(int index)
     {
         int innerIndex = index - OutsideCount;
         float interval = radius * 2 / (VerticalCount + 1);
@@ -58,7 +61,7 @@ public class YootFieldFactory : MonoBehaviour {
         return new Vector3(x, 0, 0);
     }
 
-    private static Vector3 GetHorizonPos(int index)
+    private Vector3 GetHorizonPos(int index)
     {
         int innerIndex = index - OutsideCount - VerticalCount;
         float interval = radius * 2 / (HorizonCount + 1);

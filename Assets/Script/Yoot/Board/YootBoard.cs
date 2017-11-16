@@ -6,6 +6,7 @@ public class YootBoard : MonoBehaviour
 {
     public GameObject fieldPref;
     public static List<GameObject> fieldObjects;
+    public YootFieldFactory yootFieldFactory;
 
     public static List<GameObject> Fields
     {
@@ -22,8 +23,8 @@ public class YootBoard : MonoBehaviour
 
     void Start()
     {
-        YootFieldFactory.radius = 4.0f;
-        Fields = YootFieldFactory.CreateYootFields(fieldPref, transform);
+        yootFieldFactory.radius = 4.0f;
+        Fields = yootFieldFactory.CreateYootFields(fieldPref, transform);
         Init();
     }
 
