@@ -15,6 +15,7 @@ public class DragableObject : MonoBehaviour
 
     void OnMouseDown()
     {
+        GetComponent<Horse>().Selected();
         distance = Camera.main.transform.position.y;
         backupPosition = transform.position;
         AddDestinations();

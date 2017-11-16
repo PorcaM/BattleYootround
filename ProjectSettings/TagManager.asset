@@ -11,6 +11,7 @@ TagManager:
   - Drawing
   - Test
   - YootField
+  - DeadUnit
   layers:
   - Default
   - TransparentFX

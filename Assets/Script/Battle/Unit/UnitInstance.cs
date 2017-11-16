@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitInstance : MonoBehaviour {
     public UnitHealthBar unitHealthBar;
     public UnitAnimation unitAnimation;
+    public CharacterController characterController;
     public string enemyTag;
     public enum State { Alive, Dead }
     public State currentState;
@@ -110,6 +111,7 @@ public class UnitInstance : MonoBehaviour {
         currentState = State.Dead;
         tag = "DeadUnit";
         unitAnimation.SetAction(UnitAnimation.Actions.Die);
+        Destroy(this, 1.5f);
     }
 
     void Update()
@@ -174,7 +176,7 @@ public class UnitInstance : MonoBehaviour {
 
     private void MoveForward()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
+        transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed / 2);
         unitAnimation.SetAction(UnitAnimation.Actions.Move);
     }
 
