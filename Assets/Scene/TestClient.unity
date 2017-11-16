@@ -1156,7 +1156,7 @@ MonoBehaviour:
   m_NetworkPort: 7777
   m_ServerBindToIP: 0
   m_ServerBindAddress: 
-  m_NetworkAddress: localhost
+  m_NetworkAddress: 165.246.42.24
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
   m_ScriptCRCCheck: 1
@@ -1224,7 +1224,7 @@ MonoBehaviour:
   isNetworkActive: 0
   matchMaker: {fileID: 0}
   discovery: {fileID: 1661592148}
-  IdField: {fileID: 643517122}
+  IdField: {fileID: 1219641488}
   ServerMsg: {fileID: 183253686}
 --- !u!114 &1845426909
 MonoBehaviour:
@@ -1290,7 +1290,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1845426907}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 240, y: 427, z: 0}
+  m_LocalPosition: {x: 338.5, y: 308.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1908230545}

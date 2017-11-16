@@ -38,16 +38,16 @@ public class BYClient : NetworkManager {
         discovery.StartAsClient();
 
         myClient = new NetworkClient();
-        myClient.Connect("127.0.0.1", 4444);
+        myClient.Connect("165.246.42.24", 4444);
         myClient.RegisterHandler(MyMsgType.CustomMsgType, OnMessage);
     }
     public new void SendMessage(string str)
     {
         MyMessage msg = new MyMessage();
         msg.str = str;
-        //Debug.Log(msg.str);
+        Debug.Log(msg.str);
         msg.str = IdField.GetComponent<UnityEngine.UI.Text>().text;
-        //Debug.Log(msg.str);
+        Debug.Log(msg.str);
 
         myClient.Send(MyMsgType.CustomMsgType, msg);
 

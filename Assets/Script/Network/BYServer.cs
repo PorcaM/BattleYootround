@@ -36,8 +36,11 @@ public class BYServer : NetworkManager
     }
     public void OnMessage(NetworkMessage netMsg)
     {
+        Debug.Log("On Message");
+
         MyMessage msg = netMsg.ReadMessage<MyMessage>();
         NetworkServer.SendToAll(MyMsgType.CustomMsgType, msg);
+
         ClientMsg.GetComponent<UnityEngine.UI.Text>().text = msg.str;
         Debug.Log("Message Received & Send Complete: " + msg.str);
 
@@ -63,13 +66,13 @@ public class BYServer : NetworkManager
         NetworkServer.Listen(4444);
         NetworkServer.RegisterHandler(MsgType.Connect, OnConnected);
         NetworkServer.RegisterHandler(MsgType.Error, OnError);
+        NetworkServer.RegisterHandler(MyMsgType.CustomMsgType, OnMessage);
     }
     
     // Use this for initialization
     void Start()
     {
 
-        NetworkServer.RegisterHandler(MyMsgType.CustomMsgType, OnMessage);
     }
 
     // Update is called once per frame
