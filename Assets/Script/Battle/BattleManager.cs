@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour {
         winner = -1;
         CreateUnits();
         backupPos = mainCamera.transform.position;
-        mainCamera.transform.position = new Vector3(transform.position.x, 30, transform.position.z);
+        mainCamera.transform.position = new Vector3(transform.position.x, 10, transform.position.z);
         YootUI.SetActive(false);
         BattleUI.SetActive(true);
     }

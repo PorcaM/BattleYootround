@@ -134,7 +134,7 @@ public class UnitInstance : MonoBehaviour {
     private bool IsInAttackRange(Vector3 point)
     {
         float distance = Vector3.Distance(point, transform.position);
-        return distance < range * 2;
+        return distance < range;
     }
         
     private void MoveTo(Transform target)
