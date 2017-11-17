@@ -27,9 +27,9 @@ public class BYClient : MonoBehaviour {
     public void sendMessage()
     {
         MyMessage msg = new MyMessage();
+
         msg.str = IdField.GetComponent<UnityEngine.UI.Text>().text;
-        debugMessage1 = msg.str;
-        Debug.Log(debugMessage1);
+        Debug.Log(msg.str);
 
         myClient.Send(MyMsgType.CustomMsgType, msg);
 

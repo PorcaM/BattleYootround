@@ -28,8 +28,11 @@ public class BYServer : MonoBehaviour
     }
     public void OnMessage(NetworkMessage netMsg)
     {
+        Debug.Log("On Message");
+
         MyMessage msg = netMsg.ReadMessage<MyMessage>();
         NetworkServer.SendToAll(MyMsgType.CustomMsgType, msg);
+
         ClientMsg.GetComponent<UnityEngine.UI.Text>().text = msg.str;
         Debug.Log("Message Received & Send Complete: " + msg.str);
 
