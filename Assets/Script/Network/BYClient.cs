@@ -3,7 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class BYClient : NetworkManager {
+public class BYClient : MonoBehaviour {
+    NetworkClient myClient;
+    int serverPort = 7000;
+    string serverIP = "165.246.42.24";
+
+    public delegate void OnNetworkActivity();
+    public event OnNetworkActivity OnConnection;
+
+    public UnityEngine.UI.Text debugText1;
+    private string debugMessage1 = "debug1";
+    public GameObject IdField;
+    public GameObject ServerMsg;
+
     public class MyMessage : MessageBase
     {
         public string str;
@@ -12,42 +24,12 @@ public class BYClient : NetworkManager {
     {
         public static short CustomMsgType = MsgType.Highest + 1;
     }
-
-    NetworkClient myClient;
-    public NetworkDiscovery discovery;
-    public GameObject IdField;
-    public GameObject ServerMsg;
-
-    // MessageManager쪽 오버라이드
-    public override void OnStartClient(NetworkClient client)
-    {
-        Debug.Log("OnStartClient()");
-    }
-    public override void OnStopClient()
-    {
-        Debug.Log("OnStopClient()");
-    }
-
-
-    // 클라이언트
-    public void SetupClient()
-    {
-        Debug.Log("SetupClient");
-        StartClient();
-        discovery.Initialize();
-        discovery.StartAsClient();
-
-        myClient = new NetworkClient();
-        myClient.Connect("127.0.0.1", 4444);
-        myClient.RegisterHandler(MyMsgType.CustomMsgType, OnMessage);
-    }
-    public new void SendMessage(string str)
+    public void sendMessage()
     {
         MyMessage msg = new MyMessage();
-        msg.str = str;
-        //Debug.Log(msg.str);
         msg.str = IdField.GetComponent<UnityEngine.UI.Text>().text;
-        //Debug.Log(msg.str);
+        debugMessage1 = msg.str;
+        Debug.Log(debugMessage1);
 
         myClient.Send(MyMsgType.CustomMsgType, msg);
 
@@ -58,19 +40,41 @@ public class BYClient : NetworkManager {
         ServerMsg.GetComponent<UnityEngine.UI.Text>().text = msg.str;
         Debug.Log("Message Received: " + msg.str);
     }
+
     // Use this for initialization
-    void Start() {
-        
+    void Start()
+    {
+        myClient = new NetworkClient();
     }
 
+    public void ConnectToServer()
+    {
+        debugMessage1 = "Connect To Server() called";
+        Debug.Log(debugMessage1);
+        myClient.RegisterHandler(MsgType.Connect, OnConnect);
+        myClient.Connect(serverIP, serverPort);
+        myClient.RegisterHandler(MyMsgType.CustomMsgType, OnMessage);
+    }
+    public void OnConnect(NetworkMessage msg)
+    {
+        debugMessage1 = "Connected to server";
+        Debug.Log(debugMessage1);
+        if (OnConnection != null)
+        {
+            debugMessage1 = "OnConnection called";
+            Debug.Log(debugMessage1);
+            OnConnection();
+        }
+    }
+
+    private void UpdateDebug1Text(string message)
+    {
+        debugText1.text = message;
+        debugText1.fontSize = 20;
+    }
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    public void Quit()
-    {
-        Application.Quit();
+        UpdateDebug1Text(debugMessage1);
     }
 }
