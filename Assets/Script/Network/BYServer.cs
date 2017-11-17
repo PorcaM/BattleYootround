@@ -17,23 +17,36 @@ public class BYServer : MonoBehaviour
     public NetworkDiscovery discovery;
     public GameObject ClientMsg;
 
+    public GameObject cMsg1;
+    public GameObject cMsg2;
+
     public UnityEngine.UI.Text debugText1;
-    private string debugMessage1 = "debug1";
+    private string debugMessage1 = "debugMessage";
+
+    int NumClient = 0;
 
     // 서버 메세지 콜백
     public void OnConnected(NetworkMessage netMsg)
     {
-        debugMessage1 = "Connected to server";
+        NumClient++;
+        debugMessage1 = string.Format("Connected to client #" + NumClient);
         Debug.Log(debugMessage1);
+        foreach (NetworkConnection nc in  NetworkServer.connections)
+        {
+            if (nc == null)
+                continue;
+
+            Debug.Log(nc.address);
+            Debug.Log(nc.connectionId);
+        }
+        Debug.Log("------------------------------------------");
     }
     public void OnMessage(NetworkMessage netMsg)
     {
-        Debug.Log("On Message");
-
         MyMessage msg = netMsg.ReadMessage<MyMessage>();
         NetworkServer.SendToAll(MyMsgType.CustomMsgType, msg);
 
-        ClientMsg.GetComponent<UnityEngine.UI.Text>().text = msg.str;
+        ClientMsg.GetComponent<UnityEngine.UI.Text>().text = string.Format("Client: " + msg.str);
         Debug.Log("Message Received & Send Complete: " + msg.str);
 
         int len = NetworkServer.connections.Count;
@@ -53,8 +66,21 @@ public class BYServer : MonoBehaviour
     int minPort = 7000;
     int maxPort = 7000;
     int defaultPort = 7000;
-    //string serverIP = "127.0.0.1";
 
+    private void SendClient(int connectionId)
+    {
+        MyMessage Msg = new MyMessage();
+        Msg.str = string.Format(connectionId + " was send by server");
+        NetworkServer.SendToClient(connectionId, MyMsgType.CustomMsgType, Msg);
+    }
+    public void SendClient1()
+    {
+        SendClient(1);
+    }
+    public void SendClient2()
+    {
+        SendClient(2);
+    }
     //Creates a server then returns the port the server is created with. Returns -1 if server is not created
     int createServer()
     {
