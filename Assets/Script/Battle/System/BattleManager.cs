@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
     static public int winnerID;
-    public GameObject YootUI;
-    public GameObject BattleUI;
     public UnitInstanceFactory allyUnitInstanceFactory;
     public UnitInstanceFactory enemyUnitInstanceFactory;
     public string AllyUnitTag = "AllyUnit";
@@ -14,6 +12,7 @@ public class BattleManager : MonoBehaviour {
     public YootField caller;
 
     public CameraHandler cameraHandler;
+    public UIHandler uiHandler;
 
     public void Init()
     {
@@ -32,8 +31,15 @@ public class BattleManager : MonoBehaviour {
         CreateUnits();
         cameraHandler.Backup();
         cameraHandler.GoBattleField();
-        YootUI.SetActive(false);
-        BattleUI.SetActive(true);
+        uiHandler.SetUIActive(true);
+    }
+
+    public void CleanupBattle()
+    {
+        uiHandler.SetUIActive(false);
+        cameraHandler.Recover();
+        DestroyUnits();
+        gameObject.SetActive(false);
     }
 
     private void CreateUnits()
@@ -45,6 +51,11 @@ public class BattleManager : MonoBehaviour {
     }
 
     void Update()
+    {
+        CheckBattleOver();
+    }
+
+    public void CheckBattleOver()
     {
         if (IsBattleOver())
             FinishBattle();
@@ -62,16 +73,13 @@ public class BattleManager : MonoBehaviour {
             winnerID = 0;
             return true;
         }
-        else return false;
+        else
+            return false;
     }
 
     private void FinishBattle()
     {
-        DestroyUnits();
-        cameraHandler.Recover();
-        YootUI.SetActive(true);
-        BattleUI.SetActive(false);
-        gameObject.SetActive(false);
+        CleanupBattle();
         Debug.Log("Winner: " + winnerID);
         if (caller)
         {

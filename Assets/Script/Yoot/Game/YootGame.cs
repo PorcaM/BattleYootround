@@ -11,6 +11,7 @@ public class YootGame : MonoBehaviour {
     public YootBoard yootBoard;
     public YootPlayer yootPlayer;
     public BattleManager battleManager;
+    public Equipment equipment;
 
     void Awake()
     {
@@ -29,6 +30,8 @@ public class YootGame : MonoBehaviour {
         yootBoard.Init();
         Debug.Log(Time.time);
         yootPlayer.Init();
+        equipment.TempInit();
+        Debug.Log(equipment.ToString());
     }
 
     public void TestEnemyHorse()

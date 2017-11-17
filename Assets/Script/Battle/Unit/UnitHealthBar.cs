@@ -46,8 +46,10 @@ public class UnitHealthBar : MonoBehaviour {
         float height = 5;
         if (percentage != 0.0f)
         {
-            EditorGUI.DrawRect(new Rect(left, top, width, height), Color.red);
-            EditorGUI.DrawRect(new Rect(left, top, (width * percentage), height), Color.green);
+            float x = left - width / 2;
+            float y = top - 10;
+            EditorGUI.DrawRect(new Rect(x, y, width, height), Color.red);
+            EditorGUI.DrawRect(new Rect(x, y, (width * percentage), height), Color.green);
         }
     }
 }

@@ -14,9 +14,6 @@ public class UnitInstanceFactory : MonoBehaviour {
 
     public void CreateUnits()
     {
-        equipment.TempInit();
-        Debug.Log(equipment.ToString());
-        
         foreach (Unit unit in equipment.deck.Units)
         {
             for (int i = 0; i < instancePerUnit; i++)
@@ -27,15 +24,16 @@ public class UnitInstanceFactory : MonoBehaviour {
         }
     }
 
-    private void CreateUnit(Unit unit, GameObject unitObject, int num)
+    private void CreateUnit(Unit unit, GameObject unitModel, int num)
     {
         Vector3 position = GetPosition(num, unit.Id); // TODO 위치로 바꿔야 함
-        GameObject gameObject = CreateObject(unitObject, position);
-        gameObject.tag = unitTag;        
+        GameObject gameObject = CreateObject(unitModel, position);
+        gameObject.tag = unitTag;
         UnitInstance unitInstance = gameObject.AddComponent<UnitInstance>();
         unitInstance.unitAnimation = gameObject.AddComponent<UnitAnimation>();
         unitInstance.unitHealthBar = gameObject.AddComponent<UnitHealthBar>();
         unitInstance.Init(unit);
+        unitInstance.name = unit.UnitClass.ToString() + num;
     }
 
     private Vector3 GetPosition(int num, int row)

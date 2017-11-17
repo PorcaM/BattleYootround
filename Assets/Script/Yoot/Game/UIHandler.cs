@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UIHandler : MonoBehaviour {
-    public YootPlayer owner;
-    public GameObject UIPannel;
-    public GameObject horseState;
+    public GameObject myUI;
+    public List<GameObject> others;
 
-    public void AddStateText()
+    void Start()
     {
-
+        others = new List<GameObject>();
     }
 
-    public void UpdateStateText()
+    public void SetUIActive(bool flag)
     {
-
+        myUI.SetActive(flag);
+        foreach (GameObject ui in others)
+            myUI.SetActive(!flag);
     }
 }
