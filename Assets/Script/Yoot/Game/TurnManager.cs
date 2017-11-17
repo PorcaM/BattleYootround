@@ -64,7 +64,6 @@ public class TurnManager : MonoBehaviour
     private void MoveHorse()
     {
         selectedHorse.Move(yootCount);
-        owner.JudgeGameResult();
     }
 
     private void EndTurn()

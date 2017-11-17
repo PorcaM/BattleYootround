@@ -30,8 +30,11 @@ public class YootGame : MonoBehaviour {
         yootBoard.Init();
         Debug.Log(Time.time);
         yootPlayer.Init();
+        UnitHealthBar.Init();
+
         equipment.TempInit();
         Debug.Log(equipment.ToString());
+
     }
 
     public void TestEnemyHorse()

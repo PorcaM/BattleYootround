@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class UnitHealthBar : MonoBehaviour {
     public float currentHealth;
     public float maxHealth;
     public Vector3 screenPos;
     public float percentage;
+
+    public static Texture2D green;
+    public static Texture2D red;
 
     public float MaxHealth
     {
@@ -36,9 +38,21 @@ public class UnitHealthBar : MonoBehaviour {
         }
     }
 
+    public static void Init()
+    {
+        green = new Texture2D(1, 1);
+        green.SetPixel(0, 0, Color.green);
+        green.wrapMode = TextureWrapMode.Repeat;
+        green.Apply();
+
+        red = new Texture2D(1, 1);
+        red.SetPixel(0, 0, Color.red);
+        red.wrapMode = TextureWrapMode.Repeat;
+        red.Apply();
+    }
+
     void OnGUI()
     {
-        //Gets coordinate our object on screen
         screenPos = Camera.main.WorldToScreenPoint(transform.position);
         float top = Screen.height - screenPos.y;
         float left = screenPos.x;
@@ -48,8 +62,8 @@ public class UnitHealthBar : MonoBehaviour {
         {
             float x = left - width / 2;
             float y = top - 10;
-            EditorGUI.DrawRect(new Rect(x, y, width, height), Color.red);
-            EditorGUI.DrawRect(new Rect(x, y, (width * percentage), height), Color.green);
+            GUI.DrawTexture(new Rect(x, y, width, height), red);
+            GUI.DrawTexture(new Rect(x, y, (width * percentage), height), green);
         }
     }
 }
