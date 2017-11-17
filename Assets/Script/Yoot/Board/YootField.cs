@@ -51,8 +51,7 @@ public class YootField : MonoBehaviour {
         {
             if(guests[0].tag == guests[1].tag)
             {
-                guests[0].currentState = Horse.RaceState.Together;
-                guests[1].currentState = Horse.RaceState.Together;
+                guests[0].RunTogether(guests[1]);
             }
             else
             {

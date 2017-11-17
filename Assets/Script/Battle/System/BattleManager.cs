@@ -62,7 +62,7 @@ public class BattleManager : MonoBehaviour {
     }
 
     private bool IsBattleOver()
-    {
+    {        
         if (GameObject.FindGameObjectsWithTag(AllyUnitTag).Length == 0)
         {
             winnerID = 1;
@@ -79,6 +79,8 @@ public class BattleManager : MonoBehaviour {
 
     private void FinishBattle()
     {
+        Debug.Log(GameObject.FindGameObjectsWithTag(AllyUnitTag).Length);
+        Debug.Log(GameObject.FindGameObjectsWithTag(EnemyUnitTag).Length);
         CleanupBattle();
         Debug.Log("Winner: " + winnerID);
         if (caller)

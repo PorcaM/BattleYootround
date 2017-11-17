@@ -5,6 +5,7 @@ using UnityEngine;
 public class YootPlayer : MonoBehaviour {
     private const int numHorse = 4;
 
+    public YootGame yootGame;
     public HorseFactory horseFactory;
     public HorseManager horseManager;
     public TurnManager turnManager;
@@ -14,8 +15,7 @@ public class YootPlayer : MonoBehaviour {
 
     public void Init()
     {
-        if (YootBoard.isReady)
-            horseManager.SetupHorses();
+        horseManager.Init();
     }
 
     public void StartNewHorse()
@@ -23,13 +23,7 @@ public class YootPlayer : MonoBehaviour {
         horseManager.StartNewHorse();        
     }
 
-    public void JudgeGameResult()
-    {
-        if (horseManager.IsGameOver())
-            Win();
-    }
-
-    private void Win()
+    public void Win()
     {
         Debug.Log("Player " + playerID + " Win!!");
     }

@@ -7,10 +7,17 @@ public class Horse : MonoBehaviour {
     public TurnManager turnManager;
     public YootField currentLocation;
     public YootPlayer owner;
+    public int id;
     public int weight;
 
     public RaceState currentState;
     public HorseRoute.Type routeType;
+
+    public void Init()
+    {
+        currentLocation = YootBoard.GetStartPoint();
+        weight = 1;
+    }
     
     public void StartRunning()
     {
@@ -36,7 +43,7 @@ public class Horse : MonoBehaviour {
         if (destination == YootBoard.GetStartPoint())
         {
             currentState = RaceState.Finished;
-            // owner.numFinished++;
+            owner.horseManager.FinishRace(this);
             Destroy(gameObject);
         }
         else
@@ -56,5 +63,11 @@ public class Horse : MonoBehaviour {
     public void Selected()
     {
         owner.turnManager.SelectHorse(this);
+    }
+
+    public void RunTogether(Horse partner)
+    {
+        weight += partner.weight;
+        Destroy(partner.gameObject);
     }
 }

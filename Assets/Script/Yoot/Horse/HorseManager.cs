@@ -10,11 +10,18 @@ public class HorseManager : MonoBehaviour {
     public int maxNumRunner = 4;
     public Transform standbyPosition;
 
+    public void Init()
+    {
+        numFinished = 0;
+        SetupHorses();
+    }
+
     public void SetupHorses()
     {
         for (int i = 0; i < maxNumRunner; ++i)
         {
             GameObject horseObj = horseFactory.CreateHorse();
+            horseObj.GetComponent<Horse>().id = i;
             horseObj.name = owner.playerID + " Horse " + i;
             Vector3 localPosition = new Vector3(i, 0, 0);
             horseObj.transform.position = standbyPosition.position + localPosition;
@@ -42,5 +49,12 @@ public class HorseManager : MonoBehaviour {
     public bool IsGameOver()
     {
         return numFinished >= maxNumRunner;
+    }
+
+    public void FinishRace(Horse horse)
+    {
+        numFinished += horse.weight;
+        if (IsGameOver())
+            owner.Win();
     }
 }
