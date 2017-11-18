@@ -14,7 +14,6 @@ public class BYServer : MonoBehaviour
         public static short CustomMsgType = MsgType.Highest + 1;
     }
     
-    public NetworkDiscovery discovery;
     public GameObject ClientMsg;
 
     public GameObject cMsg1;
@@ -24,13 +23,36 @@ public class BYServer : MonoBehaviour
     private string debugMessage1 = "debugMessage";
 
     int NumClient = 0;
+    int NumMatch = 0;
+    bool isMatch = false;
+    int defaultPort = 7000;
 
-    // 서버 메세지 콜백
+    Pair<int, int>[] room = new Pair<int, int>[10];
+
+    // 클라이언트와 연결되었을 때 호출됨
+    // TODO: 클라이언트 접속종료 때 호출되는 함수 필요
+    // TODO: 기존 클라이언트 접속종료 시, connectionID는 그대로지만, NetworkServer.connections의 indexing이 변함 이거 처리해야함
     public void OnConnected(NetworkMessage netMsg)
     {
-        NumClient++;
+        //NumClient++;
+        NumClient = NetworkServer.connections.Count - 1;
         debugMessage1 = string.Format("Connected to client #" + NumClient);
         Debug.Log(debugMessage1);
+        
+        if (isMatch)
+        {
+            isMatch = false;
+            Debug.Log("There is two player. game start");
+            int player1 = NetworkServer.connections[NumClient - 1].connectionId;
+            int player2 = NetworkServer.connections[NumClient].connectionId;
+            room[NumMatch] = new Pair<int, int>(player1, player2);
+            NumMatch++;
+        }
+        else
+        {
+            isMatch = true;
+        }
+        
         foreach (NetworkConnection nc in  NetworkServer.connections)
         {
             if (nc == null)
@@ -40,14 +62,13 @@ public class BYServer : MonoBehaviour
             Debug.Log(nc.connectionId);
         }
         Debug.Log("------------------------------------------");
+        
     }
     public void OnMessage(NetworkMessage netMsg)
     {
         MyMessage msg = netMsg.ReadMessage<MyMessage>();
-        NetworkServer.SendToAll(MyMsgType.CustomMsgType, msg);
 
         ClientMsg.GetComponent<UnityEngine.UI.Text>().text = string.Format("Client: " + msg.str);
-        Debug.Log("Message Received & Send Complete: " + msg.str);
 
         int len = NetworkServer.connections.Count;
         Debug.Log("connection Length: " + len);
@@ -58,15 +79,18 @@ public class BYServer : MonoBehaviour
     }
     public void OnError(NetworkMessage netMsg)
     {
-        
-        var errorMsg = netMsg.ReadMessage<
-        UnityEngine.Networking.NetworkSystem.ErrorMessage>();
+        var errorMsg = netMsg.ReadMessage<UnityEngine.Networking.NetworkSystem.ErrorMessage>();
         Debug.Log("Error:" + errorMsg.errorCode);
     }
-    int minPort = 7000;
-    int maxPort = 7000;
-    int defaultPort = 7000;
 
+    private void SendClient(int connectionId, string str)
+    {
+        MyMessage Msg = new MyMessage();
+        Msg.str = str;
+        NetworkServer.SendToClient(connectionId, MyMsgType.CustomMsgType, Msg);
+    }
+
+    // 테스트용
     private void SendClient(int connectionId)
     {
         MyMessage Msg = new MyMessage();
@@ -81,45 +105,22 @@ public class BYServer : MonoBehaviour
     {
         SendClient(2);
     }
-    //Creates a server then returns the port the server is created with. Returns -1 if server is not created
+
+    // defaultPort로 서버 생성, 실패 시 -1 반환
     int createServer()
     {
-        int serverPort = -1;
-        //Connect to default port
+        int serverPort = defaultPort;
         bool serverCreated = NetworkServer.Listen( defaultPort);
-        if (serverCreated)
-        {
-            serverPort = defaultPort;
-            Debug.Log("Server Created with deafault port");
-        }
-        else
-        {
-            Debug.Log("Failed to create with the default port");
-            //Try to create server with other port from min to max except the default port which we trid already
-            for (int tempPort = minPort; tempPort <= maxPort; tempPort++)
-            {
-                //Skip the default port since we have already tried it
-                if (tempPort != defaultPort)
-                {
-                    //Exit loop if successfully create a server
-                    if (NetworkServer.Listen( tempPort))
-                    {
-                        serverPort = tempPort;
-                        break;
-                    }
 
-                    //If this is the max port and server is not still created, show, failed to create server error
-                    if (tempPort == maxPort)
-                    {
-                        Debug.LogError("Failed to create server");
-                    }
-                }
-            }
+        if (!serverCreated)
+        {
+            Debug.Log("Server Create Failed");
+            return -1;
         }
+        
         return serverPort;
     }
-
-    // Use this for initialization
+    
     void Start()
     {
         int serverPort = createServer();
@@ -142,7 +143,6 @@ public class BYServer : MonoBehaviour
         debugText1.text = message;
         debugText1.fontSize = 20;
     }
-    // Update is called once per frame
     void Update()
     {
         UpdateDebug1Text(debugMessage1);

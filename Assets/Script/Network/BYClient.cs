@@ -24,10 +24,11 @@ public class BYClient : MonoBehaviour {
     {
         public static short CustomMsgType = MsgType.Highest + 1;
     }
+
     public void sendMessage()
     {
         MyMessage msg = new MyMessage();
-
+        
         msg.str = IdField.GetComponent<UnityEngine.UI.Text>().text;
         Debug.Log(msg.str);
 
