@@ -70,5 +70,6 @@ public class TurnManager : MonoBehaviour
     {
         selectedHorse = null;
         currentState = ProcessState.WaitTurn;
+        owner.yootGame.ExchangeTurn(owner.playerID);
     }
 }

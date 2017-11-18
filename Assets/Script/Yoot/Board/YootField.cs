@@ -8,19 +8,6 @@ public class YootField : MonoBehaviour {
     public BattleManager battleManager;
     private bool destFlag;
 
-    private TurnManager turnManager;
-    public TurnManager TurnManager
-    {
-        get
-        {
-            if (turnManager == null)
-            {
-                turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
-            }
-            return turnManager;
-        }
-    }
-
     public bool DestFlag
     {
         get
@@ -83,11 +70,6 @@ public class YootField : MonoBehaviour {
     public void Leave(Horse horse)
     {
         guests.Remove(horse);
-    }
-
-    public void Selected()
-    {
-        TurnManager.SelectField(this);
     }
 
     public void Highlight(bool flag)

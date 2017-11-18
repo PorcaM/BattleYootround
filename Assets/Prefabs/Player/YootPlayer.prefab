@@ -233,6 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8dd0bb29b074d4abe707b0f249b656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yootGame: {fileID: 0}
   horseFactory: {fileID: 114675803492984208}
   horseManager: {fileID: 114527786228677064}
   turnManager: {fileID: 114355500937614628}
