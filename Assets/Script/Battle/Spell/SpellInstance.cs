@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellInstance : MonoBehaviour {
-    private Spell mySpell;
-    private float cooldown;
-    private float ratio;
+    public float cooldown;
+    public float ratio;
+
+    public Spell.Type spellType;
+    public string spellName;
+    public int id;
+    public Range range;
+    public float damage;
+    public float duration;
+    public float cooltime;
 
     public float Cooldown
     {
@@ -35,28 +42,33 @@ public class SpellInstance : MonoBehaviour {
         }
     }
 
-    void Start()
+    public void Init(Spell spell)
     {
-        mySpell = new Spell();
-        mySpell.Init();
+        spellType = spell.type;
+        spellName = spell.SpellName;
+        id = spell.Id;
+        range = spell.Range;
+        damage = spell.Damage;
+        duration = spell.Duration;
+        cooltime = spell.Cooltime;
     }
 
     void Update()
     {
         Cooldown -= Time.deltaTime;
-        Ratio = Cooldown / mySpell.Cooltime;
+        Ratio = Cooldown / cooltime;
     }
 
     public void Activate()
     {
         if (Cooldown <= 0.0f)
         {
-            Debug.Log(mySpell.SpellName + " Activate");
-            Cooldown = mySpell.Cooltime;
+            Debug.Log(spellName + " Activate");
+            Cooldown = cooltime;
         }
         else
         {
-            Debug.Log("cooldown: " + Cooldown);
+            Debug.Log(spellName+ " cooldown: " + Cooldown);
         }
     }
 }

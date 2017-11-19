@@ -6,7 +6,9 @@ public class YootField : MonoBehaviour {
     public List<Horse> guests;
     public HorseRoute.Type milestone;
     public BattleManager battleManager;
+
     private bool destFlag;
+    private Animator animator;
 
     public bool DestFlag
     {
@@ -25,6 +27,8 @@ public class YootField : MonoBehaviour {
     void Start()
     {
         guests = new List<Horse>();
+        animator = GetComponent<Animator>();
+        DestFlag = false;
     }
 
     public void Arrive(Horse horse)
@@ -76,14 +80,12 @@ public class YootField : MonoBehaviour {
     {
         if (flag)
         {
-            //cakeslice.Outline outline = GetComponent<cakeslice.Outline>();
-            //outline.eraseRenderer = false;
-            //outline.color = 1;
+            animator.speed = 1;
         }
         else
         {
-            //cakeslice.Outline outline = GetComponent<cakeslice.Outline>();
-            //outline.eraseRenderer = true;
+            animator.speed = 0;
+            animator.playbackTime = .5f;
         }
     }
 }

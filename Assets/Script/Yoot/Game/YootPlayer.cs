@@ -20,7 +20,7 @@ public class YootPlayer : MonoBehaviour {
 
     public void StartNewHorse()
     {
-        horseManager.StartNewHorse();        
+        horseManager.StartNewHorse();
     }
 
     public void Win()

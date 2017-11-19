@@ -10,6 +10,8 @@ public class HorseManager : MonoBehaviour {
     public int maxNumRunner = 4;
     public Transform standbyPosition;
 
+    private int lastId;
+
     public void Init()
     {
         numFinished = 0;
@@ -22,6 +24,21 @@ public class HorseManager : MonoBehaviour {
         {
             GameObject horseObj = horseFactory.CreateHorse();
             horseObj.GetComponent<Horse>().id = i;
+            lastId = i;
+            horseObj.name = owner.playerID + " Horse " + i;
+            Vector3 localPosition = new Vector3(i, 0, 0);
+            horseObj.transform.position = standbyPosition.position + localPosition;
+            runners.Add(horseObj);
+        }
+    }
+
+    public void ReviveHorse(int num)
+    {
+        for(int i = 0; i < num; ++i)
+        {
+            GameObject horseObj = horseFactory.CreateHorse();
+            horseObj.GetComponent<Horse>().id = i;
+            lastId = i;
             horseObj.name = owner.playerID + " Horse " + i;
             Vector3 localPosition = new Vector3(i, 0, 0);
             horseObj.transform.position = standbyPosition.position + localPosition;

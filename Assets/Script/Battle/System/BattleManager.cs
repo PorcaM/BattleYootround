@@ -16,6 +16,7 @@ public class BattleManager : MonoBehaviour {
 
     public FloatingText floatingText;
     public Transform damagesParent;
+    public SpellManager spellManager;
 
     public void Init()
     {
@@ -36,6 +37,7 @@ public class BattleManager : MonoBehaviour {
         cameraHandler.Backup();
         cameraHandler.GoBattleField();
         uiHandler.SetUIActive(true);
+        spellManager.Init();
     }
 
     public void CleanupBattle()

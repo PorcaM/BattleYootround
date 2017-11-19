@@ -35,7 +35,6 @@ public class Horse : MonoBehaviour {
 
     public void Defeat()
     {
-
         Destroy(gameObject);
     }
 
