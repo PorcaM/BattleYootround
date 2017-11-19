@@ -14,9 +14,13 @@ public class BattleManager : MonoBehaviour {
     public CameraHandler cameraHandler;
     public UIHandler uiHandler;
 
+    public FloatingText floatingText;
+    public Transform damagesParent;
+
     public void Init()
     {
         gameObject.SetActive(false);
+        FloatingTextController.Init(floatingText, damagesParent);
     }
 
     public void StartBattle()

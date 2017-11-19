@@ -31,6 +31,7 @@ public class YootGame : MonoBehaviour {
     {
         HorseRoute.Init();
         yootBoard.Init();
+        battleManager.Init();
 
         InitPlayers();
 

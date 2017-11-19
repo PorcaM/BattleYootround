@@ -76,14 +76,14 @@ public class YootField : MonoBehaviour {
     {
         if (flag)
         {
-            cakeslice.Outline outline = GetComponent<cakeslice.Outline>();
-            outline.eraseRenderer = false;
-            outline.color = 1;
+            //cakeslice.Outline outline = GetComponent<cakeslice.Outline>();
+            //outline.eraseRenderer = false;
+            //outline.color = 1;
         }
         else
         {
-            cakeslice.Outline outline = GetComponent<cakeslice.Outline>();
-            outline.eraseRenderer = true;
+            //cakeslice.Outline outline = GetComponent<cakeslice.Outline>();
+            //outline.eraseRenderer = true;
         }
     }
 }

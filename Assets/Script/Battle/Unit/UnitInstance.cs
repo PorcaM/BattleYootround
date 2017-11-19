@@ -94,6 +94,7 @@ public class UnitInstance : MonoBehaviour {
 
     public void UnderAttack(float damage)
     {
+        FloatingTextController.CreateFloatingText(damage.ToString(), transform);
         CurrentHP -= damage;
         if (IsDead())
         {
