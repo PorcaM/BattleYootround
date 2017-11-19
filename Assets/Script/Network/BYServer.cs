@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -27,7 +28,8 @@ public class BYServer : MonoBehaviour
     bool isMatch = false;
     int defaultPort = 7000;
 
-    Pair<int, int>[] room = new Pair<int, int>[10];
+    List<Pair<int, int>> roomList = new List<Pair<int,int>>();
+    Pair<int, int> room;
 
     // 클라이언트와 연결되었을 때 호출됨
     // TODO: 클라이언트 접속종료 때 호출되는 함수 필요
@@ -45,7 +47,17 @@ public class BYServer : MonoBehaviour
             Debug.Log("There is two player. game start");
             int player1 = NetworkServer.connections[NumClient - 1].connectionId;
             int player2 = NetworkServer.connections[NumClient].connectionId;
-            room[NumMatch] = new Pair<int, int>(player1, player2);
+            room = new Pair<int, int>(player1, player2);
+            Debug.Log("First: " + room.First + "  Second: " + room.Second);
+            Debug.Log(roomList.Count);
+            roomList.Add(room);
+            Debug.Log(roomList.Count);
+            Thread t = new Thread(delegate ()
+            {
+                BYGame.OnGame(room);
+            });
+            t.Start();
+            
             NumMatch++;
         }
         else
@@ -53,6 +65,7 @@ public class BYServer : MonoBehaviour
             isMatch = true;
         }
         
+        /*
         foreach (NetworkConnection nc in  NetworkServer.connections)
         {
             if (nc == null)
@@ -62,8 +75,11 @@ public class BYServer : MonoBehaviour
             Debug.Log(nc.connectionId);
         }
         Debug.Log("------------------------------------------");
-        
+        */
     }
+
+    
+
     public void OnMessage(NetworkMessage netMsg)
     {
         MyMessage msg = netMsg.ReadMessage<MyMessage>();
@@ -83,7 +99,7 @@ public class BYServer : MonoBehaviour
         Debug.Log("Error:" + errorMsg.errorCode);
     }
 
-    private void SendClient(int connectionId, string str)
+    public static void SendClient(int connectionId, string str)
     {
         MyMessage Msg = new MyMessage();
         Msg.str = str;
@@ -91,7 +107,7 @@ public class BYServer : MonoBehaviour
     }
 
     // 테스트용
-    private void SendClient(int connectionId)
+    public static void SendClient(int connectionId)
     {
         MyMessage Msg = new MyMessage();
         Msg.str = string.Format(connectionId + " was send by server");
