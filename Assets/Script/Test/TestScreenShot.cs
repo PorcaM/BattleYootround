@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.IO;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 // Screen Recorder will save individual images of active scene in any resolution and of a specific image format
 // including raw, jpg, png, and ppm.  Raw and PPM are the fastest image formats for saving.
@@ -45,9 +46,6 @@ public class TestScreenShot : MonoBehaviour
 
     // 그려진 Trail을 Clear하기 위한 용도
     private GameObject[] Trails;
-
-    // commands
-    private bool captureScreenshot = false;
 
     private void Start()
     {
@@ -147,9 +145,11 @@ public class TestScreenShot : MonoBehaviour
         }
 
         // create new thread to save the image to file (only operation that can be done in background)
+        
         new System.Threading.Thread(() =>
         {
             // create file and write optional header with image bytes
+            
             var f = System.IO.File.Create(filename);
             if (fileHeader != null) f.Write(fileHeader, 0, fileHeader.Length);
             f.Write(fileData, 0, fileData.Length);
@@ -157,7 +157,7 @@ public class TestScreenShot : MonoBehaviour
             //debugMessage1 = string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length);
             //Debug.Log(debugMessage1);
         }).Start();
-
+        
 
         debugMessage3 = string.Format("#{0} Image saved", counter);
         Debug.Log(debugMessage3);
