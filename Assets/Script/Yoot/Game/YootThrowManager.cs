@@ -23,7 +23,9 @@ public class YootThrowManager : MonoBehaviour {
     {
         if (currentState == ProcessState.Start)
         {
-            turnManager.RecvThrowResult(SimpleRandom());
+            YootGame.YootCount result = SimpleRandom();
+            turnManager.RecvThrowResult(result);
+            DecoThrowResult.ShowResult(result);
             currentState = ProcessState.Wait;
         }
     }

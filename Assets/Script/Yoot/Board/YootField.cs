@@ -46,10 +46,16 @@ public class YootField : MonoBehaviour {
             }
             else
             {
-                battleManager.caller = this;
-                battleManager.SetupBattle();
+                EnterBattle();
             }
         }
+    }
+
+    private void EnterBattle()
+    {
+        guests[1].owner.turnManager.currentState = TurnManager.ProcessState.WaitBattle;
+        battleManager.caller = this;
+        battleManager.SetupBattle();
     }
 
     public void HandleBattlResult(int winner)

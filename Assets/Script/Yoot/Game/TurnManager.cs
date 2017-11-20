@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     public YootPlayer owner;
-    public enum ProcessState { WaitTurn, WaitThrow, WaitHorse, WaitField, End };
+    public enum ProcessState { WaitTurn, WaitThrow, WaitHorse, WaitField, End, WaitBattle };
     public ProcessState currentState;
     public YootThrowManager yootThrowManager;
     public YootGame.YootCount yootCount;
@@ -14,6 +14,7 @@ public class TurnManager : MonoBehaviour
 
     public void StartTurn()
     {
+        DecoTurnStart.ShowStarter(owner.playerID);
         yootThrowManager.StartThrow();
         currentState = ProcessState.WaitThrow;
     }
@@ -43,7 +44,8 @@ public class TurnManager : MonoBehaviour
             {
                 highlitedField.DestFlag = false;
                 MoveHorse();
-                EndTurn();
+                if(currentState != ProcessState.WaitBattle)
+                    EndTurn();
             }
         }
     }
@@ -55,7 +57,6 @@ public class TurnManager : MonoBehaviour
         if (yootCount == YootGame.YootCount.Nak)
         {
             EndTurn();
-            return;
         }
         else
             currentState = ProcessState.WaitHorse;
