@@ -15,6 +15,7 @@ public class TurnManager : MonoBehaviour
     public void StartTurn()
     {
         DecoTurnStart.ShowStarter(owner.playerID);
+        owner.yootGame.SetCurrentPlayer(owner.playerID);
         yootThrowManager.StartThrow();
         currentState = ProcessState.WaitThrow;
     }

@@ -35,6 +35,7 @@ public class Horse : MonoBehaviour {
 
     public void Defeat()
     {
+        owner.horseManager.ReviveHorse(weight);
         Destroy(gameObject);
     }
 

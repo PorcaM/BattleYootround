@@ -8,7 +8,6 @@ public class UIHandler : MonoBehaviour {
 
     public void SetUIActive(bool flag)
     {
-        Debug.Log("Hello" + flag);
         myUI.SetActive(flag);
         foreach (GameObject ui in others)
             ui.SetActive(!flag);

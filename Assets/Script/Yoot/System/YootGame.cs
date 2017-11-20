@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MaterialUI;
+using UnityEngine.UI;
 
 public class YootGame : MonoBehaviour {
     public enum GameMode { Local, Network };
@@ -17,6 +18,14 @@ public class YootGame : MonoBehaviour {
     public Transform playerParent;
     public List<GameObject> players;
     public const int playerCount = 2;
+
+    public Text playerText;
+    public int currentPlayer;
+    public void SetCurrentPlayer(int playerID)
+    {
+        currentPlayer = playerID;
+        playerText.text = "Turn of Player: " + currentPlayer;
+    }
 
     void Awake()
     {

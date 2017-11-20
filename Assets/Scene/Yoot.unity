@@ -832,7 +832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 1766240419}
   horseModel: {fileID: 1056166228637796, guid: 291812ee3f4ac0a42a74c6cf85ff2816, type: 2}
-  horseParent: {fileID: 0}
+  horseParent: {fileID: 495018105}
 --- !u!4 &332998248
 Transform:
   m_ObjectHideFlags: 0
@@ -2438,6 +2438,8 @@ MonoBehaviour:
   players:
   - {fileID: 1766240418}
   - {fileID: 1122592580}
+  playerText: {fileID: 1471034284}
+  currentPlayer: 0
 --- !u!1 &1053335799
 GameObject:
   m_ObjectHideFlags: 0
