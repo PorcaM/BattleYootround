@@ -18,6 +18,8 @@ public class BattleManager : MonoBehaviour {
     public Transform damagesParent;
     public SpellManager spellManager;
 
+    public YootGame yootGame;
+
     public void Init()
     {
         gameObject.SetActive(false);
@@ -92,6 +94,7 @@ public class BattleManager : MonoBehaviour {
         if (caller)
         {
             caller.HandleBattlResult(winnerID);
+            yootGame.HandleBattleResult(winnerID);
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MaterialUI;
 
 public class YootGame : MonoBehaviour {
     public enum GameMode { Local, Network };
@@ -75,5 +76,12 @@ public class YootGame : MonoBehaviour {
             Debug.Log("Now turn of " + nextPlayer);
             players[nextPlayer].GetComponent<YootPlayer>().turnManager.StartTurn();
         }
+    }
+
+    public void HandleBattleResult(int winnerID)
+    {
+        string content = "Winner is Player " + winnerID + "!!";
+        ToastManager.Show(content);
+        players[winnerID].GetComponent<YootPlayer>().turnManager.StartTurn();
     }
 }

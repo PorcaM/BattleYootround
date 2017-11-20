@@ -9,7 +9,6 @@ public class YootPlayer : MonoBehaviour {
     public HorseFactory horseFactory;
     public HorseManager horseManager;
     public TurnManager turnManager;
-    public UIHandler uiHandler;
     public string tagPrefix;
     public int playerID;
 
