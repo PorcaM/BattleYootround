@@ -6,14 +6,6 @@ using UnityEngine.Networking;
 
 public class BYServer : MonoBehaviour
 {
-    public class MyMessage : MessageBase
-    {
-        public string str;
-    }
-    public class MyMsgType
-    {
-        public static short CustomMsgType = MsgType.Highest + 1;
-    }
     
     public GameObject ClientMsg;
 
@@ -79,10 +71,10 @@ public class BYServer : MonoBehaviour
     }
 
     
-
+    // CustomMsgType으로 메세지를 받았을 때,
     public void OnMessage(NetworkMessage netMsg)
     {
-        MyMessage msg = netMsg.ReadMessage<MyMessage>();
+        BYMessage.MyMessage msg = netMsg.ReadMessage<BYMessage.MyMessage>();
 
         ClientMsg.GetComponent<UnityEngine.UI.Text>().text = string.Format("Client: " + msg.str);
 
@@ -91,27 +83,47 @@ public class BYServer : MonoBehaviour
 
         debugMessage1 = string.Format("IP :" + Network.player.ipAddress + ", ToString(): " + Network.player.ToString());
         Debug.Log(debugMessage1);
-
     }
-    public void OnError(NetworkMessage netMsg)
+    // Disconnect로 메세지를 받았을 때,
+    public void OnDisconnect(NetworkMessage netMsg)
     {
-        var errorMsg = netMsg.ReadMessage<UnityEngine.Networking.NetworkSystem.ErrorMessage>();
-        Debug.Log("Error:" + errorMsg.errorCode);
+        Debug.Log(netMsg.conn);
+        return;
+        BYMessage.MyMessage msg = netMsg.ReadMessage<BYMessage.MyMessage>();
+        int disconnected_client = int.Parse(msg.str);
+        NetworkServer.connections[disconnected_client].Disconnect();
+        for(int i=roomList.Count-1; i>=0; --i)
+        {
+            if (roomList[i].First == disconnected_client)
+            {
+                NetworkServer.connections[roomList[i].Second].Disconnect();
+                Debug.Log(disconnected_client + "," + roomList[i].Second + " successfully disconnected.");
+                break;
+            }
+            else if(roomList[i].Second == disconnected_client)
+            {
+                NetworkServer.connections[roomList[i].First].Disconnect();
+                Debug.Log(disconnected_client + "," + roomList[i].First + " successfully disconnected.");
+                break;
+            }
+        }
     }
+
 
     public static void SendClient(int connectionId, string str)
     {
-        MyMessage Msg = new MyMessage();
+        BYMessage.MyMessage Msg = new BYMessage.MyMessage();
         Msg.str = str;
-        NetworkServer.SendToClient(connectionId, MyMsgType.CustomMsgType, Msg);
+        NetworkServer.SendToClient(connectionId, BYMessage.MyMsgType.CustomMsgType, Msg);
     }
 
-    // 테스트용
+    // *************************************************************************************
+    //                                      Test
     public static void SendClient(int connectionId)
     {
-        MyMessage Msg = new MyMessage();
+        BYMessage.MyMessage Msg = new BYMessage.MyMessage();
         Msg.str = string.Format(connectionId + " was send by server");
-        NetworkServer.SendToClient(connectionId, MyMsgType.CustomMsgType, Msg);
+        NetworkServer.SendToClient(connectionId, BYMessage.MyMsgType.CustomMsgType, Msg);
     }
     public void SendClient1()
     {
@@ -121,6 +133,7 @@ public class BYServer : MonoBehaviour
     {
         SendClient(2);
     }
+    // **************************************************************************************
 
     // defaultPort로 서버 생성, 실패 시 -1 반환
     int createServer()
@@ -149,8 +162,9 @@ public class BYServer : MonoBehaviour
             Debug.Log("Failed to create Server");
         }
         NetworkServer.RegisterHandler(MsgType.Connect, OnConnected);
-        NetworkServer.RegisterHandler(MsgType.Error, OnError);
-        NetworkServer.RegisterHandler(MyMsgType.CustomMsgType, OnMessage);
+        NetworkServer.RegisterHandler(MsgType.Error, BYMessage.OnError);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.CustomMsgType, OnMessage);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.Disconnect, OnDisconnect);
     }
 
 
