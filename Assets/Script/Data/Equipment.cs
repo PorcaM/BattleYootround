@@ -21,14 +21,14 @@ public class Equipment : MonoBehaviour
         List<Spell> tempS = new List<Spell>();
         for (int i = 0; i < 4; ++i)
         {
-            Spell spell = SpellRecord.Spells[i];
+            Spell spell = SpellRecord.spells[i];
             tempS.Add(spell);
         }
         spellbook.spells = tempS;
         List<Unit> tempU = new List<Unit>();
         for (int i = 0; i < 5; ++i)
         {
-            Unit unit = UnitRecord.Units[i];
+            Unit unit = UnitRecord.units[i];
             tempU.Add(unit);
         }
         deck.units = tempU;

@@ -23,7 +23,7 @@ public class TestRecord : MonoBehaviour {
 
     public void GetRecord()
     {
-        spells = SpellRecord.Spells;
-        units = UnitRecord.Units;
+        spells = SpellRecord.spells;
+        units = UnitRecord.units;
     }
 }
