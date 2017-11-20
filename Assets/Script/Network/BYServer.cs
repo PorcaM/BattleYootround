@@ -89,8 +89,9 @@ public class BYServer : MonoBehaviour
     {
         Debug.Log(netMsg.conn);
         return;
-        BYMessage.MyMessage msg = netMsg.ReadMessage<BYMessage.MyMessage>();
-        int disconnected_client = int.Parse(msg.str);
+        //BYMessage.MyMessage msg = netMsg.ReadMessage<BYMessage.MyMessage>();
+        //int disconnected_client = int.Parse(msg.str);
+        int disconnected_client = netMsg.conn.connectionId;
         NetworkServer.connections[disconnected_client].Disconnect();
         for(int i=roomList.Count-1; i>=0; --i)
         {
