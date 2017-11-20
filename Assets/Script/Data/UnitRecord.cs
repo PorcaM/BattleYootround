@@ -5,17 +5,11 @@ using UnityEngine;
 public class UnitRecord :MonoBehaviour
 {
     public static Unit[] units;
-
-    public static Unit[] Units
-    {
-        get
-        {
-            return units;
-        }
-    }
+    public static bool isInitialized = false;
 
     public static void Init(Unit[] record)
     {
         units = record;
+        isInitialized = true;
     }
 }
