@@ -10,6 +10,8 @@ TagManager:
   - EnemyHorse
   - Drawing
   - Test
+  - YootField
+  - DeadUnit
   layers:
   - Default
   - TransparentFX
