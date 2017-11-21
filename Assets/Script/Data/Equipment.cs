@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MaterialUI;
 
 public class Equipment : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Equipment : MonoBehaviour
 
     public void TempInit()
     {
+        ToastManager.Show("Equipment: temp init");
         deck = new Deck();
         spellbook = new Spellbook();
         List<Spell> tempS = new List<Spell>();

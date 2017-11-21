@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <BYData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Spell>
-		<Id>1</Id>
+		<Id>0</Id>
 		<SpellName>Basic</SpellName>
 		<Attribute>
 			<Type>Attack</Type>
@@ -17,7 +17,7 @@
 		<Cooltime>10</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>2</Id>
+		<Id>1</Id>
 		<SpellName>Storm</SpellName>
 		<Attribute>
 			<Type>Attack</Type>
@@ -33,7 +33,7 @@
 		<Cooltime>10</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>3</Id>
+		<Id>2</Id>
 		<SpellName>Fire</SpellName>
 		<Attribute>
 			<Type>Attack</Type>
@@ -49,7 +49,7 @@
 		<Cooltime>10</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>4</Id>
+		<Id>3</Id>
 		<SpellName>Water</SpellName>
 		<Attribute>
 			<Type>Attack</Type>
@@ -65,7 +65,7 @@
 		<Cooltime>10</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>5</Id>
+		<Id>4</Id>
 		<SpellName>Death</SpellName>
 		<Attribute>
 			<Type>Attack</Type>
@@ -81,7 +81,7 @@
 		<Cooltime>15</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>6</Id>
+		<Id>5</Id>
 		<SpellName>SteamPack</SpellName>
 		<Attribute>
 			<Type>Assist</Type>
@@ -97,7 +97,7 @@
 		<Cooltime>10</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>7</Id>
+		<Id>6</Id>
 		<SpellName>Grasping</SpellName>
 		<Attribute>
 			<Type>Assist</Type>
@@ -113,7 +113,7 @@
 		<Cooltime>10</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>8</Id>
+		<Id>7</Id>
 		<SpellName>Heal</SpellName>
 		<Attribute>
 			<Type>Assist</Type>
@@ -129,7 +129,7 @@
 		<Cooltime>15</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>9</Id>
+		<Id>8</Id>
 		<SpellName>Cleanse</SpellName>
 		<Attribute>
 			<Type>Assist</Type>
@@ -145,7 +145,7 @@
 		<Cooltime>15</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>10</Id>
+		<Id>9</Id>
 		<SpellName>Stun</SpellName>
 		<Attribute>
 			<Type>Assist</Type>
@@ -161,7 +161,7 @@
 		<Cooltime>15</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>11</Id>
+		<Id>10</Id>
 		<SpellName>Infection</SpellName>
 		<Attribute>
 			<Type>Assist</Type>
@@ -177,7 +177,7 @@
 		<Cooltime>20</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>12</Id>
+		<Id>11</Id>
 		<SpellName>Silence</SpellName>
 		<Attribute>
 			<Type>Special</Type>
@@ -193,7 +193,7 @@
 		<Cooltime>30</Cooltime>
 	</Spell>
 	<Spell>
-		<Id>13</Id>
+		<Id>12</Id>
 		<SpellName>Reflection</SpellName>
 		<Attribute>
 			<Type>Special</Type>
