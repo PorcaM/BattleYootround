@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 136141293104571578}
   - component: {fileID: 23883023998533342}
   - component: {fileID: 114838365433488574}
-  - component: {fileID: 95564688431774570}
   m_Layer: 0
   m_Name: YootField
   m_TagString: YootField
@@ -83,23 +82,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347830272786950}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!95 &95564688431774570
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347830272786950}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 47dbe9217025e6c438cf44b9a0b8db67, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114838365433488574
 MonoBehaviour:
   m_ObjectHideFlags: 1
