@@ -15,19 +15,21 @@ public class UnitInstanceFactory : MonoBehaviour {
 
     public void CreateUnits()
     {
+        int order = 0;
         foreach (Unit unit in equipment.deck.Units)
         {
             for (int i = 0; i < instancePerUnit; i++)
             {
                 GameObject unitModel = unitModels.models[unit.Id];
-                CreateUnit(unit, unitModel, i);
+                CreateUnit(unit, unitModel, i, order);
             }
+            ++order;
         }
     }
 
-    private void CreateUnit(Unit unit, GameObject unitModel, int num)
-    {
-        Vector3 position = GetPosition(num, unit.Id); // TODO 위치로 바꿔야 함
+    private void CreateUnit(Unit unit, GameObject unitModel, int num, int order)
+    {        
+        Vector3 position = GetPosition(num, order);
         GameObject gameObject = CreateObject(unitModel, position);
         gameObject.tag = unitTag;
         UnitInstance unitInstance = gameObject.AddComponent<UnitInstance>();
@@ -39,8 +41,10 @@ public class UnitInstanceFactory : MonoBehaviour {
 
     private Vector3 GetPosition(int num, int row)
     {
+        const float xInterval = .5f;
+        const float zInterval = .5f;
         float dir = spanwPosZ / Mathf.Abs(spanwPosZ);
-        Vector3 localPosition = new Vector3(-1 + num, 0, row * dir);
+        Vector3 localPosition = new Vector3((num - 1) * xInterval, 0, row * dir * zInterval);
         localPosition.z += spanwPosZ;
         Vector3 position = localPosition + center.position;
         return position;

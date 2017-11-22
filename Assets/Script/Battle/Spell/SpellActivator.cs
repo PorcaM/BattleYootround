@@ -23,22 +23,24 @@ public class SpellActivator : MonoBehaviour {
     private void ShowArea()
     {        
         createdArea = Instantiate(areaPrefab, transform) as SpellArea;
-        float r = 0.3f * readySpell.radius;
+        createdArea.radius = readySpell.radius;
+        const float realSizeFactor = 0.2f;
+        float r = realSizeFactor * readySpell.radius;
         createdArea.transform.localScale = new Vector3(r, 1.0f, r);
         flow = Flow.SelectArea;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (flow == Flow.SelectArea)
-            {
-                HandleSpellActivate();
-                Destroy(createdArea.gameObject);
-                flow = Flow.Ready;
-            }
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    if (flow == Flow.SelectArea)
+        //    {
+        //        HandleSpellActivate();
+        //        Destroy(createdArea.gameObject);
+        //        flow = Flow.Ready;
+        //    }
+        //}
     }
 
     private void HandleSpellActivate()

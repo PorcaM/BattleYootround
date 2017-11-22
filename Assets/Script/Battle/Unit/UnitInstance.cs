@@ -112,7 +112,7 @@ public class UnitInstance : MonoBehaviour {
         currentState = State.Dead;
         tag = "DeadUnit";
         unitAnimation.SetAction(UnitAnimation.Actions.Die);
-        Destroy(this, 1.5f);
+        Destroy(gameObject, 1.0f);
     }
 
     void Update()
@@ -158,7 +158,7 @@ public class UnitInstance : MonoBehaviour {
     private bool IsInAttackRange(Vector3 point)
     {
         float distance = Vector3.Distance(point, transform.position);
-        return distance < (range - 1) + .3f;
+        return distance <= (range - 1) + .3f;
     }
         
     private void MoveTo(Transform target)
