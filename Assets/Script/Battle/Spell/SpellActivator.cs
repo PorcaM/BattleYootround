@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpellActivator : MonoBehaviour {
     public enum Flow { Ready, SelectArea, Activate }
     public Flow flow;
-    public SpellInstance readySpell;
+    public SpellInstance selectedSpell;
     public SpellArea areaPrefab;
     public SpellArea createdArea;
     public SpellManager spellManager;
@@ -16,7 +16,7 @@ public class SpellActivator : MonoBehaviour {
         {
             Destroy(createdArea.gameObject);
         }
-        readySpell = spell;
+        selectedSpell = spell;
         ShowArea();
     }
 
@@ -24,9 +24,9 @@ public class SpellActivator : MonoBehaviour {
     {        
         createdArea = Instantiate(areaPrefab, transform) as SpellArea;
         createdArea.spellActivator = this;
-        createdArea.radius = readySpell.radius;
+        createdArea.radius = selectedSpell.radius;
         const float realSizeFactor = 0.2f;
-        float r = realSizeFactor * readySpell.radius;
+        float r = realSizeFactor * selectedSpell.radius;
         createdArea.transform.localScale = new Vector3(r, 1.0f, r);
         flow = Flow.SelectArea;
     }
@@ -36,6 +36,7 @@ public class SpellActivator : MonoBehaviour {
         if (flow == Flow.SelectArea)
         {
             HandleSpellActivate();
+            selectedSpell.Activated();
             Destroy(createdArea.gameObject);
             flow = Flow.Ready;
         }
@@ -48,10 +49,10 @@ public class SpellActivator : MonoBehaviour {
         foreach(GameObject enemy in enemies)
         {
             float distance = Vector3.Distance(enemy.transform.position, createdArea.transform.position);
-            if (distance <= readySpell.radius)
+            if (distance <= selectedSpell.radius)
             {
             Debug.Log(enemy.name + " : " +distance);
-                enemy.GetComponent<UnitInstance>().UnderAttack(readySpell.damage);
+                enemy.GetComponent<UnitInstance>().UnderAttack(selectedSpell.damage);
             }
         }
     }

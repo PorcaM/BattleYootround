@@ -31,7 +31,7 @@ public class SpellManager : MonoBehaviour {
         }
     }
 
-    public void Activate(SpellInstance spell)
+    public void Select(SpellInstance spell)
     {
         spellActivator.SelectSpell(spell);
     }

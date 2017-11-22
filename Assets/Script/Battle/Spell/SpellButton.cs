@@ -20,8 +20,8 @@ public class SpellButton : MonoBehaviour {
         iconImage.texture = Resources.Load(path + spellInstance.spellName, typeof(Texture2D)) as Texture2D;
     }
 
-    public void ActivateSpell()
+    public void SelectSpell()
     {
-        spellInstance.Activate();
+        spellInstance.Selected();
     }
 }

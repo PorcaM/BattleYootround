@@ -63,15 +63,14 @@ public class SpellInstance : MonoBehaviour {
         Ratio = Cooldown / cooltime;
     }
 
-    public void Activate()
+    public void Selected()
     {
         if (Cooldown <= 0.0f)
-        {
-            spellManager.Activate(this);
-            Cooldown = cooltime;
-        }
-        else
-        {
-        }
+            spellManager.Select(this);
+    }
+
+    public void Activated()
+    {
+        Cooldown = cooltime;
     }
 }

@@ -20,6 +20,6 @@ public class SpellCooldown : MonoBehaviour {
 
     public void ActivateSpell()
     {
-        spellInstance.Activate();
+        spellInstance.Selected();
     }
 }
