@@ -8,6 +8,7 @@
 /[Bb]uild/
 /[Bb]uilds/
 /Assets/AssetStoreTools*
+/Assets/Sound*
 /client_test_Data
 /server_test_Data
 /screenshots

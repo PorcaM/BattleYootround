@@ -51,7 +51,6 @@ public class SpellActivator : MonoBehaviour {
             float distance = Vector3.Distance(enemy.transform.position, createdArea.transform.position);
             if (distance <= selectedSpell.radius)
             {
-            Debug.Log(enemy.name + " : " +distance);
                 enemy.GetComponent<UnitInstance>().UnderAttack(selectedSpell.damage);
             }
         }
