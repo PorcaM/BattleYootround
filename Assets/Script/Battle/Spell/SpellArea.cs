@@ -8,7 +8,7 @@ public class SpellArea : MonoBehaviour {
     void Update()
     {
         UpdatePosition();
-        TestRadius();
+        // TestRadius();
     }
 
     private void TestRadius()

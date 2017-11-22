@@ -53,10 +53,10 @@ public class BattleManager : MonoBehaviour {
     private void CreateUnits()
     {
         allyUnitInstanceFactory.unitTag = AllyUnitTag;
-        allyUnitInstanceFactory.spanwPosZ = 3.0f;
+        allyUnitInstanceFactory.spanwPosZ = -3.0f;
         allyUnitInstanceFactory.CreateUnits();
         enemyUnitInstanceFactory.unitTag = EnemyUnitTag;
-        enemyUnitInstanceFactory.spanwPosZ = -3.0f;
+        enemyUnitInstanceFactory.spanwPosZ = 3.0f;
         enemyUnitInstanceFactory.CreateUnits();
     }
 

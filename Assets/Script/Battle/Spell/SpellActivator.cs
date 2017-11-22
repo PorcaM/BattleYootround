@@ -30,17 +30,14 @@ public class SpellActivator : MonoBehaviour {
         flow = Flow.SelectArea;
     }
 
-    void Update()
+    void OnMouseUp()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    if (flow == Flow.SelectArea)
-        //    {
-        //        HandleSpellActivate();
-        //        Destroy(createdArea.gameObject);
-        //        flow = Flow.Ready;
-        //    }
-        //}
+        if (flow == Flow.SelectArea)
+        {
+            HandleSpellActivate();
+            Destroy(createdArea.gameObject);
+            flow = Flow.Ready;
+        }
     }
 
     private void HandleSpellActivate()
