@@ -40,6 +40,11 @@ public class BYClient : MonoBehaviour {
             OnConnection();
         }
     }
+    private void OnDisconnect(NetworkMessage netMsg)
+    {
+        // TODO: 상대방의 연결이 끊기면 서버에서 Disconnect를 주고 연결을 끊음
+        //       클라이언트에선 이 메세지를 받으면 메세지를 띄우던가, 씬 전환을 해야 함.
+    }
 
     // Use this for initialization
     void Start()
@@ -54,6 +59,7 @@ public class BYClient : MonoBehaviour {
         myClient.RegisterHandler(MsgType.Connect, OnConnect);
         myClient.Connect(serverIP, serverPort);
         myClient.RegisterHandler(BYMessage.MyMsgType.CustomMsgType, OnMessage); // TODO: BYMessage.OnMessage로 변경
+        myClient.RegisterHandler(BYMessage.MyMsgType.Disconnect, OnDisconnect);
     }
 
     // 얘는 강제종료될때 호출이 안됨

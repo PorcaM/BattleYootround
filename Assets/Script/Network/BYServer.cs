@@ -85,7 +85,7 @@ public class BYServer : MonoBehaviour
         Debug.Log(debugMessage1);
     }
     // Disconnect로 메세지를 받았을 때,
-    public void OnDisconnect(NetworkMessage netMsg)
+    private void OnDisconnect(NetworkMessage netMsg)
     {
         Debug.Log(netMsg.conn);
         return;
