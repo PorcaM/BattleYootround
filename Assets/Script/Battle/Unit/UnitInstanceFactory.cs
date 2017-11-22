@@ -5,10 +5,11 @@ using UnityEngine;
 public class UnitInstanceFactory : MonoBehaviour {
     public string unitTag;
     public Equipment equipment;
-    public Transform spawnPoint;
     public Transform LookatPoint;
     public Transform UnitParent;
     public UnitModels unitModels;
+    public float spanwPosZ;
+    public Transform center;
 
     public const int instancePerUnit = 3;
 
@@ -38,8 +39,10 @@ public class UnitInstanceFactory : MonoBehaviour {
 
     private Vector3 GetPosition(int num, int row)
     {
-        Vector3 localPosition = new Vector3(-1 + num, 0, row);
-        Vector3 position = spawnPoint.position + localPosition;
+        float dir = spanwPosZ / Mathf.Abs(spanwPosZ);
+        Vector3 localPosition = new Vector3(-1 + num, 0, row * dir);
+        localPosition.z += spanwPosZ;
+        Vector3 position = localPosition + center.position;
         return position;
     }
 
