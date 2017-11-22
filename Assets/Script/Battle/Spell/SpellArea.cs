@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellArea : MonoBehaviour {
+    public SpellActivator spellActivator;
     public float radius;
 
-    void Update()
+    void OnMouseDrag()
     {
         UpdatePosition();
-        // TestRadius();
+    }
+
+    void OnMouseUp()
+    {
+        spellActivator.ActivateSpell();
     }
 
     private void TestRadius()

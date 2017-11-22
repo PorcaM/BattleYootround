@@ -17,4 +17,9 @@ public class SpellCooldown : MonoBehaviour {
         float ratio = spellInstance.Ratio;
         image.fillAmount = ratio;
     }
+
+    public void ActivateSpell()
+    {
+        spellInstance.Activate();
+    }
 }

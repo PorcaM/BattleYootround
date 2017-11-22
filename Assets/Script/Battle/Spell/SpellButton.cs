@@ -4,15 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SpellButton : MonoBehaviour {
-    public void Init(string spellName)
+    [SerializeField]
+    private SpellInstance spellInstance;
+
+    public void Init(SpellInstance instance)
     {
-        InitIconTexture(spellName);
+        spellInstance = instance;
+        InitIconTexture();
     }
     
-    private void InitIconTexture(string spellName)
+    private void InitIconTexture()
     {
         RawImage iconImage = transform.GetChild(0).GetComponent<RawImage>();
         const string path = "SkillIcons/";
-        iconImage.texture = Resources.Load(path + spellName, typeof(Texture2D)) as Texture2D;
+        iconImage.texture = Resources.Load(path + spellInstance.spellName, typeof(Texture2D)) as Texture2D;
+    }
+
+    public void ActivateSpell()
+    {
+        spellInstance.Activate();
     }
 }
