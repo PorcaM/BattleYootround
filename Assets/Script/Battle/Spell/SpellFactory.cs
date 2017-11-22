@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpellFactory : MonoBehaviour {
     public Transform parent;
+    public SpellManager spellManager;
 
     public SpellInstance CreateSpell(Spell spell)
     {
@@ -12,6 +13,7 @@ public class SpellFactory : MonoBehaviour {
         gameObj.name = "Spell:" + spell.SpellName;
         SpellInstance spellInstance = gameObj.AddComponent<SpellInstance>();
         spellInstance.Init(spell);
+        spellInstance.spellManager = spellManager;
         gameObj.AddComponent<SpellCooldown>().Init();
         return spellInstance;
     }

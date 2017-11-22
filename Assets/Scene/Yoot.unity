@@ -362,6 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 1578106735}
+  spellManager: {fileID: 1578106736}
 --- !u!1 &108173931
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,8 +592,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 627499126}
+  m_Children: []
   m_Father: {fileID: 1360956183}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -607,7 +607,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510eb31bd9480ec4abecb63be6992a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  line: {fileID: 0}
+  flow: 0
+  readySpell: {fileID: 0}
+  areaPrefab: {fileID: 114691561185119894, guid: b2b585bb97402c647be91254a30d15e8,
+    type: 2}
+  createdArea: {fileID: 0}
 --- !u!1 &219304003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,7 +1251,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1584,11 +1588,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 590756907}
---- !u!4 &627499126 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4943032149323098, guid: b2b585bb97402c647be91254a30d15e8,
-    type: 2}
-  m_PrefabInternal: {fileID: 1829394640}
 --- !u!1 &652865843
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,7 +1654,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4205,6 +4204,7 @@ MonoBehaviour:
   spellFactory: {fileID: 95832784}
   spells: []
   panel: {fileID: 931804332}
+  spellActivator: {fileID: 192622778}
 --- !u!1 &1612314253
 GameObject:
   m_ObjectHideFlags: 0
@@ -4684,48 +4684,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1829394640
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 192622775}
-    m_Modifications:
-    - target: {fileID: 4943032149323098, guid: b2b585bb97402c647be91254a30d15e8, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4943032149323098, guid: b2b585bb97402c647be91254a30d15e8, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4943032149323098, guid: b2b585bb97402c647be91254a30d15e8, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4943032149323098, guid: b2b585bb97402c647be91254a30d15e8, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4943032149323098, guid: b2b585bb97402c647be91254a30d15e8, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4943032149323098, guid: b2b585bb97402c647be91254a30d15e8, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4943032149323098, guid: b2b585bb97402c647be91254a30d15e8, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4943032149323098, guid: b2b585bb97402c647be91254a30d15e8, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b2b585bb97402c647be91254a30d15e8, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1878398476
 GameObject:
   m_ObjectHideFlags: 0

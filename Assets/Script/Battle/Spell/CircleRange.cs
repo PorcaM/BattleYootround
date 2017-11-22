@@ -5,7 +5,7 @@ using UnityEngine;
 public class CircleRange : Range
 {
     private Vector2 point;
-    private float radius;
+    public float radius;
 
     public float Radius
     {

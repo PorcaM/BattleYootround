@@ -8,6 +8,7 @@ public class SpellManager : MonoBehaviour {
     public SpellFactory spellFactory;
     public List<SpellInstance> spells;
     public GameObject panel;
+    public SpellActivator spellActivator;
 
     public void Init()
     {
@@ -24,5 +25,10 @@ public class SpellManager : MonoBehaviour {
             button.GetChild(0).GetComponent<Text>().text = spells[i].spellName;
             button.GetComponent<Button>().onClick.AddListener(spells[i].Activate);
         }
+    }
+
+    public void Activate(SpellInstance spell)
+    {
+        spellActivator.SelectSpell(spell);
     }
 }
