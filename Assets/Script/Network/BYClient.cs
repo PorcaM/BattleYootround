@@ -16,30 +16,29 @@ public class BYClient : MonoBehaviour {
     public GameObject IdField;
     public GameObject ServerMsg;
 
-    public class MyMessage : MessageBase
+
+    public void SendMessage(short Type, BYMessage.MyMessage Msg)
     {
-        public string str;
-    }
-    public class MyMsgType
-    {
-        public static short CustomMsgType = MsgType.Highest + 1;
+        Debug.Log(Msg.str);
+        myClient.Send(Type, Msg);
     }
 
-    public void sendMessage()
-    {
-        MyMessage msg = new MyMessage();
-        
-        msg.str = IdField.GetComponent<UnityEngine.UI.Text>().text;
-        Debug.Log(msg.str);
-
-        myClient.Send(MyMsgType.CustomMsgType, msg);
-
-    }
     public void OnMessage(NetworkMessage netMsg)
     {
-        MyMessage msg = netMsg.ReadMessage<MyMessage>();
+        BYMessage.MyMessage msg = netMsg.ReadMessage<BYMessage.MyMessage>();
         ServerMsg.GetComponent<UnityEngine.UI.Text>().text = msg.str;
         Debug.Log("Message Received: " + msg.str);
+    }
+    private void OnConnect(NetworkMessage msg)
+    {
+        debugMessage1 = "Connected to server";
+        Debug.Log(debugMessage1);
+        if (OnConnection != null)
+        {
+            debugMessage1 = "OnConnection called";
+            Debug.Log(debugMessage1);
+            OnConnection();
+        }
     }
 
     // Use this for initialization
@@ -54,20 +53,28 @@ public class BYClient : MonoBehaviour {
         Debug.Log(debugMessage1);
         myClient.RegisterHandler(MsgType.Connect, OnConnect);
         myClient.Connect(serverIP, serverPort);
-        myClient.RegisterHandler(MyMsgType.CustomMsgType, OnMessage);
-    }
-    public void OnConnect(NetworkMessage msg)
-    {
-        debugMessage1 = "Connected to server";
-        Debug.Log(debugMessage1);
-        if (OnConnection != null)
-        {
-            debugMessage1 = "OnConnection called";
-            Debug.Log(debugMessage1);
-            OnConnection();
-        }
+        myClient.RegisterHandler(BYMessage.MyMsgType.CustomMsgType, OnMessage); // TODO: BYMessage.OnMessage로 변경
     }
 
+    // 얘는 강제종료될때 호출이 안됨
+    private void OnApplicationQuit()
+    {
+        BYMessage.MyMessage msg = new BYMessage.MyMessage();
+        SendMessage(BYMessage.MyMsgType.Disconnect, msg);
+    }
+    /*
+     * 
+     *  나중에 안드로이드로 빌드할 때 Pause 걸리면 네트워크 끊어지도록 구현
+     * 
+     * 
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            SendMessage(BYMessage.MyMsgType.Disconnect, new BYMessage.MyMessage());
+        }
+    }
+    */
     private void UpdateDebug1Text(string message)
     {
         debugText1.text = message;
