@@ -10,7 +10,7 @@ using System.IO;
 // You can compile these images into a video using ffmpeg:
 // ffmpeg -i screen_3840x2160_%d.ppm -y test.avi
 
-public class TestScreenShot : MonoBehaviour
+public class ImageSave : MonoBehaviour
 {
     public UnityEngine.UI.Text debugText1;
     private string debugMessage1 = "path1";
@@ -51,7 +51,7 @@ public class TestScreenShot : MonoBehaviour
     {
         debugText1.enabled = false;
     }
-    
+
     // create a unique filename using a one-up variable
     private string uniqueFilename(int width, int height)
     {
@@ -82,7 +82,7 @@ public class TestScreenShot : MonoBehaviour
         // count number of files of specified format in folder
         string mask = string.Format("screen_{0}x{1}*.{2}", width, height, format.ToString().ToLower());
         counter = Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length;
-        
+
 
         // use width, height, and counter for unique file name
         var filename = string.Format("{0}/screen_{1}x{2}_{3}.{4}", folder, width, height, counter, format.ToString().ToLower());
@@ -145,11 +145,11 @@ public class TestScreenShot : MonoBehaviour
         }
 
         // create new thread to save the image to file (only operation that can be done in background)
-        
+
         new System.Threading.Thread(() =>
         {
             // create file and write optional header with image bytes
-            
+
             var f = System.IO.File.Create(filename);
             if (fileHeader != null) f.Write(fileHeader, 0, fileHeader.Length);
             f.Write(fileData, 0, fileData.Length);
@@ -157,7 +157,7 @@ public class TestScreenShot : MonoBehaviour
             //debugMessage1 = string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length);
             //Debug.Log(debugMessage1);
         }).Start();
-        
+
 
         debugMessage3 = string.Format("#{0} Image saved", counter);
         Debug.Log(debugMessage3);
