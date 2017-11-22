@@ -9,8 +9,8 @@ public class BYServer : MonoBehaviour
     
     public GameObject ClientMsg;
 
-    public GameObject cMsg1;
-    public GameObject cMsg2;
+    //public GameObject cMsg1;
+    //public GameObject cMsg2;
 
     public UnityEngine.UI.Text debugText1;
     private string debugMessage1 = "debugMessage";
@@ -23,118 +23,15 @@ public class BYServer : MonoBehaviour
     List<Pair<int, int>> roomList = new List<Pair<int,int>>();
     Pair<int, int> room;
 
-    // 클라이언트와 연결되었을 때 호출됨
-    // TODO: 클라이언트 접속종료 때 호출되는 함수 필요
-    // TODO: 기존 클라이언트 접속종료 시, connectionID는 그대로지만, NetworkServer.connections의 indexing이 변함 이거 처리해야함
-    public void OnConnected(NetworkMessage netMsg)
+    private BYMessage.EmptyMessage EmptyMsg;
+    
+    public void checkClient()
     {
-        //NumClient++;
-        NumClient = NetworkServer.connections.Count - 1;
-        debugMessage1 = string.Format("Connected to client #" + NumClient);
-        Debug.Log(debugMessage1);
-        
-        if (isMatch)
+        foreach(NetworkConnection nc in NetworkServer.connections)
         {
-            isMatch = false;
-            Debug.Log("There is two player. game start");
-            int player1 = NetworkServer.connections[NumClient - 1].connectionId;
-            int player2 = NetworkServer.connections[NumClient].connectionId;
-            room = new Pair<int, int>(player1, player2);
-            Debug.Log("First: " + room.First + "  Second: " + room.Second);
-            Debug.Log(roomList.Count);
-            roomList.Add(room);
-            Debug.Log(roomList.Count);
-            Thread t = new Thread(delegate ()
-            {
-                BYGame.OnGame(room);
-            });
-            t.Start();
-            
-            NumMatch++;
-        }
-        else
-        {
-            isMatch = true;
-        }
-        
-        /*
-        foreach (NetworkConnection nc in  NetworkServer.connections)
-        {
-            if (nc == null)
-                continue;
-
-            Debug.Log(nc.address);
             Debug.Log(nc.connectionId);
         }
-        Debug.Log("------------------------------------------");
-        */
     }
-
-    
-    // CustomMsgType으로 메세지를 받았을 때,
-    public void OnMessage(NetworkMessage netMsg)
-    {
-        BYMessage.MyMessage msg = netMsg.ReadMessage<BYMessage.MyMessage>();
-
-        ClientMsg.GetComponent<UnityEngine.UI.Text>().text = string.Format("Client: " + msg.str);
-
-        int len = NetworkServer.connections.Count;
-        Debug.Log("connection Length: " + len);
-
-        debugMessage1 = string.Format("IP :" + Network.player.ipAddress + ", ToString(): " + Network.player.ToString());
-        Debug.Log(debugMessage1);
-    }
-    // Disconnect로 메세지를 받았을 때,
-    public void OnDisconnect(NetworkMessage netMsg)
-    {
-        Debug.Log(netMsg.conn);
-        return;
-        //BYMessage.MyMessage msg = netMsg.ReadMessage<BYMessage.MyMessage>();
-        //int disconnected_client = int.Parse(msg.str);
-        int disconnected_client = netMsg.conn.connectionId;
-        NetworkServer.connections[disconnected_client].Disconnect();
-        for(int i=roomList.Count-1; i>=0; --i)
-        {
-            if (roomList[i].First == disconnected_client)
-            {
-                NetworkServer.connections[roomList[i].Second].Disconnect();
-                Debug.Log(disconnected_client + "," + roomList[i].Second + " successfully disconnected.");
-                break;
-            }
-            else if(roomList[i].Second == disconnected_client)
-            {
-                NetworkServer.connections[roomList[i].First].Disconnect();
-                Debug.Log(disconnected_client + "," + roomList[i].First + " successfully disconnected.");
-                break;
-            }
-        }
-    }
-
-
-    public static void SendClient(int connectionId, string str)
-    {
-        BYMessage.MyMessage Msg = new BYMessage.MyMessage();
-        Msg.str = str;
-        NetworkServer.SendToClient(connectionId, BYMessage.MyMsgType.CustomMsgType, Msg);
-    }
-
-    // *************************************************************************************
-    //                                      Test
-    public static void SendClient(int connectionId)
-    {
-        BYMessage.MyMessage Msg = new BYMessage.MyMessage();
-        Msg.str = string.Format(connectionId + " was send by server");
-        NetworkServer.SendToClient(connectionId, BYMessage.MyMsgType.CustomMsgType, Msg);
-    }
-    public void SendClient1()
-    {
-        SendClient(1);
-    }
-    public void SendClient2()
-    {
-        SendClient(2);
-    }
-    // **************************************************************************************
 
     // defaultPort로 서버 생성, 실패 시 -1 반환
     int createServer()
@@ -162,12 +59,141 @@ public class BYServer : MonoBehaviour
         {
             Debug.Log("Failed to create Server");
         }
-        NetworkServer.RegisterHandler(MsgType.Connect, OnConnected);
-        NetworkServer.RegisterHandler(MsgType.Error, BYMessage.OnError);
-        NetworkServer.RegisterHandler(BYMessage.MyMsgType.CustomMsgType, OnMessage);
-        NetworkServer.RegisterHandler(BYMessage.MyMsgType.Disconnect, OnDisconnect);
+        EmptyMsg = new BYMessage.EmptyMessage();
+        EmptyMsg.str = "";
+
+        RegisterHandlers();
     }
 
+    /*
+     *  클라이언트로부터 날아오는 메세지
+     *  0. 매칭 요청    // 기본제공 OnConnect
+     *  1. 매칭 취소
+     *  2. 매칭 성공
+     *  3. 턴 시작
+     *  4. 턴 종료
+     *  5. 윷 결과
+     *  6. 말 이동
+     *  7. 전투 시작 (+ hp, position, spell등등의 싱크)
+     *  8. 전투 결과
+     *  9. 게임 결과
+     * 
+     *  ?. 네트워크 끊어짐 (???)
+     *
+     *  + 배틀이랑 게임 결과(승, 패)는 승리한 사람만 보냄
+     *    진 사람은 서버로부터 패배 메세지 수신
+     *
+     */
+    private void RegisterHandlers()
+    {
+        // 기본 제공 메세지 타입
+        NetworkServer.RegisterHandler(MsgType.Connect, OnConnected);
+        // 커스텀 타입
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.MatchCancel, OnCancel);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.MoveHorse, OnMove);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleWin, OnBattleResult);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.GameWin, OnGameResult);
+
+    }
+    // 클라이언트와 연결되었을 때 호출됨
+    // TODO: 클라이언트 접속종료 때 호출되는 함수 필요
+    // TODO: 기존 클라이언트 접속종료 시, NetworkServer.connections의 indexing이 변함 이거 처리해야함
+    private void OnConnected(NetworkMessage netMsg)
+    {
+
+        NumClient = NetworkServer.connections.Count - 1;
+        debugMessage1 = string.Format("Connected to client #" + NumClient);
+        Debug.Log(debugMessage1);
+
+        if (isMatch)
+        {
+            isMatch = false;
+            Debug.Log("There is two player. game start");
+            int player1 = NetworkServer.connections[NumClient - 1].connectionId;
+            int player2 = NetworkServer.connections[NumClient].connectionId;
+
+            room = new Pair<int, int>(player1, player2);
+            Debug.Log("First: " + room.First + "  Second: " + room.Second);
+            roomList.Add(room);
+            /*
+            Thread t = new Thread(delegate ()
+            {
+                BYGame.OnGame(room);
+            });
+            t.Start();
+            */
+            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.MatchSuccess, EmptyMsg);
+            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.MatchSuccess, EmptyMsg);
+            NumMatch++;
+        }
+        else
+        {
+            isMatch = true;
+        }
+    }
+    private void DeletePlayerInRoomList(int disconnected_client)
+    {
+        isMatch = false;
+        NetworkServer.connections[disconnected_client].Disconnect();
+        int opponent = GetOpponent(disconnected_client);
+        if (opponent != -1)
+        {
+            NetworkServer.connections[opponent].Disconnect();
+            Debug.Log(disconnected_client + "," + opponent + " successfully disconnected.");
+            NumMatch--;
+        }
+    }
+
+    // roomList 순회하면서 해당 유저의 상대를 검색
+    private int GetOpponent(int player1)
+    {
+        int player2 = -1;
+        for (int i = roomList.Count - 1; i >= 0; --i)
+        {
+            if (roomList[i].First == player1)
+            {
+                player2 = roomList[i].Second;
+                break;
+            }
+            else if (roomList[i].Second == player1)
+            {
+                player2 = roomList[i].First;
+                break;
+            }
+        }
+        return player2;
+    }
+
+    // Matching Cancel
+    private void OnCancel(NetworkMessage netMsg)
+    {
+        Debug.Log(netMsg.conn);
+        DeletePlayerInRoomList(netMsg.conn.connectionId);
+    }
+    // 클라이언트가 서버에게 자신의 말 움직임을 보내주면 서버는 그대로 상대에게 전달해주면 됨
+    private void OnMove(NetworkMessage netMsg)
+    {
+        BYMessage.HorseMessage msg = netMsg.ReadMessage<BYMessage.HorseMessage>();
+        int player = netMsg.conn.connectionId;
+        int opponent = GetOpponent(player);
+        NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.MoveHorse, msg);
+    }
+    private void OnBattleResult(NetworkMessage netMsg)
+    {
+        int winner = netMsg.conn.connectionId;
+        int loser = GetOpponent(winner);
+        NetworkServer.SendToClient(winner, BYMessage.MyMsgType.BattleWin, EmptyMsg);
+        NetworkServer.SendToClient(loser, BYMessage.MyMsgType.BattleLose, EmptyMsg);
+    }
+    private void OnGameResult(NetworkMessage netMsg)
+    {
+        int winner = netMsg.conn.connectionId;
+        int loser = GetOpponent(winner);
+        NetworkServer.SendToClient(winner, BYMessage.MyMsgType.GameWin, EmptyMsg);
+        NetworkServer.SendToClient(loser, BYMessage.MyMsgType.GameLose, EmptyMsg);
+
+    }
+    
 
     private void UpdateDebug1Text(string message)
     {

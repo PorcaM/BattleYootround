@@ -6,6 +6,6 @@ public class ResoultionManager : MonoBehaviour
 {
     void Awake()
     {
-        Screen.SetResolution(Screen.width, Screen.width * 16 / 9, true);
+        //Screen.SetResolution(Screen.width, Screen.width * 16 / 9, true);
     }
 }

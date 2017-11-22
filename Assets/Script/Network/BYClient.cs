@@ -2,71 +2,93 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Threading;
+using MaterialUI;
 
-public class BYClient : MonoBehaviour {
+public class BYClient : MonoBehaviour
+{
     NetworkClient myClient;
     int serverPort = 7000;
     string serverIP = "165.246.42.24";
 
     public delegate void OnNetworkActivity();
-    public event OnNetworkActivity OnConnection;
 
-    public UnityEngine.UI.Text debugText1;
-    private string debugMessage1 = "debug1";
-    public GameObject IdField;
-    public GameObject ServerMsg;
-
-
-    public void SendMessage(short Type, BYMessage.MyMessage Msg)
-    {
-        Debug.Log(Msg.str);
-        myClient.Send(Type, Msg);
-    }
-
-    public void OnMessage(NetworkMessage netMsg)
-    {
-        BYMessage.MyMessage msg = netMsg.ReadMessage<BYMessage.MyMessage>();
-        ServerMsg.GetComponent<UnityEngine.UI.Text>().text = msg.str;
-        Debug.Log("Message Received: " + msg.str);
-    }
-    private void OnConnect(NetworkMessage msg)
-    {
-        debugMessage1 = "Connected to server";
-        Debug.Log(debugMessage1);
-        if (OnConnection != null)
-        {
-            debugMessage1 = "OnConnection called";
-            Debug.Log(debugMessage1);
-            OnConnection();
-        }
-    }
+    bool isMatch = false;
+    private BYMessage.EmptyMessage EmptyMsg;
 
     // Use this for initialization
     void Start()
     {
+        DontDestroyOnLoad(this);
         myClient = new NetworkClient();
+        EmptyMsg = new BYMessage.EmptyMessage();
+        EmptyMsg.str = "";
+        RegisterHandlers();
     }
 
+    private void RegisterHandlers()
+    {
+        // 기본 제공
+        myClient.RegisterHandler(MsgType.Connect, OnConnect);
+        // 커스텀 타입
+        myClient.RegisterHandler(BYMessage.MyMsgType.MatchCancel, OnCancel);
+        myClient.RegisterHandler(BYMessage.MyMsgType.MatchSuccess, OnMatchSuccess);
+        myClient.RegisterHandler(BYMessage.MyMsgType.MoveHorse, OnMoveHorse);
+        myClient.RegisterHandler(BYMessage.MyMsgType.BattleLose, OnBattleLose);
+        myClient.RegisterHandler(BYMessage.MyMsgType.GameLose, OnGameLose);
+    }
     public void ConnectToServer()
     {
-        debugMessage1 = "Connect To Server() called";
-        Debug.Log(debugMessage1);
-        myClient.RegisterHandler(MsgType.Connect, OnConnect);
+        // 이미 서버에 연결되어 있는 상태면 아무것도 안함
+        if (isMatch)
+            return;
         myClient.Connect(serverIP, serverPort);
-        myClient.RegisterHandler(BYMessage.MyMsgType.CustomMsgType, OnMessage); // TODO: BYMessage.OnMessage로 변경
+    }
+    public void Cancel()
+    {
+        isMatch = false;
+        myClient.Send(BYMessage.MyMsgType.MatchCancel, EmptyMsg);
     }
 
-    // 얘는 강제종료될때 호출이 안됨
+    // 서버에 연결됨 (Matching이 정상적으로 등록)
+    private void OnConnect(NetworkMessage msg)
+    {
+        isMatch = true;
+        Debug.Log("Connected to server");
+    }
+    private void OnCancel(NetworkMessage netMsg)
+    {
+        ToastManager.Show("Match Canceled");
+    }
+    private void OnMatchSuccess(NetworkMessage netMsg)
+    {
+        ToastManager.Show("Match Success!");
+        // TODO: sleep 추가
+        SceneLoad a = new SceneLoad();
+        a.LoadScene("Yoot");
+    }
+    // 상대한테 받는거
+    private void OnMoveHorse(NetworkMessage netMsg)
+    {
+        BYMessage.HorseMessage horseInfo = netMsg.ReadMessage<BYMessage.HorseMessage>();
+        // 말 옮기기
+
+    }
+    private void OnBattleLose(NetworkMessage netMsg)
+    {
+        // 배틀 패배
+    }
+    private void OnGameLose(NetworkMessage netMsg)
+    {
+        // 게임 패배
+    }
+    // BUG 얘는 강제종료될때 호출이 안되는것같은데 잘 모르겠음
     private void OnApplicationQuit()
     {
-        BYMessage.MyMessage msg = new BYMessage.MyMessage();
-        SendMessage(BYMessage.MyMsgType.Disconnect, msg);
+        myClient.Send(BYMessage.MyMsgType.Disconnect, EmptyMsg);
     }
     /*
-     * 
-     *  나중에 안드로이드로 빌드할 때 Pause 걸리면 네트워크 끊어지도록 구현
-     * 
-     * 
+     *  나중에 안드로이드로 빌드할 때 Pause 걸리면 네트워크 끊어지도록 구현??
     private void OnApplicationPause(bool pause)
     {
         if (pause)
@@ -75,14 +97,6 @@ public class BYClient : MonoBehaviour {
         }
     }
     */
-    private void UpdateDebug1Text(string message)
-    {
-        debugText1.text = message;
-        debugText1.fontSize = 20;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateDebug1Text(debugMessage1);
-    }
+
+
 }
