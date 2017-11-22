@@ -9,12 +9,12 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Square</Type>
-			<Radius>0</Radius>
-			<X>4</X>
-			<Y>2</Y>
+			<Type>Circle</Type>
+			<Radius>1</Radius>
+			<X>0</X>
+			<Y>0</Y>
 		</Range>
-		<Cooltime>10</Cooltime>
+		<Cooltime>3</Cooltime>
 	</Spell>
 	<Spell>
 		<Id>1</Id>
@@ -30,7 +30,7 @@
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
-		<Cooltime>10</Cooltime>
+		<Cooltime>5</Cooltime>
 	</Spell>
 	<Spell>
 		<Id>2</Id>
@@ -41,12 +41,12 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Square</Type>
-			<Radius>0</Radius>
-			<X>4</X>
-			<Y>2</Y>
+			<Type>Circle</Type>
+			<Radius>2</Radius>
+			<X>0</X>
+			<Y>0</Y>
 		</Range>
-		<Cooltime>10</Cooltime>
+		<Cooltime>6</Cooltime>
 	</Spell>
 	<Spell>
 		<Id>3</Id>
@@ -57,12 +57,12 @@
 			<Duration>0.1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Square</Type>
-			<Radius>0</Radius>
-			<X>4</X>
-			<Y>2</Y>
+			<Type>Circle</Type>
+			<Radius>2</Radius>
+			<X>0</X>
+			<Y>0</Y>
 		</Range>
-		<Cooltime>10</Cooltime>
+		<Cooltime>7</Cooltime>
 	</Spell>
 	<Spell>
 		<Id>4</Id>
@@ -73,12 +73,12 @@
 			<Duration>0.1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Unit</Type>
-			<Radius>0</Radius>
+			<Type>Circle</Type>
+			<Radius>2</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
-		<Cooltime>15</Cooltime>
+		<Cooltime>8</Cooltime>
 	</Spell>
 	<Spell>
 		<Id>5</Id>
@@ -89,8 +89,8 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Unit</Type>
-			<Radius>0</Radius>
+			<Type>Circle</Type>
+			<Radius>2</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
@@ -105,10 +105,10 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Square</Type>
-			<Radius>0</Radius>
-			<X>2</X>
-			<Y>2</Y>
+			<Type>Circle</Type>
+			<Radius>2</Radius>
+			<X>0</X>
+			<Y>0</Y>
 		</Range>
 		<Cooltime>10</Cooltime>
 	</Spell>
@@ -122,7 +122,7 @@
 		</Attribute>
 		<Range>
 			<Type>Circle</Type>
-			<Radius>3</Radius>
+			<Radius>2</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
@@ -137,8 +137,8 @@
 			<Duration>0.1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Unit</Type>
-			<Radius>0</Radius>
+			<Type>Circle</Type>
+			<Radius>2</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
@@ -154,7 +154,7 @@
 		</Attribute>
 		<Range>
 			<Type>Circle</Type>
-			<Radius>3</Radius>
+			<Radius>2</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
@@ -169,8 +169,8 @@
 			<Duration>0.1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Unit</Type>
-			<Radius>0</Radius>
+			<Type>Circle</Type>
+			<Radius>2</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
@@ -185,8 +185,8 @@
 			<Duration>5</Duration>
 		</Attribute>
 		<Range>
-			<Type>Void</Type>
-			<Radius>0</Radius>
+			<Type>Circle</Type>
+			<Radius>2</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
@@ -201,8 +201,8 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Void</Type>
-			<Radius>0</Radius>
+			<Type>Circle</Type>
+			<Radius>2</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
