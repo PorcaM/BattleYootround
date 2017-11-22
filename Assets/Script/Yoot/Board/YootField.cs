@@ -8,7 +8,6 @@ public class YootField : MonoBehaviour {
     public BattleManager battleManager;
 
     private bool destFlag;
-    private Animator animator;
 
     public bool DestFlag
     {
@@ -27,7 +26,6 @@ public class YootField : MonoBehaviour {
     void Start()
     {
         guests = new List<Horse>();
-        animator = GetComponent<Animator>();
         DestFlag = false;
     }
 
@@ -86,12 +84,9 @@ public class YootField : MonoBehaviour {
     {
         if (flag)
         {
-            animator.speed = 1;
         }
         else
         {
-            animator.speed = 0;
-            animator.playbackTime = .5f;
         }
     }
 }
