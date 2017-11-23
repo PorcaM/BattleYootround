@@ -8,14 +8,13 @@ public class YootGame : MonoBehaviour {
     public enum GameMode { Local, Network };
     public GameMode gameMode;
     public enum YootCount { Nak, Do, Gae, Gul, Yoot, Mo, BackDo = -1 };
-    public YootBoard yootBoard;
-    public BattleManager battleManager;
-    public Equipment equipment;
 
+    public YootInitializer yootInitializer;
+    public BattleManager battleManager;
     public GameStateUI gameStateUI;
-    public HorseTranslator horseTranslator;
     public PlayerManager playerManager;
     public TurnManager turnManager;
+    public HorseTranslator horseTranslator;
 
     void Start()
     {
@@ -25,24 +24,9 @@ public class YootGame : MonoBehaviour {
 
     public void Init()
     {
-        InitEntireSystem();
-        InitMyMembers();
-    }
-
-    private void InitEntireSystem()
-    {
-        HorseRoute.Init();
-        yootBoard.Init();
-        UnitHealthBar.Init();
-
-        equipment.TempInit();
-        Debug.Log(equipment.ToString());
-    }
-
-    private void InitMyMembers()
-    {
-        playerManager.Init();
+        yootInitializer.Init();
         battleManager.Init();
+        playerManager.Init();
         turnManager.Init(this);
     }
 

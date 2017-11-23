@@ -12,13 +12,14 @@ public class PopupPreviewController : MonoBehaviour {
         PopupPreviewController.parent = parent;
     }
 
-    public static void CreatePopupPreview(string name, Transform location)
+    public static PopupPreview CreatePopupPreview(string name, Transform location, TurnProcessor turnProcessor)
     {
         PopupPreview instance = Instantiate(popupPreview);
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(location.position);
         instance.transform.SetParent(parent, false);
         instance.transform.position = screenPosition;
-        instance.Init();
+        instance.Init(turnProcessor);
         instance.SetImage(name);
+        return instance;
     }
 }

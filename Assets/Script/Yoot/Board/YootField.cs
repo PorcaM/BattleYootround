@@ -7,26 +7,9 @@ public class YootField : MonoBehaviour {
     public HorseRoute.Type milestone;
     public BattleManager battleManager;
 
-    private bool destFlag;
-
-    public bool DestFlag
-    {
-        get
-        {
-            return destFlag;
-        }
-
-        set
-        {
-            destFlag = value;
-            Highlight(destFlag);
-        }
-    }
-
     void Start()
     {
         guests = new List<Horse>();
-        DestFlag = false;
     }
 
     public void Arrive(Horse horse)
@@ -51,7 +34,7 @@ public class YootField : MonoBehaviour {
 
     private void EnterBattle()
     {
-        guests[1].owner.turnProcessor.CurrentState = TurnProcessor.ProcessState.WaitBattle;
+        //guests[1].owner.turnProcessor.CurrentState = TurnProcessor.ProcessState.Battle;
         battleManager.caller = this;
         battleManager.SetupBattle();
     }
@@ -78,15 +61,5 @@ public class YootField : MonoBehaviour {
     public void Leave(Horse horse)
     {
         guests.Remove(horse);
-    }
-
-    public void Highlight(bool flag)
-    {
-        if (flag)
-        {
-        }
-        else
-        {
-        }
     }
 }

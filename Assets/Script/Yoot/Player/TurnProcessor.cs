@@ -5,78 +5,72 @@ using UnityEngine;
 public class TurnProcessor : MonoBehaviour
 {
     public YootPlayer owner;
-    public enum ProcessState { WaitTurn, WaitThrow, WaitHorse, WaitField, End, WaitBattle }
-    private ProcessState currentState;
+    public enum ProcessState { WaitTurn, Throw, Horse, Ack, End, Battle }
+    public ProcessState currentState;
     public YootThrowManager yootThrowManager;
-    public YootGame.YootCount yootCount;
-    public Horse selectedHorse;
-    public YootField highlitedField;
 
-    public ProcessState CurrentState
+    [SerializeField] private YootGame.YootCount yootCount;
+    [SerializeField] private Horse selectedHorse;
+    private PopupPreview lastPreview;
+
+    private void UpdateState(ProcessState nextState)
     {
-        get
-        {
-            return currentState;
-        }
-
-        set
-        {
-            currentState = value;
-            owner.yootGame.gameStateUI.SetValue(currentState);
-        }
+        currentState = nextState;
+        owner.yootGame.gameStateUI.SetValue(currentState);
     }
 
     public void StartTurn()
     {
         DecoTurnStart.ShowStarter(owner.playerID);
         yootThrowManager.StartThrow();
-        CurrentState = ProcessState.WaitThrow;
-    }
-
-    public void SelectHorse(Horse horse)
-    {
-        if (CurrentState == ProcessState.WaitHorse)
-        {
-            selectedHorse = horse;
-            highlitedField = YootBoard.GetDestination(horse, yootCount);
-            highlitedField.DestFlag = true;
-            CurrentState = ProcessState.WaitField;
-        }
-        else if (CurrentState == ProcessState.WaitField)
-        {
-            highlitedField.DestFlag = false;
-            CurrentState = ProcessState.WaitHorse;
-            SelectHorse(horse);
-        }
-    }
-
-    public void SelectField(YootField field)
-    {
-        if (CurrentState == ProcessState.WaitField)
-        {
-            if (field == highlitedField)
-            {
-                highlitedField.DestFlag = false;
-                MoveHorse();
-                if(CurrentState != ProcessState.WaitBattle)
-                    EndTurn();
-            }
-        }
+        UpdateState(ProcessState.Throw);
     }
 
     public void RecvThrowResult(YootGame.YootCount yootCount)
     {
-        this.yootCount = yootCount;
-        Debug.Log("Throw: " + yootCount);
-        if (yootCount == YootGame.YootCount.Nak)
-        {
-            EndTurn();
-        }
-        else
-            CurrentState = ProcessState.WaitHorse;
+        if (currentState == ProcessState.Throw)
+            HandleThrowResult(yootCount);
     }
 
-    private void MoveHorse()
+    private void HandleThrowResult(YootGame.YootCount yootCount)
+    {
+        this.yootCount = yootCount;
+        if (yootCount == YootGame.YootCount.Nak)
+            EndTurn();
+        else
+            UpdateState(ProcessState.Horse);
+    }
+
+    public void RecvHorseSelect(Horse horse)
+    {
+        if (currentState == ProcessState.Horse)
+            HandleHorseSelect(horse);
+        else if (currentState == ProcessState.Ack)
+            HandleAnotherHorseSelect(horse);
+    }
+
+    private void HandleHorseSelect(Horse horse)
+    {
+        selectedHorse = horse;
+        YootField dest = YootBoard.GetDestination(horse, yootCount);
+        lastPreview = PopupPreviewController.CreatePopupPreview("dest", dest.transform, this);
+        UpdateState(ProcessState.Ack);
+    }
+
+    private void HandleAnotherHorseSelect(Horse horse)
+    {
+        if (lastPreview)
+            Destroy(lastPreview.gameObject);
+        HandleHorseSelect(horse);
+    }
+
+    public void RecvAck()
+    {
+        if (currentState == ProcessState.Ack)
+            HandleAck();
+    }
+
+    private void HandleAck()
     {
         selectedHorse.Move(yootCount);
     }
@@ -84,7 +78,8 @@ public class TurnProcessor : MonoBehaviour
     private void EndTurn()
     {
         selectedHorse = null;
-        CurrentState = ProcessState.WaitTurn;
+        lastPreview = null;
+        UpdateState(ProcessState.WaitTurn);
         owner.yootGame.EndTurn(owner.playerID);
     }
 }

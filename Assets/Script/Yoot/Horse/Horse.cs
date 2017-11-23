@@ -6,11 +6,10 @@ public class Horse : MonoBehaviour {
     public YootField currentLocation;
     public YootPlayer owner;
     public int id;
-    public int weight;
-    
+    public int weight;    
     public HorseRoute.Type routeType;
 
-    private TurnProcessor turnManager;
+    private TurnProcessor turnProcessor;
 
     public void Init(YootPlayer owner, int id)
     {
@@ -18,10 +17,12 @@ public class Horse : MonoBehaviour {
         this.id = id;
         currentLocation = YootBoard.GetStartPoint();
         weight = 1;
+        turnProcessor = owner.turnProcessor;
     }
 
     void OnMouseDown()
     {
+        turnProcessor.RecvHorseSelect(this);
     }
 
     public void Move(YootGame.YootCount yootCount)
@@ -41,11 +42,6 @@ public class Horse : MonoBehaviour {
     {
         owner.horseManager.ReviveHorse(weight);
         Destroy(gameObject);
-    }
-
-    public void Selected()
-    {
-        owner.turnProcessor.SelectHorse(this);
     }
 
     public void RunTogether(Horse partner)
