@@ -96,7 +96,9 @@ public class TurnProcessor : MonoBehaviour
     private void HandleAck()
     {
         DestroyLastPreview();
+        // TODO Send horse movement to opponent
         selectedHorse.Move(yootCount);
+        EndTurn();
     }
 
     private void EndTurn()

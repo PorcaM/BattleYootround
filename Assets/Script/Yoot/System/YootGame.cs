@@ -48,7 +48,14 @@ public class YootGame : MonoBehaviour {
 
     public void EndTurn(int lastPlayer)
     {
-        turnManager.StartNextTurn(lastPlayer);
+        if (gameMode == GameMode.Local)
+            turnManager.StartNextTurn(lastPlayer);
+        else
+        {
+            // TODO Send turn end to opponent
+            // TODO Wait server message that opponent turn end
+            // Then turnManager.StartTurn(0);
+        }
     }
 
     public void HandleBattleResult(int winPlayer)
