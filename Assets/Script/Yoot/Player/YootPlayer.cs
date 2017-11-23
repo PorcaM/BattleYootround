@@ -8,7 +8,7 @@ public class YootPlayer : MonoBehaviour {
     public YootGame yootGame;
     public HorseFactory horseFactory;
     public HorseManager horseManager;
-    public TurnManager turnManager;
+    public TurnProcessor turnManager;
     public string tagPrefix;
     public int playerID;
 

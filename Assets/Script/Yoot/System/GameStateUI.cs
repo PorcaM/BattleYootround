@@ -11,7 +11,7 @@ public class GameStateUI : MonoBehaviour {
     const string allyColorString = "#4CAF50FF";
     const string enemyColorString = "#E91E63FF";
 
-    public void UpdateUI(TurnManager.ProcessState processState)
+    public void UpdateUI(TurnProcessor.ProcessState processState)
     {
         slider.value = (int)processState;
         popupText.text = processState.ToString();

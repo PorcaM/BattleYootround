@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnManager : MonoBehaviour
+public class TurnProcessor : MonoBehaviour
 {
     public YootPlayer owner;
-    public enum ProcessState { WaitTurn = 1, WaitThrow, WaitHorse, WaitField, End, WaitBattle }
+    public enum ProcessState { WaitTurn, WaitThrow, WaitHorse, WaitField, End, WaitBattle }
     private ProcessState currentState;
     public YootThrowManager yootThrowManager;
     public YootGame.YootCount yootCount;
@@ -22,14 +22,13 @@ public class TurnManager : MonoBehaviour
         set
         {
             currentState = value;
-            owner.yootGame.GetComponent<GameStateUI>().UpdateUI(currentState);
+            owner.yootGame.gameStateUI.UpdateUI(currentState);
         }
     }
 
     public void StartTurn()
     {
         DecoTurnStart.ShowStarter(owner.playerID);
-        owner.yootGame.SetCurrentPlayer(owner.playerID);
         yootThrowManager.StartThrow();
         CurrentState = ProcessState.WaitThrow;
     }

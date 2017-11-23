@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Horse : MonoBehaviour {
-    public enum RaceState { Ready, Running, Finished, Together };
     public YootField currentLocation;
     public YootPlayer owner;
     public int id;
     public int weight;
-
-    public RaceState currentState;
+    
     public HorseRoute.Type routeType;
 
-    public void Init()
+    private TurnProcessor turnManager;
+
+    public void Init(YootPlayer owner, int id)
     {
+        this.owner = owner;
+        this.id = id;
         currentLocation = YootBoard.GetStartPoint();
         weight = 1;
+    }
+
+    void OnMouseDown()
+    {
     }
 
     public void Move(YootGame.YootCount yootCount)
@@ -24,7 +30,6 @@ public class Horse : MonoBehaviour {
         currentLocation.Leave(this);
         if (destination == YootBoard.GetStartPoint())
         {
-            currentState = RaceState.Finished;
             owner.horseManager.FinishRace(this);
             Destroy(gameObject);
         }

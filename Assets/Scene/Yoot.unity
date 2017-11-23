@@ -432,6 +432,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 1578106735}
   spellManager: {fileID: 1578106736}
+--- !u!1 &97350426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 97350428}
+  - component: {fileID: 97350427}
+  m_Layer: 0
+  m_Name: TurnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &97350427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 97350426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08d8a57596bd314facd28281cc20630, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &97350428
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 97350426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1033261451}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &108173931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,7 +1670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb43dd21d9c095547926d24e431b57d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 1766240419}
   horseModel: {fileID: 1056166228637796, guid: 291812ee3f4ac0a42a74c6cf85ff2816, type: 2}
   horseParent: {fileID: 731842394}
 --- !u!4 &332998248
@@ -4676,7 +4715,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1995868281}
+  - {fileID: 1088696049}
+  - {fileID: 97350428}
   m_Father: {fileID: 1539653920}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4692,19 +4734,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMode: 0
-  turnManager: {fileID: 0}
-  enemyHorse: {fileID: 1028563337649782, guid: 359bc3989b878654ba7b5b90c68ce761, type: 2}
   yootBoard: {fileID: 1104625532}
   battleManager: {fileID: 404196072}
   equipment: {fileID: 1703302085}
-  playerPref: {fileID: 1834729112198442, guid: 7ecd2909f2f38b34485235293049b97d, type: 2}
-  playerParent: {fileID: 2016542013}
-  players:
-  - {fileID: 1766240418}
-  - {fileID: 1122592580}
-  playerText: {fileID: 1471034284}
-  currentPlayer: 0
   gameStateUI: {fileID: 1033261453}
+  horseTranslator: {fileID: 1995868280}
+  playerManager: {fileID: 1088696050}
+  turnManager: {fileID: 97350427}
 --- !u!114 &1033261453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4995,6 +5031,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1088696048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1088696049}
+  - component: {fileID: 1088696050}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1088696049
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1088696048}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1033261451}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1088696050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1088696048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f55ed641d1d1543b2de407e9321330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players:
+  - {fileID: 1766240418}
+  - {fileID: 1122592580}
+  currentPlayer: 0
 --- !u!1 &1090612588
 GameObject:
   m_ObjectHideFlags: 0
@@ -8283,6 +8363,46 @@ Transform:
   m_Father: {fileID: 386429160}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1995868279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1995868281}
+  - component: {fileID: 1995868280}
+  m_Layer: 0
+  m_Name: HorseTranslator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1995868280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1995868279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67a786d582e6f6429f6760c3e4dee93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1995868281
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1995868279}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1033261451}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2005423735
 GameObject:
   m_ObjectHideFlags: 0
@@ -8631,7 +8751,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb43dd21d9c095547926d24e431b57d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 1122592582}
   horseModel: {fileID: 1832822007649896, guid: 58cb5e51c448e834fb5f532d692bc850, type: 2}
   horseParent: {fileID: 910711023}
 --- !u!4 &2041874685
@@ -8943,7 +9062,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
