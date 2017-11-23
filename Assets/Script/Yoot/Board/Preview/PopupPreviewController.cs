@@ -15,8 +15,9 @@ public class PopupPreviewController : MonoBehaviour {
     public static PopupPreview CreatePopupPreview(string name, Transform location, TurnProcessor turnProcessor)
     {
         PopupPreview instance = Instantiate(popupPreview);
-        Vector2 screenPosition = Camera.main.WorldToScreenPoint(location.position);
         instance.transform.SetParent(parent, false);
+        Vector2 screenPosition = Camera.main.WorldToScreenPoint(location.position);
+        screenPosition.y += 30.0f;
         instance.transform.position = screenPosition;
         instance.Init(turnProcessor);
         instance.SetImage(name);

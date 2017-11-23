@@ -53,15 +53,38 @@ public class TurnProcessor : MonoBehaviour
     {
         selectedHorse = horse;
         YootField dest = YootBoard.GetDestination(horse, yootCount);
-        lastPreview = PopupPreviewController.CreatePopupPreview("dest", dest.transform, this);
+        string popupName = GetPopupType(dest);
+        lastPreview = PopupPreviewController.CreatePopupPreview(popupName, dest.transform, this);
         UpdateState(ProcessState.Ack);
+    }
+
+    private string GetPopupType(YootField field)
+    {
+        string popupName;
+        if (field.guests.Count == 0)
+            popupName = "dest";
+        else
+        {
+            Horse other = field.guests[0];
+            int otherID = other.owner.playerID;
+            if (otherID == owner.playerID)
+                popupName = "together";
+            else
+                popupName = "battle";
+        }
+        return popupName;
     }
 
     private void HandleAnotherHorseSelect(Horse horse)
     {
+        DestroyLastPreview();
+        HandleHorseSelect(horse);
+    }
+
+    private void DestroyLastPreview()
+    {
         if (lastPreview)
             Destroy(lastPreview.gameObject);
-        HandleHorseSelect(horse);
     }
 
     public void RecvAck()
@@ -72,6 +95,7 @@ public class TurnProcessor : MonoBehaviour
 
     private void HandleAck()
     {
+        DestroyLastPreview();
         selectedHorse.Move(yootCount);
     }
 
