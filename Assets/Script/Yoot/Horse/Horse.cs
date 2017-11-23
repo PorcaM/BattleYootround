@@ -45,7 +45,7 @@ public class Horse : MonoBehaviour {
 
     public void Selected()
     {
-        owner.turnManager.SelectHorse(this);
+        owner.turnProcessor.SelectHorse(this);
     }
 
     public void RunTogether(Horse partner)

@@ -85,6 +85,6 @@ public class TurnProcessor : MonoBehaviour
     {
         selectedHorse = null;
         CurrentState = ProcessState.WaitTurn;
-        owner.yootGame.ExchangeTurn(owner.playerID);
+        owner.yootGame.EndTurn(owner.playerID);
     }
 }

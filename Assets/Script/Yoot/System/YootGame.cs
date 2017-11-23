@@ -20,37 +20,57 @@ public class YootGame : MonoBehaviour {
     void Start()
     {
         Init();
+        StartGame();
     }
 
     public void Init()
     {
+        InitEntireSystem();
+        InitMyMembers();
+    }
+
+    private void InitEntireSystem()
+    {
         HorseRoute.Init();
         yootBoard.Init();
-
-        playerManager.Init();
-
         UnitHealthBar.Init();
+
         equipment.TempInit();
         Debug.Log(equipment.ToString());
+    }
+
+    private void InitMyMembers()
+    {
+        playerManager.Init();
         battleManager.Init();
-
-        playerManager.players[0].GetComponent<YootPlayer>().turnManager.StartTurn();
+        turnManager.Init(this);
     }
 
-    public void ExchangeTurn(int lastPlayer)
+    private int GetFirstPlayer()
     {
-        if (gameMode == GameMode.Local)
+        int firstPlayer = 0;
+        if (gameMode == GameMode.Network)
         {
-            int nextPlayer = (lastPlayer + 1) % 2;
-            gameStateUI.UpdateColor(nextPlayer);
-            playerManager.players[nextPlayer].GetComponent<YootPlayer>().turnManager.StartTurn();
+            // TODO Recv first player id;
         }
+        return firstPlayer;
     }
 
-    public void HandleBattleResult(int winnerID)
+    private void StartGame()
     {
-        string content = "Battle winner is Player " + winnerID + "!!";
+        int firstPlayer = GetFirstPlayer();
+        turnManager.StartTurn(firstPlayer);
+    }
+
+    public void EndTurn(int lastPlayer)
+    {
+        turnManager.StartNextTurn(lastPlayer);
+    }
+
+    public void HandleBattleResult(int winPlayer)
+    {
+        string content = "Battle winner is Player " + winPlayer + "!!";
         ToastManager.Show(content);
-        playerManager.players[winnerID].GetComponent<YootPlayer>().turnManager.StartTurn();
+        turnManager.StartTurn(winPlayer);
     }
 }

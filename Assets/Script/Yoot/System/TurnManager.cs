@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour {
+    public YootGame yootGame;
+    public GameStateUI gameStateUI;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private PlayerManager playerManager;
+
+    public void Init(YootGame yootGame)
+    {
+        this.yootGame = yootGame;
+        playerManager = yootGame.playerManager;
+    }
+
+    public void StartNextTurn(int lastPlayer)
+    {
+        int nextPlayer = playerManager.GetNextPlayer(lastPlayer);
+        StartTurn(nextPlayer);
+    }
+
+    public void StartTurn(int player)
+    {
+        gameStateUI.UpdateColor(player);
+        playerManager.GetPlayer(player).turnProcessor.StartTurn();
+    }
 }

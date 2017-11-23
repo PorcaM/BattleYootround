@@ -37,7 +37,7 @@ public class DragableObject : MonoBehaviour
         if (destination != null)
         {
             YootField field = destination.GetComponent<YootField>();
-            GetComponent<Horse>().owner.turnManager.SelectField(field);
+            GetComponent<Horse>().owner.turnProcessor.SelectField(field);
         }
         else
         {
