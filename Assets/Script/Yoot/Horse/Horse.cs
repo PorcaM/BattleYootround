@@ -22,7 +22,6 @@ public class Horse : MonoBehaviour {
     {
         YootField destination = YootBoard.GetDestination(this, yootCount);
         currentLocation.Leave(this);
-        Debug.Log("dst id " + destination.id);
         if (destination == YootBoard.GetStartPoint())
         {
             currentState = RaceState.Finished;

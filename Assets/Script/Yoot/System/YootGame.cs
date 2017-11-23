@@ -21,6 +21,9 @@ public class YootGame : MonoBehaviour {
 
     public Text playerText;
     public int currentPlayer;
+
+    public GameStateUI gameStateUI;
+
     public void SetCurrentPlayer(int playerID)
     {
         currentPlayer = playerID;
@@ -77,7 +80,7 @@ public class YootGame : MonoBehaviour {
         if (gameMode == GameMode.Local)
         {
             int nextPlayer = (lastPlayer + 1) % 2;
-            Debug.Log("Now turn of " + nextPlayer);
+            gameStateUI.UpdateColor(nextPlayer);
             players[nextPlayer].GetComponent<YootPlayer>().turnManager.StartTurn();
         }
     }

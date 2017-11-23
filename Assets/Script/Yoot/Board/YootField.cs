@@ -51,7 +51,7 @@ public class YootField : MonoBehaviour {
 
     private void EnterBattle()
     {
-        guests[1].owner.turnManager.currentState = TurnManager.ProcessState.WaitBattle;
+        guests[1].owner.turnManager.CurrentState = TurnManager.ProcessState.WaitBattle;
         battleManager.caller = this;
         battleManager.SetupBattle();
     }
