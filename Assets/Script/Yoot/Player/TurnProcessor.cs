@@ -22,7 +22,7 @@ public class TurnProcessor : MonoBehaviour
         set
         {
             currentState = value;
-            owner.yootGame.gameStateUI.UpdateUI(currentState);
+            owner.yootGame.gameStateUI.SetValue(currentState);
         }
     }
 

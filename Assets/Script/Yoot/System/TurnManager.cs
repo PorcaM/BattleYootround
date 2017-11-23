@@ -22,7 +22,7 @@ public class TurnManager : MonoBehaviour {
 
     public void StartTurn(int player)
     {
-        gameStateUI.UpdateColor(player);
+        gameStateUI.SetColor(player);
         playerManager.GetPlayer(player).turnProcessor.StartTurn();
     }
 }

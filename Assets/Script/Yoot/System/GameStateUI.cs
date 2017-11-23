@@ -11,20 +11,29 @@ public class GameStateUI : MonoBehaviour {
     const string allyColorString = "#4CAF50FF";
     const string enemyColorString = "#E91E63FF";
 
-    public void UpdateUI(TurnProcessor.ProcessState processState)
+    public void SetValue(TurnProcessor.ProcessState processState)
     {
         slider.value = (int)processState;
         popupText.text = processState.ToString();
     }
 
-    public void UpdateColor(int playerID)
+    public void SetColor(int player)
+    {
+        slider.GetComponent<MaterialSlider>().enabledColor = GetColor(player);
+    }
+    
+    private Color GetColor(int player)
+    {
+        Color color;
+        ColorUtility.TryParseHtmlString(GetColorString(player), out color);
+        return color;
+    }
+
+    private string GetColorString(int player)
     {
         string colorString = enemyColorString;
-        if (playerID == 0)
+        if (player == 0)
             colorString = allyColorString;
-        Color color;
-        ColorUtility.TryParseHtmlString(colorString, out color);
-        Debug.Log(color);
-        slider.GetComponent<MaterialSlider>().enabledColor = color;
+        return colorString;
     }
 }
