@@ -47,6 +47,7 @@ public class BattleManager : MonoBehaviour {
         uiHandler.SetUIActive(false);
         cameraHandler.Recover();
         DestroyUnits();
+        spellManager.Cleanup();
         gameObject.SetActive(false);
     }
 

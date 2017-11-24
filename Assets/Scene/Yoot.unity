@@ -790,7 +790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flow: 0
   selectedSpell: {fileID: 0}
-  areaPrefab: {fileID: 114691561185119894, guid: b2b585bb97402c647be91254a30d15e8,
+  areaPrefab: {fileID: 114480474769514384, guid: 48ed79f1ba0ecb74bb26bb5f8d555747,
     type: 2}
   createdArea: {fileID: 0}
   spellManager: {fileID: 0}
@@ -2327,7 +2327,7 @@ MonoBehaviour:
   numFinished: 0
   maxNumRunner: 4
   standbyHorse: {fileID: 0}
-  standbyLocation: {fileID: 0}
+  standbyLocation: {fileID: 919322931}
 --- !u!4 &495018104
 Transform:
   m_ObjectHideFlags: 0
@@ -8000,7 +8000,7 @@ MonoBehaviour:
   numFinished: 0
   maxNumRunner: 4
   standbyHorse: {fileID: 0}
-  standbyLocation: {fileID: 0}
+  standbyLocation: {fileID: 919623722}
 --- !u!1 &1908267912
 GameObject:
   m_ObjectHideFlags: 0

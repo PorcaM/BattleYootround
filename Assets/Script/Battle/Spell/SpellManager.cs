@@ -21,6 +21,11 @@ public class SpellManager : MonoBehaviour {
         InitButtons();
     }
 
+    public void Cleanup()
+    {
+        spellActivator.Cleanup();
+    }
+
     private void InitButtons()
     {
         for (int i = 0; i < 4; ++i)

@@ -6,6 +6,14 @@ public class SpellArea : MonoBehaviour {
     public SpellActivator spellActivator;
     public float radius;
 
+    void OnMouseDown()
+    {
+        Animator animator = GetComponent<Animator>();
+        animator.enabled = false;
+        transform.localScale = new Vector3(1, 1, 1);
+        transform.localRotation = Quaternion.identity;
+    }
+
     void OnMouseDrag()
     {
         UpdatePosition();

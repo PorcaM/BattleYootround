@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellActivator : MonoBehaviour {
-    public enum Flow { Ready, SelectArea, Activate }
+    public enum Flow { Ready, SelectArea }
     public Flow flow;
     public SpellInstance selectedSpell;
     public SpellArea areaPrefab;
     public SpellArea createdArea;
     public SpellManager spellManager;
+
+    public void Cleanup()
+    {
+        if(createdArea)
+            Destroy(createdArea.gameObject);
+        flow = Flow.Ready;
+    }
 
     public void SelectSpell(SpellInstance spell)
     {
@@ -27,7 +34,7 @@ public class SpellActivator : MonoBehaviour {
         createdArea.radius = selectedSpell.radius;
         const float realSizeFactor = 0.2f;
         float r = realSizeFactor * selectedSpell.radius;
-        createdArea.transform.localScale = new Vector3(r, 1.0f, r);
+        createdArea.transform.GetChild(0).localScale = new Vector3(r, 1.0f, r);
         flow = Flow.SelectArea;
     }
     
@@ -35,14 +42,14 @@ public class SpellActivator : MonoBehaviour {
     {
         if (flow == Flow.SelectArea)
         {
-            HandleSpellActivate();
+            ApplySpellEffect();
             selectedSpell.Activated();
             Destroy(createdArea.gameObject);
             flow = Flow.Ready;
         }
     }
 
-    private void HandleSpellActivate()
+    private void ApplySpellEffect()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyUnit");
         foreach(GameObject enemy in enemies)

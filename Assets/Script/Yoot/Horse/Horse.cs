@@ -5,7 +5,7 @@ using UnityEngine;
 public class Horse : MonoBehaviour
 {
     public YootField currField;
-    public YootPlayer owner;
+    private YootPlayer owner;
     public int id;
     public int weight;
     public HorseRoute.Type routeType;
