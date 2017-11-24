@@ -15,7 +15,7 @@ public class HorseTranslator : MonoBehaviour
     {
         string previewName =
         (field.IsEmpty()) ? "dest" :
-            (horse.IsEnemy(field.Guest(0))) ? "battle" : "together";
+            (horse.IsEnemyWith(field.Guest(0))) ? "battle" : "together";
         return previewName;
     }
 

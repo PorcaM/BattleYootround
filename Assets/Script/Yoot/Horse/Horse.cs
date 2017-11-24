@@ -23,12 +23,17 @@ public class Horse : MonoBehaviour
         horseManager = owner.horseManager;
     }
 
+    public bool IsOwner(int player)
+    {
+        return player == owner.playerID;
+    }
+
     public bool IsStandby()
     {
         return currField.IsGoal();
     }
 
-    public bool IsEnemy(Horse other)
+    public bool IsEnemyWith(Horse other)
     {
         return owner.playerID != other.owner.playerID;
     }

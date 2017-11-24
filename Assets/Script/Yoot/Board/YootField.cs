@@ -63,7 +63,7 @@ public class YootField : MonoBehaviour
 
     private void HandleEncounter(Horse horse)
     {
-        if (horse.IsEnemy(Guest(0)))
+        if (horse.IsEnemyWith(Guest(0)))
             EnterBattle();
         else
             horse.CarryHorse(Guest(0));
@@ -77,15 +77,8 @@ public class YootField : MonoBehaviour
 
     public void RecvBattlResult(int winner)
     {
-        string looserTag;
-        if (winner == 0)
-            looserTag = "EnemyHorse";
-        else
-            looserTag = "AllyHorse";
         foreach (Horse horse in guests)
-        {
-            if (horse.tag == looserTag)
+            if (!horse.IsOwner(winner))
                 horse.Defeat();
-        }
     }
 }
