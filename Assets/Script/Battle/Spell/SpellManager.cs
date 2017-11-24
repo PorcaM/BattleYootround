@@ -8,6 +8,7 @@ public class SpellManager : MonoBehaviour {
     public SpellFactory spellFactory;
     public List<SpellInstance> spells;
     public GameObject panel;
+    public SpellActivator spellActivator;
 
     public void Init()
     {
@@ -17,12 +18,21 @@ public class SpellManager : MonoBehaviour {
         {
             spells.Add(spellFactory.CreateSpell(spell));
         }
-        for(int i = 0; i < 4; ++i)
+        InitButtons();
+    }
+
+    private void InitButtons()
+    {
+        for (int i = 0; i < 4; ++i)
         {
-            Transform button = panel.transform.GetChild(i);
-            spells[i].GetComponent<SpellCooldown>().image = button.GetComponent<Image>();
-            button.GetChild(0).GetComponent<Text>().text = spells[i].spellName;
-            button.GetComponent<Button>().onClick.AddListener(spells[i].Activate);
+            SpellButton button = panel.transform.GetChild(i).GetComponent<SpellButton>();
+            button.Init(spells[i]);
+            spells[i].GetComponent<SpellCooldown>().image = button.transform.GetChild(1).GetComponent<UnityEngine.UI.Image>();
         }
+    }
+
+    public void Select(SpellInstance spell)
+    {
+        spellActivator.SelectSpell(spell);
     }
 }

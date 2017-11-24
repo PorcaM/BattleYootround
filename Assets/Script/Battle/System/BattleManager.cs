@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour {
     public void Init()
     {
         gameObject.SetActive(false);
+        spellManager.Init();
         FloatingTextController.Init(floatingText, damagesParent);
     }
 
@@ -33,13 +34,12 @@ public class BattleManager : MonoBehaviour {
     
     public void SetupBattle()
     {
-        gameObject.SetActive(true);
         winnerID = -1;
+        gameObject.SetActive(true);
         CreateUnits();
         cameraHandler.Backup();
         cameraHandler.GoBattleField();
         uiHandler.SetUIActive(true);
-        spellManager.Init();
     }
 
     public void CleanupBattle()
@@ -53,10 +53,10 @@ public class BattleManager : MonoBehaviour {
     private void CreateUnits()
     {
         allyUnitInstanceFactory.unitTag = AllyUnitTag;
-        allyUnitInstanceFactory.spanwPosZ = 3.0f;
+        allyUnitInstanceFactory.spanwPosZ = -3.0f;
         allyUnitInstanceFactory.CreateUnits();
         enemyUnitInstanceFactory.unitTag = EnemyUnitTag;
-        enemyUnitInstanceFactory.spanwPosZ = -3.0f;
+        enemyUnitInstanceFactory.spanwPosZ = 3.0f;
         enemyUnitInstanceFactory.CreateUnits();
     }
 

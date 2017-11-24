@@ -13,6 +13,9 @@ public class SpellInstance : MonoBehaviour {
     public float damage;
     public float duration;
     public float cooltime;
+    public float radius;
+
+    public SpellManager spellManager;
 
     public float Cooldown
     {
@@ -51,6 +54,7 @@ public class SpellInstance : MonoBehaviour {
         damage = spell.Damage;
         duration = spell.Duration;
         cooltime = spell.Cooltime;
+        radius = ((CircleRange)range).radius;
     }
 
     void Update()
@@ -59,16 +63,14 @@ public class SpellInstance : MonoBehaviour {
         Ratio = Cooldown / cooltime;
     }
 
-    public void Activate()
+    public void Selected()
     {
         if (Cooldown <= 0.0f)
-        {
-            Debug.Log(spellName + " Activate");
-            Cooldown = cooltime;
-        }
-        else
-        {
-            Debug.Log(spellName+ " cooldown: " + Cooldown);
-        }
+            spellManager.Select(this);
+    }
+
+    public void Activated()
+    {
+        Cooldown = cooltime;
     }
 }

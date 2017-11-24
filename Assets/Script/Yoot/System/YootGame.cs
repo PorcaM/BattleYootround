@@ -27,11 +27,6 @@ public class YootGame : MonoBehaviour {
         playerText.text = "Turn of Player: " + currentPlayer;
     }
 
-    void Awake()
-    {
-        Screen.SetResolution(720, 1280, true);
-    }
-
     void Start()
     {
         Init();
@@ -41,13 +36,13 @@ public class YootGame : MonoBehaviour {
     {
         HorseRoute.Init();
         yootBoard.Init();
-        battleManager.Init();
 
         InitPlayers();
 
         UnitHealthBar.Init();
         equipment.TempInit();
         Debug.Log(equipment.ToString());
+        battleManager.Init();
 
         players[0].GetComponent<YootPlayer>().turnManager.StartTurn();
     }
