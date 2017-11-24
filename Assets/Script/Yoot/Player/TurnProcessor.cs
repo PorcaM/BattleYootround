@@ -12,6 +12,7 @@ public class TurnProcessor : MonoBehaviour
     [SerializeField] private YootGame.YootCount yootCount;
     [SerializeField] private Horse selectedHorse;
     private PopupPreview lastPreview;
+    private HorseTranslator horseTranslator;
 
     private void UpdateState(ProcessState nextState)
     {
@@ -52,27 +53,8 @@ public class TurnProcessor : MonoBehaviour
     private void HandleHorseSelect(Horse horse)
     {
         selectedHorse = horse;
-        YootField dest = YootBoard.GetDestination(horse, yootCount);
-        string popupName = GetPopupType(dest);
-        lastPreview = PopupPreviewController.CreatePopupPreview(popupName, dest.transform, this);
+        lastPreview = HorseTranslator.CreatePreview(horse, yootCount, this);
         UpdateState(ProcessState.Ack);
-    }
-
-    private string GetPopupType(YootField field)
-    {
-        string popupName;
-        if (field.guests.Count == 0)
-            popupName = "dest";
-        else
-        {
-            Horse other = field.guests[0];
-            int otherID = other.owner.playerID;
-            if (otherID == owner.playerID)
-                popupName = "together";
-            else
-                popupName = "battle";
-        }
-        return popupName;
     }
 
     private void HandleAnotherHorseSelect(Horse horse)
@@ -97,8 +79,25 @@ public class TurnProcessor : MonoBehaviour
     {
         DestroyLastPreview();
         // TODO Send horse movement to opponent
-        selectedHorse.Move(yootCount);
+        HorseTranslator.Translate(selectedHorse, yootCount);
         EndTurn();
+    }
+
+    public void RecvPreviewDestroy(PopupPreview preview)
+    {
+        if (currentState == ProcessState.Ack)
+            HandlePreviewDestroy(preview);
+    }
+
+    private void HandlePreviewDestroy(PopupPreview preview)
+    {
+        if(preview == lastPreview)
+            UpdateState(ProcessState.Horse);
+    }
+
+    public void RecvBattle()
+    {
+
     }
 
     private void EndTurn()

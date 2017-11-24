@@ -23,4 +23,9 @@ public class PopupPreview : MonoBehaviour {
         const string path = "PreviewIcons/";
         rawImage.texture = Resources.Load(path + name, typeof(Texture2D)) as Texture2D;
     }
+
+    void OnDestroy()
+    {
+        turnProcessor.RecvPreviewDestroy(this);
+    }
 }

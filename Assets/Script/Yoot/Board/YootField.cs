@@ -7,9 +7,21 @@ public class YootField : MonoBehaviour {
     public HorseRoute.Type milestone;
     public BattleManager battleManager;
 
-    void Start()
+    public void Init(int id)
     {
+        this.id = id;
         guests = new List<Horse>();
+        milestone = HorseRoute.Type.Summer;
+    }
+
+    public bool IsEmpty()
+    {
+        return guests.Count == 0;
+    }
+
+    public Horse Guest(int i)
+    {
+        return guests[i];
     }
 
     public void Arrive(Horse horse)

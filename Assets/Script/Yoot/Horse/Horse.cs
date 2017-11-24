@@ -20,6 +20,11 @@ public class Horse : MonoBehaviour {
         turnProcessor = owner.turnProcessor;
     }
 
+    public bool IsEnemy(Horse other)
+    {
+        return owner.playerID != other.owner.playerID;
+    }
+
     void OnMouseDown()
     {
         turnProcessor.RecvHorseSelect(this);
