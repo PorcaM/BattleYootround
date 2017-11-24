@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using MaterialUI;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+
 
 public class YootGame : MonoBehaviour {
     public enum GameMode { Local, Network };
@@ -16,10 +18,17 @@ public class YootGame : MonoBehaviour {
     public TurnManager turnManager;
     public HorseTranslator horseTranslator;
 
+    private BYMessage.EmptyMessage EmptyMsg;
     void Start()
     {
         Init();
-        StartGame();
+        if(gameMode==GameMode.Local)
+            StartGame();
+        else
+        {
+            EmptyMsg = new BYMessage.EmptyMessage();
+            EmptyMsg.str = "";
+        }
     }
 
     public void Init()
@@ -28,15 +37,44 @@ public class YootGame : MonoBehaviour {
         battleManager.Init();
         playerManager.Init();
         turnManager.Init(this);
+        
+        RegisterHandlers();
+    }
+
+    private void RegisterHandlers()
+    {
+        // Yoot씬에서 매칭없이 시작할 경우, myClient에 아무것도없어서 에러남
+        // 개발단계에서만 쓸 임시 코드
+        //if (BYClient.myClient == null)
+        //    BYClient.myClient = new NetworkClient();
+
+        BYClient.myClient.Send(BYMessage.MyMsgType.YootReady, EmptyMsg);
+
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.TurnStart, OnTurnStart);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.WaitTurn, OnWaitTurn);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.MoveHorse, OnMoveHorse);
+    }
+    private void OnTurnStart(NetworkMessage netMsg)
+    {
+        turnManager.StartTurn(0);
+    }
+    private void OnWaitTurn(NetworkMessage netMsg)
+    {
+        turnManager.StartTurn(1);
+    }
+    private void OnThrowResult(NetworkMessage netMsg)
+    {
+        // TODO: 상대방의 윷 결과 show
+    }
+    private void OnMoveHorse(NetworkMessage netMsg)
+    {
+        // TODO: 상대방의 말 움직이도록
     }
 
     private int GetFirstPlayer()
     {
         int firstPlayer = 0;
-        if (gameMode == GameMode.Network)
-        {
-            // TODO Recv first player id;
-        }
         return firstPlayer;
     }
 
@@ -52,9 +90,7 @@ public class YootGame : MonoBehaviour {
             turnManager.StartNextTurn(lastPlayer);
         else
         {
-            // TODO Send turn end to opponent
-            // TODO Wait server message that opponent turn end
-            // Then turnManager.StartTurn(0);
+
         }
     }
 
