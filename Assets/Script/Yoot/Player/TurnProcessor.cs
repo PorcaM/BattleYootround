@@ -80,7 +80,15 @@ public class TurnProcessor : MonoBehaviour
         DestroyLastPreview();
         // TODO Send horse movement to opponent
         HorseTranslator.Translate(selectedHorse, yootCount);
-        EndTurn();
+        if (IsAgain())
+            StartTurn();
+        else
+            EndTurn();
+    }
+
+    private bool IsAgain()
+    {
+        return yootCount == YootGame.YootCount.Yoot || yootCount == YootGame.YootCount.Mo;
     }
 
     public void RecvPreviewDestroy(PopupPreview preview)

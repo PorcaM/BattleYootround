@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HorseTranslator : MonoBehaviour {
+public class HorseTranslator : MonoBehaviour
+{
     public static PopupPreview CreatePreview(Horse horse, YootGame.YootCount yootCount, TurnProcessor turnProcessor)
     {
         YootField dest = YootBoard.GetDestination(horse, yootCount);
@@ -12,16 +13,23 @@ public class HorseTranslator : MonoBehaviour {
 
     private static string GetPreviewName(Horse horse, YootField field)
     {
-        string previewName;
-        if (field.IsEmpty())
-            previewName = "dest";
-        else
-            previewName = (horse.IsEnemy(field.Guest(0))) ? "battle" : "together";
+        string previewName =
+        (field.IsEmpty()) ? "dest" :
+            (horse.IsEnemy(field.Guest(0))) ? "battle" : "together";
         return previewName;
     }
 
     public static void Translate(Horse horse, YootGame.YootCount yootCount)
     {
-        horse.Move(yootCount);
+        YootField curr = horse.currentLocation;
+        YootField dest = YootBoard.GetDestination(horse, yootCount);
+        curr.Leave(horse);
+        if (dest.IsGoal())
+            horse.GoalIn();
+        else
+        {
+            dest.Arrive(horse);
+            horse.transform.position = dest.transform.position;
+        }
     }
 }
