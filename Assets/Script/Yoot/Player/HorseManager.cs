@@ -67,7 +67,7 @@ public class HorseManager : MonoBehaviour {
         return numFinished >= maxNumRunner;
     }
 
-    public void FinishRace(Horse horse)
+    public void RecvGoalIn(Horse horse)
     {
         numFinished += horse.weight;
         if (IsGameOver())

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class YootField : MonoBehaviour {
+public class YootField : MonoBehaviour
+{
     public int id;
     public List<Horse> guests;
     public HorseRoute.Type milestone;
@@ -19,6 +20,11 @@ public class YootField : MonoBehaviour {
         return guests.Count == 0;
     }
 
+    public bool IsGoal()
+    {
+        return this == YootBoard.GetStartPoint();
+    }
+
     public Horse Guest(int i)
     {
         return guests[i];
@@ -27,13 +33,12 @@ public class YootField : MonoBehaviour {
     public void Arrive(Horse horse)
     {
         guests.Add(horse);
-        horse.transform.position = transform.position;
         horse.currentLocation = this;
         if (milestone != HorseRoute.Type.Summer)
             horse.routeType = milestone;
         if (IsEncounter())
         {
-            if(guests[0].tag == guests[1].tag)
+            if (guests[0].tag == guests[1].tag)
             {
                 guests[0].RunTogether(guests[1]);
             }
@@ -42,6 +47,11 @@ public class YootField : MonoBehaviour {
                 EnterBattle();
             }
         }
+    }
+
+    public void Leave(Horse horse)
+    {
+        guests.Remove(horse);
     }
 
     private void EnterBattle()
@@ -68,10 +78,5 @@ public class YootField : MonoBehaviour {
     private bool IsEncounter()
     {
         return guests.Count > 1;
-    }
-
-    public void Leave(Horse horse)
-    {
-        guests.Remove(horse);
     }
 }

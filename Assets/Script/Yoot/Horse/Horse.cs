@@ -10,14 +10,16 @@ public class Horse : MonoBehaviour {
     public HorseRoute.Type routeType;
 
     private TurnProcessor turnProcessor;
+    private HorseManager horseManager;
 
     public void Init(YootPlayer owner, int id)
     {
         this.owner = owner;
         this.id = id;
-        currentLocation = YootBoard.GetStartPoint();
         weight = 1;
+        currentLocation = YootBoard.GetStartPoint();
         turnProcessor = owner.turnProcessor;
+        horseManager = owner.horseManager;
     }
 
     public bool IsEnemy(Horse other)
@@ -30,22 +32,14 @@ public class Horse : MonoBehaviour {
         turnProcessor.RecvHorseSelect(this);
     }
 
-    public void Move(YootGame.YootCount yootCount)
+    public void GoalIn()
     {
-        YootField destination = YootBoard.GetDestination(this, yootCount);
-        currentLocation.Leave(this);
-        if (destination == YootBoard.GetStartPoint())
-        {
-            owner.horseManager.FinishRace(this);
-            Destroy(gameObject);
-        }
-        else
-            destination.Arrive(this);
+        horseManager.RecvGoalIn(this);
+        Destroy(gameObject);
     }
 
     public void Defeat()
     {
-        owner.horseManager.ReviveHorse(weight);
         Destroy(gameObject);
     }
 
