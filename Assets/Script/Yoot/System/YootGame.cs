@@ -8,84 +8,60 @@ public class YootGame : MonoBehaviour {
     public enum GameMode { Local, Network };
     public GameMode gameMode;
     public enum YootCount { Nak, Do, Gae, Gul, Yoot, Mo, BackDo = -1 };
-    public TurnManager turnManager;
-    public GameObject enemyHorse;
-    public YootBoard yootBoard;
+
+    public YootInitializer yootInitializer;
     public BattleManager battleManager;
-    public Equipment equipment;
-
-    public GameObject playerPref;
-    public Transform playerParent;
-    public List<GameObject> players;
-    public const int playerCount = 2;
-
-    public Text playerText;
-    public int currentPlayer;
-    public void SetCurrentPlayer(int playerID)
-    {
-        currentPlayer = playerID;
-        playerText.text = "Turn of Player: " + currentPlayer;
-    }
+    public GameStateUI gameStateUI;
+    public PlayerManager playerManager;
+    public TurnManager turnManager;
+    public HorseTranslator horseTranslator;
 
     void Start()
     {
         Init();
+        StartGame();
     }
 
     public void Init()
     {
-        HorseRoute.Init();
-        yootBoard.Init();
-
-        InitPlayers();
-
-        UnitHealthBar.Init();
-        equipment.TempInit();
-        Debug.Log(equipment.ToString());
+        yootInitializer.Init();
         battleManager.Init();
-
-        players[0].GetComponent<YootPlayer>().turnManager.StartTurn();
+        playerManager.Init();
+        turnManager.Init(this);
     }
 
-    private void CreatePlayers()
+    private int GetFirstPlayer()
     {
-        players = new List<GameObject>();
-        for (int i = 0; i < playerCount; ++i)
+        int firstPlayer = 0;
+        if (gameMode == GameMode.Network)
         {
-            GameObject playerObj = Instantiate(playerPref, playerParent);
-            playerObj.GetComponent<YootPlayer>().Init();
-            players.Add(playerObj);
+            // TODO Recv first player id;
         }
+        return firstPlayer;
     }
 
-    private void InitPlayers()
+    private void StartGame()
     {
-        foreach(GameObject playerObj in players)
-        {
-            playerObj.GetComponent<YootPlayer>().Init();
-        }
+        int firstPlayer = GetFirstPlayer();
+        turnManager.StartTurn(firstPlayer);
     }
 
-    public void TestEnemyHorse()
-    {
-        GameObject horse = Instantiate(enemyHorse) as GameObject;
-        YootBoard.fieldObjs[10].GetComponent<YootField>().Arrive(horse.GetComponent<Horse>());
-    }
-
-    public void ExchangeTurn(int lastPlayer)
+    public void EndTurn(int lastPlayer)
     {
         if (gameMode == GameMode.Local)
+            turnManager.StartNextTurn(lastPlayer);
+        else
         {
-            int nextPlayer = (lastPlayer + 1) % 2;
-            Debug.Log("Now turn of " + nextPlayer);
-            players[nextPlayer].GetComponent<YootPlayer>().turnManager.StartTurn();
+            // TODO Send turn end to opponent
+            // TODO Wait server message that opponent turn end
+            // Then turnManager.StartTurn(0);
         }
     }
 
-    public void HandleBattleResult(int winnerID)
+    public void HandleBattleResult(int winPlayer)
     {
-        string content = "Winner is Player " + winnerID + "!!";
+        string content = "Battle winner is Player " + winPlayer + "!!";
         ToastManager.Show(content);
-        players[winnerID].GetComponent<YootPlayer>().turnManager.StartTurn();
+        turnManager.StartTurn(winPlayer);
     }
 }

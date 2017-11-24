@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
-    static public int winnerID;
+    static public int winPlayer;
     public UnitInstanceFactory allyUnitInstanceFactory;
     public UnitInstanceFactory enemyUnitInstanceFactory;
     public string AllyUnitTag = "AllyUnit";
@@ -34,7 +34,7 @@ public class BattleManager : MonoBehaviour {
     
     public void SetupBattle()
     {
-        winnerID = -1;
+        winPlayer = -1;
         gameObject.SetActive(true);
         CreateUnits();
         cameraHandler.Backup();
@@ -75,12 +75,12 @@ public class BattleManager : MonoBehaviour {
     {        
         if (GameObject.FindGameObjectsWithTag(AllyUnitTag).Length == 0)
         {
-            winnerID = 1;
+            winPlayer = 1;
             return true;
         }
         else if (GameObject.FindGameObjectsWithTag(EnemyUnitTag).Length == 0)
         {
-            winnerID = 0;
+            winPlayer = 0;
             return true;
         }
         else
@@ -89,14 +89,11 @@ public class BattleManager : MonoBehaviour {
 
     private void FinishBattle()
     {
-        Debug.Log(GameObject.FindGameObjectsWithTag(AllyUnitTag).Length);
-        Debug.Log(GameObject.FindGameObjectsWithTag(EnemyUnitTag).Length);
         CleanupBattle();
-        Debug.Log("Winner: " + winnerID);
         if (caller)
         {
-            caller.HandleBattlResult(winnerID);
-            yootGame.HandleBattleResult(winnerID);
+            caller.HandleBattlResult(winPlayer);
+            yootGame.HandleBattleResult(winPlayer);
         }
     }
 

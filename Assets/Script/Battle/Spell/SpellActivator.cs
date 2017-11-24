@@ -45,7 +45,6 @@ public class SpellActivator : MonoBehaviour {
     private void HandleSpellActivate()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyUnit");
-        Debug.Log(createdArea.transform.position);
         foreach(GameObject enemy in enemies)
         {
             float distance = Vector3.Distance(enemy.transform.position, createdArea.transform.position);

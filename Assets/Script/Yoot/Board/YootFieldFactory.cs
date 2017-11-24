@@ -32,8 +32,7 @@ public class YootFieldFactory : MonoBehaviour
         GameObject yfObj = Instantiate(fieldObj, pos, quaternion, parent) as GameObject;
         yfObj.name = "YootField" + i;
         YootField field = yfObj.GetComponent<YootField>();
-        field.id = i;
-        field.milestone = HorseRoute.Type.Summer;
+        field.Init(i);
         field.battleManager = battleManager;
         return yfObj;
     }

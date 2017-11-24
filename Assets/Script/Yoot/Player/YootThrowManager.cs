@@ -5,7 +5,7 @@ using System;
 
 public class YootThrowManager : MonoBehaviour {
     public YootPlayer owner;
-    public TurnManager turnManager;
+    public TurnProcessor turnManager;
     public enum ProcessState { Start, Wait };
     public ProcessState currentState;
 

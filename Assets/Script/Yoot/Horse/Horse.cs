@@ -3,29 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Horse : MonoBehaviour {
-    public enum RaceState { Ready, Running, Finished, Together };
     public YootField currentLocation;
     public YootPlayer owner;
     public int id;
-    public int weight;
-
-    public RaceState currentState;
+    public int weight;    
     public HorseRoute.Type routeType;
 
-    public void Init()
+    private TurnProcessor turnProcessor;
+
+    public void Init(YootPlayer owner, int id)
     {
+        this.owner = owner;
+        this.id = id;
         currentLocation = YootBoard.GetStartPoint();
         weight = 1;
+        turnProcessor = owner.turnProcessor;
+    }
+
+    public bool IsEnemy(Horse other)
+    {
+        return owner.playerID != other.owner.playerID;
+    }
+
+    void OnMouseDown()
+    {
+        turnProcessor.RecvHorseSelect(this);
     }
 
     public void Move(YootGame.YootCount yootCount)
     {
         YootField destination = YootBoard.GetDestination(this, yootCount);
         currentLocation.Leave(this);
-        Debug.Log("dst id " + destination.id);
         if (destination == YootBoard.GetStartPoint())
         {
-            currentState = RaceState.Finished;
             owner.horseManager.FinishRace(this);
             Destroy(gameObject);
         }
@@ -37,11 +47,6 @@ public class Horse : MonoBehaviour {
     {
         owner.horseManager.ReviveHorse(weight);
         Destroy(gameObject);
-    }
-
-    public void Selected()
-    {
-        owner.turnManager.SelectHorse(this);
     }
 
     public void RunTogether(Horse partner)

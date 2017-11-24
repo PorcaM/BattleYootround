@@ -15,6 +15,7 @@ public class HorseManager : MonoBehaviour {
     public void Init()
     {
         numFinished = 0;
+        lastId = 0;
         SetupHorses();
     }
 
@@ -22,9 +23,8 @@ public class HorseManager : MonoBehaviour {
     {
         for (int i = 0; i < maxNumRunner; ++i)
         {
-            GameObject horseObj = horseFactory.CreateHorse();
+            GameObject horseObj = horseFactory.CreateHorse(owner, lastId++);
             horseObj.GetComponent<Horse>().id = i;
-            lastId = i;
             horseObj.name = owner.playerID + " Horse " + i;
             Vector3 localPosition = new Vector3(i, 0, 0);
             horseObj.transform.position = standbyPosition.position + localPosition;
@@ -36,9 +36,8 @@ public class HorseManager : MonoBehaviour {
     {
         for(int i = 0; i < num; ++i)
         {
-            GameObject horseObj = horseFactory.CreateHorse();
+            GameObject horseObj = horseFactory.CreateHorse(owner, lastId++);
             horseObj.GetComponent<Horse>().id = i;
-            lastId = i;
             horseObj.name = owner.playerID + " Horse " + i;
             Vector3 localPosition = new Vector3(i, 0, 0);
             horseObj.transform.position = standbyPosition.position + localPosition;
@@ -59,7 +58,7 @@ public class HorseManager : MonoBehaviour {
 
     private void AddNewRunner()
     {
-        GameObject gameObject = horseFactory.CreateHorse();
+        GameObject gameObject = horseFactory.CreateHorse(owner, lastId++);
         runners.Add(gameObject);
     }
 

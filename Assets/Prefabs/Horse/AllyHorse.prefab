@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23548944756733412}
   - component: {fileID: 64369243878403264}
   - component: {fileID: 114776873195844982}
-  - component: {fileID: 114090875316360994}
   m_Layer: 0
   m_Name: AllyHorse
   m_TagString: AllyHorse
@@ -53,7 +52,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -69,7 +67,6 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -99,18 +96,6 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: a297c42aa1d7c0d4f9b71edbf5288ede, type: 3}
---- !u!114 &114090875316360994
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1056166228637796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 314e92fd04645094286697520fe2b2e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destinations: []
 --- !u!114 &114776873195844982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec492e69d86a37546aa28af8aaad20cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnManager: {fileID: 0}
   currentLocation: {fileID: 0}
   owner: {fileID: 0}
-  currentState: 0
+  id: 0
+  weight: 0
   routeType: 0
