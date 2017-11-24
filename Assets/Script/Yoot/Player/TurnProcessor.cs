@@ -5,14 +5,13 @@ using UnityEngine;
 public class TurnProcessor : MonoBehaviour
 {
     public YootPlayer owner;
-    public enum ProcessState { WaitTurn, Throw, Horse, Ack, End, Battle }
+    public enum ProcessState { Wait, Throw, Horse, Ack }
     public ProcessState currentState;
     public YootThrowManager yootThrowManager;
 
     [SerializeField] private YootGame.YootCount yootCount;
     [SerializeField] private Horse selectedHorse;
-    private PopupPreview lastPreview;
-    private HorseTranslator horseTranslator;
+    [SerializeField] private PopupPreview lastPreview;
 
     private void UpdateState(ProcessState nextState)
     {
@@ -103,16 +102,11 @@ public class TurnProcessor : MonoBehaviour
             UpdateState(ProcessState.Horse);
     }
 
-    public void RecvBattle()
-    {
-
-    }
-
     private void EndTurn()
     {
         selectedHorse = null;
         lastPreview = null;
-        UpdateState(ProcessState.WaitTurn);
+        UpdateState(ProcessState.Wait);
         owner.yootGame.EndTurn(owner.playerID);
     }
 }

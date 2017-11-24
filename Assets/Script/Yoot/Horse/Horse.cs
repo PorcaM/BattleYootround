@@ -2,24 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Horse : MonoBehaviour {
-    public YootField currentLocation;
+public class Horse : MonoBehaviour
+{
+    public YootField currField;
     public YootPlayer owner;
     public int id;
-    public int weight;    
+    public int weight;
     public HorseRoute.Type routeType;
 
     private TurnProcessor turnProcessor;
-    private HorseManager horseManager;
+    public HorseManager horseManager;
 
     public void Init(YootPlayer owner, int id)
     {
         this.owner = owner;
         this.id = id;
         weight = 1;
-        currentLocation = YootBoard.GetStartPoint();
+        currField = YootBoard.GetStartPoint();
         turnProcessor = owner.turnProcessor;
         horseManager = owner.horseManager;
+    }
+
+    public bool IsStandby()
+    {
+        return currField.IsGoal();
     }
 
     public bool IsEnemy(Horse other)
@@ -43,9 +49,14 @@ public class Horse : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public void RunTogether(Horse partner)
+    public void CarryHorse(Horse partner)
     {
         weight += partner.weight;
         Destroy(partner.gameObject);
+    }
+
+    void OnDestroy()
+    {
+        currField.Leave(this);
     }
 }

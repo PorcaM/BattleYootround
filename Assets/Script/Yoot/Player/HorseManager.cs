@@ -5,72 +5,46 @@ using UnityEngine;
 public class HorseManager : MonoBehaviour {
     public YootPlayer owner;
     public HorseFactory horseFactory;
-    public List<GameObject> runners;
+
+    [SerializeField] private List<Horse> runners;
     public int numFinished;
     public int maxNumRunner = 4;
-    public Transform standbyPosition;
+
+    public Horse standbyHorse;
+    public Transform standbyLocation;
 
     private int lastId;
 
     public void Init()
     {
         numFinished = 0;
-        lastId = 0;
-        SetupHorses();
+        lastId = -1;
+        NewStandbyRunner();
     }
 
-    public void SetupHorses()
+    public void NewStandbyRunner()
     {
-        for (int i = 0; i < maxNumRunner; ++i)
-        {
-            GameObject horseObj = horseFactory.CreateHorse(owner, lastId++);
-            horseObj.GetComponent<Horse>().id = i;
-            horseObj.name = owner.playerID + " Horse " + i;
-            Vector3 localPosition = new Vector3(i, 0, 0);
-            horseObj.transform.position = standbyPosition.position + localPosition;
-            runners.Add(horseObj);
-        }
-    }
-
-    public void ReviveHorse(int num)
-    {
-        for(int i = 0; i < num; ++i)
-        {
-            GameObject horseObj = horseFactory.CreateHorse(owner, lastId++);
-            horseObj.GetComponent<Horse>().id = i;
-            horseObj.name = owner.playerID + " Horse " + i;
-            Vector3 localPosition = new Vector3(i, 0, 0);
-            horseObj.transform.position = standbyPosition.position + localPosition;
-            runners.Add(horseObj);
-        }
-    }
-
-    public void StartNewHorse()
-    {
-        if (IsMoreRunner())
-            AddNewRunner();
-    }
-
-    private bool IsMoreRunner()
-    {
-        return runners.Count < maxNumRunner;
-    }
-
-    private void AddNewRunner()
-    {
-        GameObject gameObject = horseFactory.CreateHorse(owner, lastId++);
-        runners.Add(gameObject);
-    }
-
-    public bool IsGameOver()
-    {
-        return numFinished >= maxNumRunner;
-    }
+        Horse horse = horseFactory.CreateHorse(owner, ++lastId);
+        horse.GetComponent<Horse>().id = lastId;
+        horse.name = owner.playerID + " Horse " + lastId;
+        horse.transform.position = standbyLocation.position;
+        runners.Add(horse);
+    }    
 
     public void RecvGoalIn(Horse horse)
     {
         numFinished += horse.weight;
-        if (IsGameOver())
+        if (IsAchieveVictory())
             owner.Win();
+    }
+
+    private bool IsAchieveVictory()
+    {
+        return numFinished >= maxNumRunner;
+    }
+
+    public void RecvDestroy(Horse horse)
+    {
+        runners.Remove(horse);
     }
 }

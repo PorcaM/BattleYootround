@@ -64,4 +64,10 @@ public class YootGame : MonoBehaviour {
         ToastManager.Show(content);
         turnManager.StartTurn(winPlayer);
     }
+
+    public void HandleWin(int winner)
+    {
+        Debug.Log("Player " + winner + " Win!!");
+
+    }
 }

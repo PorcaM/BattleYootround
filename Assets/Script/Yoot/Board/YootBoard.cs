@@ -45,7 +45,7 @@ public class YootBoard : MonoBehaviour
 
     public static YootField GetDestination(Horse horse, YootGame.YootCount yootCount)
     {
-        YootField source = horse.currentLocation;
+        YootField source = horse.currField;
         int[] route = HorseRoute.routes[(int)horse.routeType];
         int destIndex = HorseRoute.GetDestIndex(route, source.id, (int)yootCount);
         int destFieldID = route[destIndex];

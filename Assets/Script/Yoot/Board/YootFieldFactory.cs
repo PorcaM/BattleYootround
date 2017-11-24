@@ -32,8 +32,7 @@ public class YootFieldFactory : MonoBehaviour
         GameObject yfObj = Instantiate(fieldObj, pos, quaternion, parent) as GameObject;
         yfObj.name = "YootField" + i;
         YootField field = yfObj.GetComponent<YootField>();
-        field.Init(i);
-        field.battleManager = battleManager;
+        field.Init(i, battleManager);
         return yfObj;
     }
 

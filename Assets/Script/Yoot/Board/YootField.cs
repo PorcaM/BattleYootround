@@ -8,9 +8,10 @@ public class YootField : MonoBehaviour
     public HorseRoute.Type milestone;
     public BattleManager battleManager;
 
-    public void Init(int id)
+    public void Init(int id, BattleManager battleManager)
     {
         this.id = id;
+        this.battleManager = battleManager;
         guests = new List<Horse>();
         milestone = HorseRoute.Type.Summer;
     }
@@ -30,38 +31,51 @@ public class YootField : MonoBehaviour
         return guests[i];
     }
 
-    public void Arrive(Horse horse)
-    {
-        guests.Add(horse);
-        horse.currentLocation = this;
-        if (milestone != HorseRoute.Type.Summer)
-            horse.routeType = milestone;
-        if (IsEncounter())
-        {
-            if (guests[0].tag == guests[1].tag)
-            {
-                guests[0].RunTogether(guests[1]);
-            }
-            else
-            {
-                EnterBattle();
-            }
-        }
-    }
-
     public void Leave(Horse horse)
     {
         guests.Remove(horse);
     }
 
-    private void EnterBattle()
+    public void Arrive(Horse horse)
     {
-        //guests[1].owner.turnProcessor.CurrentState = TurnProcessor.ProcessState.Battle;
-        battleManager.caller = this;
-        battleManager.SetupBattle();
+        CheckIn(horse);
+        SetMilestone(horse);
+        if (IsEncounter())
+            HandleEncounter(horse);
     }
 
-    public void HandleBattlResult(int winner)
+    private void CheckIn(Horse horse)
+    {
+        guests.Add(horse);
+        horse.currField = this;
+    }
+
+    private void SetMilestone(Horse horse)
+    {
+        if (milestone != HorseRoute.Type.Summer)
+            horse.routeType = milestone;
+    }
+
+    private bool IsEncounter()
+    {
+        return guests.Count > 1;
+    }
+
+    private void HandleEncounter(Horse horse)
+    {
+        if (horse.IsEnemy(Guest(0)))
+            EnterBattle();
+        else
+            horse.CarryHorse(Guest(0));
+    }
+
+    private void EnterBattle()
+    {
+        battleManager.caller = this;
+        battleManager.StartBattle();
+    }
+
+    public void RecvBattlResult(int winner)
     {
         string looserTag;
         if (winner == 0)
@@ -73,10 +87,5 @@ public class YootField : MonoBehaviour
             if (horse.tag == looserTag)
                 horse.Defeat();
         }
-    }
-
-    private bool IsEncounter()
-    {
-        return guests.Count > 1;
     }
 }

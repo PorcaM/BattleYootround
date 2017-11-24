@@ -32,7 +32,7 @@ public class BattleManager : MonoBehaviour {
         SetupBattle();
     }
     
-    public void SetupBattle()
+    private void SetupBattle()
     {
         winPlayer = -1;
         gameObject.SetActive(true);
@@ -42,7 +42,7 @@ public class BattleManager : MonoBehaviour {
         uiHandler.SetUIActive(true);
     }
 
-    public void CleanupBattle()
+    private void CleanupBattle()
     {
         uiHandler.SetUIActive(false);
         cameraHandler.Recover();
@@ -92,7 +92,7 @@ public class BattleManager : MonoBehaviour {
         CleanupBattle();
         if (caller)
         {
-            caller.HandleBattlResult(winPlayer);
+            caller.RecvBattlResult(winPlayer);
             yootGame.HandleBattleResult(winPlayer);
         }
     }

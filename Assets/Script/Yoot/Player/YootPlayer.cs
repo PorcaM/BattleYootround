@@ -17,18 +17,8 @@ public class YootPlayer : MonoBehaviour {
         horseManager.Init();
     }
 
-    public void StartNewHorse()
-    {
-        horseManager.StartNewHorse();
-    }
-
     public void Win()
     {
-        Debug.Log("Player " + playerID + " Win!!");
-    }
-
-    public void Register(Horse horse)
-    {
-
+        yootGame.HandleWin(playerID);
     }
 }

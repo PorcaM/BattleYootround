@@ -21,7 +21,9 @@ public class HorseTranslator : MonoBehaviour
 
     public static void Translate(Horse horse, YootGame.YootCount yootCount)
     {
-        YootField curr = horse.currentLocation;
+        YootField curr = horse.currField;
+        if (horse.IsStandby())
+            horse.horseManager.NewStandbyRunner();
         YootField dest = YootBoard.GetDestination(horse, yootCount);
         curr.Leave(horse);
         if (dest.IsGoal())
