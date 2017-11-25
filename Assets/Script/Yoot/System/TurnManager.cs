@@ -22,7 +22,14 @@ public class TurnManager : MonoBehaviour {
 
     public void StartTurn(int player)
     {
+        ClearAll();
         gameStateUI.SetColor(player);
         playerManager.GetPlayer(player).turnProcessor.StartTurn();
+    }
+
+    private void ClearAll()
+    {
+        foreach(YootPlayer player in playerManager.players)
+            player.turnProcessor.UpdateState(TurnProcessor.ProcessState.Wait);
     }
 }

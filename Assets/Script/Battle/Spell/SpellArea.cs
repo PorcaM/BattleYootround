@@ -8,6 +8,11 @@ public class SpellArea : MonoBehaviour {
 
     void OnMouseDown()
     {
+        FinishAnimation();
+    }
+
+    private void FinishAnimation()
+    {
         Animator animator = GetComponent<Animator>();
         animator.enabled = false;
         transform.localScale = new Vector3(1, 1, 1);

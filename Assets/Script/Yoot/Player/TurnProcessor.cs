@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurnProcessor : MonoBehaviour
 {
     public YootPlayer owner;
-    public enum ProcessState { Wait, Throw, Horse, Ack }
+    public enum ProcessState { Wait, Throw, Horse, Ack, End }
     public ProcessState currentState;
     public YootThrowManager yootThrowManager;
 
@@ -13,7 +13,7 @@ public class TurnProcessor : MonoBehaviour
     [SerializeField] private Horse selectedHorse;
     [SerializeField] private PopupPreview lastPreview;
 
-    private void UpdateState(ProcessState nextState)
+    public void UpdateState(ProcessState nextState)
     {
         currentState = nextState;
         owner.yootGame.gameStateUI.SetValue(currentState);
@@ -79,6 +79,12 @@ public class TurnProcessor : MonoBehaviour
         DestroyLastPreview();
         // TODO Send horse movement to opponent
         HorseTranslator.Translate(selectedHorse, yootCount);
+        UpdateState(ProcessState.End);
+        HandleEnd();
+    }
+
+    private void HandleEnd()
+    {
         if (IsAgain())
             StartTurn();
         else

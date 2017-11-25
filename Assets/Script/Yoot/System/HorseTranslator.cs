@@ -21,17 +21,27 @@ public class HorseTranslator : MonoBehaviour
 
     public static void Translate(Horse horse, YootGame.YootCount yootCount)
     {
+        HandleBeginner(horse);
         YootField curr = horse.currField;
-        if (horse.IsStandby())
-            horse.horseManager.NewStandbyRunner();
         YootField dest = YootBoard.GetDestination(horse, yootCount);
         curr.Leave(horse);
+        const float animTime = 1.0f;
+        AnimateHorse(horse, dest.transform, animTime);
         if (dest.IsGoal())
             horse.GoalIn();
         else
-        {
             dest.Arrive(horse);
-            horse.transform.position = dest.transform.position;
-        }
+    }
+
+    private static void HandleBeginner(Horse horse)
+    {
+        if (horse.IsStandby())
+            horse.horseManager.NewStandbyRunner();
+    }
+
+    private static void AnimateHorse(Horse horse, Transform dest, float time)
+    {
+        horse.gameObject.AddComponent<HorseAnimator>().
+            Init(horse.transform.position, dest.position, time);
     }
 }

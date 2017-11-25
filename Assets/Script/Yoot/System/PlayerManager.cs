@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour {
-    public List<GameObject> players;
+    public List<YootPlayer> players;
 
     public void Init()
     {
@@ -13,8 +13,8 @@ public class PlayerManager : MonoBehaviour {
 
     private void InitPlayers()
     {
-        foreach (GameObject playerObj in players)
-            playerObj.GetComponent<YootPlayer>().Init();
+        foreach (YootPlayer player in players)
+            player.Init();
     }
 
     public YootPlayer GetPlayer(int index)
