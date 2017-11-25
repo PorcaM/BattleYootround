@@ -77,7 +77,8 @@ public class ThrowModule : MonoBehaviour
         bool mobile = IsMobile();
         if (mobile)
         {
-            forceGenerator.userPower = accelManager.MaxMagnitude() / 10.0f;
+            const float powerDrag = 2.0f;
+            forceGenerator.userPower = accelManager.MaxMagnitude() / powerDrag;
         }
         return computer || mobile;
     }
