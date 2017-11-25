@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MaterialUI;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class YootGame : MonoBehaviour {
     public enum GameMode { Local, Network };
@@ -68,6 +68,6 @@ public class YootGame : MonoBehaviour {
     public void HandleWin(int winner)
     {
         Debug.Log("Player " + winner + " Win!!");
-
+        SceneManager.LoadScene("Result");
     }
 }

@@ -22,6 +22,11 @@ public class TurnProcessor : MonoBehaviour
     public void StartTurn()
     {
         DecoTurnStart.ShowStarter(owner.playerID);
+        Throw();
+    }
+
+    private void Throw()
+    {
         yootThrowManager.StartThrow();
         UpdateState(ProcessState.Throw);
     }
@@ -86,7 +91,7 @@ public class TurnProcessor : MonoBehaviour
     private void HandleEnd()
     {
         if (IsAgain())
-            StartTurn();
+            Throw();
         else
             EndTurn();
     }

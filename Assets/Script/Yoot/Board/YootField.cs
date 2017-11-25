@@ -71,8 +71,7 @@ public class YootField : MonoBehaviour
 
     private void EnterBattle()
     {
-        battleManager.caller = this;
-        battleManager.StartBattle();
+        battleManager.StartBattle(this);
     }
 
     public void RecvBattlResult(int winner)

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HorseManager : MonoBehaviour {
     public YootPlayer owner;
     public HorseFactory horseFactory;
+    public Slider slider;
 
     [SerializeField] private List<Horse> runners;
     public int numFinished;
@@ -34,6 +36,7 @@ public class HorseManager : MonoBehaviour {
     public void RecvGoalIn(Horse horse)
     {
         numFinished += horse.weight;
+        slider.value = numFinished;
         if (IsAchieveVictory())
             owner.Win();
     }

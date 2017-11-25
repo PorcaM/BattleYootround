@@ -9,7 +9,7 @@ public class BattleManager : MonoBehaviour {
     public string AllyUnitTag = "AllyUnit";
     public string EnemyUnitTag = "EnemyUnit";
 
-    public YootField caller;
+    private YootField battleField;
 
     public CameraHandler cameraHandler;
     public UIHandler uiHandler;
@@ -27,8 +27,9 @@ public class BattleManager : MonoBehaviour {
         FloatingTextController.Init(floatingText, damagesParent);
     }
 
-    public void StartBattle()
+    public void StartBattle(YootField battleField)
     {
+        this.battleField = battleField;
         SetupBattle();
     }
     
@@ -91,9 +92,9 @@ public class BattleManager : MonoBehaviour {
     private void FinishBattle()
     {
         CleanupBattle();
-        if (caller)
+        if (battleField)
         {
-            caller.RecvBattlResult(winPlayer);
+            battleField.RecvBattlResult(winPlayer);
             yootGame.HandleBattleResult(winPlayer);
         }
     }
