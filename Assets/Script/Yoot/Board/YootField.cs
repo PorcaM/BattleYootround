@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class YootField : MonoBehaviour
@@ -6,7 +7,9 @@ public class YootField : MonoBehaviour
     public int id;
     public List<Horse> guests;
     public HorseRoute.Type milestone;
-    public BattleManager battleManager;
+
+    private BattleManager battleManager;
+    private DecoEnterBattle deco;
 
     public void Init(int id, BattleManager battleManager)
     {
@@ -14,6 +17,8 @@ public class YootField : MonoBehaviour
         this.battleManager = battleManager;
         guests = new List<Horse>();
         milestone = HorseRoute.Type.Summer;
+        deco = GameObject.Find("Decos").GetComponent<DecoEnterBattle>();
+        deco.action = new System.Action(EnterBattle);
     }
 
     public bool IsEmpty()
@@ -64,9 +69,15 @@ public class YootField : MonoBehaviour
     private void HandleEncounter(Horse horse)
     {
         if (horse.IsEnemyWith(Guest(0)))
-            EnterBattle();
+            ReadyBattle();
         else
             horse.CarryHorse(Guest(0));
+    }
+
+    private void ReadyBattle()
+    {
+        const float timerInterval = 1.5f;
+        deco.OnEnterBattle(timerInterval);
     }
 
     private void EnterBattle()
