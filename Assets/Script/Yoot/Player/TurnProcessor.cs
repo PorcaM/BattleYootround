@@ -7,7 +7,7 @@ public class TurnProcessor : MonoBehaviour
     public YootPlayer owner;
     public enum ProcessState { Wait, Throw, Horse, Ack, End }
     public ProcessState currentState;
-    public YootThrowManager yootThrowManager;
+    public ThrowProcessor yootThrowManager;
 
     [SerializeField] private YootGame.YootCount yootCount;
     [SerializeField] private Horse selectedHorse;
