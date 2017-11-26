@@ -9,9 +9,14 @@ public class BYGameManager : MonoBehaviour {
 
     private int player1;
     private int player2;
-    private bool player1_ready;
-    private bool player2_ready;
+    private bool player1_yoot_ready;
+    private bool player2_yoot_ready;
+    private bool player1_battle_ready;
+    private bool player2_battle_ready;
     
+    private int startPlayer, nextPlayer;
+    private bool isBattleOn;
+
     private void RegisterHandlers()
     {
         EmptyMsg = new BYMessage.EmptyMessage
@@ -19,6 +24,10 @@ public class BYGameManager : MonoBehaviour {
             str = ""
         };
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.YootReady, OnYootReady);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.TurnEnd, OnTurnEnd);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleOccur, OnBattleOccur);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleReady, OnBattleReady);
     }
 
     public void GameInit(Pair<int, int> room)
@@ -32,11 +41,14 @@ public class BYGameManager : MonoBehaviour {
         NetworkServer.SendToClient(player1, BYMessage.MyMsgType.MatchSuccess, EmptyMsg);
         NetworkServer.SendToClient(player2, BYMessage.MyMsgType.MatchSuccess, EmptyMsg);
 
-        player1_ready = false;
-        player2_ready = false;
-        
+        player1_yoot_ready = false;
+        player2_yoot_ready = false;
+        player1_battle_ready = false;
+        player2_battle_ready = false;
+        isBattleOn = false;
+
         // player 둘 다 윷판 준비 될 때까지 대기
-        StartCoroutine(WaitPlayers());
+        StartCoroutine(WaitPlayersForYoot());
     }
     
     private void GameStart()
@@ -44,7 +56,6 @@ public class BYGameManager : MonoBehaviour {
         // 유저 턴 선택
         System.Random random = new System.Random();
         int turn = random.Next(1, 3);
-        int startPlayer, nextPlayer;
         if (turn == 1)
         {
             startPlayer = player1;
@@ -55,14 +66,31 @@ public class BYGameManager : MonoBehaviour {
             startPlayer = player2;
             nextPlayer = player1;
         }
+        BYMessage.PlayerInfo playerInfo = new BYMessage.PlayerInfo();
+        playerInfo.PlayerNum = startPlayer;
+        NetworkServer.SendToClient(startPlayer, BYMessage.MyMsgType.TurnStart, playerInfo);
+        playerInfo.PlayerNum = nextPlayer;
+        NetworkServer.SendToClient(nextPlayer, BYMessage.MyMsgType.WaitTurn, playerInfo);
+    }
+
+    private void BattleStart()
+    {
+        Debug.Log("Battle Start!");
 
     }
-    IEnumerator WaitPlayers()
+    IEnumerator WaitPlayersForYoot()
     {
         Debug.Log("Wait players");
-        yield return new WaitUntil(() => player1_ready==true && player2_ready== true);
+        yield return new WaitUntil(() => player1_yoot_ready == true && player2_yoot_ready == true);
         Debug.Log("players all ready");
         GameStart();
+    }
+    IEnumerator WaitPlayersForBattle()
+    {
+        Debug.Log("Wait players for Battle...");
+        yield return new WaitUntil(() => player1_battle_ready == true && player2_battle_ready == true);
+        Debug.Log("Battle is ready!");
+        BattleStart();
     }
 
     // TODO(???)
@@ -75,12 +103,46 @@ public class BYGameManager : MonoBehaviour {
         if(player == player1)
         {
             Debug.Log(player1 + " is ready!");
-            player1_ready = true;
+            player1_yoot_ready = true;
         }
         else
         {
             Debug.Log(player2 + " is ready!");
-            player2_ready = true;
+            player2_yoot_ready = true;
+        }
+    }
+    private void OnThrowResult(NetworkMessage netMsg)
+    {
+
+    }
+    private void OnTurnEnd(NetworkMessage netMsg)
+    {
+
+    }
+    private void OnBattleOccur(NetworkMessage netMsg)
+    {
+        if (isBattleOn)
+        {
+            StartCoroutine(WaitPlayersForBattle());
+        }
+        else
+        {
+            isBattleOn = true;
+        }
+    }
+    private void OnBattleReady(NetworkMessage netMsg)
+    {
+        Debug.Log("Ready Message received!");
+        int player = netMsg.conn.connectionId;
+        if (player == player1)
+        {
+            Debug.Log(player1 + " is ready!");
+            player1_battle_ready = true;
+        }
+        else
+        {
+            Debug.Log(player2 + " is ready!");
+            player2_battle_ready = true;
         }
     }
 }

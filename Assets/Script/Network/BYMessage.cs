@@ -36,6 +36,7 @@ public class BYMessage : MonoBehaviour {
 
 
         // Battle Ready, and Win & Lost
+        public static short BattleOccur = MsgType.Highest + 60;
         public static short BattleReady = MsgType.Highest + 70;
         public static short BattleWin = MsgType.Highest + 80;
         public static short BattleLose = MsgType.Highest + 90;
