@@ -9,12 +9,11 @@ public class MatchUIManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        equipment.TempInit();
+        equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
         Debug.Log(equipment.ToString());
         spellbookUIController.spellbook = equipment.spellbook;
         spellbookUIController.Apply();
         deckUIController.deck = equipment.deck;
         deckUIController.Apply();
-
     }
 }
