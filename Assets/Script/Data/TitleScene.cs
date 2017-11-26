@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TitleScene : MonoBehaviour {
+    public XMLParsing xmlParsing;
+    public EquipParser equipParser;
+    public DataCreator dataCreator;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+        xmlParsing.Init();
+        dataCreator.Create();
+        Equipment equip = equipParser.Init();
+        Debug.Log(equip.ToString());
+    }
 }

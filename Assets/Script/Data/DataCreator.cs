@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DataCreator : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void Create()
+    {
+        GameObject data = Instantiate(new GameObject());
+        data.name = "Data";
+        DontDestroyOnLoad(data);
+    }
 }

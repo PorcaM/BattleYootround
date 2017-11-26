@@ -23,6 +23,15 @@ public class XMLParsing : MonoBehaviour {
         InitRecords();
     }
 
+    public void Init()
+    {
+        AllocateMemory();
+        // ParsePlayerXML();
+        ParseSpellRecord();
+        ParseUnitRecord();
+        InitRecords();
+    }
+
     private void AllocateMemory()
     {
         spells = new List<Spell>();

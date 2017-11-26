@@ -5,14 +5,26 @@ using MaterialUI;
 
 public class Equipment : MonoBehaviour
 {
-    public Deck deck;
     public Spellbook spellbook;
+    public Deck deck;
 
     public new string ToString()
     {
         string text = "Equipment: \n";
         text += deck.ToString() + spellbook.ToString();
         return text;
+    }
+
+    public void Init(List<int> list)
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            spellbook.spells.Add(SpellRecord.spells[list[i]]);
+        }
+        for (int i = 0; i < 5; ++i)
+        {
+            deck.units.Add(UnitRecord.units[list[i+4]]);
+        }
     }
 
     public void TempInit()
