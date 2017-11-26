@@ -13,6 +13,7 @@ public class SpellManager : MonoBehaviour {
     public void Init()
     {
         spells = new List<SpellInstance>();
+        equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
         spellFactory.parent = transform;
         foreach(Spell spell in equipment.spellbook.spells)
         {

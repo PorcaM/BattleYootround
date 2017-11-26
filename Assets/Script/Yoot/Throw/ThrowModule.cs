@@ -105,14 +105,6 @@ public class ThrowModule : MonoBehaviour
             float amount = properHeight - Camera.main.transform.position.y;
             Camera.main.transform.Translate(new Vector3(0, amount, 0), Space.World);
         }
-        else
-        {
-            if(Camera.main.transform.position.y > backupPos.y)
-            {
-                float amount = properHeight - Camera.main.transform.position.y;
-                Camera.main.transform.Translate(new Vector3(0, amount, 0), Space.World);
-            }
-        }
     }
 
     private float FindMaxHeight()

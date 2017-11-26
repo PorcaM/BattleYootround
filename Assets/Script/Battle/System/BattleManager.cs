@@ -9,7 +9,7 @@ public class BattleManager : MonoBehaviour {
     public string AllyUnitTag = "AllyUnit";
     public string EnemyUnitTag = "EnemyUnit";
 
-    private YootField battleField;
+    public YootField battleField;
 
     public CameraHandler cameraHandler;
     public UIHandler uiHandler;
@@ -26,6 +26,7 @@ public class BattleManager : MonoBehaviour {
         gameObject.SetActive(false);
         spellManager.Init();
         FloatingTextController.Init(floatingText, damagesParent);
+        cameraHandler.Backup();
     }
 
     public void StartBattle(YootField battleField)
@@ -39,7 +40,6 @@ public class BattleManager : MonoBehaviour {
         winPlayer = -1;
         gameObject.SetActive(true);
         CreateUnits();
-        cameraHandler.Backup();
         cameraHandler.GoBattleField();
         uiHandler.SetUIActive(true);
     }
@@ -55,11 +55,15 @@ public class BattleManager : MonoBehaviour {
 
     private void CreateUnits()
     {
+        Debug.Log("create");
         allyUnitInstanceFactory.unitTag = AllyUnitTag;
         allyUnitInstanceFactory.spanwPosZ = -3.0f;
+        allyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
         allyUnitInstanceFactory.CreateUnits();
         enemyUnitInstanceFactory.unitTag = EnemyUnitTag;
         enemyUnitInstanceFactory.spanwPosZ = 3.0f;
+        // TODO Change this to EnemyEquipment
+        enemyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
         enemyUnitInstanceFactory.CreateUnits();
     }
 

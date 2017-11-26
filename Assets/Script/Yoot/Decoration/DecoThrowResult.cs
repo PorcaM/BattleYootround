@@ -24,6 +24,7 @@ public class DecoThrowResult : MonoBehaviour {
     private IEnumerator HideWindowAfterSeconds(MaterialDialog dialog, float duration)
     {
         yield return new WaitForSeconds(duration);
-        dialog.Hide();
+        if (dialog)
+            dialog.Hide();
     }
 }

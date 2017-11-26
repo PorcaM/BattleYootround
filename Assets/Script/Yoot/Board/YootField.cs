@@ -87,6 +87,7 @@ public class YootField : MonoBehaviour
     private void ReadyBattle()
     {
         const float timerInterval = 1.5f;
+        deco.action = new System.Action(EnterBattle);
         deco.OnEnterBattle(timerInterval);
     }
 
@@ -97,11 +98,16 @@ public class YootField : MonoBehaviour
 
     public void RecvBattlResult(int winner)
     {
+        Debug.Log("winner:" + winner);
         foreach (Horse horse in guests)
-            if (!horse.IsOwner(winner))
+        {
+            Debug.Log("ownerid: " + horse.owner.playerID);
+            if (horse.IsOwner(winner) == false)
             {
+                Debug.Log("Defeat:" + horse.id);
                 horse.Defeat();
                 RequestTurnEnd(horse);
             }
+        }
     }
 }

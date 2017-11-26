@@ -11,8 +11,6 @@ public class YootInitializer : MonoBehaviour {
     public void Init()
     {
         yootBoard.Init();
-        equipment.TempInit();
-        Debug.Log(equipment.ToString());
 
         HorseRoute.Init();
         UnitHealthBar.Init();

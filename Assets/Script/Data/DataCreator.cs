@@ -5,7 +5,7 @@ using UnityEngine;
 public class DataCreator : MonoBehaviour {
     public void Create()
     {
-        GameObject data = Instantiate(new GameObject());
+        GameObject data = new GameObject();
         data.name = "Data";
         DontDestroyOnLoad(data);
     }
