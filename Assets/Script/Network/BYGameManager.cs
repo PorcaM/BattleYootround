@@ -12,11 +12,17 @@ public class BYGameManager : MonoBehaviour {
     private bool player1_ready;
     private bool player2_ready;
     
-    public void GameStart(Pair<int, int> room)
+    private void RegisterHandlers()
     {
-        EmptyMsg = new BYMessage.EmptyMessage();
-        EmptyMsg.str = "";
+        EmptyMsg = new BYMessage.EmptyMessage
+        {
+            str = ""
+        };
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.YootReady, OnYootReady);
+    }
+
+    public void GameInit(Pair<int, int> room)
+    {
 
         player1 = room.First;
         player2 = room.Second;
@@ -28,39 +34,36 @@ public class BYGameManager : MonoBehaviour {
 
         player1_ready = false;
         player2_ready = false;
-
-
+        
         // player 둘 다 윷판 준비 될 때까지 대기
-        while(true)
-        {
-            if (player1_ready == true && player2_ready == true)
-                break;
-        }
-
+        StartCoroutine(WaitPlayers());
+    }
+    
+    private void GameStart()
+    {
         // 유저 턴 선택
         System.Random random = new System.Random();
         int turn = random.Next(1, 3);
+        int startPlayer, nextPlayer;
         if (turn == 1)
         {
-            BYMessage.PlayerInfo PInfo = new BYMessage.PlayerInfo();
-            PInfo.PlayerNum = player1;
-            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.TurnStart, PInfo);
-            PInfo.PlayerNum = player2;
-            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.WaitTurn, PInfo);
-            Debug.Log(player1 + " start!");
+            startPlayer = player1;
+            nextPlayer = player2;
         }
         else
         {
-            BYMessage.PlayerInfo PInfo = new BYMessage.PlayerInfo();
-            PInfo.PlayerNum = player2;
-            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.TurnStart, PInfo);
-            PInfo.PlayerNum = player1;
-            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.WaitTurn, PInfo);
-            Debug.Log(player2 + " start!");
+            startPlayer = player2;
+            nextPlayer = player1;
         }
 
     }
-    
+    IEnumerator WaitPlayers()
+    {
+        Debug.Log("Wait players");
+        yield return new WaitUntil(() => player1_ready==true && player2_ready== true);
+        Debug.Log("players all ready");
+        GameStart();
+    }
 
     // TODO(???)
     // 생각해보니 진짜로 멀티플레이면 매칭만 따로 잡고 여기서 NetworkServer선언 한번 더 해서 따로 연결해야 할듯 함
@@ -74,14 +77,10 @@ public class BYGameManager : MonoBehaviour {
             Debug.Log(player1 + " is ready!");
             player1_ready = true;
         }
-        else if(player == player2)
+        else
         {
             Debug.Log(player2 + " is ready!");
             player2_ready = true;
-        }
-        else
-        {
-            Debug.Log(player + ", Who are you??");
         }
     }
 }

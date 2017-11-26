@@ -8,6 +8,7 @@ public class BYServer : MonoBehaviour
 {
     
     public GameObject ClientMsg;
+    public GameObject roomPrefab;
 
     //public GameObject cMsg1;
     //public GameObject cMsg2;
@@ -116,14 +117,18 @@ public class BYServer : MonoBehaviour
             room = new Pair<int, int>(player1, player2);
             Debug.Log("MainThread - First: " + room.First + "  Second: " + room.Second);
             roomList.Add(room);
-            
+
+            /*
             Thread t = new Thread(delegate ()
             {
                 BYGameManager BYgm = new BYGameManager();
                 BYgm.GameStart(room);
             });
             t.Start();
-            
+            */
+            roomPrefab = Instantiate(roomPrefab);
+            roomPrefab.GetComponent<BYGameManager>().GameInit(room);
+
             NumMatch++;
         }
         else

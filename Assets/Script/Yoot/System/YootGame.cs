@@ -18,17 +18,15 @@ public class YootGame : MonoBehaviour {
     public TurnManager turnManager;
     public HorseTranslator horseTranslator;
 
+    public GameObject ClientManager;
+    public BYClient Client;
+
     private BYMessage.EmptyMessage EmptyMsg;
     void Start()
     {
         Init();
         if(gameMode==GameMode.Local)
             StartGame();
-        else
-        {
-            EmptyMsg = new BYMessage.EmptyMessage();
-            EmptyMsg.str = "";
-        }
     }
 
     public void Init()
@@ -37,7 +35,11 @@ public class YootGame : MonoBehaviour {
         battleManager.Init();
         playerManager.Init();
         turnManager.Init(this);
-        
+
+        EmptyMsg = new BYMessage.EmptyMessage
+        {
+            str = ""
+        };
         RegisterHandlers();
     }
 
@@ -48,19 +50,25 @@ public class YootGame : MonoBehaviour {
         //if (BYClient.myClient == null)
         //    BYClient.myClient = new NetworkClient();
 
-        BYClient.myClient.Send(BYMessage.MyMsgType.YootReady, EmptyMsg);
+        ClientManager = GameObject.Find("ClientManager");
 
-        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.TurnStart, OnTurnStart);
-        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.WaitTurn, OnWaitTurn);
-        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
-        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.MoveHorse, OnMoveHorse);
+        Client = ClientManager.GetComponent<BYClient>();
+        bool check = Client.myClient.Send(BYMessage.MyMsgType.YootReady, EmptyMsg);
+        Debug.Log(check);
+        
+        Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnStart, OnTurnStart);
+        Client.myClient.RegisterHandler(BYMessage.MyMsgType.WaitTurn, OnWaitTurn);
+        Client.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
+        Client.myClient.RegisterHandler(BYMessage.MyMsgType.MoveHorse, OnMoveHorse);
     }
     private void OnTurnStart(NetworkMessage netMsg)
     {
+        Debug.Log("Turn Start Message Recieved!");
         turnManager.StartTurn(0);
     }
     private void OnWaitTurn(NetworkMessage netMsg)
     {
+        Debug.Log("Turn Wait Message Recieved!");
         turnManager.StartTurn(1);
     }
     private void OnThrowResult(NetworkMessage netMsg)
