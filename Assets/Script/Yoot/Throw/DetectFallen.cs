@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DetectFallen : MonoBehaviour {
     public bool isFallen;
-    public const float detectLine = -2.0f;
+    public const float detectLine = -5.0f;
 
     private void FixedUpdate()
     {

@@ -83,9 +83,14 @@ public class TurnProcessor : MonoBehaviour
     {
         DestroyLastPreview();
         // TODO Send horse movement to opponent
-        HorseTranslator.Translate(selectedHorse, yootCount);
         UpdateState(ProcessState.End);
-        HandleEnd();
+        HorseTranslator.Translate(selectedHorse, yootCount);
+    }
+
+    public void RecvEnd()
+    {
+        if (currentState == ProcessState.End)
+            HandleEnd();
     }
 
     private void HandleEnd()

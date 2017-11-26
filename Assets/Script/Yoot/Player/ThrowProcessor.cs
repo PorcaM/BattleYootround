@@ -36,7 +36,7 @@ public class ThrowProcessor : MonoBehaviour {
     private void HandleThrowResult(YootGame.YootCount result)
     {
         deco.Show(result, 1.5f);
-        Destroy(createdModule.gameObject);
+        createdModule.End();
         turnManager.RecvThrowResult(result);
         currentState = ProcessState.Wait;
     }

@@ -6,8 +6,8 @@ public class CameraHandler : MonoBehaviour {
     public Transform center;
     public float height = 7.5f;
 
-    private Vector3 backupPosition;
-    private Quaternion backupRotation;
+    [SerializeField] private Vector3 backupPosition;
+    [SerializeField] private Quaternion backupRotation;
 
     public void Backup()
     {

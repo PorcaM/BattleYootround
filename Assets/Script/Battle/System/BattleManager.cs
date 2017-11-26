@@ -17,6 +17,7 @@ public class BattleManager : MonoBehaviour {
     public FloatingText floatingText;
     public Transform damagesParent;
     public SpellManager spellManager;
+    public ObjController objController;
 
     public YootGame yootGame;
 

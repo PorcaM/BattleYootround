@@ -126,8 +126,9 @@ public class ThrowModule : MonoBehaviour
         return maxHeight;
     }
 
-    void OnDestroy()
+    public void End()
     {
         Camera.main.transform.position = backupPos;
+        Destroy(gameObject);
     }
 }

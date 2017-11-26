@@ -47,6 +47,8 @@ public class YootField : MonoBehaviour
         SetMilestone(horse);
         if (IsEncounter())
             HandleEncounter(horse);
+        else
+            RequestTurnEnd(horse);
     }
 
     private void CheckIn(Horse horse)
@@ -71,7 +73,15 @@ public class YootField : MonoBehaviour
         if (horse.IsEnemyWith(Guest(0)))
             ReadyBattle();
         else
+        {
             horse.CarryHorse(Guest(0));
+            RequestTurnEnd(horse);
+        }
+    }
+
+    private void RequestTurnEnd(Horse horse)
+    {
+        horse.owner.turnProcessor.RecvEnd();
     }
 
     private void ReadyBattle()
@@ -89,6 +99,9 @@ public class YootField : MonoBehaviour
     {
         foreach (Horse horse in guests)
             if (!horse.IsOwner(winner))
+            {
                 horse.Defeat();
+                RequestTurnEnd(horse);
+            }
     }
 }

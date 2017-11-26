@@ -20,7 +20,10 @@ public class DecoEnterBattle : MonoBehaviour {
     private IEnumerator HideWindowAfterSeconds(MaterialDialog dialog, float duration)
     {
         yield return new WaitForSeconds(duration);
-        dialog.Hide();
-        action.Invoke();
+        if (dialog)
+        {
+            dialog.Hide();
+            action.Invoke();
+        }
     }
 }
