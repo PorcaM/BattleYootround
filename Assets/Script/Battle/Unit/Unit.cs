@@ -128,4 +128,17 @@ public class Unit
         MovementSpeed = 3.0;
         AttackSpeed = 1.0;
     }
+
+    public new string ToString()
+    {
+        string info = "";
+        info += "Class: " + UnitClass.ToString() + "\n";
+        info += "Damage: " + Damage + "\n";
+        info += "Armor: " + Armor + "\n";
+        info += "Range: " + Range + "\n";
+        info += "Hp: " + Hp + "\n";
+        info += "MovementSpeed: " + MovementSpeed + "\n";
+        info += "AttackSpeed: " + AttackSpeed + "\n";
+        return info;
+    }
 }

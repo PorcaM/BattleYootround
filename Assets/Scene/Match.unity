@@ -2629,8 +2629,8 @@ GameObject:
   m_Component:
   - component: {fileID: 437363865}
   - component: {fileID: 437363868}
-  - component: {fileID: 437363867}
   - component: {fileID: 437363866}
+  - component: {fileID: 437363867}
   m_Layer: 0
   m_Name: UIController
   m_TagString: Untagged

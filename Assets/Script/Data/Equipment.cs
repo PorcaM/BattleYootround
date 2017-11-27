@@ -27,24 +27,20 @@ public class Equipment : MonoBehaviour
         }
     }
 
-    public void TempInit()
+    public void Init(Equipment origin)
+    {    
+        foreach(Spell spell in origin.spellbook.spells)
+        {
+            spellbook.spells.Add(spell);
+        }
+        foreach(Unit unit in origin.deck.units)
+        {
+            deck.units.Add(unit);
+        }
+    }
+
+    public bool IsIntegrity()
     {
-        ToastManager.Show("Equipment: temp init");
-        deck = new Deck();
-        spellbook = new Spellbook();
-        List<Spell> tempS = new List<Spell>();
-        for (int i = 0; i < 4; ++i)
-        {
-            Spell spell = SpellRecord.spells[i+1];
-            tempS.Add(spell);
-        }
-        spellbook.spells = tempS;
-        List<Unit> tempU = new List<Unit>();
-        for (int i = 0; i < 5; ++i)
-        {
-            Unit unit = UnitRecord.units[i+1];
-            tempU.Add(unit);
-        }
-        deck.units = tempU;
+        return spellbook.CheckIntegrity() && deck.CheckIntegrity();
     }
 }

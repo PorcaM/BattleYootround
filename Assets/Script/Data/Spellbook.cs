@@ -6,6 +6,7 @@ using System.Linq;
 public class Spellbook : MonoBehaviour{
     private const int spellbookSize = 4;
     public List<Spell> spells = new List<Spell>(SpellbookSize);
+    public string[] names;
 
     #region Properties
     public static int SpellbookSize
@@ -64,5 +65,12 @@ public class Spellbook : MonoBehaviour{
         }
         text += "\n";
         return text;
+    }
+
+    void Update()
+    {
+        names = new string[spells.Count];
+        for (int i = 0; i < spells.Count; ++i)
+            names[i] = spells[i].SpellName;
     }
 }

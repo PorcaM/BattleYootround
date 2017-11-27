@@ -26,7 +26,7 @@
 		</Attribute>
 		<Range>
 			<Type>Circle</Type>
-			<Radius>2</Radius>
+			<Radius>3</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
@@ -58,7 +58,7 @@
 		</Attribute>
 		<Range>
 			<Type>Circle</Type>
-			<Radius>2</Radius>
+			<Radius>1</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
@@ -74,7 +74,7 @@
 		</Attribute>
 		<Range>
 			<Type>Circle</Type>
-			<Radius>2</Radius>
+			<Radius>0.5</Radius>
 			<X>0</X>
 			<Y>0</Y>
 		</Range>
