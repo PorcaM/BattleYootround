@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 224403424217577146}
   - component: {fileID: 222743656482976218}
   - component: {fileID: 114355555129178150}
-  - component: {fileID: 114015374255883250}
   - component: {fileID: 61072600865778754}
+  - component: {fileID: 114138905397310882}
   m_Layer: 5
-  m_Name: SpellUI
+  m_Name: UnitUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 104, y: 132}
   m_EdgeRadius: 0
---- !u!114 &114015374255883250
+--- !u!114 &114138905397310882
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -97,13 +97,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1024927435493274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e181f283c8a04f8429f9c1b3bb30dd85, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c910322099add34681dce0c9af8757f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rawImage: {fileID: 114630145592354964}
   text: {fileID: 114920492216818502}
   infoText: {fileID: 0}
-  spellbookUI: {fileID: 0}
+  deckUI: {fileID: 0}
 --- !u!114 &114355555129178150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9137255, g: 0.11764706, b: 0.3882353, a: 1}
+  m_Color: {r: 0.24705882, g: 0.31764707, b: 0.70980394, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

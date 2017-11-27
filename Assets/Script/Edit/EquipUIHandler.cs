@@ -9,6 +9,7 @@ public class EquipUIHandler: MonoBehaviour {
     public Equipment tempEquip;
 
     public SpellUIIntializer spellUIIntializer;
+    public UnitUIInitializer unitUIInitializer;
     
     void Update()
     {
@@ -27,6 +28,7 @@ public class EquipUIHandler: MonoBehaviour {
         tempEquip.Init(equipment);
 
         spellUIIntializer.Init(tempEquip.spellbook);
+        unitUIInitializer.Init(tempEquip.deck);
     }
 
     public void Save()
@@ -34,6 +36,7 @@ public class EquipUIHandler: MonoBehaviour {
         if (tempEquip.IsIntegrity())
         {
             Debug.Log("Good");
+            End();
         }
         else
         {
@@ -43,7 +46,7 @@ public class EquipUIHandler: MonoBehaviour {
 
     public void Cancel()
     {
-
+        End();
     }
 
     public void End()

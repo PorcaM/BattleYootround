@@ -7,6 +7,8 @@ public class Deck : MonoBehaviour{
     private const int deckSize = 5;
     public List<Unit> units = new List<Unit>(DeckSize);
 
+    public string[] names;
+
     public static int DeckSize
     {
         get
@@ -62,5 +64,12 @@ public class Deck : MonoBehaviour{
         }
         text += "\n";
         return text;
+    }
+
+    void Update()
+    {
+        names = new string[units.Count];
+        for (int i = 0; i < units.Count; ++i)
+            names[i] = units[i].UnitClass.ToString();
     }
 }
