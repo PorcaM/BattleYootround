@@ -6,44 +6,39 @@ using UnityEngine.UI;
 public class SpellbookUI : MonoBehaviour {
     public Transform spellParent;
     public SpellUIFactory factory;
-    public ScrollRect scrollRect;
     public Spellbook spellbook;
+    public List<SpellUI> uiList;
+
+    void Start()
+    {
+        uiList = new List<SpellUI>();
+    }
 
     public void Init(Spellbook spellbook)
     {
         this.spellbook = spellbook;
+        uiList.Clear();
         foreach (Spell spell in spellbook.spells)
-        {
-            factory.Create(spell, spellParent);
-        }
+            CreateSpellUI(spell);
     }
 
-    public void Next()
+    private void CreateSpellUI(Spell spell)
     {
-        scrollRect.horizontalNormalizedPosition += .3f;
-    }
-
-    public void Back()
-    {
-        scrollRect.horizontalNormalizedPosition -= .3f;
+        SpellUI spellUI = factory.Create(spell, spellParent);
+        spellUI.gameObject.AddComponent<EditableSpell>().Init(this, false);
+        uiList.Add(spellUI);
     }
 
     public void Add(Spell spell)
     {
         spellbook.spells.Add(spell);
-        factory.Create(spell, spellParent);
+        CreateSpellUI(spell);
     }
 
-    public void Remove(Spell spell)
+    public void Remove(SpellUI spellUI)
     {
-        spellbook.spells.Remove(spell);
-        foreach(SpellUI spellUI in spellParent.GetComponentsInChildren<SpellUI>())
-        {
-            if(spellUI.spell == spell)
-            {
-                Destroy(spellUI.gameObject);
-                break;
-            }
-        }
+        spellbook.spells.Remove(spellUI.spell);
+        uiList.Remove(spellUI);
+        Destroy(spellUI.gameObject);
     }
 }

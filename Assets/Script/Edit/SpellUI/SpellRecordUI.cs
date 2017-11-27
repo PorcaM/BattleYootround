@@ -6,24 +6,17 @@ using UnityEngine.UI;
 public class SpellRecordUI : MonoBehaviour {
     public Transform spellParent;
     public SpellUIFactory factory;
-    public ScrollRect scrollRect;
+    public SpellbookUI spellbookUI;
 
     public void Init()
     {
         foreach (Spell spell in SpellRecord.spells)
         {
             if (spell.SpellName != "Basic")
-                factory.Create(spell, spellParent);
+            {
+                SpellUI spellUI = factory.Create(spell, spellParent);
+                spellUI.gameObject.AddComponent<EditableSpell>().Init(spellbookUI, true);
+            }
         }
-    }
-
-    public void Next()
-    {
-        scrollRect.horizontalNormalizedPosition += .3f;
-    }
-
-    public void Back()
-    {
-        scrollRect.horizontalNormalizedPosition -= .3f;
     }
 }
