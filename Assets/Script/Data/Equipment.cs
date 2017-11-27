@@ -17,6 +17,8 @@ public class Equipment : MonoBehaviour
 
     public void Init(List<int> list)
     {
+        spellbook.spells.Clear();
+        deck.units.Clear();
         for (int i = 0; i < 4; ++i)
         {
             spellbook.spells.Add(SpellRecord.spells[list[i]]);
@@ -28,7 +30,9 @@ public class Equipment : MonoBehaviour
     }
 
     public void Init(Equipment origin)
-    {    
+    {
+        spellbook.spells.Clear();
+        deck.units.Clear();
         foreach(Spell spell in origin.spellbook.spells)
         {
             spellbook.spells.Add(spell);

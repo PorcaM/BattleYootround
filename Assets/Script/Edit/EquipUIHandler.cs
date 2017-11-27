@@ -36,6 +36,7 @@ public class EquipUIHandler: MonoBehaviour {
         if (tempEquip.IsIntegrity())
         {
             Debug.Log("Good");
+            equipment.Init(tempEquip);
             End();
         }
         else
