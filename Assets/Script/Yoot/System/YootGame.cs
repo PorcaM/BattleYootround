@@ -19,9 +19,8 @@ public class YootGame : MonoBehaviour {
     public HorseTranslator horseTranslator;
 
     public GameObject ClientManager;
-    public BYClient Client;
-
-    private BYMessage.EmptyMessage EmptyMsg;
+    public static BYClient Client;
+    public static BYMessage.EmptyMessage EmptyMsg;
     void Start()
     {
         Init();
@@ -36,20 +35,18 @@ public class YootGame : MonoBehaviour {
         playerManager.Init();
         turnManager.Init(this);
 
-        EmptyMsg = new BYMessage.EmptyMessage
+        if (gameMode == GameMode.Network)
         {
-            str = ""
-        };
-        RegisterHandlers();
+            EmptyMsg = new BYMessage.EmptyMessage
+            {
+                str = ""
+            };
+            RegisterHandlers();
+        }
     }
 
     private void RegisterHandlers()
     {
-        // Yoot씬에서 매칭없이 시작할 경우, myClient에 아무것도없어서 에러남
-        // 개발단계에서만 쓸 임시 코드
-        //if (BYClient.myClient == null)
-        //    BYClient.myClient = new NetworkClient();
-
         ClientManager = GameObject.Find("ClientManager");
 
         Client = ClientManager.GetComponent<BYClient>();

@@ -38,6 +38,8 @@ public class BYGameManager : MonoBehaviour {
 
         Debug.Log("SubThread - First: " + player1 + "  Second: " + player2);
 
+        RegisterHandlers();
+
         NetworkServer.SendToClient(player1, BYMessage.MyMsgType.MatchSuccess, EmptyMsg);
         NetworkServer.SendToClient(player2, BYMessage.MyMsgType.MatchSuccess, EmptyMsg);
 
@@ -66,6 +68,7 @@ public class BYGameManager : MonoBehaviour {
             startPlayer = player2;
             nextPlayer = player1;
         }
+        Debug.Log(startPlayer + " player start!");
         BYMessage.PlayerInfo playerInfo = new BYMessage.PlayerInfo();
         playerInfo.PlayerNum = startPlayer;
         NetworkServer.SendToClient(startPlayer, BYMessage.MyMsgType.TurnStart, playerInfo);
@@ -113,11 +116,35 @@ public class BYGameManager : MonoBehaviour {
     }
     private void OnThrowResult(NetworkMessage netMsg)
     {
-
+        int player = netMsg.conn.connectionId;
+        BYMessage.ThrowMessage msg = netMsg.ReadMessage<BYMessage.ThrowMessage>();
+        YootGame.YootCount yootCount = msg.yootCount;
+        if(player == player1)
+        {
+            Debug.Log(player1 + " throw result: " + yootCount);
+            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.ThrowResult, msg);
+        }
+        else
+        {
+            Debug.Log(player2 + " throw result: " + yootCount);
+            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.ThrowResult, msg);
+        }
     }
     private void OnTurnEnd(NetworkMessage netMsg)
     {
-
+        int player = netMsg.conn.connectionId;
+        if (player == player1)
+        {
+            Debug.Log(player1 + " player turn end");
+            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.TurnEnd, EmptyMsg);
+            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.TurnStart, EmptyMsg);
+        }
+        else
+        {
+            Debug.Log(player2 + " player turn end");
+            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.TurnStart, EmptyMsg);
+            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.TurnEnd, EmptyMsg);
+        }
     }
     private void OnBattleOccur(NetworkMessage netMsg)
     {

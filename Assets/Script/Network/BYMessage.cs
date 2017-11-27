@@ -13,6 +13,10 @@ public class BYMessage : MonoBehaviour {
         public int horseNum;
         public int destination;
     }
+    public class ThrowMessage : MessageBase
+    {
+        public YootGame.YootCount yootCount;
+    }
     public class PlayerInfo : MessageBase
     {
         public int PlayerNum;

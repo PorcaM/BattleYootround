@@ -9,8 +9,8 @@ public class BYClient : MonoBehaviour
 {
     public NetworkClient myClient;
     int serverPort = 7000;
-    //string serverIP = "165.246.42.24";
-    string serverIP = "192.168.184.32";
+    string serverIP = "165.246.42.24";
+    //string serverIP = "192.168.184.32";
 
     public delegate void OnNetworkActivity();
 
