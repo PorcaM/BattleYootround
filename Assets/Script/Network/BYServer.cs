@@ -65,32 +65,10 @@ public class BYServer : MonoBehaviour
 
         RegisterHandlers();
     }
-
-    /*
-     *  클라이언트로부터 날아오는 메세지
-     *  - 매칭 요청    // 기본제공 OnConnect
-     *  - 매칭 취소
-     *  - 매칭 성공
-     *  - 윷판 준비완료
-     *  - 턴 시작
-     *  -  턴 종료
-     *  -  윷 결과
-     *  -  말 이동
-     *  -  전투 시작 (+ hp, position, spell등등의 싱크)
-     *  -  전투 결과
-     *  -  게임 결과
-     * 
-     *  ?. 네트워크 끊어짐 (???)
-     *
-     *  + 배틀이랑 게임 결과(승, 패)는 승리한 사람만 보냄
-     *    진 사람은 서버로부터 패배 메세지 수신
-     *
-     */
+    
     private void RegisterHandlers()
     {
-        // 기본 제공 메세지 타입
         NetworkServer.RegisterHandler(MsgType.Connect, OnConnected);
-        // 커스텀 타입
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.MatchCancel, OnCancel);
 
     }

@@ -21,7 +21,7 @@ public class YootGame : MonoBehaviour {
     public TurnManager turnManager;
     public HorseTranslator horseTranslator;
     
-    private TurnNetworkSendProcess turnSend;
+    public TurnNetworkSendProcess turnSend;
     
     void Start()
     {

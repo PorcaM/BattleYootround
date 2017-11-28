@@ -20,18 +20,27 @@ public class ThrowModule : MonoBehaviour
         state = State.WaitMessage;
     }
 
-    public void RecvMessage()
+    public void RecvMessage(float force, List<Vector3> torques)
     {
-        // Recv force and torques
-        // Set that values (forceGenerator.force = force;)
-        // Call force (forceGenerator.ForceTargetsWithSavedData();)
+        forceGenerator.force = force;
+        forceGenerator.torques = torques;
+        forceGenerator.ForceTargetsWithSavedData();
     }
 
     public void SendMessage()
     {
-        // Send these
-        //forceGenerator.force;
-        //forceGenerator.torques;
+        BYMessage.ThrowForceMessage msg = new BYMessage.ThrowForceMessage();
+        msg.force = forceGenerator.force;
+        int pos = 0;
+        // 메세지 보낼때 벡터 배열로 변환해서 보냄
+        foreach(Vector3 torque in forceGenerator.torques)
+        {
+            msg.torques[pos++] = torque;
+            Debug.Log(msg.torques[pos - 1]);
+        }
+        YootGame yootGame = GameObject.Find("YootGame").GetComponent<YootGame>();
+        yootGame.turnSend.Client.myClient.Send(BYMessage.MyMsgType.ThrowForce, msg);
+        
     }
 
     public void Init(ThrowProcessor throwProcessor)
@@ -57,8 +66,11 @@ public class ThrowModule : MonoBehaviour
                 break;
             case State.WaitThrow:
                 HandleWaitThrowState();
+                if (YootGame.isNetwork && throwProcessor.owner.playerID == 0)
+                    throwProcessor.createdModule.SendMessage();
                 break;
             case State.Throwed:
+            case State.WaitMessage:
                 ControlCamera();
                 break;
             default:
