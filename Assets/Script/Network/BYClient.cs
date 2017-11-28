@@ -20,13 +20,15 @@ public class BYClient : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        DontDestroyOnLoad(this);
+        Debug.Log("BYClient Start() called");
         myClient = new NetworkClient();
         EmptyMsg = new BYMessage.EmptyMessage
         {
             str = ""
         };
         RegisterHandlers();
+
+        DontDestroyOnLoad(this);
     }
 
     private void RegisterHandlers()
@@ -42,6 +44,7 @@ public class BYClient : MonoBehaviour
     }
     public void ConnectToServer()
     {
+        Debug.Log("ConnectToServer()" + myClient);
         // 이미 서버에 연결되어 있는 상태면 아무것도 안함
         if (isMatch)
             return;
@@ -51,7 +54,10 @@ public class BYClient : MonoBehaviour
     public void Cancel()
     {
         isMatch = false;
-        myClient.Send(BYMessage.MyMsgType.MatchCancel, EmptyMsg);
+        Debug.Log("Cancel()" + myClient);
+        Debug.Log("Match canceled");
+        if(myClient.isConnected)
+            myClient.Send(BYMessage.MyMsgType.MatchCancel, EmptyMsg);
     }
 
     // 서버에 연결됨 (Matching이 정상적으로 등록)
@@ -89,7 +95,9 @@ public class BYClient : MonoBehaviour
     // BUG 얘는 강제종료될때 호출이 안되는것같은데 잘 모르겠음
     private void OnApplicationQuit()
     {
-        myClient.Send(BYMessage.MyMsgType.Disconnect, EmptyMsg);
+        if (myClient.isConnected)
+            myClient.Send(BYMessage.MyMsgType.Disconnect, EmptyMsg);
+
     }
     /*
      *  나중에 안드로이드로 빌드할 때 Pause 걸리면 네트워크 끊어지도록 구현??

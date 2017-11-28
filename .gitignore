@@ -9,6 +9,7 @@
 /[Bb]uilds/
 /Assets/AssetStoreTools*
 /Assets/Sound*
+/Assets/UnitIcons*
 /client_test_Data
 /server_test_Data
 /screenshots
