@@ -15,6 +15,24 @@ public class Equipment : MonoBehaviour
         return text;
     }
 
+    public int[] ToIntArray()
+    {
+        List<int> list = new List<int>();
+        foreach (Spell spell in spellbook.spells)
+            list.Add(spell.Id);
+        foreach (Unit unit in deck.units)
+            list.Add(unit.Id);
+        return list.ToArray();
+    }
+
+    public void Init(int[] list)
+    {
+        List<int> gList = new List<int>();
+        for (int i = 0; i < list.Length; ++i)
+            gList.Add(list[i]);
+        Init(gList);
+    }
+
     public void Init(List<int> list)
     {
         spellbook.spells.Clear();
