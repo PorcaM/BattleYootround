@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThrowModule : MonoBehaviour
 {
-    public enum State { WaitTouch, WaitThrow, Throwed, Result }
+    public enum State { WaitTouch, WaitThrow, Throwed, Result, WaitMessage }
     public State state;
     public ForceGenerator forceGenerator;
     public ResultManager resultManager;
@@ -14,6 +14,21 @@ public class ThrowModule : MonoBehaviour
 
     private float maxHeight;
     private Vector3 backupPos;
+
+    public void WaitMessage()
+    {
+        state = State.WaitMessage;
+    }
+
+    public void RecvMessage()
+    {
+
+    }
+
+    public void SendMessage()
+    {
+
+    }
 
     public void Init(ThrowProcessor throwProcessor)
     {
