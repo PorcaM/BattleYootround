@@ -32,7 +32,7 @@
 	</Unit>
 	<Unit>
 		<Id>3</Id>
-		<Type>HorseSoldier</Type>
+		<Type>Dark</Type>
 		<Damage>10</Damage>
 		<Armor>0</Armor>
 		<Range>2</Range>

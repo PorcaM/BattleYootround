@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Unit
 {
-    public enum ClassType { Basic, Warrior, Archer, HorseSoldier, Spearman, Rogue, Wizard, Paladin };
+    public enum ClassType { Basic, Knight, Archer, Dark, Spearman, Rogue, Wizard, Paladin };
     private ClassType unitClass;
     private int id;
     private double damage;
