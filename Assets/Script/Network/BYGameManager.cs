@@ -73,7 +73,7 @@ public class BYGameManager : MonoBehaviour {
         playerInfo.PlayerNum = startPlayer;
         NetworkServer.SendToClient(startPlayer, BYMessage.MyMsgType.TurnStart, playerInfo);
         playerInfo.PlayerNum = nextPlayer;
-        NetworkServer.SendToClient(nextPlayer, BYMessage.MyMsgType.WaitTurn, playerInfo);
+        NetworkServer.SendToClient(nextPlayer, BYMessage.MyMsgType.TurnWait, playerInfo);
     }
 
     private void BattleStart()

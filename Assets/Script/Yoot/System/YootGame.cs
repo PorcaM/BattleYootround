@@ -55,7 +55,7 @@ public class YootGame : MonoBehaviour {
         Debug.Log(check);
 
         Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnStart, OnTurnStart);
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.WaitTurn, OnWaitTurn);
+        Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnWait, OnTurnWait);
         Client.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
         Client.myClient.RegisterHandler(BYMessage.MyMsgType.MoveHorse, OnMoveHorse);
     }
@@ -64,7 +64,7 @@ public class YootGame : MonoBehaviour {
         Debug.Log("Turn Start Message Recieved!");
         turnManager.StartTurn(0);
     }
-    private void OnWaitTurn(NetworkMessage netMsg)
+    private void OnTurnWait(NetworkMessage netMsg)
     {
         Debug.Log("Turn Wait Message Recieved!");
         turnManager.StartTurn(1);
