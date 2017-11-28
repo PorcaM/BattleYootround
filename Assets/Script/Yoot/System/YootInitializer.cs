@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class YootInitializer : MonoBehaviour {
     public YootBoard yootBoard;
-    public Equipment equipment;
     public PopupPreview popupPreview;
     public Transform previewParent;
 
