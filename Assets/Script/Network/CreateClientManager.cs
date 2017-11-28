@@ -14,6 +14,10 @@ public class CreateClientManager : MonoBehaviour {
             clientManager = Instantiate(clientManager);
             clientManager.name = "ClientManager";
         }
+        else
+        {
+            clientManager.GetComponent<BYClient>().Start();
+        }
 
         UnityEngine.UI.Button match = GameObject.Find("Match").GetComponent<UnityEngine.UI.Button>();
         match.onClick.AddListener(clientManager.GetComponent<BYClient>().ConnectToServer);

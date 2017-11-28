@@ -18,7 +18,7 @@ public class BYClient : MonoBehaviour
     private BYMessage.EmptyMessage EmptyMsg;
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
         Debug.Log("BYClient Start() called");
         myClient = new NetworkClient();
