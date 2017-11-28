@@ -12,7 +12,7 @@
 	</Unit>
 	<Unit>
 		<Id>1</Id>
-		<Type>Warrior</Type>
+		<Type>Knight</Type>
 		<Damage>10</Damage>
 		<Armor>1</Armor>
 		<Range>1</Range>

@@ -14,6 +14,9 @@ public class DeckUIController : MonoBehaviour {
         for (int i = 0; i < deck.units.Count; ++i)
         {
             Unit unit = deck.units[i];
+            RawImage rawImage = deckUI.GetChild(i).GetChild(0).GetComponent<RawImage>();
+            string path = "UnitImages/profile/";
+            rawImage.texture = Resources.Load(path + unit.UnitClass.ToString().ToLower(), typeof(Texture2D)) as Texture2D;
             MaterialButton button = deckUI.GetChild(i).GetChild(1).GetComponent<MaterialButton>();
             button.textText = unit.UnitClass.ToString();
         }
