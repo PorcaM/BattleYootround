@@ -26,9 +26,9 @@ public class BYMessage : MonoBehaviour {
         // Match cancel by client, Match success by server
         public static short MatchCancel = MsgType.Highest + 1;
         public static short MatchSuccess = MsgType.Highest + 2;
-
-        public static short Equipment = MsgType.Highest + 5;
+        
         // Yoot ready before start turn
+        public static short Equipment = MsgType.Highest + 5;
         public static short YootReady = MsgType.Highest + 8;
         
         // Turn Message
@@ -36,13 +36,16 @@ public class BYMessage : MonoBehaviour {
         public static short TurnEnd = MsgType.Highest + 11;
         public static short TurnWait = MsgType.Highest + 12;
 
+        public static short ThrowForce = MsgType.Highest + 15;
         public static short ThrowResult = MsgType.Highest + 20;
-        public static short MoveHorse = MsgType.Highest + 30;
+        public static short SelectHorse = MsgType.Highest + 30;
+        public static short SelectHorseAck = MsgType.Highest + 40;
 
 
         // Battle Ready, and Win & Lost
-        public static short BattleOccur = MsgType.Highest + 60;
-        public static short BattleReady = MsgType.Highest + 70;
+        // TODO: spell state
+        public static short BattleReady = MsgType.Highest + 60;
+        public static short BattleStart = MsgType.Highest + 70;
         public static short BattleWin = MsgType.Highest + 80;
         public static short BattleLose = MsgType.Highest + 90;
         

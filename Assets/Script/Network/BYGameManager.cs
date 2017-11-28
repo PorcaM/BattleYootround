@@ -26,8 +26,12 @@ public class BYGameManager : MonoBehaviour {
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.YootReady, OnYootReady);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.TurnEnd, OnTurnEnd);
-        NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleOccur, OnBattleOccur);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleReady, OnBattleReady);
+
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.SelectHorse, OnSelectHorse);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.SelectHorseAck, OnSelectHorseAck);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.GameWin, OnGameWin);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.GameLose, OnGameLose);
     }
 
     public void GameInit(Pair<int, int> room)
@@ -84,21 +88,21 @@ public class BYGameManager : MonoBehaviour {
     IEnumerator WaitPlayersForYoot()
     {
         Debug.Log("Wait players");
-        yield return new WaitUntil(() => player1_yoot_ready == true && player2_yoot_ready == true);
+        yield return new WaitWhile(() => player1_yoot_ready == false || player2_yoot_ready == false);
         Debug.Log("players all ready");
         GameStart();
     }
     IEnumerator WaitPlayersForBattle()
     {
         Debug.Log("Wait players for Battle...");
-        yield return new WaitUntil(() => player1_battle_ready == true && player2_battle_ready == true);
+        yield return new WaitWhile(() => player1_battle_ready == false || player2_battle_ready == false);
         Debug.Log("Battle is ready!");
         BattleStart();
     }
 
     // TODO(???)
     // 생각해보니 진짜로 멀티플레이면 매칭만 따로 잡고 여기서 NetworkServer선언 한번 더 해서 따로 연결해야 할듯 함
-    // 안 그러면 Server로 전송하는 메세지도 겹칠테고 문제생길듯.
+    // 안 그러면 Server로 전송하는 메세지도 겹칠테고 문제생길 것 같음.
     private void OnYootReady(NetworkMessage netMsg)
     {
         Debug.Log("Ready Message received!");
@@ -146,17 +150,7 @@ public class BYGameManager : MonoBehaviour {
             NetworkServer.SendToClient(player2, BYMessage.MyMsgType.TurnEnd, EmptyMsg);
         }
     }
-    private void OnBattleOccur(NetworkMessage netMsg)
-    {
-        if (isBattleOn)
-        {
-            StartCoroutine(WaitPlayersForBattle());
-        }
-        else
-        {
-            isBattleOn = true;
-        }
-    }
+
     private void OnBattleReady(NetworkMessage netMsg)
     {
         Debug.Log("Ready Message received!");
@@ -171,5 +165,33 @@ public class BYGameManager : MonoBehaviour {
             Debug.Log(player2 + " is ready!");
             player2_battle_ready = true;
         }
+    }
+    private void OnSelectHorse(NetworkMessage netMsg)
+    {
+        BYMessage.HorseMessage msg = netMsg.ReadMessage<BYMessage.HorseMessage>();
+        int player = netMsg.conn.connectionId;
+        int opponent = (player == player1) ? player1 : player2;
+        NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.SelectHorse, msg);
+    }
+    private void OnSelectHorseAck(NetworkMessage netMsg)
+    {
+        BYMessage.HorseMessage msg = netMsg.ReadMessage<BYMessage.HorseMessage>();
+        int player = netMsg.conn.connectionId;
+        int opponent = (player == player1) ? player1 : player2;
+        NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.SelectHorseAck, msg);
+    }
+    private void OnGameWin(NetworkMessage netMsg)
+    {
+        int winner = netMsg.conn.connectionId;
+        int loser = (winner == player1) ? player1 : player2;
+        NetworkServer.SendToClient(winner, BYMessage.MyMsgType.GameWin, EmptyMsg);
+        NetworkServer.SendToClient(loser, BYMessage.MyMsgType.GameLose, EmptyMsg);
+    }
+    private void OnGameLose(NetworkMessage netMsg)
+    {
+        int winner = netMsg.conn.connectionId;
+        int loser = (winner == player1) ? player1 : player2;
+        NetworkServer.SendToClient(winner, BYMessage.MyMsgType.GameWin, EmptyMsg);
+        NetworkServer.SendToClient(loser, BYMessage.MyMsgType.GameLose, EmptyMsg);
     }
 }
