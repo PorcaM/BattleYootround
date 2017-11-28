@@ -23,6 +23,8 @@ public class ThrowProcessor : MonoBehaviour {
     public void StartThrow()
     {
         currentState = ProcessState.Start;
+        if (createdModule)
+            Destroy(createdModule.gameObject);
         createdModule = Instantiate(throwModule, transform) as ThrowModule;
         createdModule.Init(this);
     }

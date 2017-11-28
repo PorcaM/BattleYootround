@@ -107,8 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec492e69d86a37546aa28af8aaad20cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLocation: {fileID: 0}
+  currField: {fileID: 0}
   owner: {fileID: 0}
   id: 0
   weight: 0
   routeType: 0
+  horseManager: {fileID: 0}

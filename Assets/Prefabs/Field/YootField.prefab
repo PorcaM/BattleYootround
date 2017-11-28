@@ -96,7 +96,6 @@ MonoBehaviour:
   id: 0
   guests: []
   milestone: 0
-  battleManager: {fileID: 0}
 --- !u!136 &136141293104571578
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -105,7 +104,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1347830272786950}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
