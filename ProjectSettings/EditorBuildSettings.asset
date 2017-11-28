@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scene/Match.unity
     guid: 9e42b4c4e00f7ca44b3a8899e5a3ce00
   - enabled: 1
+    path: Assets/Scene/Edit.unity
+    guid: 0a343740d6fee9342bd048eb6c7de9ae
+  - enabled: 1
     path: Assets/Scene/Yoot.unity
     guid: 65dc60825b46dd746ab4861d55d28c1c
   - enabled: 1
