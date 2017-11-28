@@ -92,9 +92,6 @@ public class BYServer : MonoBehaviour
         NetworkServer.RegisterHandler(MsgType.Connect, OnConnected);
         // 커스텀 타입
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.MatchCancel, OnCancel);
-        NetworkServer.RegisterHandler(BYMessage.MyMsgType.MoveHorse, OnMove);
-        NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleWin, OnBattleResult);
-        NetworkServer.RegisterHandler(BYMessage.MyMsgType.GameWin, OnGameResult);
 
     }
     // 클라이언트와 연결되었을 때 호출됨
@@ -175,31 +172,7 @@ public class BYServer : MonoBehaviour
         Debug.Log(netMsg.conn);
         DeletePlayerInRoomList(netMsg.conn.connectionId);
     }
-    // 클라이언트가 서버에게 자신의 말 움직임을 보내주면 서버는 그대로 상대에게 전달해주면 됨
-    private void OnMove(NetworkMessage netMsg)
-    {
-        BYMessage.HorseMessage msg = netMsg.ReadMessage<BYMessage.HorseMessage>();
-        int player = netMsg.conn.connectionId;
-        int opponent = GetOpponent(player);
-        NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.MoveHorse, msg);
-    }
-    private void OnBattleResult(NetworkMessage netMsg)
-    {
-        int winner = netMsg.conn.connectionId;
-        int loser = GetOpponent(winner);
-        NetworkServer.SendToClient(winner, BYMessage.MyMsgType.BattleWin, EmptyMsg);
-        NetworkServer.SendToClient(loser, BYMessage.MyMsgType.BattleLose, EmptyMsg);
-    }
-    private void OnGameResult(NetworkMessage netMsg)
-    {
-        int winner = netMsg.conn.connectionId;
-        int loser = GetOpponent(winner);
-        NetworkServer.SendToClient(winner, BYMessage.MyMsgType.GameWin, EmptyMsg);
-        NetworkServer.SendToClient(loser, BYMessage.MyMsgType.GameLose, EmptyMsg);
-
-    }
     
-
     private void UpdateDebug1Text(string message)
     {
         debugText1.text = message;

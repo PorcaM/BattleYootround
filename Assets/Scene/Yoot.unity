@@ -1674,7 +1674,6 @@ GameObject:
   - component: {fileID: 318520694}
   - component: {fileID: 318520697}
   - component: {fileID: 318520696}
-  - component: {fileID: 318520695}
   m_Layer: 0
   m_Name: XMLManager
   m_TagString: Untagged
@@ -1697,17 +1696,6 @@ MonoBehaviour:
   Spell: {fileID: 4900000, guid: 957705dddd6d21e42a81ed8488f691a9, type: 3}
   Unit: {fileID: 4900000, guid: e721607053f10b940b2f66e8fc56c05b, type: 3}
   playerProfile: {fileID: 0}
---- !u!114 &318520695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 318520693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97b37949ac5558242bc7290ab31599fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &318520696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6045,7 +6033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b6b9c347fc5a54c8dc574b1d337264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMode: 1
+  gameMode: 0
   yootInitializer: {fileID: 656422017}
   battleManager: {fileID: 404196072}
   gameStateUI: {fileID: 832808127}

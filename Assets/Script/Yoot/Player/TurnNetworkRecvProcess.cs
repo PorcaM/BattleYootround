@@ -23,17 +23,12 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     }
     private void RegisterHandlers()
     {
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnStart, OnTurnStart);
         Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnWait, OnTurnWait);
         Client.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.MoveHorse, OnMoveHorse);
+        Client.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorse, OnSelectHorse);
+        Client.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorseAck, OnSelectHorseAck);
     }
-
-    private void OnTurnStart(NetworkMessage netMsg)
-    {
-        //Debug.Log("Turn Start Message Recieved!");
-        //turnManager.StartTurn(0);
-    }
+    
     private void OnTurnWait(NetworkMessage netMsg)
     {
         Debug.Log("Turn Wait Message Recieved!");
@@ -43,9 +38,13 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     {
         // TODO: 상대방의 윷 결과 show
     }
-    private void OnMoveHorse(NetworkMessage netMsg)
+    private void OnSelectHorse(NetworkMessage netMsg)
     {
-        // TODO: 상대방의 말 움직이도록
+        // TODO: 상대방의 말 선택 효과
+    }
+    private void OnSelectHorseAck(NetworkMessage netMsg)
+    {
+        // TODO: 상대방의 말 움직임 효과
     }
 
 }

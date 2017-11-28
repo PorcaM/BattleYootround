@@ -38,9 +38,6 @@ public class BYClient : MonoBehaviour
         // 커스텀 타입
         myClient.RegisterHandler(BYMessage.MyMsgType.MatchCancel, OnCancel);
         myClient.RegisterHandler(BYMessage.MyMsgType.MatchSuccess, OnMatchSuccess);
-        myClient.RegisterHandler(BYMessage.MyMsgType.MoveHorse, OnMoveHorse);
-        myClient.RegisterHandler(BYMessage.MyMsgType.BattleLose, OnBattleLose);
-        myClient.RegisterHandler(BYMessage.MyMsgType.GameLose, OnGameLose);
     }
     public void ConnectToServer()
     {
@@ -74,24 +71,10 @@ public class BYClient : MonoBehaviour
     {
         ToastManager.Show("Match Success!");
         // TODO: sleep 추가
-        SceneLoad a = new SceneLoad();
+        SceneLoad a = GameObject.Find("SceneManager").GetComponent<SceneLoad>();
         a.LoadScene("Yoot");
     }
-    // 상대한테 받는거
-    private void OnMoveHorse(NetworkMessage netMsg)
-    {
-        BYMessage.HorseMessage horseInfo = netMsg.ReadMessage<BYMessage.HorseMessage>();
-        // 말 옮기기
-
-    }
-    private void OnBattleLose(NetworkMessage netMsg)
-    {
-        // 배틀 패배
-    }
-    private void OnGameLose(NetworkMessage netMsg)
-    {
-        // 게임 패배
-    }
+    
     // BUG 얘는 강제종료될때 호출이 안되는것같은데 잘 모르겠음
     private void OnApplicationQuit()
     {
