@@ -110,6 +110,47 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2858703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2858704}
+  - component: {fileID: 2858705}
+  m_Layer: 0
+  m_Name: GameInfoCreater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2858704
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2858703}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 977100494}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2858705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2858703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcb09e035efadaf4aaa0dd35d01473f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  original: {fileID: 114880439863407888, guid: 9b6ac88d06424c244b4290999f57bcf2, type: 2}
 --- !u!1 &4822304
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,8 +295,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 653902173}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 79.975494, y: 15.2894335}
-  m_Size: {x: 109.975494, y: 33.289433}
+  m_ContentSize: {x: 84, y: 16.2}
+  m_Size: {x: 114, y: 34.2}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -604,8 +645,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 1364224446}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 71.98775, y: 16}
-  m_Size: {x: 101.98775, y: 34}
+  m_ContentSize: {x: 74.600006, y: 16}
+  m_Size: {x: 104.600006, y: 34}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -1360,7 +1401,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1533,7 +1574,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2275,8 +2316,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 1630769635}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 76.692184, y: 16}
-  m_Size: {x: 106.692184, y: 34}
+  m_ContentSize: {x: 79.4, y: 16}
+  m_Size: {x: 109.4, y: 34}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -2321,8 +2362,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 2858705}
+        m_MethodName: CreateNetwork
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2400,7 +2441,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2890,8 +2931,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 443112625}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 82.32771, y: 15.2894335}
-  m_Size: {x: 112.32771, y: 33.289433}
+  m_ContentSize: {x: 86.4, y: 16.2}
+  m_Size: {x: 116.4, y: 34.2}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -3686,8 +3727,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 2110775709}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 71.98775, y: 16}
-  m_Size: {x: 101.98775, y: 34}
+  m_ContentSize: {x: 74, y: 16}
+  m_Size: {x: 104, y: 34}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -3741,6 +3782,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Yoot
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2858705}
+        m_MethodName: CreateLocal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -4280,7 +4332,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \ue150
   m_Size: 24
-  m_ScaledSize: 20.40625
+  m_ScaledSize: 40
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 942191683}
   m_VectorImageData:
@@ -4508,7 +4560,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4662,7 +4714,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4838,7 +4890,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \ue2bd
   m_Size: 24
-  m_ScaledSize: 20.40625
+  m_ScaledSize: 40
   m_SizeMode: 1
   m_MaterialUiScaler: {fileID: 942191683}
   m_VectorImageData:
@@ -5382,7 +5434,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5500,7 +5552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Canvas: {fileID: 942191686}
   m_ScalerMode: 2
-  m_ScaleFactor: 0.85026044
+  m_ScaleFactor: 1.6666666
   m_EditorForceDpi: 1
   m_EditorForceDpiValue: 160
   m_ReferencePixelsPerUnit: 100
@@ -5769,6 +5821,7 @@ Transform:
   - {fileID: 1124231097}
   - {fileID: 437363865}
   - {fileID: 1030592718}
+  - {fileID: 2858704}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6612,8 +6665,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 1642691187}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 7.0566616, y: 15.2894335}
-  m_Size: {x: 37.056664, y: 33.289433}
+  m_ContentSize: {x: 7.8, y: 16.2}
+  m_Size: {x: 37.8, y: 34.2}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -6766,7 +6819,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7152,8 +7205,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 1242805518}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 82.32771, y: 15.2894335}
-  m_Size: {x: 112.32771, y: 33.289433}
+  m_ContentSize: {x: 86.4, y: 16.2}
+  m_Size: {x: 116.4, y: 34.2}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -7452,7 +7505,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7830,7 +7883,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8226,7 +8279,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \ue150
   m_Size: 24
-  m_ScaledSize: 20.40625
+  m_ScaledSize: 40
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 942191683}
   m_VectorImageData:
@@ -8373,7 +8426,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8456,7 +8509,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE90A
   m_Size: 56
-  m_ScaledSize: 47.614586
+  m_ScaledSize: 93.33333
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 942191683}
   m_VectorImageData:
@@ -8800,8 +8853,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 1911522168}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 82.32771, y: 15.2894335}
-  m_Size: {x: 112.32771, y: 33.289433}
+  m_ContentSize: {x: 86.4, y: 16.2}
+  m_Size: {x: 116.4, y: 34.2}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -8917,7 +8970,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \ue63d
   m_Size: 24
-  m_ScaledSize: 20.40625
+  m_ScaledSize: 40
   m_SizeMode: 1
   m_MaterialUiScaler: {fileID: 942191683}
   m_VectorImageData:
@@ -9283,8 +9336,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 1030376599}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 82.32771, y: 15.2894335}
-  m_Size: {x: 112.32771, y: 33.289433}
+  m_ContentSize: {x: 86.4, y: 16.2}
+  m_Size: {x: 116.4, y: 34.2}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -9672,8 +9725,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 1859485163}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 7.0566616, y: 15.2894335}
-  m_Size: {x: 37.056664, y: 33.289433}
+  m_ContentSize: {x: 7.8, y: 16.2}
+  m_Size: {x: 37.8, y: 34.2}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -10683,7 +10736,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10981,7 +11034,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11061,7 +11114,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11276,7 +11329,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 56
-  m_ScaledSize: 47.614586
+  m_ScaledSize: 93.33333
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 942191683}
   m_VectorImageData:
@@ -11795,7 +11848,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \ue2bd
   m_Size: 24
-  m_ScaledSize: 20.40625
+  m_ScaledSize: 40
   m_SizeMode: 1
   m_MaterialUiScaler: {fileID: 942191683}
   m_VectorImageData:
@@ -11953,8 +12006,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 960732357}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 79.975494, y: 15.2894335}
-  m_Size: {x: 109.975494, y: 33.289433}
+  m_ContentSize: {x: 84, y: 16.2}
+  m_Size: {x: 114, y: 34.2}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -12200,8 +12253,8 @@ MonoBehaviour:
   m_ShadowsCanvasGroup: {fileID: 1873209495}
   m_Interactable: 1
   m_ContentPadding: {x: 30, y: 18}
-  m_ContentSize: {x: 79.975494, y: 15.2894335}
-  m_Size: {x: 109.975494, y: 33.289433}
+  m_ContentSize: {x: 84, y: 16.2}
+  m_Size: {x: 114, y: 34.2}
   m_FitWidthToContent: 1
   m_FitHeightToContent: 1
   m_IsCircularButton: 0
@@ -12727,7 +12780,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13045,7 +13098,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 56
-  m_ScaledSize: 47.614586
+  m_ScaledSize: 93.33333
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 942191683}
   m_VectorImageData:
@@ -13325,7 +13378,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE90A
   m_Size: 56
-  m_ScaledSize: 47.614586
+  m_ScaledSize: 93.33333
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 942191683}
   m_VectorImageData:
