@@ -20,7 +20,7 @@ public class YootGame : MonoBehaviour {
     public PlayerManager playerManager;
     public TurnManager turnManager;
     public HorseTranslator horseTranslator;
-
+    
     private TurnNetworkSendProcess turnSend;
     
     void Start()
@@ -49,8 +49,7 @@ public class YootGame : MonoBehaviour {
         playerManager.Init();
         turnManager.Init(this);
     }
-    
-    
+
     private int GetFirstPlayer()
     {
         int firstPlayer = 0;

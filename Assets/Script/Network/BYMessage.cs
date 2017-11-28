@@ -26,7 +26,7 @@ public class BYMessage : MonoBehaviour {
         // Match cancel by client, Match success by server
         public static short MatchCancel = MsgType.Highest + 1;
         public static short MatchSuccess = MsgType.Highest + 2;
-
+        
         // Yoot ready before start turn
         public static short Equipment = MsgType.Highest + 5;
         public static short YootReady = MsgType.Highest + 8;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThrowModule : MonoBehaviour
 {
-    public enum State { WaitTouch, WaitThrow, Throwed, Result }
+    public enum State { WaitTouch, WaitThrow, Throwed, Result, WaitMessage }
     public State state;
     public ForceGenerator forceGenerator;
     public ResultManager resultManager;
@@ -14,6 +14,25 @@ public class ThrowModule : MonoBehaviour
 
     private float maxHeight;
     private Vector3 backupPos;
+
+    public void WaitMessage()
+    {
+        state = State.WaitMessage;
+    }
+
+    public void RecvMessage()
+    {
+        // Recv force and torques
+        // Set that values (forceGenerator.force = force;)
+        // Call force (forceGenerator.ForceTargetsWithSavedData();)
+    }
+
+    public void SendMessage()
+    {
+        // Send these
+        //forceGenerator.force;
+        //forceGenerator.torques;
+    }
 
     public void Init(ThrowProcessor throwProcessor)
     {
@@ -77,7 +96,7 @@ public class ThrowModule : MonoBehaviour
         bool mobile = IsMobile();
         if (mobile)
         {
-            const float powerDrag = 2.0f;
+            const float powerDrag = 3.0f;
             forceGenerator.userPower = accelManager.MaxMagnitude() / powerDrag;
         }
         return computer || mobile;

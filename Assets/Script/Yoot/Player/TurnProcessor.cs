@@ -51,11 +51,14 @@ public class TurnProcessor : MonoBehaviour
             };
             turnSend.Client.myClient.Send(BYMessage.MyMsgType.ThrowResult, msg);
         }
-
+        
         if (yootCount == YootGame.YootCount.Nak)
             EndTurn();
         else
+        {
+            owner.horseManager.SetClickable(true);
             UpdateState(ProcessState.Horse);
+        }
     }
 
     public void RecvHorseSelect(Horse horse)
@@ -93,6 +96,7 @@ public class TurnProcessor : MonoBehaviour
 
     private void HandleAck()
     {
+        owner.horseManager.SetClickable(false);
         DestroyLastPreview();
         // TODO Send horse movement to opponent
         UpdateState(ProcessState.End);

@@ -46,18 +46,19 @@ public class Horse : MonoBehaviour
     public void GoalIn()
     {
         horseManager.RecvGoalIn(this);
-        Destroy(gameObject);
+        owner.turnProcessor.RecvEnd();
+        owner.horseManager.RemoveHorse(this);
     }
 
     public void Defeat()
     {
-        Destroy(gameObject);
+        owner.horseManager.RemoveHorse(this);
     }
 
     public void CarryHorse(Horse partner)
     {
         weight += partner.weight;
-        Destroy(partner.gameObject);
+        owner.horseManager.RemoveHorse(partner);
     }
 
     void OnDestroy()

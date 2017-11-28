@@ -50,4 +50,18 @@ public class HorseManager : MonoBehaviour {
     {
         runners.Remove(horse);
     }
+
+    public void SetClickable(bool flag)
+    {
+        foreach(Horse horse in runners)
+        {
+            horse.GetComponent<MeshCollider>().enabled = flag;
+        }
+    }
+
+    public void RemoveHorse(Horse horse)
+    {
+        runners.Remove(horse);
+        Destroy(horse.gameObject);
+    }
 }
