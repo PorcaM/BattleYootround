@@ -22,6 +22,7 @@ public class YootGame : MonoBehaviour {
     public GameObject ClientManager;
     public static BYClient Client;
     public static BYMessage.EmptyMessage EmptyMsg;
+
     void Start()
     {
         Init();

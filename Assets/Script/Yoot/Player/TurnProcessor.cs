@@ -42,11 +42,6 @@ public class TurnProcessor : MonoBehaviour
     {
 
         this.yootCount = yootCount;
-            BYMessage.ThrowMessage msg = new BYMessage.ThrowMessage
-            {
-                yootCount = yootCount
-            };
-            YootGame.Client.myClient.Send(BYMessage.MyMsgType.ThrowResult, msg);
         if (yootCount == YootGame.YootCount.Nak)
             EndTurn();
         else
@@ -131,6 +126,5 @@ public class TurnProcessor : MonoBehaviour
         lastPreview = null;
         UpdateState(ProcessState.Wait);
         owner.yootGame.EndTurn(owner.playerID);
-        YootGame.Client.myClient.Send(BYMessage.MyMsgType.TurnEnd, YootGame.EmptyMsg);
     }
 }
