@@ -7,9 +7,10 @@ using MaterialUI;
 
 public class BYClient : MonoBehaviour
 {
-    NetworkClient myClient;
+    public NetworkClient myClient;
     int serverPort = 7000;
     string serverIP = "165.246.42.24";
+    //string serverIP = "192.168.184.32";
 
     public delegate void OnNetworkActivity();
 
@@ -21,8 +22,10 @@ public class BYClient : MonoBehaviour
     {
         DontDestroyOnLoad(this);
         myClient = new NetworkClient();
-        EmptyMsg = new BYMessage.EmptyMessage();
-        EmptyMsg.str = "";
+        EmptyMsg = new BYMessage.EmptyMessage
+        {
+            str = ""
+        };
         RegisterHandlers();
     }
 
@@ -43,6 +46,7 @@ public class BYClient : MonoBehaviour
         if (isMatch)
             return;
         myClient.Connect(serverIP, serverPort);
+        //YootGame.Client = myClient;
     }
     public void Cancel()
     {

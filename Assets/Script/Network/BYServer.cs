@@ -8,6 +8,7 @@ public class BYServer : MonoBehaviour
 {
     
     public GameObject ClientMsg;
+    public GameObject roomPrefab;
 
     //public GameObject cMsg1;
     //public GameObject cMsg2;
@@ -67,16 +68,17 @@ public class BYServer : MonoBehaviour
 
     /*
      *  클라이언트로부터 날아오는 메세지
-     *  0. 매칭 요청    // 기본제공 OnConnect
-     *  1. 매칭 취소
-     *  2. 매칭 성공
-     *  3. 턴 시작
-     *  4. 턴 종료
-     *  5. 윷 결과
-     *  6. 말 이동
-     *  7. 전투 시작 (+ hp, position, spell등등의 싱크)
-     *  8. 전투 결과
-     *  9. 게임 결과
+     *  - 매칭 요청    // 기본제공 OnConnect
+     *  - 매칭 취소
+     *  - 매칭 성공
+     *  - 윷판 준비완료
+     *  - 턴 시작
+     *  -  턴 종료
+     *  -  윷 결과
+     *  -  말 이동
+     *  -  전투 시작 (+ hp, position, spell등등의 싱크)
+     *  -  전투 결과
+     *  -  게임 결과
      * 
      *  ?. 네트워크 끊어짐 (???)
      *
@@ -113,17 +115,20 @@ public class BYServer : MonoBehaviour
             int player2 = NetworkServer.connections[NumClient].connectionId;
 
             room = new Pair<int, int>(player1, player2);
-            Debug.Log("First: " + room.First + "  Second: " + room.Second);
+            Debug.Log("MainThread - First: " + room.First + "  Second: " + room.Second);
             roomList.Add(room);
+
             /*
             Thread t = new Thread(delegate ()
             {
-                BYGame.OnGame(room);
+                BYGameManager BYgm = new BYGameManager();
+                BYgm.GameStart(room);
             });
             t.Start();
             */
-            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.MatchSuccess, EmptyMsg);
-            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.MatchSuccess, EmptyMsg);
+            roomPrefab = Instantiate(roomPrefab);
+            roomPrefab.GetComponent<BYGameManager>().GameInit(room);
+
             NumMatch++;
         }
         else

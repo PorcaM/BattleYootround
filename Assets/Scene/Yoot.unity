@@ -5938,6 +5938,7 @@ MonoBehaviour:
   playerManager: {fileID: 1088696050}
   turnManager: {fileID: 97350427}
   horseTranslator: {fileID: 1995868280}
+  ClientManager: {fileID: 0}
 --- !u!1 &1045580954
 GameObject:
   m_ObjectHideFlags: 0
