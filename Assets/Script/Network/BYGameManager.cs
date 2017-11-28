@@ -73,7 +73,7 @@ public class BYGameManager : MonoBehaviour {
         playerInfo.PlayerNum = startPlayer;
         NetworkServer.SendToClient(startPlayer, BYMessage.MyMsgType.TurnStart, playerInfo);
         playerInfo.PlayerNum = nextPlayer;
-        NetworkServer.SendToClient(nextPlayer, BYMessage.MyMsgType.WaitTurn, playerInfo);
+        NetworkServer.SendToClient(nextPlayer, BYMessage.MyMsgType.TurnWait, playerInfo);
     }
 
     private void BattleStart()
@@ -84,14 +84,14 @@ public class BYGameManager : MonoBehaviour {
     IEnumerator WaitPlayersForYoot()
     {
         Debug.Log("Wait players");
-        yield return new WaitUntil(() => player1_yoot_ready == true && player2_yoot_ready == true);
+        yield return new WaitWhile(() => player1_yoot_ready == false || player2_yoot_ready == false);
         Debug.Log("players all ready");
         GameStart();
     }
     IEnumerator WaitPlayersForBattle()
     {
         Debug.Log("Wait players for Battle...");
-        yield return new WaitUntil(() => player1_battle_ready == true && player2_battle_ready == true);
+        yield return new WaitWhile(() => player1_battle_ready == false || player2_battle_ready == false);
         Debug.Log("Battle is ready!");
         BattleStart();
     }

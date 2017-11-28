@@ -28,12 +28,13 @@ public class BYMessage : MonoBehaviour {
         public static short MatchSuccess = MsgType.Highest + 2;
 
         // Yoot ready before start turn
-        public static short YootReady = MsgType.Highest + 5;
+        public static short Equipment = MsgType.Highest + 5;
+        public static short YootReady = MsgType.Highest + 8;
         
         // Turn Message
         public static short TurnStart = MsgType.Highest + 10;
         public static short TurnEnd = MsgType.Highest + 11;
-        public static short WaitTurn = MsgType.Highest + 12;
+        public static short TurnWait = MsgType.Highest + 12;
 
         public static short ThrowResult = MsgType.Highest + 20;
         public static short MoveHorse = MsgType.Highest + 30;

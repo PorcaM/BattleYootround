@@ -8,7 +8,8 @@ public class TurnProcessor : MonoBehaviour
     public enum ProcessState { Wait, Throw, Horse, Ack, End }
     public ProcessState currentState;
     public ThrowProcessor yootThrowManager;
-    public GameObject TurnNetwork;      // TODO
+    public TurnNetworkSendProcess turnSend;
+    public TurnNetworkRecvProcess turnRecv;
 
     [SerializeField] private YootGame.YootCount yootCount;
     [SerializeField] private Horse selectedHorse;
@@ -42,11 +43,14 @@ public class TurnProcessor : MonoBehaviour
     {
 
         this.yootCount = yootCount;
+        /*
+         * 게임모드가 Network일 때만 동작
             BYMessage.ThrowMessage msg = new BYMessage.ThrowMessage
             {
                 yootCount = yootCount
             };
-            YootGame.Client.myClient.Send(BYMessage.MyMsgType.ThrowResult, msg);
+            turnSend.Client.myClient.Send(BYMessage.MyMsgType.ThrowResult, msg);
+        */
         if (yootCount == YootGame.YootCount.Nak)
             EndTurn();
         else
@@ -131,6 +135,6 @@ public class TurnProcessor : MonoBehaviour
         lastPreview = null;
         UpdateState(ProcessState.Wait);
         owner.yootGame.EndTurn(owner.playerID);
-        YootGame.Client.myClient.Send(BYMessage.MyMsgType.TurnEnd, YootGame.EmptyMsg);
+        turnSend.Client.myClient.Send(BYMessage.MyMsgType.TurnEnd, turnSend.EmptyMsg);
     }
 }

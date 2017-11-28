@@ -179,7 +179,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -304,7 +304,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 56
-  m_ScaledSize: 93.33333
+  m_ScaledSize: 47.614586
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -398,7 +398,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -566,7 +566,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -663,7 +663,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE907
   m_Size: 64
-  m_ScaledSize: 80
+  m_ScaledSize: 40.8125
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -955,7 +955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Canvas: {fileID: 219304007}
   m_ScalerMode: 2
-  m_ScaleFactor: 1.6666666
+  m_ScaleFactor: 0.85026044
   m_EditorForceDpi: 1
   m_EditorForceDpiValue: 160
   m_ReferencePixelsPerUnit: 100
@@ -1049,6 +1049,48 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &226173207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 226173209}
+  - component: {fileID: 226173208}
+  m_Layer: 0
+  m_Name: TurnNetworkRecv
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &226173208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 226173207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19d786a315ed304d8f359d5086b42c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Client: {fileID: 0}
+  turnManager: {fileID: 97350427}
+--- !u!4 &226173209
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 226173207}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1122592581}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &239333721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,7 +1403,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -1458,7 +1500,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE907
   m_Size: 64
-  m_ScaledSize: 80
+  m_ScaledSize: 40.8125
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -2090,7 +2132,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2232,6 +2274,8 @@ Transform:
   - {fileID: 730327774}
   - {fileID: 332998248}
   - {fileID: 495018104}
+  - {fileID: 744115582}
+  - {fileID: 934972920}
   m_Father: {fileID: 2016542013}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2510,7 +2554,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f8e0ae8fe4abe4e44bb4a9a89648eea4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bdb3c2fa2edce14428c2588d923d9431, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2847,7 +2891,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE907
   m_Size: 64
-  m_ScaledSize: 106.666664
+  m_ScaledSize: 54.416668
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -4223,7 +4267,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -4523,6 +4567,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 741511201}
+--- !u!1 &744115581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 744115582}
+  - component: {fileID: 744115583}
+  m_Layer: 0
+  m_Name: TurnNetworkSend
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &744115582
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 744115581}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386429160}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &744115583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 744115581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7b359e181b6c646a6be0bc0daa54f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Client: {fileID: 0}
+  turnManager: {fileID: 97350427}
 --- !u!1 &744717825
 GameObject:
   m_ObjectHideFlags: 0
@@ -4940,7 +5026,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -5207,7 +5293,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -5375,6 +5461,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 549380427}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &934972919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 934972920}
+  m_Layer: 0
+  m_Name: TurnNetworkRecv
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &934972920
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 934972919}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386429160}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &949639032
 GameObject:
@@ -5931,14 +6045,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b6b9c347fc5a54c8dc574b1d337264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMode: 0
+  gameMode: 1
   yootInitializer: {fileID: 656422017}
   battleManager: {fileID: 404196072}
   gameStateUI: {fileID: 832808127}
   playerManager: {fileID: 1088696050}
   turnManager: {fileID: 97350427}
   horseTranslator: {fileID: 1995868280}
-  ClientManager: {fileID: 0}
 --- !u!1 &1045580954
 GameObject:
   m_ObjectHideFlags: 0
@@ -6226,6 +6339,8 @@ Transform:
   - {fileID: 554260823}
   - {fileID: 2041874685}
   - {fileID: 1904577045}
+  - {fileID: 226173209}
+  - {fileID: 1381126899}
   m_Father: {fileID: 2016542013}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6316,7 +6431,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -6543,7 +6658,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \ue3ae
   m_Size: 24
-  m_ScaledSize: 40
+  m_ScaledSize: 20.40625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -6626,7 +6741,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -6815,6 +6930,34 @@ Transform:
   - {fileID: 192622775}
   m_Father: {fileID: 1543199394}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1381126898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1381126899}
+  m_Layer: 0
+  m_Name: TurnNetworkSend
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1381126899
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1381126898}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1122592581}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1388173021
 GameObject:
@@ -7104,7 +7247,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 26.666666
+  m_ScaledSize: 13.604167
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -7246,7 +7389,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -7553,7 +7696,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -7700,7 +7843,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 26.666666
+  m_ScaledSize: 13.604167
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -8084,7 +8227,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -8726,7 +8869,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -8844,7 +8987,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -8927,7 +9070,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 10
+  m_ScaledSize: 5.1015625
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -9401,7 +9544,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE90A
   m_Size: 56
-  m_ScaledSize: 93.33333
+  m_ScaledSize: 47.614586
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -9485,7 +9628,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: \uE902
   m_Size: 48
-  m_ScaledSize: 26.666666
+  m_ScaledSize: 13.604167
   m_SizeMode: 3
   m_MaterialUiScaler: {fileID: 219304004}
   m_VectorImageData:
@@ -9531,6 +9674,8 @@ MonoBehaviour:
   owner: {fileID: 1122592582}
   currentState: 0
   yootThrowManager: {fileID: 554260822}
+  turnSend: {fileID: 0}
+  turnRecv: {fileID: 226173208}
   yootCount: 0
   selectedHorse: {fileID: 0}
   lastPreview: {fileID: 0}
@@ -9580,6 +9725,8 @@ MonoBehaviour:
   owner: {fileID: 1766240419}
   currentState: 0
   yootThrowManager: {fileID: 730327773}
+  turnSend: {fileID: 744115583}
+  turnRecv: {fileID: 0}
   yootCount: 0
   selectedHorse: {fileID: 0}
   lastPreview: {fileID: 0}

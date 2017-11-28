@@ -15,6 +15,12 @@ public class YootPlayer : MonoBehaviour {
     public void Init()
     {
         horseManager.Init();
+        Debug.Log("TurnProcess StartTurn()");
+        Debug.Log("Send: " + turnProcessor.turnSend + ", Recv: " + turnProcessor.turnRecv);
+        if (playerID == 0)
+            turnProcessor.turnSend.Init();
+        else
+            turnProcessor.turnRecv.Init();
     }
 
     public void Win()
