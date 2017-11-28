@@ -24,5 +24,7 @@ public class CreateClientManager : MonoBehaviour {
 
         UnityEngine.UI.Button cancel = GameObject.Find("Cancel").GetComponent<UnityEngine.UI.Button>();
         cancel.onClick.AddListener(clientManager.GetComponent<BYClient>().Cancel);
+
+        YootGame.isNetwork = true;
     }
 }

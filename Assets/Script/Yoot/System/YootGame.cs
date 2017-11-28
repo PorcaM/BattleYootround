@@ -10,7 +10,9 @@ using UnityEngine.Networking;
 public class YootGame : MonoBehaviour {
     public enum GameMode { Local, Network };
     public GameMode gameMode;
+    public static bool isNetwork;
     public enum YootCount { Nak, Do, Gae, Gul, Yoot, Mo, BackDo = -1 };
+
 
     public YootInitializer yootInitializer;
     public BattleManager battleManager;
@@ -24,7 +26,7 @@ public class YootGame : MonoBehaviour {
     void Start()
     {
         Init();
-        if (gameMode == GameMode.Local)
+        if (!isNetwork)
         {
             Debug.Log("Game Start on local");
             StartGame();
@@ -63,7 +65,7 @@ public class YootGame : MonoBehaviour {
 
     public void EndTurn(int lastPlayer)
     {
-        if (gameMode == GameMode.Local)
+        if (!isNetwork)
             turnManager.StartNextTurn(lastPlayer);
         else
         {

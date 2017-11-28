@@ -43,14 +43,15 @@ public class TurnProcessor : MonoBehaviour
     {
 
         this.yootCount = yootCount;
-        /*
-         * 게임모드가 Network일 때만 동작
+        if (YootGame.isNetwork)
+        {
             BYMessage.ThrowMessage msg = new BYMessage.ThrowMessage
             {
                 yootCount = yootCount
             };
             turnSend.Client.myClient.Send(BYMessage.MyMsgType.ThrowResult, msg);
-        */
+        }
+
         if (yootCount == YootGame.YootCount.Nak)
             EndTurn();
         else
