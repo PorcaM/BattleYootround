@@ -22,12 +22,16 @@ public class ThrowModule : MonoBehaviour
 
     public void RecvMessage()
     {
-
+        // Recv force and torques
+        // Set that values (forceGenerator.force = force;)
+        // Call force (forceGenerator.ForceTargetsWithSavedData();)
     }
 
     public void SendMessage()
     {
-
+        // Send these
+        //forceGenerator.force;
+        //forceGenerator.torques;
     }
 
     public void Init(ThrowProcessor throwProcessor)

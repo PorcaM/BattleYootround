@@ -7,8 +7,19 @@ public class ForceGenerator : MonoBehaviour {
     public float userPower;
     public float thrust;
 
-    private float force;
-    private List<Vector3> torques = new List<Vector3>();
+    public float force;
+    public List<Vector3> torques = new List<Vector3>();
+
+    public void ForceTargetsWithSavedData()
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            GameObject target = targets[i];
+            Rigidbody rigidbody = target.GetComponent<Rigidbody>();
+            ThrowUp(rigidbody);
+            rigidbody.AddTorque(torques[i] * force);
+        }
+    }
 
     public void ForceTargets()
     {
@@ -16,8 +27,8 @@ public class ForceGenerator : MonoBehaviour {
         force = thrust * userPower;
         foreach (GameObject target in targets)
             ForceTarget(target);
-        LogPower();
-    }
+        // LogPower();
+    }    
 
     private void LogPower()
     {
