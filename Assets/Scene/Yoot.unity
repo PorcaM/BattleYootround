@@ -4619,6 +4619,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &761284340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 761284341}
+  m_Layer: 0
+  m_Name: TurnNetwork
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &761284341
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 761284340}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1122592581}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &769080931
 GameObject:
   m_ObjectHideFlags: 0
@@ -6226,6 +6254,7 @@ Transform:
   - {fileID: 554260823}
   - {fileID: 2041874685}
   - {fileID: 1904577045}
+  - {fileID: 761284341}
   m_Father: {fileID: 2016542013}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9531,6 +9560,7 @@ MonoBehaviour:
   owner: {fileID: 1122592582}
   currentState: 0
   yootThrowManager: {fileID: 554260822}
+  TurnNetwork: {fileID: 0}
   yootCount: 0
   selectedHorse: {fileID: 0}
   lastPreview: {fileID: 0}
@@ -9580,6 +9610,7 @@ MonoBehaviour:
   owner: {fileID: 1766240419}
   currentState: 0
   yootThrowManager: {fileID: 730327773}
+  TurnNetwork: {fileID: 0}
   yootCount: 0
   selectedHorse: {fileID: 0}
   lastPreview: {fileID: 0}
