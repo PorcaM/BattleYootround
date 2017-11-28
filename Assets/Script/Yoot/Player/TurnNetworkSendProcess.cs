@@ -7,6 +7,7 @@ public class TurnNetworkSendProcess : MonoBehaviour {
     public BYClient Client;
     public BYMessage.EmptyMessage EmptyMsg;
     public TurnManager turnManager;
+    public ThrowProcessor yootThrowManager;
 
     public void Init()
     {

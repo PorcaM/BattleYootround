@@ -13,6 +13,11 @@ public class BYMessage : MonoBehaviour {
         public int horseNum;
         public int destination;
     }
+    public class ThrowForceMessage : MessageBase
+    {
+        public float force;
+        public Vector3[] torques = new Vector3[4];
+    }
     public class ThrowMessage : MessageBase
     {
         public YootGame.YootCount yootCount;

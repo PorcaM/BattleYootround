@@ -24,6 +24,7 @@ public class BYGameManager : MonoBehaviour {
             str = ""
         };
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.YootReady, OnYootReady);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowForce, OnThrowForce);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.TurnEnd, OnTurnEnd);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleReady, OnBattleReady);
@@ -116,6 +117,27 @@ public class BYGameManager : MonoBehaviour {
         {
             Debug.Log(player2 + " is ready!");
             player2_yoot_ready = true;
+        }
+    }
+    private void OnThrowForce(NetworkMessage netMsg)
+    {
+        int player = netMsg.conn.connectionId;
+        BYMessage.ThrowForceMessage msg = netMsg.ReadMessage<BYMessage.ThrowForceMessage>();
+        Debug.Log("=====Torques======");
+        for(int i=0; i<4; i++)
+        {
+            Debug.Log(msg.torques[i]);
+        }
+        Debug.Log("==================");
+        if (player == player1)
+        {
+            Debug.Log(player1 + " throw force: " + msg.force);
+            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.ThrowForce, msg);
+        }
+        else
+        {
+            Debug.Log(player2 + " throw force: " + msg.force);
+            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.ThrowForce, msg);
         }
     }
     private void OnThrowResult(NetworkMessage netMsg)

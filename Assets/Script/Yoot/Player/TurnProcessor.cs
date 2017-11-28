@@ -35,6 +35,19 @@ public class TurnProcessor : MonoBehaviour
 
     public void RecvThrowResult(YootGame.YootCount yootCount)
     {
+        if (YootGame.isNetwork && owner.playerID == 0)
+        {
+            Debug.Log("Send result yootCount: " + yootCount);
+            BYMessage.ThrowMessage msg = new BYMessage.ThrowMessage
+            {
+                yootCount = yootCount
+            };
+            turnSend.Client.myClient.Send(BYMessage.MyMsgType.ThrowResult, msg);
+        }
+        else if (YootGame.isNetwork && owner.playerID == 1)
+        {
+            HandleThrowResult(yootCount);
+        }
         if (currentState == ProcessState.Throw)
             HandleThrowResult(yootCount);
     }
@@ -43,21 +56,43 @@ public class TurnProcessor : MonoBehaviour
     {
 
         this.yootCount = yootCount;
-        if (YootGame.isNetwork)
+
+        if (!YootGame.isNetwork)
         {
-            BYMessage.ThrowMessage msg = new BYMessage.ThrowMessage
+            if (yootCount == YootGame.YootCount.Nak)
+                EndTurn();
+            else
             {
-                yootCount = yootCount
-            };
-            turnSend.Client.myClient.Send(BYMessage.MyMsgType.ThrowResult, msg);
+                owner.horseManager.SetClickable(true);
+                UpdateState(ProcessState.Horse);
+            }
         }
-        
-        if (yootCount == YootGame.YootCount.Nak)
-            EndTurn();
         else
         {
-            owner.horseManager.SetClickable(true);
-            UpdateState(ProcessState.Horse);
+            // TODO: "opponent yoot result: ~~" 메세지 나오게
+            // TODO: 네트워크 상태에서의 상대 결과 처리
+            if (owner.playerID == 1)
+            {
+                // 상대 말은 못건드리게
+                if (yootCount == YootGame.YootCount.Nak)
+                    EndTurn();
+                else
+                {
+
+                    owner.horseManager.SetClickable(false);
+                    UpdateState(ProcessState.Horse);
+                }
+            }
+            else
+            {
+                if (yootCount == YootGame.YootCount.Nak)
+                    EndTurn();
+                else
+                {
+                    owner.horseManager.SetClickable(true);
+                    UpdateState(ProcessState.Horse);
+                }
+            }
         }
     }
 
@@ -140,6 +175,7 @@ public class TurnProcessor : MonoBehaviour
         lastPreview = null;
         UpdateState(ProcessState.Wait);
         owner.yootGame.EndTurn(owner.playerID);
-        turnSend.Client.myClient.Send(BYMessage.MyMsgType.TurnEnd, turnSend.EmptyMsg);
+        if(owner.playerID == 0)
+            turnSend.Client.myClient.Send(BYMessage.MyMsgType.TurnEnd, turnSend.EmptyMsg);
     }
 }

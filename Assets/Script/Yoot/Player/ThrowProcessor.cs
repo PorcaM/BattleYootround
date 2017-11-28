@@ -10,7 +10,7 @@ public class ThrowProcessor : MonoBehaviour {
     public ProcessState currentState;
 
     public ThrowModule throwModule;
-    private ThrowModule createdModule;
+    public ThrowModule createdModule;
 
     private DecoThrowResult deco;
 
@@ -27,9 +27,10 @@ public class ThrowProcessor : MonoBehaviour {
             Destroy(createdModule.gameObject);
         createdModule = Instantiate(throwModule, transform) as ThrowModule;
         createdModule.Init(this);
-        // TODO if network && owner.playerID == 1, 
-        // then call createdModule.WaitMessage();
-        // Register handler createdModuel.RecvMessage();
+        if(YootGame.isNetwork && owner.playerID == 1)
+        {
+            createdModule.WaitMessage();
+        }
     }
 
     public void RecvThrowResult(YootGame.YootCount result)
@@ -44,8 +45,6 @@ public class ThrowProcessor : MonoBehaviour {
         createdModule.End();
         turnManager.RecvThrowResult(result);
         currentState = ProcessState.Wait;
-        // TODO if network && owner.playerID == 0, 
-        // then call createdModule.SendMessage();
     }
 
     private static YootGame.YootCount SimpleRandom()
