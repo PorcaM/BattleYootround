@@ -73,7 +73,7 @@
 	<Unit>
 		<Id>7</Id>
 		<Type>Paladin</Type>
-		<Damage>5</Damage>
+		<Damage>20</Damage>
 		<Armor>5</Armor>
 		<Range>3</Range>
 		<Hp>150</Hp>

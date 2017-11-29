@@ -38,6 +38,25 @@ public class BattleManager : MonoBehaviour {
     public void StartBattle()
     {
         SetupBattle();
+        enterBattleDecorator.ShowCountdown(3);
+        StartCoroutine(RealStartAfter(3.0f));
+    }
+
+    private IEnumerator RealStartAfter(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        RealStartBattle();
+    }
+
+    private void RealStartBattle()
+    {
+        battleState = BattleState.Proceeding;
+        GameObject[] allies = GameObject.FindGameObjectsWithTag(AllyUnitTag);
+        foreach (GameObject obj in allies)
+            obj.GetComponent<UnitInstance>().currentState = UnitInstance.State.Alive;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyUnitTag);
+        foreach (GameObject obj in enemies)
+            obj.GetComponent<UnitInstance>().currentState = UnitInstance.State.Alive;
     }
 
     public void StartBattle(YootField battleField)
