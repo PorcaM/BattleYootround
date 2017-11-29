@@ -20,7 +20,7 @@ public class UnitInstance : MonoBehaviour {
     public float movementSpeed;
     public float attackSpeed;
 
-    public const float attackCooltime = 3.0f;
+    public const float attackCooltime = 1.0f;
     private float attackCooldown;
 
     public float CurrentHP
@@ -35,6 +35,8 @@ public class UnitInstance : MonoBehaviour {
             currentHP = value;
             if (currentHP < 0.0f)
                 currentHP = 0.0f;
+            if (currentHP > maxHp)
+                currentHP = maxHp;
             unitHealthBar.CurrentHealth = currentHP;
         }
     }
@@ -111,6 +113,7 @@ public class UnitInstance : MonoBehaviour {
     {
         currentState = State.Dead;
         tag = "DeadUnit";
+        unitAnimation.SetSpeed(1.0f);
         unitAnimation.SetAction(UnitAnimation.Actions.Die);
         Destroy(gameObject, 1.0f);
     }
@@ -178,6 +181,7 @@ public class UnitInstance : MonoBehaviour {
     private void MoveForward()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed / 2);
+        unitAnimation.SetSpeed(movementSpeed);
         unitAnimation.SetAction(UnitAnimation.Actions.Move);
     }
 
@@ -187,9 +191,8 @@ public class UnitInstance : MonoBehaviour {
         {
             target.UnderAttack(damage);
             attackCooldown = attackCooltime;
-            UnitAnimation.Actions action = UnitAnimation.Actions.Attack;
-            if (unitClass == Unit.ClassType.Archer)
-                action = UnitAnimation.Actions.Shoot;
+            UnitAnimation.Actions action = GetAttackAction();
+            unitAnimation.SetSpeed(attackSpeed);
             unitAnimation.SetAction(action);
         }
     }
@@ -197,6 +200,14 @@ public class UnitInstance : MonoBehaviour {
     private bool IsAttackable()
     {
         return AttackCooldown <= 0.0f;
+    }
+
+    private UnitAnimation.Actions GetAttackAction()
+    {
+        UnitAnimation.Actions action = UnitAnimation.Actions.Attack;
+        if (unitClass == Unit.ClassType.Archer)
+            action = UnitAnimation.Actions.Shoot;
+        return action;
     }
 
     private void UpdateAttackCooltime()

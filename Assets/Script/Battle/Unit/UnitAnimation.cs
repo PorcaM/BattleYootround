@@ -17,4 +17,11 @@ public class UnitAnimation : MonoBehaviour {
             animator = GetComponent<Animator>();
         animator.SetInteger(constText, (int)action);
     }
+
+    public void SetSpeed(float speed)
+    {
+        if (!animator)
+            animator = GetComponent<Animator>();
+        animator.speed = speed;
+    }
 }
