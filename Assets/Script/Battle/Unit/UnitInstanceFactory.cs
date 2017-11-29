@@ -42,9 +42,11 @@ public class UnitInstanceFactory : MonoBehaviour {
     private Vector3 GetPosition(int num, int row)
     {
         const float xInterval = .5f;
-        const float zInterval = .5f;
+        const float zInterval = .3f;
         float dir = spanwPosZ / Mathf.Abs(spanwPosZ);
-        Vector3 localPosition = new Vector3((num - 1) * xInterval, 0, row * dir * zInterval);
+        float x = (num - 1) * xInterval + Random.Range(-.1f, .1f);
+        float y = row * dir * zInterval + Random.Range(-.1f, .1f);
+        Vector3 localPosition = new Vector3(x, 0, y);
         localPosition.z += spanwPosZ;
         Vector3 position = localPosition + center.position;
         return position;
