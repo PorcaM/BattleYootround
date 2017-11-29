@@ -187,7 +187,10 @@ public class UnitInstance : MonoBehaviour {
         {
             target.UnderAttack(damage);
             attackCooldown = attackCooltime;
-            unitAnimation.SetAction(UnitAnimation.Actions.Attack);
+            UnitAnimation.Actions action = UnitAnimation.Actions.Attack;
+            if (unitClass == Unit.ClassType.Archer)
+                action = UnitAnimation.Actions.Shoot;
+            unitAnimation.SetAction(action);
         }
     }
 
