@@ -11,14 +11,15 @@ public class CreateClientManager : MonoBehaviour {
         Debug.Log(check);
         if(check == null)
         {
+            Debug.Log("Create client Manager!");
             clientManager = Instantiate(clientManager);
             clientManager.name = "ClientManager";
-            DontDestroyOnLoad(clientManager);
+            //DontDestroyOnLoad(clientManager);
 
         }
         else
         {
-            clientManager.GetComponent<BYClient>().Start();
+            //clientManager.GetComponent<BYClient>().Start();
         }
 
         UnityEngine.UI.Button match = GameObject.Find("Match").GetComponent<UnityEngine.UI.Button>();

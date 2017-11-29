@@ -15,8 +15,8 @@ public class TurnNetworkSendProcess : MonoBehaviour {
 
         Client = GameObject.Find("ClientManager").GetComponent<BYClient>();
         Debug.Log("TurnNetwork Send process init()... Client=" + Client);
-        Debug.Log(Client.myClient);
-        Debug.Log(Client.myClient.isConnected);
+        Debug.Log(BYClient.myClient);
+        Debug.Log(BYClient.myClient.isConnected);
 
         EmptyMsg = new BYMessage.EmptyMessage
         {
@@ -28,29 +28,30 @@ public class TurnNetworkSendProcess : MonoBehaviour {
     public void SendEquipment()
     {
         Debug.Log("SendEquipment()");
-        Debug.Log(Client.myClient.isConnected);
+        Debug.Log(BYClient.myClient.isConnected);
         Equipment equip = GameObject.Find("Equipment").GetComponent<Equipment>();
         BYMessage.EquipmentMessage msg = new BYMessage.EquipmentMessage()
         {
             list = equip.ToIntArray()
         };
-        Debug.Log(equip.ToIntArray());
-        Debug.Log(msg.list);
-        Client.myClient.Send(BYMessage.MyMsgType.Equipment, msg);
+        Debug.Log(equip.ToString());
+        BYClient.myClient.Send(BYMessage.MyMsgType.Equipment, msg);
     }
 
     public void Ready()
     {
         SendEquipment();
-        bool check = Client.myClient.Send(BYMessage.MyMsgType.YootReady, EmptyMsg);
+        bool check = BYClient.myClient.Send(BYMessage.MyMsgType.YootReady, EmptyMsg);
 
     }
 
     private void RegisterHandlers()
     {
 
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnStart, OnTurnStart);
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
+        //Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnStart, OnTurnStart);
+        //Client.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.TurnStart, OnTurnStart);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
     }
 
     private void OnTurnStart(NetworkMessage netMsg)

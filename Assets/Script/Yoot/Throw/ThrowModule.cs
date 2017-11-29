@@ -39,8 +39,9 @@ public class ThrowModule : MonoBehaviour
             Debug.Log(msg.torques[pos - 1]);
         }
         YootGame yootGame = GameObject.Find("YootGame").GetComponent<YootGame>();
-        yootGame.turnSend.Client.myClient.Send(BYMessage.MyMsgType.ThrowForce, msg);
-        
+        //yootGame.turnSend.Client.myClient.Send(BYMessage.MyMsgType.ThrowForce, msg);
+        BYClient.myClient.Send(BYMessage.MyMsgType.ThrowForce, msg);
+
     }
 
     public void Init(ThrowProcessor throwProcessor)

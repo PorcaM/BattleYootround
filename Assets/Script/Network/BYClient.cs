@@ -7,22 +7,25 @@ using MaterialUI;
 
 public class BYClient : MonoBehaviour
 {
-    public NetworkClient myClient;
+    public static NetworkClient myClient;
     int serverPort = 7000;
     string serverIP = "165.246.42.24";
     //string serverIP = "192.168.184.32";
 
-    public delegate void OnNetworkActivity();
-
-    bool isMatch = false;
+    static bool isMatch;
     private BYMessage.EmptyMessage EmptyMsg;
 
     // Use this for initialization
     public void Start()
     {
         Debug.Log("BYClient Start() called");
-        if (GameObject.Find("ClientManager"))
-            return;
+        isMatch = false;
+        myClient = new NetworkClient();
+        EmptyMsg = new BYMessage.EmptyMessage
+        {
+            str = ""
+        };
+        RegisterHandlers();
         DontDestroyOnLoad(this);
     }
 
@@ -36,17 +39,16 @@ public class BYClient : MonoBehaviour
     }
     public void ConnectToServer()
     {
-        myClient = new NetworkClient();
-        EmptyMsg = new BYMessage.EmptyMessage
-        {
-            str = ""
-        };
         Debug.Log("ConnectToServer() : " + myClient);
         // 이미 서버에 연결되어 있는 상태면 아무것도 안함
+        
         if (isMatch)
+        {
+            Debug.Log("Server already did matching!");
             return;
+        }
+        
         myClient.Connect(serverIP, serverPort);
-        RegisterHandlers();
     }
     public void Cancel()
     {
@@ -54,23 +56,28 @@ public class BYClient : MonoBehaviour
         Debug.Log("Cancel()" + myClient);
         Debug.Log("Match canceled");
 
-        if(myClient.isConnected)
+        if (myClient.isConnected)
+        {
+            Debug.Log("Cancel message Sended");
             myClient.Send(BYMessage.MyMsgType.MatchCancel, EmptyMsg);
+        }
     }
 
     // 서버에 연결됨 (Matching이 정상적으로 등록)
     private void OnConnect(NetworkMessage msg)
     {
-        isMatch = true;
         Debug.Log("Connected to server");
+        isMatch = true;
     }
     private void OnCancel(NetworkMessage netMsg)
     {
         ToastManager.Show("Match Canceled");
+        Debug.Log("Match Canceled");
     }
     private void OnMatchSuccess(NetworkMessage netMsg)
     {
         ToastManager.Show("Match Success!");
+        Debug.Log("Match Success!");
         // TODO: sleep 추가
         SceneLoad a = GameObject.Find("SceneManager").GetComponent<SceneLoad>();
         a.LoadScene("Yoot");
@@ -83,6 +90,7 @@ public class BYClient : MonoBehaviour
             myClient.Send(BYMessage.MyMsgType.Disconnect, EmptyMsg);
 
     }
+    
     /*
      *  나중에 안드로이드로 빌드할 때 Pause 걸리면 네트워크 끊어지도록 구현??
     private void OnApplicationPause(bool pause)

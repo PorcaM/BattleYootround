@@ -42,7 +42,8 @@ public class TurnProcessor : MonoBehaviour
             {
                 yootCount = yootCount
             };
-            turnSend.Client.myClient.Send(BYMessage.MyMsgType.ThrowResult, msg);
+            //turnSend.Client.myClient.Send(BYMessage.MyMsgType.ThrowResult, msg);
+            BYClient.myClient.Send(BYMessage.MyMsgType.ThrowResult, msg);
         }
         else if (YootGame.isNetwork && owner.playerID == 1)
         {
@@ -175,7 +176,10 @@ public class TurnProcessor : MonoBehaviour
         lastPreview = null;
         UpdateState(ProcessState.Wait);
         owner.yootGame.EndTurn(owner.playerID);
-        if(YootGame.isNetwork && owner.playerID == 0)
-            turnSend.Client.myClient.Send(BYMessage.MyMsgType.TurnEnd, turnSend.EmptyMsg);
+        if (YootGame.isNetwork && owner.playerID == 0)
+        {
+            //turnSend.Client.myClient.Send(BYMessage.MyMsgType.TurnEnd, turnSend.EmptyMsg);
+            BYClient.myClient.Send(BYMessage.MyMsgType.TurnEnd, turnSend.EmptyMsg);
+        }
     }
 }

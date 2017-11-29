@@ -116,7 +116,7 @@ public class BYGameManager : MonoBehaviour {
             Debug.Log("deck #" + i + " : " + msg.list[i]);
 
         int player = netMsg.conn.connectionId;
-        int opponent = (player == player1) ? player1 : player2;
+        int opponent = (player == player1) ? player2 : player1;
         NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.Equipment, msg);
     }
     private void OnYootReady(NetworkMessage netMsg)

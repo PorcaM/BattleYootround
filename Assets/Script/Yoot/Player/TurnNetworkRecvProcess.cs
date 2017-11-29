@@ -26,13 +26,13 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     }
     private void RegisterHandlers()
     {
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.Equipment, OnEquipment);
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnWait, OnTurnWait);
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnEnd, OnTurnEnd);
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowForce, OnThrowForce);
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorse, OnSelectHorse);
-        Client.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorseAck, OnSelectHorseAck);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.Equipment, OnEquipment);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.TurnWait, OnTurnWait);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.TurnEnd, OnTurnEnd);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowForce, OnThrowForce);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorse, OnSelectHorse);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorseAck, OnSelectHorseAck);
     }
     private void OnEquipment(NetworkMessage netMsg)
     {
@@ -42,7 +42,14 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
         Equipment op_equip = GameObject.Find("Equipment").GetComponent<Equipment>();
         op_equip = Instantiate(op_equip, GameObject.Find("Data").transform);
         op_equip.name = "Opponent Equipment";
+        string str = "";
+        foreach (int a in msg.list)
+        {
+            str += string.Format("{0}, ",a);
+        }
+        Debug.Log(str);
         op_equip.Init(msg.list);
+        Debug.Log(op_equip.ToString());
 
     }
     private void OnTurnWait(NetworkMessage netMsg)
