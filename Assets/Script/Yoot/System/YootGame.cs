@@ -25,8 +25,13 @@ public class YootGame : MonoBehaviour {
     
     void Start()
     {
-        GameInfo gameInfo = GameObject.Find("GameInfo").GetComponent<GameInfo>();
-        gameMode = gameInfo.gameMode;
+        GameInfo gameInfo;
+        if (GameObject.Find("GameInfo"))
+            gameInfo = GameObject.Find("GameInfo").GetComponent<GameInfo>();
+        else
+            gameInfo = null;
+        if (gameInfo)
+            gameMode = gameInfo.gameMode;
         if (gameMode == GameMode.Network)
             isNetwork = true;
         else

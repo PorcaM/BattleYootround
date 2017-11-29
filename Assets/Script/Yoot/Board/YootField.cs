@@ -98,13 +98,10 @@ public class YootField : MonoBehaviour
 
     public void RecvBattlResult(int winner)
     {
-        Debug.Log("winner:" + winner);
         foreach (Horse horse in guests)
         {
-            Debug.Log("ownerid: " + horse.owner.playerID);
             if (horse.IsOwner(winner) == false)
             {
-                Debug.Log("Defeat:" + horse.id);
                 horse.Defeat();
                 RequestTurnEnd(horse);
             }
