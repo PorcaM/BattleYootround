@@ -7,6 +7,8 @@ public class CameraHandler : MonoBehaviour
     public Transform center;
     public float height = 6.0f;
     public Vector3 basicPosition;
+    public bool isCloseup;
+    public float closeupHeight = 3.0f;
 
     private float doubleClickTimeLimit = 0.25f;
     [SerializeField] private Vector3 backupPosition;
@@ -35,12 +37,28 @@ public class CameraHandler : MonoBehaviour
     {
         GoBattleField();
         StartCoroutine(InputListener());
+        isCloseup = false;
     }
 
     private void GoBattleField()
     {
         Camera.main.transform.position = basicPosition;
         Camera.main.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+    }
+
+    public void GoCloseup()
+    {
+        Vector3 closeupPosition = new Vector3(basicPosition.x, closeupHeight, basicPosition.z);
+        Camera.main.transform.position = closeupPosition;
+        Camera.main.gameObject.AddComponent<CameraDrag>();
+        isCloseup = true;
+    }
+
+    public void BackCloseup()
+    {
+        Camera.main.transform.position = basicPosition;
+        Destroy(Camera.main.gameObject.GetComponent<CameraDrag>());
+        isCloseup = false;
     }
 
     // Update is called once per frame
@@ -82,6 +100,9 @@ public class CameraHandler : MonoBehaviour
 
     private void DoubleClick()
     {
-        Debug.Log("Double Click");
+        if (isCloseup)
+            BackCloseup();
+        else
+            GoCloseup();
     }
 }
