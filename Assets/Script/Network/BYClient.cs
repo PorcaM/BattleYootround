@@ -41,7 +41,12 @@ public class BYClient : MonoBehaviour
     {
         Debug.Log("ConnectToServer() : " + myClient);
         // 이미 서버에 연결되어 있는 상태면 아무것도 안함
+        GameObject Matching = GameObject.Find("Canvas").transform.FindChild("Matching").gameObject;
+        Matching.SetActive(true);
         
+        UnityEngine.UI.Button cancel = GameObject.Find("Matching").transform.FindChild("Button - Raised").GetComponent<UnityEngine.UI.Button>();
+        cancel.onClick.AddListener(Cancel);
+
         if (isMatch)
         {
             Debug.Log("Server already did matching!");
@@ -53,8 +58,10 @@ public class BYClient : MonoBehaviour
     public void Cancel()
     {
         isMatch = false;
-        Debug.Log("Cancel()" + myClient);
+        
         Debug.Log("Match canceled");
+        GameObject Matching = GameObject.Find("Matching");
+        Matching.SetActive(false);
 
         if (myClient.isConnected)
         {
