@@ -23,6 +23,7 @@ public class BYGameManager : MonoBehaviour {
         {
             str = ""
         };
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.Equipment, OnEquipment);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.YootReady, OnYootReady);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowForce, OnThrowForce);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
@@ -101,9 +102,23 @@ public class BYGameManager : MonoBehaviour {
         BattleStart();
     }
 
-    // TODO(???)
+    // TODO(...?)
     // 생각해보니 진짜로 멀티플레이면 매칭만 따로 잡고 여기서 NetworkServer선언 한번 더 해서 따로 연결해야 할듯 함
     // 안 그러면 Server로 전송하는 메세지도 겹칠테고 문제생길 것 같음.
+    private void OnEquipment(NetworkMessage netMsg)
+    {
+        BYMessage.EquipmentMessage msg = netMsg.ReadMessage<BYMessage.EquipmentMessage>();
+        Debug.Log("---------Spell--------");
+        for (int i=0; i<4; i++)
+            Debug.Log("spell #" + i + " : " + msg.list[i]);
+        Debug.Log("---------Deck--------");
+        for (int i = 4; i < 9; i++)
+            Debug.Log("deck #" + i + " : " + msg.list[i]);
+
+        int player = netMsg.conn.connectionId;
+        int opponent = (player == player1) ? player1 : player2;
+        NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.Equipment, msg);
+    }
     private void OnYootReady(NetworkMessage netMsg)
     {
         Debug.Log("Ready Message received!");

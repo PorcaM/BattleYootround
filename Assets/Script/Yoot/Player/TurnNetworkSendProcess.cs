@@ -15,6 +15,8 @@ public class TurnNetworkSendProcess : MonoBehaviour {
 
         Client = GameObject.Find("ClientManager").GetComponent<BYClient>();
         Debug.Log("TurnNetwork Send process init()... Client=" + Client);
+        Debug.Log(Client.myClient);
+        Debug.Log(Client.myClient.isConnected);
 
         EmptyMsg = new BYMessage.EmptyMessage
         {
@@ -25,14 +27,23 @@ public class TurnNetworkSendProcess : MonoBehaviour {
 
     public void SendEquipment()
     {
-        
+        Debug.Log("SendEquipment()");
+        Debug.Log(Client.myClient.isConnected);
+        Equipment equip = GameObject.Find("Equipment").GetComponent<Equipment>();
+        BYMessage.EquipmentMessage msg = new BYMessage.EquipmentMessage()
+        {
+            list = equip.ToIntArray()
+        };
+        Debug.Log(equip.ToIntArray());
+        Debug.Log(msg.list);
+        Client.myClient.Send(BYMessage.MyMsgType.Equipment, msg);
     }
 
     public void Ready()
     {
-        // TODO: Send Equipment status
+        SendEquipment();
         bool check = Client.myClient.Send(BYMessage.MyMsgType.YootReady, EmptyMsg);
-        //Debug.Log("Send process, check: " + check);
+
     }
 
     private void RegisterHandlers()

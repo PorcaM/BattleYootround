@@ -13,6 +13,8 @@ public class CreateClientManager : MonoBehaviour {
         {
             clientManager = Instantiate(clientManager);
             clientManager.name = "ClientManager";
+            DontDestroyOnLoad(clientManager);
+
         }
         else
         {

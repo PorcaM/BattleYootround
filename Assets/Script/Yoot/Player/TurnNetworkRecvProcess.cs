@@ -26,15 +26,33 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     }
     private void RegisterHandlers()
     {
+        Client.myClient.RegisterHandler(BYMessage.MyMsgType.Equipment, OnEquipment);
         Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnWait, OnTurnWait);
+        Client.myClient.RegisterHandler(BYMessage.MyMsgType.TurnEnd, OnTurnEnd);
         Client.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowForce, OnThrowForce);
         Client.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
         Client.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorse, OnSelectHorse);
         Client.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorseAck, OnSelectHorseAck);
     }
+    private void OnEquipment(NetworkMessage netMsg)
+    {
+        Debug.Log("OnEquipment()");
+        BYMessage.EquipmentMessage msg = netMsg.ReadMessage<BYMessage.EquipmentMessage>();
+
+        Equipment op_equip = GameObject.Find("Equipment").GetComponent<Equipment>();
+        op_equip = Instantiate(op_equip, GameObject.Find("Data").transform);
+        op_equip.name = "Opponent Equipment";
+        op_equip.Init(msg.list);
+
+    }
     private void OnTurnWait(NetworkMessage netMsg)
     {
         Debug.Log("Turn Wait Message Recieved!");
+        turnManager.StartTurn(1);
+    }
+    private void OnTurnEnd(NetworkMessage netMsg)
+    {
+        Debug.Log("Turn End Message Recieved!");
         turnManager.StartTurn(1);
     }
     private void OnThrowForce(NetworkMessage netMsg)

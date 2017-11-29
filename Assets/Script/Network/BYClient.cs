@@ -21,13 +21,8 @@ public class BYClient : MonoBehaviour
     public void Start()
     {
         Debug.Log("BYClient Start() called");
-        myClient = new NetworkClient();
-        EmptyMsg = new BYMessage.EmptyMessage
-        {
-            str = ""
-        };
-        RegisterHandlers();
-
+        if (GameObject.Find("ClientManager"))
+            return;
         DontDestroyOnLoad(this);
     }
 
@@ -41,18 +36,24 @@ public class BYClient : MonoBehaviour
     }
     public void ConnectToServer()
     {
-        Debug.Log("ConnectToServer()" + myClient);
+        myClient = new NetworkClient();
+        EmptyMsg = new BYMessage.EmptyMessage
+        {
+            str = ""
+        };
+        Debug.Log("ConnectToServer() : " + myClient);
         // 이미 서버에 연결되어 있는 상태면 아무것도 안함
         if (isMatch)
             return;
         myClient.Connect(serverIP, serverPort);
-        //YootGame.Client = myClient;
+        RegisterHandlers();
     }
     public void Cancel()
     {
         isMatch = false;
         Debug.Log("Cancel()" + myClient);
         Debug.Log("Match canceled");
+
         if(myClient.isConnected)
             myClient.Send(BYMessage.MyMsgType.MatchCancel, EmptyMsg);
     }

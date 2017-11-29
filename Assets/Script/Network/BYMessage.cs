@@ -8,16 +8,24 @@ public class BYMessage : MonoBehaviour {
     {
         public string str;
     }
+
+    public class EquipmentMessage : MessageBase
+    {
+        public int[] list = new int[9];
+    }
+    // 말 선택 & 움직임
     public class HorseMessage : MessageBase
     {
         public int horseNum;
         public int destination;
     }
+    // 윷 던졌을 때 힘/토크
     public class ThrowForceMessage : MessageBase
     {
         public float force;
         public Vector3[] torques = new Vector3[4];
     }
+    // 윷 던진 후 결과
     public class ThrowMessage : MessageBase
     {
         public YootGame.YootCount yootCount;
