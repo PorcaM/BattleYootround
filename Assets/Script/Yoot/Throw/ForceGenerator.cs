@@ -67,6 +67,7 @@ public class ForceGenerator : MonoBehaviour {
 
     private float GetRandom()
     {
+        //return -0.1f;
         return Random.Range(-1f, 1f);
     }
 }

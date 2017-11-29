@@ -27,7 +27,7 @@ public class TurnManager : MonoBehaviour {
         playerManager.GetPlayer(player).turnProcessor.StartTurn();
     }
 
-    private void ClearAll()
+    public void ClearAll()
     {
         foreach(YootPlayer player in playerManager.players)
             player.turnProcessor.UpdateState(TurnProcessor.ProcessState.Wait);
