@@ -44,8 +44,8 @@ public class Deck : MonoBehaviour{
     private bool IsRedundancy()
     {
         bool redundancy;
-        redundancy = Units.GroupBy(n => n).Any(c => c.Count() > 1);
-        // redundancy = units.Distinct().Count() != units.Count();
+        // redundancy = Units.GroupBy(n => n).Any(c => c.Count() > 1);
+        redundancy = units.Distinct().Count() != units.Count();
         return redundancy;
     }
 

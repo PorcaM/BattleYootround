@@ -29,6 +29,11 @@ public class BattleManager : MonoBehaviour {
         cameraHandler.Backup();
     }
 
+    public void StartBattle()
+    {
+        SetupBattle();
+    }
+
     public void StartBattle(YootField battleField)
     {
         this.battleField = battleField;
@@ -55,7 +60,6 @@ public class BattleManager : MonoBehaviour {
 
     private void CreateUnits()
     {
-        Debug.Log("create");
         allyUnitInstanceFactory.unitTag = AllyUnitTag;
         allyUnitInstanceFactory.spanwPosZ = -3.0f;
         allyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();

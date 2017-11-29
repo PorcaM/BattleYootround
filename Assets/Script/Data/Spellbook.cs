@@ -45,8 +45,8 @@ public class Spellbook : MonoBehaviour{
     private bool IsRedundancy()
     {
         bool redundancy;
-        redundancy = Spells.GroupBy(n => n).Any(c => c.Count() > 1);
-        // redundancy = units.Distinct().Count() != units.Count();
+        // redundancy = Spells.GroupBy(n => n).Any(c => c.Count() > 1);
+        redundancy = spells.Distinct().Count() != spells.Count();
         return redundancy;
     }
 
