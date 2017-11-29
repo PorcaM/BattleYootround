@@ -18,6 +18,7 @@ public class ForceGenerator : MonoBehaviour {
             Rigidbody rigidbody = target.GetComponent<Rigidbody>();
             ThrowUp(rigidbody);
             rigidbody.AddTorque(torques[i] * force);
+            Debug.Log("Torques[" + i + "]: " + torques[i]);
         }
     }
 

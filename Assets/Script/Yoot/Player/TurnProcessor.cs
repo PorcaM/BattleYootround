@@ -175,7 +175,7 @@ public class TurnProcessor : MonoBehaviour
         lastPreview = null;
         UpdateState(ProcessState.Wait);
         owner.yootGame.EndTurn(owner.playerID);
-        if(owner.playerID == 0)
+        if(YootGame.isNetwork && owner.playerID == 0)
             turnSend.Client.myClient.Send(BYMessage.MyMsgType.TurnEnd, turnSend.EmptyMsg);
     }
 }

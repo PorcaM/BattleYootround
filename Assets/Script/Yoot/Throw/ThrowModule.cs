@@ -66,8 +66,6 @@ public class ThrowModule : MonoBehaviour
                 break;
             case State.WaitThrow:
                 HandleWaitThrowState();
-                if (YootGame.isNetwork && throwProcessor.owner.playerID == 0)
-                    throwProcessor.createdModule.SendMessage();
                 break;
             case State.Throwed:
             case State.WaitMessage:
@@ -91,6 +89,8 @@ public class ThrowModule : MonoBehaviour
         if (IsThrowOccur())
         {
             forceGenerator.ForceTargets();
+            if (YootGame.isNetwork && throwProcessor.owner.playerID == 0)
+                throwProcessor.createdModule.SendMessage();
             state = State.Throwed;
             StartCoroutine(StartDetectAfterSeconds(0.5f));
         }
