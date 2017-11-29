@@ -29,6 +29,8 @@ public class CameraHandler : MonoBehaviour
 
     private void Recover()
     {
+        if (isCloseup)
+            BackCloseup();
         Camera.main.transform.position = backupPosition;
         Camera.main.transform.rotation = backupRotation;
     }
@@ -57,7 +59,9 @@ public class CameraHandler : MonoBehaviour
     public void BackCloseup()
     {
         Camera.main.transform.position = basicPosition;
-        Destroy(Camera.main.gameObject.GetComponent<CameraDrag>());
+        CameraDrag cameraDrag = Camera.main.gameObject.GetComponent<CameraDrag>();
+        Debug.Log(cameraDrag);
+        Destroy(cameraDrag);
         isCloseup = false;
     }
 

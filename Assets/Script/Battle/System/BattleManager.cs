@@ -126,6 +126,18 @@ public class BattleManager : MonoBehaviour {
 
     private void FinishBattle()
     {
+        exitBattleDecorator.ShowVictory(winPlayer);
+        StartCoroutine(RealFinishtAfter(3.0f));
+    }
+
+    private IEnumerator RealFinishtAfter(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        RealFinishBattle();
+    }
+
+    private void RealFinishBattle()
+    {
         CleanupBattle();
         if (battleField)
         {
