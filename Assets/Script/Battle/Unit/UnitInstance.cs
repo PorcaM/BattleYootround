@@ -7,7 +7,7 @@ public class UnitInstance : MonoBehaviour {
     public UnitAnimation unitAnimation;
     public CharacterController characterController;
     public string enemyTag;
-    public enum State { Alive, Dead }
+    public enum State { Alive, Dead, Ready }
     public State currentState;
     
     public Unit.ClassType unitClass;
@@ -82,7 +82,9 @@ public class UnitInstance : MonoBehaviour {
         movementSpeed = (float)unit.MovementSpeed;
         attackSpeed = (float)unit.AttackSpeed;
         SetEnemyTag();
-        currentState = State.Alive;
+        currentState = State.Ready;
+        unitAnimation.SetSpeed(1.0f);
+        unitAnimation.SetAction(UnitAnimation.Actions.Alert);
     }
 
     private void SetEnemyTag()
@@ -97,6 +99,7 @@ public class UnitInstance : MonoBehaviour {
 
     public void UnderAttack(float damage)
     {
+        damage -= armor;
         FloatingTextController.CreateFloatingText(damage.ToString(), transform);
         CurrentHP -= damage;
         if (IsDead())
@@ -121,8 +124,11 @@ public class UnitInstance : MonoBehaviour {
 
     void Update()
     {
-        DoBattle();
-        UpdateAttackCooltime();
+        if (currentState == State.Alive)
+        {
+            DoBattle();
+            UpdateAttackCooltime();
+        }
     }
 
     private void DoBattle()

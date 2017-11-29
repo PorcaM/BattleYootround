@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
+    public enum BattleState { Inited, Ready, Proceeding }
+    public BattleState battleState;
     static public int winPlayer;
     public UnitInstanceFactory allyUnitInstanceFactory;
     public UnitInstanceFactory enemyUnitInstanceFactory;
@@ -21,12 +23,16 @@ public class BattleManager : MonoBehaviour {
 
     public YootGame yootGame;
 
+    public EnterBattleDecorator enterBattleDecorator;
+    public ExitBattleDecorator exitBattleDecorator;
+
     public void Init()
     {
         gameObject.SetActive(false);
         spellManager.Init();
         FloatingTextController.Init(floatingText, damagesParent);
-        cameraHandler.Backup();
+        cameraHandler.Init();
+        battleState = BattleState.Inited;
     }
 
     public void StartBattle()
@@ -47,6 +53,7 @@ public class BattleManager : MonoBehaviour {
         CreateUnits();
         cameraHandler.GoBattleField();
         uiHandler.SetUIActive(true);
+        battleState = BattleState.Ready;
     }
 
     private void CleanupBattle()
@@ -61,11 +68,11 @@ public class BattleManager : MonoBehaviour {
     private void CreateUnits()
     {
         allyUnitInstanceFactory.unitTag = AllyUnitTag;
-        allyUnitInstanceFactory.spanwPosZ = -3.0f;
+        allyUnitInstanceFactory.spanwPosZ = -1.0f;
         allyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
         allyUnitInstanceFactory.CreateUnits();
         enemyUnitInstanceFactory.unitTag = EnemyUnitTag;
-        enemyUnitInstanceFactory.spanwPosZ = 3.0f;
+        enemyUnitInstanceFactory.spanwPosZ = 1.0f;
         // TODO Change this to EnemyEquipment
         enemyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
         enemyUnitInstanceFactory.CreateUnits();

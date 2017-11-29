@@ -16,24 +16,24 @@
 		<Damage>10</Damage>
 		<Armor>3</Armor>
 		<Range>2</Range>
-		<Hp>100</Hp>
+		<Hp>120</Hp>
 		<MovementSpeed>1</MovementSpeed>
 		<AttackSpeed>1.2</AttackSpeed>
 	</Unit>
 	<Unit>
 		<Id>2</Id>
 		<Type>Archer</Type>
-		<Damage>5</Damage>
+		<Damage>10</Damage>
 		<Armor>1</Armor>
 		<Range>10</Range>
 		<Hp>75</Hp>
-		<MovementSpeed>1</MovementSpeed>
-		<AttackSpeed>1</AttackSpeed>
+		<MovementSpeed>1.2</MovementSpeed>
+		<AttackSpeed>1.5</AttackSpeed>
 	</Unit>
 	<Unit>
 		<Id>3</Id>
 		<Type>Dark</Type>
-		<Damage>20</Damage>
+		<Damage>15</Damage>
 		<Armor>-3</Armor>
 		<Range>3</Range>
 		<Hp>100</Hp>
@@ -55,15 +55,15 @@
 		<Type>Rogue</Type>
 		<Damage>10</Damage>
 		<Armor>1</Armor>
-		<Range>1</Range>
-		<Hp>50</Hp>
+		<Range>2</Range>
+		<Hp>80</Hp>
 		<MovementSpeed>1.5</MovementSpeed>
 		<AttackSpeed>2</AttackSpeed>
 	</Unit>
 	<Unit>
 		<Id>6</Id>
 		<Type>Wizard</Type>
-		<Damage>30</Damage>
+		<Damage>20</Damage>
 		<Armor>0</Armor>
 		<Range>15</Range>
 		<Hp>50</Hp>

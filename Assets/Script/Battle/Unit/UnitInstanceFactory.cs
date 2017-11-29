@@ -45,8 +45,8 @@ public class UnitInstanceFactory : MonoBehaviour {
         const float zInterval = .3f;
         float dir = spanwPosZ / Mathf.Abs(spanwPosZ);
         float x = (num - 1) * xInterval + Random.Range(-.1f, .1f);
-        float y = row * dir * zInterval + Random.Range(-.1f, .1f);
-        Vector3 localPosition = new Vector3(x, 0, y);
+        float z = row * dir * zInterval + Random.Range(-.1f, .1f);
+        Vector3 localPosition = new Vector3(x, 0, z);
         localPosition.z += spanwPosZ;
         Vector3 position = localPosition + center.position;
         return position;
