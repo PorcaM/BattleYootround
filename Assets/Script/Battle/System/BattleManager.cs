@@ -70,7 +70,7 @@ public class BattleManager : MonoBehaviour {
         winPlayer = -1;
         gameObject.SetActive(true);
         CreateUnits();
-        cameraHandler.GoBattleField();
+        cameraHandler.Setup();
         uiHandler.SetUIActive(true);
         battleState = BattleState.Ready;
     }
@@ -78,7 +78,7 @@ public class BattleManager : MonoBehaviour {
     private void CleanupBattle()
     {
         uiHandler.SetUIActive(false);
-        cameraHandler.Recover();
+        cameraHandler.Cleanup();
         DestroyUnits();
         spellManager.Cleanup();
         gameObject.SetActive(false);
