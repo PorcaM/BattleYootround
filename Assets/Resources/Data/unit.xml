@@ -7,77 +7,77 @@
 		<Armor>0</Armor>
 		<Range>1</Range>
 		<Hp>50</Hp>
-		<MovementSpeed>3</MovementSpeed>
+		<MovementSpeed>1</MovementSpeed>
 		<AttackSpeed>1</AttackSpeed>
 	</Unit>
 	<Unit>
 		<Id>1</Id>
 		<Type>Knight</Type>
 		<Damage>10</Damage>
-		<Armor>1</Armor>
-		<Range>1</Range>
+		<Armor>3</Armor>
+		<Range>2</Range>
 		<Hp>100</Hp>
-		<MovementSpeed>3</MovementSpeed>
-		<AttackSpeed>2</AttackSpeed>
+		<MovementSpeed>1</MovementSpeed>
+		<AttackSpeed>1.2</AttackSpeed>
 	</Unit>
 	<Unit>
 		<Id>2</Id>
 		<Type>Archer</Type>
-		<Damage>15</Damage>
-		<Armor>0</Armor>
-		<Range>3</Range>
-		<Hp>50</Hp>
-		<MovementSpeed>2</MovementSpeed>
-		<AttackSpeed>2</AttackSpeed>
+		<Damage>5</Damage>
+		<Armor>1</Armor>
+		<Range>10</Range>
+		<Hp>75</Hp>
+		<MovementSpeed>1</MovementSpeed>
+		<AttackSpeed>1</AttackSpeed>
 	</Unit>
 	<Unit>
 		<Id>3</Id>
 		<Type>Dark</Type>
-		<Damage>10</Damage>
-		<Armor>0</Armor>
-		<Range>2</Range>
-		<Hp>50</Hp>
-		<MovementSpeed>5</MovementSpeed>
-		<AttackSpeed>1</AttackSpeed>
+		<Damage>20</Damage>
+		<Armor>-3</Armor>
+		<Range>3</Range>
+		<Hp>100</Hp>
+		<MovementSpeed>2</MovementSpeed>
+		<AttackSpeed>1.5</AttackSpeed>
 	</Unit>
 	<Unit>
 		<Id>4</Id>
 		<Type>Spearman</Type>
 		<Damage>15</Damage>
-		<Armor>0</Armor>
-		<Range>2</Range>
+		<Armor>2</Armor>
+		<Range>5</Range>
 		<Hp>50</Hp>
-		<MovementSpeed>3</MovementSpeed>
+		<MovementSpeed>1.2</MovementSpeed>
 		<AttackSpeed>1</AttackSpeed>
 	</Unit>
 	<Unit>
 		<Id>5</Id>
 		<Type>Rogue</Type>
 		<Damage>10</Damage>
-		<Armor>0</Armor>
+		<Armor>1</Armor>
 		<Range>1</Range>
 		<Hp>50</Hp>
-		<MovementSpeed>3</MovementSpeed>
-		<AttackSpeed>3</AttackSpeed>
+		<MovementSpeed>1.5</MovementSpeed>
+		<AttackSpeed>2</AttackSpeed>
 	</Unit>
 	<Unit>
 		<Id>6</Id>
 		<Type>Wizard</Type>
-		<Damage>15</Damage>
+		<Damage>30</Damage>
 		<Armor>0</Armor>
-		<Range>3</Range>
+		<Range>15</Range>
 		<Hp>50</Hp>
 		<MovementSpeed>1</MovementSpeed>
-		<AttackSpeed>1</AttackSpeed>
+		<AttackSpeed>0.5</AttackSpeed>
 	</Unit>
 	<Unit>
 		<Id>7</Id>
 		<Type>Paladin</Type>
 		<Damage>5</Damage>
-		<Armor>2</Armor>
-		<Range>1</Range>
+		<Armor>5</Armor>
+		<Range>3</Range>
 		<Hp>150</Hp>
 		<MovementSpeed>1</MovementSpeed>
-		<AttackSpeed>2</AttackSpeed>
+		<AttackSpeed>0.5</AttackSpeed>
 	</Unit>
 </BYData>
