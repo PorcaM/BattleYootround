@@ -22,6 +22,7 @@ public class UnitInstance : MonoBehaviour {
 
     public const float attackCooltime = 1.0f;
     private float attackCooldown;
+    const float unitSize = 0.15f;
 
     public float CurrentHP
     {
@@ -161,7 +162,7 @@ public class UnitInstance : MonoBehaviour {
     private bool IsInAttackRange(Vector3 point)
     {
         float distance = Vector3.Distance(point, transform.position);
-        return distance <= (range - 1) + .3f;
+        return distance <= range * unitSize;
     }
         
     private void MoveTo(Transform target)
