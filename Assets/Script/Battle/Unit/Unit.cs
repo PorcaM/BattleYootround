@@ -13,6 +13,7 @@ public class Unit
     private double hp;
     private double movementSpeed;
     private double attackSpeed;
+    public int position;
     
 
     public int Id

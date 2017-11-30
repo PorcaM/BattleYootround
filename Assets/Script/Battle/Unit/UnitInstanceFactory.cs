@@ -29,7 +29,7 @@ public class UnitInstanceFactory : MonoBehaviour {
 
     private void CreateUnit(Unit unit, GameObject unitModel, int num, int order)
     {        
-        Vector3 position = GetPosition(num, order);
+        Vector3 position = GetPosition(num, unit.position);
         GameObject gameObject = CreateObject(unitModel, position);
         gameObject.tag = unitTag;
         UnitInstance unitInstance = gameObject.AddComponent<UnitInstance>();

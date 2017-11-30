@@ -94,7 +94,8 @@ public class XMLParsing : MonoBehaviour
             Range = double.Parse(node.SelectSingleNode("Range").InnerText),
             Hp = double.Parse(node.SelectSingleNode("Hp").InnerText),
             MovementSpeed = double.Parse(node.SelectSingleNode("MovementSpeed").InnerText),
-            AttackSpeed = double.Parse(node.SelectSingleNode("AttackSpeed").InnerText)
+            AttackSpeed = double.Parse(node.SelectSingleNode("AttackSpeed").InnerText),
+            position = int.Parse(node.SelectSingleNode("Position").InnerText)
         };
         return unit;
     }

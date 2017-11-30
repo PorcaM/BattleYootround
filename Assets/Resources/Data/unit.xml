@@ -9,6 +9,7 @@
 		<Hp>50</Hp>
 		<MovementSpeed>1</MovementSpeed>
 		<AttackSpeed>1</AttackSpeed>
+		<Position>1</Position>
 	</Unit>
 	<Unit>
 		<Id>1</Id>
@@ -19,6 +20,7 @@
 		<Hp>120</Hp>
 		<MovementSpeed>1</MovementSpeed>
 		<AttackSpeed>1.2</AttackSpeed>
+		<Position>1</Position>
 	</Unit>
 	<Unit>
 		<Id>2</Id>
@@ -29,6 +31,7 @@
 		<Hp>75</Hp>
 		<MovementSpeed>1.2</MovementSpeed>
 		<AttackSpeed>1.5</AttackSpeed>
+		<Position>3</Position>
 	</Unit>
 	<Unit>
 		<Id>3</Id>
@@ -39,6 +42,7 @@
 		<Hp>100</Hp>
 		<MovementSpeed>2</MovementSpeed>
 		<AttackSpeed>1.5</AttackSpeed>
+		<Position>2</Position>
 	</Unit>
 	<Unit>
 		<Id>4</Id>
@@ -49,6 +53,7 @@
 		<Hp>50</Hp>
 		<MovementSpeed>1.2</MovementSpeed>
 		<AttackSpeed>1</AttackSpeed>
+		<Position>2</Position>
 	</Unit>
 	<Unit>
 		<Id>5</Id>
@@ -59,6 +64,7 @@
 		<Hp>80</Hp>
 		<MovementSpeed>1.5</MovementSpeed>
 		<AttackSpeed>2</AttackSpeed>
+		<Position>2</Position>
 	</Unit>
 	<Unit>
 		<Id>6</Id>
@@ -69,6 +75,7 @@
 		<Hp>50</Hp>
 		<MovementSpeed>1</MovementSpeed>
 		<AttackSpeed>0.5</AttackSpeed>
+		<Position>3</Position>
 	</Unit>
 	<Unit>
 		<Id>7</Id>
@@ -79,5 +86,6 @@
 		<Hp>150</Hp>
 		<MovementSpeed>1</MovementSpeed>
 		<AttackSpeed>0.5</AttackSpeed>
+		<Position>1</Position>
 	</Unit>
 </BYData>

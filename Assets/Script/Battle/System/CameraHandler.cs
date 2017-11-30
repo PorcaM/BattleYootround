@@ -50,9 +50,16 @@ public class CameraHandler : MonoBehaviour
 
     public void GoCloseup()
     {
-        Vector3 closeupPosition = new Vector3(basicPosition.x, closeupHeight, basicPosition.z);
+        float distance = Camera.main.transform.position.y;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector3 rayPoint = ray.GetPoint(distance);
+        Debug.Log(rayPoint);
+        Vector3 closeupPosition = new Vector3(rayPoint.x, closeupHeight, rayPoint.z);
+        Debug.Log(closeupHeight);
         Camera.main.transform.position = closeupPosition;
+        Debug.Log(Camera.main.transform.position);
         Camera.main.gameObject.AddComponent<CameraDrag>();
+        Debug.Log(Camera.main.transform.position);
         isCloseup = true;
     }
 
@@ -60,7 +67,6 @@ public class CameraHandler : MonoBehaviour
     {
         Camera.main.transform.position = basicPosition;
         CameraDrag cameraDrag = Camera.main.gameObject.GetComponent<CameraDrag>();
-        Debug.Log(cameraDrag);
         Destroy(cameraDrag);
         isCloseup = false;
     }
@@ -99,7 +105,7 @@ public class CameraHandler : MonoBehaviour
 
     private void SingleClick()
     {
-        Debug.Log("Single Click");
+        //
     }
 
     private void DoubleClick()
