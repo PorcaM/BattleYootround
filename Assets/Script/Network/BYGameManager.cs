@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -62,8 +61,7 @@ public class BYGameManager : MonoBehaviour {
     private void GameStart()
     {
         // 유저 턴 선택
-        System.Random random = new System.Random();
-        int turn = random.Next(1, 3);
+        int turn = Random.Range(1, 2);
         if (turn == 1)
         {
             startPlayer = player1;
@@ -75,6 +73,7 @@ public class BYGameManager : MonoBehaviour {
             nextPlayer = player1;
         }
         Debug.Log(startPlayer + " player start!");
+        BYServer.debugMessage1 = string.Format("{} player start!", startPlayer);
         BYMessage.PlayerInfo playerInfo = new BYMessage.PlayerInfo();
         playerInfo.PlayerNum = startPlayer;
         NetworkServer.SendToClient(startPlayer, BYMessage.MyMsgType.TurnStart, playerInfo);
@@ -92,6 +91,7 @@ public class BYGameManager : MonoBehaviour {
         Debug.Log("Wait players");
         yield return new WaitWhile(() => player1_yoot_ready == false || player2_yoot_ready == false);
         Debug.Log("players all ready");
+        BYServer.debugMessage1 = "players all ready!";
         GameStart();
     }
     IEnumerator WaitPlayersForBattle()
