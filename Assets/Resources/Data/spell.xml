@@ -9,10 +9,7 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>1</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>3</Cooltime>
 	</Spell>
@@ -25,10 +22,7 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>3</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>5</Cooltime>
 	</Spell>
@@ -41,10 +35,7 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>2</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>6</Cooltime>
 	</Spell>
@@ -54,13 +45,10 @@
 		<Attribute>
 			<Type>Attack</Type>
 			<Damage>30</Damage>
-			<Duration>0.1</Duration>
+			<Duration>1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>1</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>7</Cooltime>
 	</Spell>
@@ -70,13 +58,10 @@
 		<Attribute>
 			<Type>Attack</Type>
 			<Damage>300</Damage>
-			<Duration>0.1</Duration>
+			<Duration>1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>0.5</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>8</Cooltime>
 	</Spell>
@@ -89,10 +74,7 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>2</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>10</Cooltime>
 	</Spell>
@@ -105,10 +87,7 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>2</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>10</Cooltime>
 	</Spell>
@@ -118,13 +97,10 @@
 		<Attribute>
 			<Type>Assist</Type>
 			<Damage>100</Damage>
-			<Duration>0.1</Duration>
+			<Duration>1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>2</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>15</Cooltime>
 	</Spell>
@@ -134,13 +110,10 @@
 		<Attribute>
 			<Type>Assist</Type>
 			<Damage>0</Damage>
-			<Duration>0.1</Duration>
+			<Duration>1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>2</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>15</Cooltime>
 	</Spell>
@@ -153,10 +126,7 @@
 			<Duration>1.5</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>2</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>15</Cooltime>
 	</Spell>
@@ -166,13 +136,10 @@
 		<Attribute>
 			<Type>Assist</Type>
 			<Damage>0</Damage>
-			<Duration>0.1</Duration>
+			<Duration>1</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>2</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>20</Cooltime>
 	</Spell>
@@ -185,10 +152,7 @@
 			<Duration>5</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>2</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>30</Cooltime>
 	</Spell>
@@ -201,10 +165,7 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Type>Circle</Type>
 			<Radius>2</Radius>
-			<X>0</X>
-			<Y>0</Y>
 		</Range>
 		<Cooltime>30</Cooltime>
 	</Spell>
