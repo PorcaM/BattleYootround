@@ -14,6 +14,7 @@ public class SpellInstance : MonoBehaviour {
     public float duration;
     public float cooltime;
     public float radius;
+    public string target;
 
     public SpellManager spellManager;
 
@@ -55,6 +56,7 @@ public class SpellInstance : MonoBehaviour {
         duration = spell.Duration;
         cooltime = spell.Cooltime;
         radius = ((CircleRange)range).radius;
+        target = spell.target;
     }
 
     void Update()

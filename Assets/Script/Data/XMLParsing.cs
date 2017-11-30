@@ -15,16 +15,6 @@ public class XMLParsing : MonoBehaviour
     public List<Spell> spells;
     public List<Unit> units;
 
-    // Use this for initialization
-    void Start()
-    {
-        AllocateMemory();
-        // ParsePlayerXML();
-        ParseSpellRecord();
-        ParseUnitRecord();
-        InitRecords();
-    }
-
     public void Init()
     {
         AllocateMemory();
@@ -76,6 +66,7 @@ public class XMLParsing : MonoBehaviour
         spell.Damage = float.Parse(Attribute_node[0].SelectSingleNode("Damage").InnerText);
         spell.Duration = float.Parse(Attribute_node[0].SelectSingleNode("Duration").InnerText);
         spell.Cooltime = float.Parse(node.SelectSingleNode("Cooltime").InnerText);
+        spell.target = node.SelectSingleNode("Target").InnerText;
         return spell;
     }
 

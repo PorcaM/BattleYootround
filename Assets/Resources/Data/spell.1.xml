@@ -12,7 +12,6 @@
 			<Radius>1</Radius>
 		</Range>
 		<Cooltime>3</Cooltime>
-		<Target>EnemyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>1</Id>
@@ -26,7 +25,6 @@
 			<Radius>3</Radius>
 		</Range>
 		<Cooltime>5</Cooltime>
-		<Target>EnemyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>2</Id>
@@ -40,7 +38,6 @@
 			<Radius>2</Radius>
 		</Range>
 		<Cooltime>6</Cooltime>
-		<Target>EnemyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>3</Id>
@@ -54,7 +51,6 @@
 			<Radius>1</Radius>
 		</Range>
 		<Cooltime>7</Cooltime>
-		<Target>EnemyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>4</Id>
@@ -68,7 +64,6 @@
 			<Radius>0.5</Radius>
 		</Range>
 		<Cooltime>8</Cooltime>
-		<Target>EnemyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>5</Id>
@@ -82,7 +77,6 @@
 			<Radius>2</Radius>
 		</Range>
 		<Cooltime>10</Cooltime>
-		<Target>AllyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>6</Id>
@@ -96,7 +90,6 @@
 			<Radius>2</Radius>
 		</Range>
 		<Cooltime>10</Cooltime>
-		<Target>EnemyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>7</Id>
@@ -110,7 +103,6 @@
 			<Radius>2</Radius>
 		</Range>
 		<Cooltime>15</Cooltime>
-		<Target>AllyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>8</Id>
@@ -124,7 +116,6 @@
 			<Radius>2</Radius>
 		</Range>
 		<Cooltime>15</Cooltime>
-		<Target>AllyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>9</Id>
@@ -138,7 +129,6 @@
 			<Radius>2</Radius>
 		</Range>
 		<Cooltime>15</Cooltime>
-		<Target>EnemyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>10</Id>
@@ -152,7 +142,6 @@
 			<Radius>2</Radius>
 		</Range>
 		<Cooltime>20</Cooltime>
-		<Target>EnemyUnit</Target>
 	</Spell>
 	<Spell>
 		<Id>11</Id>
@@ -166,7 +155,6 @@
 			<Radius>2</Radius>
 		</Range>
 		<Cooltime>30</Cooltime>
-		<Target>EnemyPlayer</Target>
 	</Spell>
 	<Spell>
 		<Id>12</Id>
@@ -180,6 +168,5 @@
 			<Radius>2</Radius>
 		</Range>
 		<Cooltime>30</Cooltime>
-		<Target>AllyPlayer</Target>
 	</Spell>
 </BYData>

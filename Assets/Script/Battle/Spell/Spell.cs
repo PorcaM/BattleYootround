@@ -11,6 +11,7 @@ public class Spell {
     private float damage;
     private float duration;
     private float cooltime;
+    public string target;
 
 
     #region Properties
