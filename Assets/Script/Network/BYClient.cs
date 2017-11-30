@@ -9,8 +9,8 @@ public class BYClient : MonoBehaviour
 {
     public static NetworkClient myClient;
     int serverPort = 7000;
-    string serverIP = "165.246.42.24";
-    //string serverIP = "192.168.184.32";
+    //string serverIP = "165.246.42.24";
+    string serverIP = "127.0.0.1";
 
     static bool isMatch;
     private BYMessage.EmptyMessage EmptyMsg;
@@ -41,10 +41,10 @@ public class BYClient : MonoBehaviour
     {
         Debug.Log("ConnectToServer() : " + myClient);
         // 이미 서버에 연결되어 있는 상태면 아무것도 안함
-        GameObject Matching = GameObject.Find("Canvas").transform.FindChild("Matching").gameObject;
+        GameObject Matching = GameObject.Find("Canvas").transform.Find("Matching").gameObject;
         Matching.SetActive(true);
         
-        UnityEngine.UI.Button cancel = GameObject.Find("Matching").transform.FindChild("Button - Raised").GetComponent<UnityEngine.UI.Button>();
+        UnityEngine.UI.Button cancel = GameObject.Find("Matching").transform.Find("Button - Raised").GetComponent<UnityEngine.UI.Button>();
         cancel.onClick.AddListener(Cancel);
 
         if (isMatch)

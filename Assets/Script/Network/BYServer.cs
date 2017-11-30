@@ -14,7 +14,7 @@ public class BYServer : MonoBehaviour
     //public GameObject cMsg2;
 
     public UnityEngine.UI.Text debugText1;
-    private string debugMessage1 = "debugMessage";
+    public static string debugMessage1 = "debugMessage";
 
     int NumClient = 0;
     int NumMatch = 0;
