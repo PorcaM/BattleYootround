@@ -64,4 +64,18 @@ public class HorseManager : MonoBehaviour {
         runners.Remove(horse);
         Destroy(horse.gameObject);
     }
+
+    public Horse GetHorse(int id)
+    {
+        Horse horse = null;
+        foreach (Horse runner in runners)
+        {
+            if (runner.id == id)
+            {
+                horse = runner;
+                break;
+            }
+        }
+        return horse;
+    }
 }

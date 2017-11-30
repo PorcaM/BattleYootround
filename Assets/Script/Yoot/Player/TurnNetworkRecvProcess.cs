@@ -84,11 +84,17 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     }
     private void OnSelectHorse(NetworkMessage netMsg)
     {
-        // TODO: 상대방의 말 선택 효과
+        BYMessage.HorseMessage msg = netMsg.ReadMessage<BYMessage.HorseMessage>();
+        Debug.Log("Horse Select message Recieved: " + msg.horseID);
+        Horse horse = turnProcessor.owner.horseManager.GetHorse(msg.horseID);
+        Debug.Log("Horse information: " + horse.ToString());
+        turnProcessor.RecvHorseSelect(horse);
     }
     private void OnSelectHorseAck(NetworkMessage netMsg)
     {
-        // TODO: 상대방의 말 움직임 효과
+        //BYMessage.HorseMessage msg = netMsg.ReadMessage<BYMessage.HorseMessage>();
+        Debug.Log("Horse Select message Recieved: ");
+        turnProcessor.RecvAck();
     }
 
 }

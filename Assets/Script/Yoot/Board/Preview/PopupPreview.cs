@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PopupPreview : MonoBehaviour {
     private RawImage rawImage;
-    private Button button;
+    public Button button;
     private TurnProcessor turnProcessor;
     public const float lifetime = 2.0f;
 
