@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
+    public enum BattleState { Inited, Ready, Proceeding }
+    public BattleState battleState;
     static public int winPlayer;
-    public UnitInstanceFactory allyUnitInstanceFactory;
-    public UnitInstanceFactory enemyUnitInstanceFactory;
-    public string AllyUnitTag = "AllyUnit";
-    public string EnemyUnitTag = "EnemyUnit";
 
     public YootField battleField;
 
@@ -21,54 +19,63 @@ public class BattleManager : MonoBehaviour {
 
     public YootGame yootGame;
 
+    public UnitManager unitManager;
+
+    public EnterBattleDecorator enterBattleDecorator;
+    public ExitBattleDecorator exitBattleDecorator;
+
     public void Init()
     {
         gameObject.SetActive(false);
         spellManager.Init();
         FloatingTextController.Init(floatingText, damagesParent);
-        cameraHandler.Backup();
-    }
-
-    public void StartBattle()
-    {
-        SetupBattle();
+        cameraHandler.Init();
+        unitManager.Init();
+        battleState = BattleState.Inited;
     }
 
     public void StartBattle(YootField battleField)
     {
         this.battleField = battleField;
+        StartBattle();
+    }
+
+    public void StartBattle()
+    {
         SetupBattle();
+        enterBattleDecorator.ShowCountdown(3);
+        StartCoroutine(RealStartAfter(3.0f));
+    }
+
+    private IEnumerator RealStartAfter(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        RealStartBattle();
+    }
+
+    private void RealStartBattle()
+    {
+        unitManager.SetAllUnitState(UnitInstance.State.Alive);
+        battleState = BattleState.Proceeding;
     }
     
     private void SetupBattle()
     {
         winPlayer = -1;
         gameObject.SetActive(true);
-        CreateUnits();
-        cameraHandler.GoBattleField();
+        unitManager.Setup();
+        cameraHandler.Setup();
         uiHandler.SetUIActive(true);
+        battleState = BattleState.Ready;
     }
 
     private void CleanupBattle()
     {
         uiHandler.SetUIActive(false);
-        cameraHandler.Recover();
-        DestroyUnits();
+        cameraHandler.Cleanup();
+        unitManager.Cleanup();
         spellManager.Cleanup();
         gameObject.SetActive(false);
-    }
-
-    private void CreateUnits()
-    {
-        allyUnitInstanceFactory.unitTag = AllyUnitTag;
-        allyUnitInstanceFactory.spanwPosZ = -3.0f;
-        allyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
-        allyUnitInstanceFactory.CreateUnits();
-        enemyUnitInstanceFactory.unitTag = EnemyUnitTag;
-        enemyUnitInstanceFactory.spanwPosZ = 3.0f;
-        // TODO Change this to EnemyEquipment
-        enemyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
-        enemyUnitInstanceFactory.CreateUnits();
     }
 
     void Update()
@@ -84,12 +91,12 @@ public class BattleManager : MonoBehaviour {
 
     private bool IsBattleOver()
     {        
-        if (GameObject.FindGameObjectsWithTag(AllyUnitTag).Length == 0)
+        if (unitManager.AllyUnitCount() == 0)
         {
             winPlayer = 1;
             return true;
         }
-        else if (GameObject.FindGameObjectsWithTag(EnemyUnitTag).Length == 0)
+        else if (unitManager.EnemyUnitCount() == 0)
         {
             winPlayer = 0;
             return true;
@@ -100,24 +107,23 @@ public class BattleManager : MonoBehaviour {
 
     private void FinishBattle()
     {
+        exitBattleDecorator.ShowVictory(winPlayer);
+        StartCoroutine(RealFinishtAfter(3.0f));
+    }
+
+    private IEnumerator RealFinishtAfter(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        RealFinishBattle();
+    }
+
+    private void RealFinishBattle()
+    {
         CleanupBattle();
         if (battleField)
         {
             battleField.RecvBattlResult(winPlayer);
             yootGame.HandleBattleResult(winPlayer);
         }
-    }
-
-    private void DestroyUnits()
-    {
-        GameObject[] allies = GameObject.FindGameObjectsWithTag(AllyUnitTag);
-        foreach(GameObject obj in allies)
-            Destroy(obj);
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyUnitTag);
-        foreach (GameObject obj in enemies)
-            Destroy(obj);
-        GameObject[] deads = GameObject.FindGameObjectsWithTag("DeadUnit");
-        foreach (GameObject obj in deads)
-            Destroy(obj);
     }
 }

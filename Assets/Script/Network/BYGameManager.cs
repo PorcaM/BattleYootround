@@ -207,15 +207,21 @@ public class BYGameManager : MonoBehaviour {
     {
         BYMessage.HorseMessage msg = netMsg.ReadMessage<BYMessage.HorseMessage>();
         int player = netMsg.conn.connectionId;
-        int opponent = (player == player1) ? player1 : player2;
+        int opponent = (player == player1) ? player2 : player1;
+        Debug.Log("Select horse message receive... and send. horseID = " + msg.horseID);
+        BYServer.debugMessage1 = string.Format("Select horse message receive... and send. horseID = {0}" , msg.horseID);
         NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.SelectHorse, msg);
+        Debug.Log("select horse message Successfully sended!!");
     }
     private void OnSelectHorseAck(NetworkMessage netMsg)
     {
         BYMessage.HorseMessage msg = netMsg.ReadMessage<BYMessage.HorseMessage>();
         int player = netMsg.conn.connectionId;
-        int opponent = (player == player1) ? player1 : player2;
+        int opponent = (player == player1) ? player2 : player1;
+        Debug.Log("Select horse ack message receive... and send now");
+        BYServer.debugMessage1 = string.Format("Select horse ack message receive... and send now");
         NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.SelectHorseAck, msg);
+        Debug.Log("select horse ack message Successfully sended!!");
     }
     private void OnGameWin(NetworkMessage netMsg)
     {

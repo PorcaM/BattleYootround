@@ -7,7 +7,7 @@ public class UnitInstance : MonoBehaviour {
     public UnitAnimation unitAnimation;
     public CharacterController characterController;
     public string enemyTag;
-    public enum State { Alive, Dead }
+    public enum State { Alive, Dead, Ready }
     public State currentState;
     
     public Unit.ClassType unitClass;
@@ -20,8 +20,9 @@ public class UnitInstance : MonoBehaviour {
     public float movementSpeed;
     public float attackSpeed;
 
-    public const float attackCooltime = 3.0f;
+    public const float attackCooltime = 1.0f;
     private float attackCooldown;
+    const float unitSize = 0.15f;
 
     public float CurrentHP
     {
@@ -35,6 +36,8 @@ public class UnitInstance : MonoBehaviour {
             currentHP = value;
             if (currentHP < 0.0f)
                 currentHP = 0.0f;
+            if (currentHP > maxHp)
+                currentHP = maxHp;
             unitHealthBar.CurrentHealth = currentHP;
         }
     }
@@ -79,7 +82,9 @@ public class UnitInstance : MonoBehaviour {
         movementSpeed = (float)unit.MovementSpeed;
         attackSpeed = (float)unit.AttackSpeed;
         SetEnemyTag();
-        currentState = State.Alive;
+        currentState = State.Ready;
+        unitAnimation.SetSpeed(1.0f);
+        unitAnimation.SetAction(UnitAnimation.Actions.Alert);
     }
 
     private void SetEnemyTag()
@@ -94,6 +99,7 @@ public class UnitInstance : MonoBehaviour {
 
     public void UnderAttack(float damage)
     {
+        damage -= armor;
         FloatingTextController.CreateFloatingText(damage.ToString(), transform);
         CurrentHP -= damage;
         if (IsDead())
@@ -111,14 +117,18 @@ public class UnitInstance : MonoBehaviour {
     {
         currentState = State.Dead;
         tag = "DeadUnit";
+        unitAnimation.SetSpeed(1.0f);
         unitAnimation.SetAction(UnitAnimation.Actions.Die);
         Destroy(gameObject, 1.0f);
     }
 
     void Update()
     {
-        DoBattle();
-        UpdateAttackCooltime();
+        if (currentState == State.Alive)
+        {
+            DoBattle();
+            UpdateAttackCooltime();
+        }
     }
 
     private void DoBattle()
@@ -158,7 +168,7 @@ public class UnitInstance : MonoBehaviour {
     private bool IsInAttackRange(Vector3 point)
     {
         float distance = Vector3.Distance(point, transform.position);
-        return distance <= (range - 1) + .3f;
+        return distance <= range * unitSize;
     }
         
     private void MoveTo(Transform target)
@@ -178,6 +188,7 @@ public class UnitInstance : MonoBehaviour {
     private void MoveForward()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed / 2);
+        unitAnimation.SetSpeed(movementSpeed);
         unitAnimation.SetAction(UnitAnimation.Actions.Move);
     }
 
@@ -187,13 +198,23 @@ public class UnitInstance : MonoBehaviour {
         {
             target.UnderAttack(damage);
             attackCooldown = attackCooltime;
-            unitAnimation.SetAction(UnitAnimation.Actions.Attack);
+            UnitAnimation.Actions action = GetAttackAction();
+            unitAnimation.SetSpeed(attackSpeed);
+            unitAnimation.SetAction(action);
         }
     }
 
     private bool IsAttackable()
     {
         return AttackCooldown <= 0.0f;
+    }
+
+    private UnitAnimation.Actions GetAttackAction()
+    {
+        UnitAnimation.Actions action = UnitAnimation.Actions.Attack;
+        if (unitClass == Unit.ClassType.Archer)
+            action = UnitAnimation.Actions.Shoot;
+        return action;
     }
 
     private void UpdateAttackCooltime()

@@ -16,8 +16,7 @@ public class BYMessage : MonoBehaviour {
     // 말 선택 & 움직임
     public class HorseMessage : MessageBase
     {
-        public int horseNum;
-        public int destination;
+        public int horseID;
     }
     // 윷 던졌을 때 힘/토크
     public class ThrowForceMessage : MessageBase

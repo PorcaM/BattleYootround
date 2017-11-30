@@ -29,7 +29,10 @@ public class TurnManager : MonoBehaviour {
 
     public void ClearAll()
     {
-        foreach(YootPlayer player in playerManager.players)
+        foreach (YootPlayer player in playerManager.players)
+        {
             player.turnProcessor.UpdateState(TurnProcessor.ProcessState.Wait);
+
+        }
     }
 }

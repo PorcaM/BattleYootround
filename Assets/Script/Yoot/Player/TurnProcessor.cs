@@ -24,6 +24,11 @@ public class TurnProcessor : MonoBehaviour
     public void StartTurn()
     {
         DecoTurnStart.ShowStarter(owner.playerID);
+        if(YootGame.isNetwork && owner.playerID == 0)
+        {
+            TurnManager turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+            turnManager.ClearAll();
+        }
         Throw();
     }
 
@@ -109,6 +114,27 @@ public class TurnProcessor : MonoBehaviour
     {
         selectedHorse = horse;
         lastPreview = HorseTranslator.CreatePreview(horse, yootCount, this);
+        if (YootGame.isNetwork)
+        {
+            if (owner.playerID == 0)
+            {
+                Debug.Log("Send HorseSelect! horseID = " + horse.id);
+                Debug.Log("Horse information: " + horse.ToString());
+                BYMessage.HorseMessage msg = new BYMessage.HorseMessage
+                {
+                    horseID = horse.id
+                };
+                bool check = BYClient.myClient.Send(BYMessage.MyMsgType.SelectHorse, msg);
+                Debug.Log("sending check = " + check);
+            }
+            else
+            {
+                Debug.Log("Recv HorseSelect!");
+                lastPreview.button.onClick.RemoveAllListeners();
+                Debug.Log("Remove button onClick listener!!");
+            }
+        }
+        
         UpdateState(ProcessState.Ack);
     }
 
@@ -134,9 +160,28 @@ public class TurnProcessor : MonoBehaviour
     {
         owner.horseManager.SetClickable(false);
         DestroyLastPreview();
-        // TODO Send horse movement to opponent
+        if(YootGame.isNetwork)
+        {
+            if (owner.playerID == 0)
+            {
+                Debug.Log("Send HorseAck! horseID = ");
+                BYMessage.HorseMessage msg = new BYMessage.HorseMessage
+                {
+                    horseID = -1
+                };
+                bool check = BYClient.myClient.Send(BYMessage.MyMsgType.SelectHorseAck, msg);
+                Debug.Log("sending check = " + check);
+            }
+            else
+            {
+                TurnManager turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+                turnManager.ClearAll();
+
+            }
+        }
         UpdateState(ProcessState.End);
         HorseTranslator.Translate(selectedHorse, yootCount);
+
     }
 
     public void RecvEnd()
@@ -178,7 +223,7 @@ public class TurnProcessor : MonoBehaviour
         owner.yootGame.EndTurn(owner.playerID);
         if (YootGame.isNetwork && owner.playerID == 0)
         {
-            //turnSend.Client.myClient.Send(BYMessage.MyMsgType.TurnEnd, turnSend.EmptyMsg);
+            Debug.Log("Send TurnEnd message!");
             BYClient.myClient.Send(BYMessage.MyMsgType.TurnEnd, turnSend.EmptyMsg);
         }
     }
