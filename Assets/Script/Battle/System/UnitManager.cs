@@ -10,7 +10,13 @@ public class UnitManager : MonoBehaviour {
 
     public void Init()
     {
-
+        allyUnitInstanceFactory.unitTag = AllyUnitTag;
+        allyUnitInstanceFactory.spanwPosZ = -1.0f;
+        allyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
+        enemyUnitInstanceFactory.unitTag = EnemyUnitTag;
+        enemyUnitInstanceFactory.spanwPosZ = 1.0f;
+        // TODO Change this to EnemyEquipment
+        enemyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
     }
 
     public void Setup()
@@ -20,14 +26,7 @@ public class UnitManager : MonoBehaviour {
 
     private void CreateUnits()
     {
-        allyUnitInstanceFactory.unitTag = AllyUnitTag;
-        allyUnitInstanceFactory.spanwPosZ = -1.0f;
-        allyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
         allyUnitInstanceFactory.CreateUnits();
-        enemyUnitInstanceFactory.unitTag = EnemyUnitTag;
-        enemyUnitInstanceFactory.spanwPosZ = 1.0f;
-        // TODO Change this to EnemyEquipment
-        enemyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
         enemyUnitInstanceFactory.CreateUnits();
     }
 

@@ -29,7 +29,7 @@ public class EnterBattleDecorator : MonoBehaviour {
         DialogProgress dialog = DialogManager.CreateProgressCircular();
         string bodyText = time.ToString() + " seconds left until the battle begins !!";
         dialog.Initialize(bodyText, titleText, icon);
-        dialog.dialogAnimator = new DialogAnimatorSlide(1.0f, DialogAnimatorSlide.SlideDirection.Right, DialogAnimatorSlide.SlideDirection.Left);
+        dialog.dialogAnimator = new DialogAnimatorSlide(0.5f, DialogAnimatorSlide.SlideDirection.Right, DialogAnimatorSlide.SlideDirection.Left);
         dialog.Show();
         StartCoroutine(HideWindowAfterSeconds(dialog, 1.0f));
     }

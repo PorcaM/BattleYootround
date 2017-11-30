@@ -47,18 +47,6 @@ public class BattleManager : MonoBehaviour {
         StartCoroutine(RealStartAfter(3.0f));
     }
 
-    private IEnumerator RealStartAfter(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        RealStartBattle();
-    }
-
-    private void RealStartBattle()
-    {
-        unitManager.SetAllUnitState(UnitInstance.State.Alive);
-        battleState = BattleState.Proceeding;
-    }
-    
     private void SetupBattle()
     {
         winPlayer = -1;
@@ -69,13 +57,16 @@ public class BattleManager : MonoBehaviour {
         battleState = BattleState.Ready;
     }
 
-    private void CleanupBattle()
+    private IEnumerator RealStartAfter(float duration)
     {
-        uiHandler.SetUIActive(false);
-        cameraHandler.Cleanup();
-        unitManager.Cleanup();
-        spellManager.Cleanup();
-        gameObject.SetActive(false);
+        yield return new WaitForSeconds(duration);
+        RealStartBattle();
+    }
+
+    private void RealStartBattle()
+    {
+        unitManager.SetAllUnitState(UnitInstance.State.Alive);
+        battleState = BattleState.Proceeding;
     }
 
     void Update()
@@ -125,5 +116,14 @@ public class BattleManager : MonoBehaviour {
             battleField.RecvBattlResult(winPlayer);
             yootGame.HandleBattleResult(winPlayer);
         }
+    }
+
+    private void CleanupBattle()
+    {
+        uiHandler.SetUIActive(false);
+        cameraHandler.Cleanup();
+        unitManager.Cleanup();
+        spellManager.Cleanup();
+        gameObject.SetActive(false);
     }
 }
