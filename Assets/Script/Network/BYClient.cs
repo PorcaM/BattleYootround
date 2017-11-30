@@ -41,10 +41,10 @@ public class BYClient : MonoBehaviour
     {
         Debug.Log("ConnectToServer() : " + myClient);
         // 이미 서버에 연결되어 있는 상태면 아무것도 안함
-        GameObject Matching = GameObject.Find("Canvas").transform.FindChild("Matching").gameObject;
+        GameObject Matching = GameObject.Find("Canvas").transform.Find("Matching").gameObject;
         Matching.SetActive(true);
         
-        UnityEngine.UI.Button cancel = GameObject.Find("Matching").transform.FindChild("Button - Raised").GetComponent<UnityEngine.UI.Button>();
+        UnityEngine.UI.Button cancel = GameObject.Find("Matching").transform.Find("Button - Raised").GetComponent<UnityEngine.UI.Button>();
         cancel.onClick.AddListener(Cancel);
 
         if (isMatch)
