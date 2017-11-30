@@ -53,13 +53,9 @@ public class CameraHandler : MonoBehaviour
         float distance = Camera.main.transform.position.y;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Vector3 rayPoint = ray.GetPoint(distance);
-        Debug.Log(rayPoint);
         Vector3 closeupPosition = new Vector3(rayPoint.x, closeupHeight, rayPoint.z);
-        Debug.Log(closeupHeight);
         Camera.main.transform.position = closeupPosition;
-        Debug.Log(Camera.main.transform.position);
-        Camera.main.gameObject.AddComponent<CameraDrag>();
-        Debug.Log(Camera.main.transform.position);
+        Camera.main.gameObject.AddComponent<CameraDrag>().isEnable = true;
         isCloseup = true;
     }
 
