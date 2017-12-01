@@ -62,6 +62,7 @@ public class BYGameManager : MonoBehaviour {
     {
         // 유저 턴 선택
         int turn = Random.Range(1, 2);
+        BYServer.debugMessage1 = string.Format("{0}", turn);
         if (turn == 1)
         {
             startPlayer = player1;
@@ -72,13 +73,7 @@ public class BYGameManager : MonoBehaviour {
             startPlayer = player2;
             nextPlayer = player1;
         }
-        Debug.Log(startPlayer + " player start!");
-        BYServer.debugMessage1 = string.Format("{} player start!", startPlayer);
-        BYMessage.PlayerInfo playerInfo = new BYMessage.PlayerInfo();
-        playerInfo.PlayerNum = startPlayer;
-        NetworkServer.SendToClient(startPlayer, BYMessage.MyMsgType.TurnStart, playerInfo);
-        playerInfo.PlayerNum = nextPlayer;
-        NetworkServer.SendToClient(nextPlayer, BYMessage.MyMsgType.TurnWait, playerInfo);
+        StartCoroutine(StartMessage());
     }
 
     private void BattleStart()
@@ -94,6 +89,18 @@ public class BYGameManager : MonoBehaviour {
         BYServer.debugMessage1 = "players all ready!";
         GameStart();
     }
+    IEnumerator StartMessage()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log(startPlayer + " player start!");
+        BYServer.debugMessage1 = string.Format("{0} player start!", startPlayer);
+        BYMessage.PlayerInfo playerInfo = new BYMessage.PlayerInfo();
+        playerInfo.PlayerNum = startPlayer;
+        NetworkServer.SendToClient(startPlayer, BYMessage.MyMsgType.TurnStart, playerInfo);
+        playerInfo.PlayerNum = nextPlayer;
+        NetworkServer.SendToClient(nextPlayer, BYMessage.MyMsgType.TurnWait, playerInfo);
+    }
+
     IEnumerator WaitPlayersForBattle()
     {
         Debug.Log("Wait players for Battle...");
@@ -209,7 +216,6 @@ public class BYGameManager : MonoBehaviour {
         int player = netMsg.conn.connectionId;
         int opponent = (player == player1) ? player2 : player1;
         Debug.Log("Select horse message receive... and send. horseID = " + msg.horseID);
-        BYServer.debugMessage1 = string.Format("Select horse message receive... and send. horseID = {0}" , msg.horseID);
         NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.SelectHorse, msg);
         Debug.Log("select horse message Successfully sended!!");
     }
@@ -219,21 +225,20 @@ public class BYGameManager : MonoBehaviour {
         int player = netMsg.conn.connectionId;
         int opponent = (player == player1) ? player2 : player1;
         Debug.Log("Select horse ack message receive... and send now");
-        BYServer.debugMessage1 = string.Format("Select horse ack message receive... and send now");
         NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.SelectHorseAck, msg);
         Debug.Log("select horse ack message Successfully sended!!");
     }
     private void OnGameWin(NetworkMessage netMsg)
     {
         int winner = netMsg.conn.connectionId;
-        int loser = (winner == player1) ? player1 : player2;
+        int loser = (winner == player1) ? player2 : player1;
         NetworkServer.SendToClient(winner, BYMessage.MyMsgType.GameWin, EmptyMsg);
         NetworkServer.SendToClient(loser, BYMessage.MyMsgType.GameLose, EmptyMsg);
     }
     private void OnGameLose(NetworkMessage netMsg)
     {
         int winner = netMsg.conn.connectionId;
-        int loser = (winner == player1) ? player1 : player2;
+        int loser = (winner == player1) ? player2 : player1;
         NetworkServer.SendToClient(winner, BYMessage.MyMsgType.GameWin, EmptyMsg);
         NetworkServer.SendToClient(loser, BYMessage.MyMsgType.GameLose, EmptyMsg);
     }
