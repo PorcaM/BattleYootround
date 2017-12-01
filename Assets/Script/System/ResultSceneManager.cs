@@ -10,5 +10,6 @@ public class ResultSceneManager : MonoBehaviour {
         int winner = GameObject.Find("YootGameResult").GetComponent<YootGameResult>().winner;
         SoundManager.Instance().PlayMusic(winner);
         text.text = "Winner is Player " + winner;
+        Destroy(GameObject.Find("YootGameResult"));
     }
 }

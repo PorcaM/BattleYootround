@@ -83,8 +83,8 @@ public class UnitInstance : MonoBehaviour {
         attackSpeed = (float)unit.AttackSpeed;
         SetEnemyTag();
         currentState = State.Ready;
-        unitAnimation.SetSpeed(1.0f);
-        unitAnimation.SetAction(UnitAnimation.Actions.Alert);
+        //unitAnimation.SetSpeed(1.0f);
+        //unitAnimation.SetAction(UnitAnimation.Actions.Alert);
     }
 
     private void SetEnemyTag()

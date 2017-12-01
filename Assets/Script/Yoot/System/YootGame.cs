@@ -29,6 +29,9 @@ public class YootGame : MonoBehaviour {
         YootGameResult result = Instantiate(original);
         result.name = "YootGameResult";
         DontDestroyOnLoad(result);
+
+        GameObject.Find("TitleScene").GetComponent<TitleScene>().TempInit();
+
         GameInfo gameInfo;
         if (GameObject.Find("GameInfo"))
             gameInfo = GameObject.Find("GameInfo").GetComponent<GameInfo>();

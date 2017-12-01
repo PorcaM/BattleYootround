@@ -14,4 +14,12 @@ public class TitleScene : MonoBehaviour {
         Equipment equip = equipParser.Init();
         Debug.Log(equip.ToString());
     }
+
+    public void TempInit()
+    {
+        xmlParsing.Init();
+        dataCreator.Create();
+        Equipment equip = equipParser.Init();
+        Debug.Log(equip.ToString());
+    }
 }

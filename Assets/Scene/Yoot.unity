@@ -5936,6 +5936,8 @@ MonoBehaviour:
   unitModels: {fileID: 1349530862}
   spanwPosZ: 0
   center: {fileID: 778965640}
+  modellessUnit: {fileID: 1017676419839580, guid: 30a90f7226e8d2c419d081cc1a824193,
+    type: 2}
 --- !u!1 &778965639
 GameObject:
   m_ObjectHideFlags: 0
@@ -6011,6 +6013,8 @@ MonoBehaviour:
   unitModels: {fileID: 1349530862}
   spanwPosZ: 0
   center: {fileID: 778965640}
+  modellessUnit: {fileID: 1017676419839580, guid: 30a90f7226e8d2c419d081cc1a824193,
+    type: 2}
 --- !u!1 &803257206
 GameObject:
   m_ObjectHideFlags: 0
@@ -8619,14 +8623,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   models:
-  - {fileID: 1631026748257916, guid: 11ee5c776c7a7c0488a219859a3c9517, type: 2}
-  - {fileID: 1060558880565502, guid: c24cc08974d396943b578fb582f6c4e9, type: 2}
-  - {fileID: 1748638857970384, guid: 5169b10a31e8f2d46bdcefb368f532a5, type: 2}
-  - {fileID: 1931130840591166, guid: 6bada19df8cbcf843b64f5891bad60cc, type: 2}
-  - {fileID: 1525479918118276, guid: 1e490bf07f90bea468094c84718f62bd, type: 2}
-  - {fileID: 1077230381466962, guid: 39aa402cd9250a946b8f4c7e3efb9c59, type: 2}
-  - {fileID: 1156317641869000, guid: e058a9474379f8d498cc2088f2ebe22d, type: 2}
-  - {fileID: 1249912936205876, guid: 26e09e741d4141f43955c463c8fc6a8c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1351475493
 GameObject:
   m_ObjectHideFlags: 0
@@ -12635,7 +12639,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2132831645
 MonoBehaviour:
   m_ObjectHideFlags: 0
