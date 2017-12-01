@@ -41,6 +41,7 @@ public class BYMessage : MonoBehaviour {
         
         // Yoot ready before start turn
         public static short Equipment = MsgType.Highest + 5;
+        public static short EquipmentReady = MsgType.Highest + 6;
         public static short YootReady = MsgType.Highest + 8;
         
         // Turn Message
