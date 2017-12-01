@@ -31,8 +31,13 @@ public class TurnManager : MonoBehaviour {
     {
         foreach (YootPlayer player in playerManager.players)
         {
+            Debug.Log("ClearAll player...");
             player.turnProcessor.UpdateState(TurnProcessor.ProcessState.Wait);
-
+            if (player.playerID==1 && player.turnProcessor.yootThrowManager.createdModule != null)
+            {
+                Debug.Log("Remove created Module");
+                player.turnProcessor.yootThrowManager.createdModule.End();
+            }
         }
     }
 }
