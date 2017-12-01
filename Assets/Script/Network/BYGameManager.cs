@@ -8,6 +8,10 @@ public class BYGameManager : MonoBehaviour {
 
     private int player1;
     private int player2;
+
+    // equip -> ready -> gamestart (yoot & battle)
+    private bool player1_equip_ready;
+    private bool player2_equip_ready;
     private bool player1_yoot_ready;
     private bool player2_yoot_ready;
     private bool player1_battle_ready;
@@ -48,16 +52,44 @@ public class BYGameManager : MonoBehaviour {
         NetworkServer.SendToClient(player1, BYMessage.MyMsgType.MatchSuccess, EmptyMsg);
         NetworkServer.SendToClient(player2, BYMessage.MyMsgType.MatchSuccess, EmptyMsg);
 
+        player1_equip_ready = false;
+        player2_equip_ready = false;
         player1_yoot_ready = false;
         player2_yoot_ready = false;
         player1_battle_ready = false;
         player2_battle_ready = false;
         isBattleOn = false;
 
-        // player 둘 다 윷판 준비 될 때까지 대기
+        // player들의 Equipment준비될 때까지 대기
+        StartCoroutine(WaitPlayersForEquip());
+    }
+
+    IEnumerator WaitPlayersForEquip()
+    {
+        Debug.Log("Wait player equip");
+        yield return new WaitWhile(() => player1_equip_ready == false || player2_equip_ready == false);
+        Debug.Log("all player equip ready");
+        BYServer.debugMessage1 = "all player equip ready";
+        NetworkServer.SendToClient(player1, BYMessage.MyMsgType.EquipmentReady, EmptyMsg);
+        NetworkServer.SendToClient(player2, BYMessage.MyMsgType.EquipmentReady, EmptyMsg);
+
+        AfterEquipExchange();
+    }
+
+    private void AfterEquipExchange()
+    {
         StartCoroutine(WaitPlayersForYoot());
     }
-    
+
+    IEnumerator WaitPlayersForYoot()
+    {
+        Debug.Log("Wait players");
+        yield return new WaitWhile(() => player1_yoot_ready == false || player2_yoot_ready == false);
+        Debug.Log("players all ready");
+        BYServer.debugMessage1 = "players all ready!";
+        GameStart();
+    }
+
     private void GameStart()
     {
         // 유저 턴 선택
@@ -80,14 +112,6 @@ public class BYGameManager : MonoBehaviour {
     {
         Debug.Log("Battle Start!");
 
-    }
-    IEnumerator WaitPlayersForYoot()
-    {
-        Debug.Log("Wait players");
-        yield return new WaitWhile(() => player1_yoot_ready == false || player2_yoot_ready == false);
-        Debug.Log("players all ready");
-        BYServer.debugMessage1 = "players all ready!";
-        GameStart();
     }
     IEnumerator StartMessage()
     {
@@ -115,16 +139,30 @@ public class BYGameManager : MonoBehaviour {
     private void OnEquipment(NetworkMessage netMsg)
     {
         BYMessage.EquipmentMessage msg = netMsg.ReadMessage<BYMessage.EquipmentMessage>();
+
+        BYServer.debugMessage1 = string.Format("OnEquipment()");
+        /*
         Debug.Log("---------Spell--------");
         for (int i=0; i<4; i++)
             Debug.Log("spell #" + i + " : " + msg.list[i]);
         Debug.Log("---------Deck--------");
         for (int i = 4; i < 9; i++)
             Debug.Log("deck #" + i + " : " + msg.list[i]);
-
+        */
+        
         int player = netMsg.conn.connectionId;
-        int opponent = (player == player1) ? player2 : player1;
-        NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.Equipment, msg);
+        if (player == player1)
+        {
+            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.Equipment, msg);
+            player2_equip_ready = true;
+            BYServer.debugMessage1 = "player2 equip ready";
+        }
+        else
+        {
+            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.Equipment, msg);
+            player1_equip_ready = true;
+            BYServer.debugMessage1 = "player1 equip ready";
+        }
     }
     private void OnYootReady(NetworkMessage netMsg)
     {
@@ -133,11 +171,13 @@ public class BYGameManager : MonoBehaviour {
         if(player == player1)
         {
             Debug.Log(player1 + " is ready!");
+            BYServer.debugMessage1 = string.Format("{0} player ready", player1);
             player1_yoot_ready = true;
         }
         else
         {
             Debug.Log(player2 + " is ready!");
+            BYServer.debugMessage1 = string.Format("{0} player ready", player2);
             player2_yoot_ready = true;
         }
     }
