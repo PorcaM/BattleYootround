@@ -5931,9 +5931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitTag: 
   equipment: {fileID: 0}
-  LookatPoint: {fileID: 778965640}
   UnitParent: {fileID: 1345619927}
-  unitModels: {fileID: 1349530862}
   spanwPosZ: 0
   center: {fileID: 778965640}
   modellessUnit: {fileID: 1017676419839580, guid: 30a90f7226e8d2c419d081cc1a824193,
@@ -6008,9 +6006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitTag: 
   equipment: {fileID: 0}
-  LookatPoint: {fileID: 778965640}
   UnitParent: {fileID: 1468232284}
-  unitModels: {fileID: 1349530862}
   spanwPosZ: 0
   center: {fileID: 778965640}
   modellessUnit: {fileID: 1017676419839580, guid: 30a90f7226e8d2c419d081cc1a824193,
@@ -12639,7 +12635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2132831645
 MonoBehaviour:
   m_ObjectHideFlags: 0

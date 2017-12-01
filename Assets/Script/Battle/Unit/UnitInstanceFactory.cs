@@ -6,9 +6,7 @@ public class UnitInstanceFactory : MonoBehaviour
 {
     public string unitTag;
     public Equipment equipment;
-    public Transform LookatPoint;
     public Transform UnitParent;
-    public UnitModels unitModels;
     public float spanwPosZ;
     public Transform center;
 

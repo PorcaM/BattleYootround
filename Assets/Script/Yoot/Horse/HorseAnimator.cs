@@ -6,7 +6,6 @@ public class HorseAnimator : MonoBehaviour
 {
     public Vector3 srcPos;
     public Vector3 dstPos;
-    public float speed = 5.0F;
     public float timeLimit;
     private float startTime;
 

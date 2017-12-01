@@ -25,8 +25,7 @@ public class ExitBattleDecorator : MonoBehaviour {
         {
             UnitInstance unitInstance = obj.GetComponent<UnitInstance>();
             unitInstance.transform.rotation = Quaternion.identity;
-            unitInstance.unitAnimation.SetSpeed(1.0f);
-            unitInstance.unitAnimation.SetAction(UnitAnimation.Actions.Victory);
+            unitInstance.unitAnimation.Play(UnitAnimation.Actions.Victory);
         }
     }
 }

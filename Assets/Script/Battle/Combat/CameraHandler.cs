@@ -8,7 +8,7 @@ public class CameraHandler : MonoBehaviour
     public float height = 6.0f;
     public Vector3 basicPosition;
     public bool isCloseup;
-    public float closeupHeight = 3.0f;
+    public float closeupHeight = 2.0f;
     public GameObject UI;
 
     private float doubleClickTimeLimit = 0.25f;
@@ -56,17 +56,22 @@ public class CameraHandler : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Vector3 rayPoint = ray.GetPoint(distance);
         Vector3 closeupPosition = new Vector3(rayPoint.x, closeupHeight, rayPoint.z);
-        Camera.main.transform.position = closeupPosition;
+        //Camera.main.transform.position = closeupPosition;
+        Camera.main.gameObject.AddComponent<HorseAnimator>().Init(Camera.main.transform.position, closeupPosition, 1.0f);
         Camera.main.gameObject.AddComponent<CameraDrag>().isEnable = true;
+        FloatingTextController.isWorking = false;
         isCloseup = true;
     }
 
     public void BackCloseup()
     {
         UI.SetActive(true);
-        Camera.main.transform.position = basicPosition;
+        //Camera.main.transform.position = basicPosition;
+        Camera.main.gameObject.AddComponent<HorseAnimator>().Init(Camera.main.transform.position, basicPosition, 1.0f);
         CameraDrag cameraDrag = Camera.main.gameObject.GetComponent<CameraDrag>();
+        Debug.Log(cameraDrag);
         Destroy(cameraDrag);
+        FloatingTextController.isWorking = true;
         isCloseup = false;
     }
 

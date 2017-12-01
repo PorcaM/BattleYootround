@@ -18,9 +18,10 @@ public class UnitAnimation : MonoBehaviour
     {
         this.model = model;
         animator = model.GetComponent<Animator>();
+        Play(Actions.Alert);
     }
 
-    public void Play(Actions action, float speed)
+    public void Play(Actions action, float speed = 1.0f)
     {
         this.action = action;
         this.speed = speed;
@@ -30,16 +31,6 @@ public class UnitAnimation : MonoBehaviour
     private void UpdateAnimator()
     {
         animator.SetInteger("animation", (int)action);
-        animator.speed = speed;
-    }
-
-    public void SetAction(Actions action)
-    {
-        animator.SetInteger("animation", (int)action);
-    }
-
-    public void SetSpeed(float speed)
-    {
         animator.speed = speed;
     }
 }

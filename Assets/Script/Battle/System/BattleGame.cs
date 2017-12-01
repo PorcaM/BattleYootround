@@ -57,8 +57,8 @@ public class BattleGame : MonoBehaviour
     {
         this.winner = winner;
         decoratorManager.OnExitBattle(winner);
-        StartCoroutine(StartActionAfterSeconds(FinishGame, 3.0f));
         state = State.Finished;
+        StartCoroutine(StartActionAfterSeconds(FinishGame, 3.0f));
     }
 
     private void FinishGame()

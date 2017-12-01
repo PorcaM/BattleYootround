@@ -81,13 +81,11 @@ public class UnitInstance : MonoBehaviour {
         CurrentHP = MaxHp = (float)unit.Hp;
         movementSpeed = (float)unit.MovementSpeed;
         attackSpeed = (float)unit.AttackSpeed;
-        SetEnemyTag();
+        SetupEnemyTag();
         currentState = State.Ready;
-        //unitAnimation.SetSpeed(1.0f);
-        //unitAnimation.SetAction(UnitAnimation.Actions.Alert);
     }
 
-    private void SetEnemyTag()
+    private void SetupEnemyTag()
     {
         if (tag == "AllyUnit")
             enemyTag = "EnemyUnit";
@@ -100,12 +98,11 @@ public class UnitInstance : MonoBehaviour {
     public void UnderAttack(float damage)
     {
         damage -= armor;
-        FloatingTextController.CreateFloatingText(damage.ToString(), transform);
+        if (FloatingTextController.isWorking)
+            FloatingTextController.CreateFloatingText(damage.ToString(), transform);
         CurrentHP -= damage;
         if (IsDead())
-        {
             Die();
-        }
     }
 
     public bool IsDead()
@@ -117,8 +114,7 @@ public class UnitInstance : MonoBehaviour {
     {
         currentState = State.Dead;
         tag = "DeadUnit";
-        unitAnimation.SetSpeed(1.0f);
-        unitAnimation.SetAction(UnitAnimation.Actions.Die);
+        unitAnimation.Play(UnitAnimation.Actions.Die);
         Destroy(gameObject, 1.0f);
         CombatManager.Instance().CheckBattleOver();
     }
@@ -189,8 +185,7 @@ public class UnitInstance : MonoBehaviour {
     private void MoveForward()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed / 2);
-        unitAnimation.SetSpeed(movementSpeed);
-        unitAnimation.SetAction(UnitAnimation.Actions.Move);
+        unitAnimation.Play(UnitAnimation.Actions.Move, movementSpeed);
     }
 
     private void Attack(UnitInstance target)
@@ -200,8 +195,7 @@ public class UnitInstance : MonoBehaviour {
             target.UnderAttack(damage);
             attackCooldown = attackCooltime;
             UnitAnimation.Actions action = GetAttackAction();
-            unitAnimation.SetSpeed(attackSpeed);
-            unitAnimation.SetAction(action);
+            unitAnimation.Play(action, attackSpeed);
         }
     }
 

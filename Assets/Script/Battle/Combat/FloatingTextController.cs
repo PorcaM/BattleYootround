@@ -7,6 +7,7 @@ public class FloatingTextController : MonoBehaviour {
     private static Transform parent;
     private static float randomMin = -1.5f;
     private static float randomMax = 1.5f;
+    public static bool isWorking = true;
 
     public static void Init(FloatingText popupText, Transform parent)
     {
