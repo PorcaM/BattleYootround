@@ -27,7 +27,7 @@ public class UnitManager : MonoBehaviour {
         enemyUnitInstanceFactory.unitTag = EnemyUnitTag;
         enemyUnitInstanceFactory.spanwPosZ = 1.0f;
         // TODO Change this to EnemyEquipment
-        enemyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
+        enemyUnitInstanceFactory.equipment = GameObject.Find("Opponent Equipment").GetComponent<Equipment>();
         enemyUnitInstanceFactory.CreateUnits();
     }
 
