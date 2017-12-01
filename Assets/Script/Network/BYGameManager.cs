@@ -108,11 +108,6 @@ public class BYGameManager : MonoBehaviour {
         StartCoroutine(StartMessage());
     }
 
-    private void BattleStart()
-    {
-        Debug.Log("Battle Start!");
-
-    }
     IEnumerator StartMessage()
     {
         yield return new WaitForSeconds(1.0f);
@@ -124,31 +119,12 @@ public class BYGameManager : MonoBehaviour {
         playerInfo.PlayerNum = nextPlayer;
         NetworkServer.SendToClient(nextPlayer, BYMessage.MyMsgType.TurnWait, playerInfo);
     }
-
-    IEnumerator WaitPlayersForBattle()
-    {
-        Debug.Log("Wait players for Battle...");
-        yield return new WaitWhile(() => player1_battle_ready == false || player2_battle_ready == false);
-        Debug.Log("Battle is ready!");
-        BattleStart();
-    }
-
-    // TODO(...?)
-    // 생각해보니 진짜로 멀티플레이면 매칭만 따로 잡고 여기서 NetworkServer선언 한번 더 해서 따로 연결해야 할듯 함
-    // 안 그러면 Server로 전송하는 메세지도 겹칠테고 문제생길 것 같음.
+    
     private void OnEquipment(NetworkMessage netMsg)
     {
         BYMessage.EquipmentMessage msg = netMsg.ReadMessage<BYMessage.EquipmentMessage>();
 
         BYServer.debugMessage1 = string.Format("OnEquipment()");
-        /*
-        Debug.Log("---------Spell--------");
-        for (int i=0; i<4; i++)
-            Debug.Log("spell #" + i + " : " + msg.list[i]);
-        Debug.Log("---------Deck--------");
-        for (int i = 4; i < 9; i++)
-            Debug.Log("deck #" + i + " : " + msg.list[i]);
-        */
         
         int player = netMsg.conn.connectionId;
         if (player == player1)
@@ -233,6 +209,34 @@ public class BYGameManager : MonoBehaviour {
             NetworkServer.SendToClient(player1, BYMessage.MyMsgType.TurnStart, EmptyMsg);
             NetworkServer.SendToClient(player2, BYMessage.MyMsgType.TurnEnd, EmptyMsg);
         }
+    }
+
+    private void OnBattleOccur(NetworkMessage netMsg)
+    {
+        startPlayer = netMsg.ReadMessage<BYMessage.PlayerInfo>().PlayerNum;
+        nextPlayer = (startPlayer == player2) ? player1 : player2;
+
+        BYServer.debugMessage1 = string.Format("{0} player turn Battle occured!!", startPlayer);
+        // TODO: 각 플레이어들의 유닛 position 랜덤 생성
+        // TODO: BYMessage.UnitPositionMessage 정의 후, 해당 클래스로 생성된 position넣어서 Send
+        // Battle Unit들 hp 싱크 맞출수 있는 방법 찾아보기 ( [SyncVars] 비슷한거 본 것 같음 )
+        // TODO: 배틀 사이사이 스펠 사용하는 것 Receive register하고 Send
+
+        StartCoroutine(WaitPlayersForBattle());
+    }
+
+    IEnumerator WaitPlayersForBattle()
+    {
+        Debug.Log("Wait players for Battle...");
+        yield return new WaitWhile(() => player1_battle_ready == false || player2_battle_ready == false);
+        Debug.Log("Battle is ready!");
+        BattleStart();
+    }
+
+    private void BattleStart()
+    {
+        Debug.Log("Battle Start!");
+        // 
     }
 
     private void OnBattleReady(NetworkMessage netMsg)

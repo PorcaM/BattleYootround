@@ -55,10 +55,14 @@ public class BYMessage : MonoBehaviour {
         public static short SelectHorseAck = MsgType.Highest + 40;
 
 
-        // Battle Ready, and Win & Lost
-        // TODO: spell state
+        // Battle Ready, start, spell, and Win & Lose
+        public static short BattleOccur = MsgType.Highest + 50;
+        public static short BattleOccurReady = MsgType.Highest + 55;
         public static short BattleReady = MsgType.Highest + 60;
         public static short BattleStart = MsgType.Highest + 70;
+
+        public static short SpellUse = MsgType.Highest + 75;
+
         public static short BattleWin = MsgType.Highest + 80;
         public static short BattleLose = MsgType.Highest + 90;
         
