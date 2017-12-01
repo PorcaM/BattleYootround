@@ -14,7 +14,7 @@ public class BattleGame : MonoBehaviour
     public YootGame yootGame;
 
     [SerializeField] private YootField battleField;
-    public int winner;
+    [SerializeField] private int winner;
 
     private static BattleGame instance;
     public static BattleGame Instance()
@@ -39,6 +39,7 @@ public class BattleGame : MonoBehaviour
 
     public void StartGame()
     {
+        SoundManager.Instance().PlayMusic(1);
         battleUIManager.OnEnterBattle();
         combatManager.Setup();
         decoratorManager.OnEnterBattle();
@@ -52,8 +53,9 @@ public class BattleGame : MonoBehaviour
         state = State.OnBattle;
     }
 
-    public void FinishBattle()
+    public void FinishBattle(int winner)
     {
+        this.winner = winner;
         decoratorManager.OnExitBattle(winner);
         StartCoroutine(StartActionAfterSeconds(FinishGame, 3.0f));
         state = State.Finished;
@@ -61,6 +63,7 @@ public class BattleGame : MonoBehaviour
 
     private void FinishGame()
     {
+        SoundManager.Instance().PlayMusic(0);
         battleUIManager.OnExitBattle();
         combatManager.CleanupBattle();
         spellManager.Cleanup();

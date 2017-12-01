@@ -20,6 +20,8 @@ public class CombatManager : MonoBehaviour
         return instance;
     }
 
+    private int winner;
+
     public void Init()
     {
         FloatingTextController.Init(floatingText, damagesParent);
@@ -51,12 +53,12 @@ public class CombatManager : MonoBehaviour
     {
         if (unitManager.AllyUnitCount() == 0)
         {
-            BattleGame.Instance().winner = 1;
+            winner = 1;
             return true;
         }
         else if (unitManager.EnemyUnitCount() == 0)
         {
-            BattleGame.Instance().winner = 0;
+            winner = 0;
             return true;
         }
         else
@@ -67,7 +69,7 @@ public class CombatManager : MonoBehaviour
     {
         Debug.Log("Battle over");
         BattleGame battleGame = BattleGame.Instance();
-        battleGame.FinishBattle();
+        battleGame.FinishBattle(winner);
     }
 
     public void CleanupBattle()
