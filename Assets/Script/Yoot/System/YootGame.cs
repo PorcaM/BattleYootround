@@ -15,7 +15,7 @@ public class YootGame : MonoBehaviour {
 
 
     public YootInitializer yootInitializer;
-    public BattleManager battleManager;
+    public BattleGame battleGame;
     public GameStateUI gameStateUI;
     public PlayerManager playerManager;
     public TurnManager turnManager;
@@ -56,7 +56,7 @@ public class YootGame : MonoBehaviour {
     public void Init()
     {
         yootInitializer.Init();
-        battleManager.Init();
+        battleGame.Init();
         playerManager.Init();
         turnManager.Init(this);
     }

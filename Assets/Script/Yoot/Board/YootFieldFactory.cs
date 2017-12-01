@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class YootFieldFactory : MonoBehaviour
 {
-    public BattleManager battleManager;
     public const int YootFieldCount = 30;
     public const int OutsideCount = 20;
     public const int VerticalCount = 5;
@@ -32,7 +31,7 @@ public class YootFieldFactory : MonoBehaviour
         GameObject yfObj = Instantiate(fieldObj, pos, quaternion, parent) as GameObject;
         yfObj.name = "YootField" + i;
         YootField field = yfObj.GetComponent<YootField>();
-        field.Init(i, battleManager);
+        field.Init(i);
         return yfObj;
     }
 

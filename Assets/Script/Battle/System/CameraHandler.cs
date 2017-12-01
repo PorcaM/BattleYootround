@@ -9,6 +9,7 @@ public class CameraHandler : MonoBehaviour
     public Vector3 basicPosition;
     public bool isCloseup;
     public float closeupHeight = 3.0f;
+    public GameObject UI;
 
     private float doubleClickTimeLimit = 0.25f;
     [SerializeField] private Vector3 backupPosition;
@@ -50,6 +51,7 @@ public class CameraHandler : MonoBehaviour
 
     public void GoCloseup()
     {
+        UI.SetActive(false);
         float distance = Camera.main.transform.position.y;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Vector3 rayPoint = ray.GetPoint(distance);
@@ -61,6 +63,7 @@ public class CameraHandler : MonoBehaviour
 
     public void BackCloseup()
     {
+        UI.SetActive(true);
         Camera.main.transform.position = basicPosition;
         CameraDrag cameraDrag = Camera.main.gameObject.GetComponent<CameraDrag>();
         Destroy(cameraDrag);

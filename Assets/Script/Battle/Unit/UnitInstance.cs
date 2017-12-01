@@ -120,6 +120,7 @@ public class UnitInstance : MonoBehaviour {
         unitAnimation.SetSpeed(1.0f);
         unitAnimation.SetAction(UnitAnimation.Actions.Die);
         Destroy(gameObject, 1.0f);
+        CombatManager.Instance().CheckBattleOver();
     }
 
     void Update()

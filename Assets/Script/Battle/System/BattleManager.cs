@@ -5,29 +5,17 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour {
     public enum BattleState { Inited, Ready, Proceeding }
     public BattleState battleState;
-    static public int winPlayer;
-
-    public YootField battleField;
 
     public CameraHandler cameraHandler;
     public UIHandler uiHandler;
 
     public FloatingText floatingText;
     public Transform damagesParent;
-    public SpellManager spellManager;
-    public ObjController objController;
-
-    public YootGame yootGame;
 
     public UnitManager unitManager;
 
-    public EnterBattleDecorator enterBattleDecorator;
-    public ExitBattleDecorator exitBattleDecorator;
-
     public void Init()
     {
-        gameObject.SetActive(false);
-        spellManager.Init();
         FloatingTextController.Init(floatingText, damagesParent);
         cameraHandler.Init();
         unitManager.Init();
@@ -36,21 +24,18 @@ public class BattleManager : MonoBehaviour {
 
     public void StartBattle(YootField battleField)
     {
-        this.battleField = battleField;
         StartBattle();
     }
 
     public void StartBattle()
     {
         SetupBattle();
-        enterBattleDecorator.ShowCountdown(3);
+        
         StartCoroutine(RealStartAfter(3.0f));
     }
 
     private void SetupBattle()
     {
-        winPlayer = -1;
-        gameObject.SetActive(true);
         unitManager.Setup();
         cameraHandler.Setup();
         uiHandler.SetUIActive(true);
@@ -84,12 +69,10 @@ public class BattleManager : MonoBehaviour {
     {        
         if (unitManager.AllyUnitCount() == 0)
         {
-            winPlayer = 1;
             return true;
         }
         else if (unitManager.EnemyUnitCount() == 0)
         {
-            winPlayer = 0;
             return true;
         }
         else
@@ -97,8 +80,7 @@ public class BattleManager : MonoBehaviour {
     }
 
     private void FinishBattle()
-    {
-        exitBattleDecorator.ShowVictory(winPlayer);
+    {        
         StartCoroutine(RealFinishtAfter(3.0f));
     }
 
@@ -111,11 +93,6 @@ public class BattleManager : MonoBehaviour {
     private void RealFinishBattle()
     {
         CleanupBattle();
-        if (battleField)
-        {
-            battleField.RecvBattlResult(winPlayer);
-            yootGame.HandleBattleResult(winPlayer);
-        }
     }
 
     private void CleanupBattle()
@@ -123,7 +100,6 @@ public class BattleManager : MonoBehaviour {
         uiHandler.SetUIActive(false);
         cameraHandler.Cleanup();
         unitManager.Cleanup();
-        spellManager.Cleanup();
         gameObject.SetActive(false);
     }
 }
