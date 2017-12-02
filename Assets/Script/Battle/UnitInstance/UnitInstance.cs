@@ -21,8 +21,8 @@ public class UnitInstance : MonoBehaviour {
     public float attackSpeed;
 
     public const float attackCooltime = 1.0f;
-    private float attackCooldown;
-    const float unitSize = 0.15f;
+    [SerializeField] private float attackCooldown;
+    const float unitSize = 0.25f;    
 
     public float CurrentHP
     {
@@ -178,23 +178,14 @@ public class UnitInstance : MonoBehaviour {
         
     private void MoveTo(Transform target)
     {
-        RotateTo(target);
-        MoveForward();
-    }
-
-    private void RotateTo(Transform target)
-    {
-        Vector3 targetDir = target.position - transform.position;
-        float step = movementSpeed * Time.deltaTime;
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
-        transform.rotation = Quaternion.LookRotation(newDir);
-    }
-
-    private void MoveForward()
-    {
-        controller.Move(transform.forward * Time.deltaTime * movementSpeed / 2);
-        //transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed / 2);
-        unitAnimation.Play(UnitAnimation.Actions.Move, movementSpeed);
+        // if (controller.isGrounded)
+        {
+            Vector3 moveDir = target.position - transform.position;
+            moveDir.Normalize();
+            controller.Move(moveDir * Time.deltaTime * movementSpeed / 2);
+            unitAnimation.Play(UnitAnimation.Actions.Move, movementSpeed);
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        }
     }
 
     private void Attack(UnitInstance target)
