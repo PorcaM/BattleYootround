@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using MaterialUI;
 
 public class Deck : MonoBehaviour{
     private const int deckSize = 5;
@@ -34,9 +35,15 @@ public class Deck : MonoBehaviour{
     {
         bool integrity = true;
         if (IsRedundancy())
+        {
             integrity = false;
+            DialogManager.ShowAlert("Deck redundancy", "Equip Integrity Error", MaterialIconHelper.GetIcon(MaterialIconEnum.DATA_USAGE));
+        }
         if (!IsAppropriateSize())
+        {
             integrity = false;
+            DialogManager.ShowAlert("Deck size", "Equip Integrity Error", MaterialIconHelper.GetIcon(MaterialIconEnum.DATA_USAGE));
+        }
         return integrity;
     }
 

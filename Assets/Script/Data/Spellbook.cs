@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using MaterialUI;
 
 public class Spellbook : MonoBehaviour{
     private const int spellbookSize = 4;
@@ -35,9 +36,15 @@ public class Spellbook : MonoBehaviour{
     {
         bool integrity = true;
         if (IsRedundancy())
+        {
             integrity = false;
+            DialogManager.ShowAlert("Spellbook redundancy", "Equip Integrity Error", MaterialIconHelper.GetIcon(MaterialIconEnum.DATA_USAGE));
+        }
         if (!IsAppropriateSize())
+        {
             integrity = false;
+            DialogManager.ShowAlert("Spellbook size", "Equip Integrity Error", MaterialIconHelper.GetIcon(MaterialIconEnum.DATA_USAGE));
+        }
         return integrity;
     }
 
