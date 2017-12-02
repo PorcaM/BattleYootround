@@ -10,6 +10,7 @@ public class EquipUIHandler: MonoBehaviour {
 
     public SpellUIIntializer spellUIIntializer;
     public UnitUIInitializer unitUIInitializer;
+    public EquipParser equipParser;
     
     void Update()
     {
@@ -37,6 +38,7 @@ public class EquipUIHandler: MonoBehaviour {
         {
             Debug.Log("Good");
             equipment.Init(tempEquip);
+            equipParser.Save(tempEquip);
             End();
         }
         else
