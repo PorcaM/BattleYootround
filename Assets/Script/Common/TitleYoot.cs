@@ -9,7 +9,8 @@ public class TitleYoot : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        transform.position += new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
+        Vector3 dest = transform.position + new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
+        gameObject.AddComponent<HorseAnimator>().Init(new Vector3(0, 0, 0), dest, 2.5f);
         rot = new Vector3(Random.Range(minRot, maxRot), Random.Range(minRot, maxRot), Random.Range(minRot, maxRot));
     }
 	
