@@ -25,7 +25,6 @@ public class EnterBattleDecorator : MonoBehaviour {
 
     private void ShowDialog(int time)
     {
-        Debug.Log(time);
         DialogProgress dialog = DialogManager.CreateProgressCircular();
         string bodyText = time.ToString() + " seconds left until the battle begins !!";
         dialog.Initialize(bodyText, titleText, icon);

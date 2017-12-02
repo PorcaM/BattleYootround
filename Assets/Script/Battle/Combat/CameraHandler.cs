@@ -25,7 +25,7 @@ public class CameraHandler : MonoBehaviour
     public void Cleanup()
     {
         Recover();
-        StopCoroutine(InputListener());
+        StopAllCoroutines();
     }
 
     private void Recover()
