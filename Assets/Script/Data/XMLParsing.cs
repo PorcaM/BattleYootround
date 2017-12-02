@@ -67,6 +67,7 @@ public class XMLParsing : MonoBehaviour
         spell.Duration = float.Parse(Attribute_node[0].SelectSingleNode("Duration").InnerText);
         spell.Cooltime = float.Parse(node.SelectSingleNode("Cooltime").InnerText);
         spell.target = node.SelectSingleNode("Target").InnerText;
+        spell.description = node.SelectSingleNode("Description").InnerText;
         return spell;
     }
 

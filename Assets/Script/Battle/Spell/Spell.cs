@@ -12,6 +12,7 @@ public class Spell {
     private float duration;
     private float cooltime;
     public string target;
+    public string description;
 
 
     #region Properties
@@ -120,9 +121,10 @@ public class Spell {
     public new string ToString()
     {
         string info = "";
-        info += "Type: " + type + "\n";
         info += "Name: " + spellName + "\n";
-        info += "Damage: " + Damage + "\n";
+        info += description + "\n";
+        info += "Type: " + type + "\n";
+        info += "Amount: " + Damage + "\n";
         info += "Cooltime: " + cooltime + "\n";
         return info;
     }

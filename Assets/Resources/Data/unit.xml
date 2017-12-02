@@ -10,6 +10,7 @@
 		<MovementSpeed>1</MovementSpeed>
 		<AttackSpeed>1</AttackSpeed>
 		<Position>1</Position>
+		<Description>1</Description>
 	</Unit>
 	<Unit>
 		<Id>1</Id>
