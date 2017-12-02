@@ -661,6 +661,7 @@ GameObject:
   - component: {fileID: 95740829378734372}
   - component: {fileID: 114962171321092958}
   - component: {fileID: 114921086752488814}
+  - component: {fileID: 136216011461531424}
   m_Layer: 0
   m_Name: archer
   m_TagString: Untagged
@@ -2372,3 +2373,16 @@ MonoBehaviour:
   leftKnee: {fileID: 4479821315148444}
   rightSideScaleXMinusOne: 1
   leftSideScaleXMinusOne: 0
+--- !u!136 &136216011461531424
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1748638857970384}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.25, z: 0}

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 95622167912042488}
   - component: {fileID: 114489520624691172}
   - component: {fileID: 114719717757605440}
+  - component: {fileID: 136277227473708678}
   m_Layer: 0
   m_Name: knight
   m_TagString: Untagged
@@ -2442,3 +2443,16 @@ MonoBehaviour:
   leftHandContainer: {fileID: 4798742518568616}
   shieldContainer: {fileID: 4340017278751336}
   headContainer: {fileID: 4443859369573744}
+--- !u!136 &136277227473708678
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1060558880565502}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.25, z: 0}

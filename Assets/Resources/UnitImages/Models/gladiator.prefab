@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 95950924922877926}
   - component: {fileID: 114236656222887896}
   - component: {fileID: 114267393479179054}
+  - component: {fileID: 136926503644164184}
   m_Layer: 0
   m_Name: gladiator
   m_TagString: Untagged
@@ -2442,3 +2443,16 @@ MonoBehaviour:
   leftHandContainer: {fileID: 4447010308860426}
   shieldContainer: {fileID: 4112285898187338}
   headContainer: {fileID: 4281196604283962}
+--- !u!136 &136926503644164184
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1293151165264594}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.25, z: 0}

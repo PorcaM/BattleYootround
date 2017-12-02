@@ -593,6 +593,7 @@ GameObject:
   - component: {fileID: 95054795749586830}
   - component: {fileID: 114086265307461058}
   - component: {fileID: 114710315255736704}
+  - component: {fileID: 136707057338616756}
   m_Layer: 0
   m_Name: brutal
   m_TagString: Untagged
@@ -2232,3 +2233,16 @@ MonoBehaviour:
   leftHandContainer: {fileID: 4342556902181784}
   shieldContainer: {fileID: 4308983156483292}
   headContainer: {fileID: 4767822170512744}
+--- !u!136 &136707057338616756
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1631026748257916}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.25, z: 0}

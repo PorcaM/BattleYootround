@@ -561,6 +561,7 @@ GameObject:
   - component: {fileID: 95386702170062950}
   - component: {fileID: 114881923532576198}
   - component: {fileID: 114940026661001258}
+  - component: {fileID: 136587160548239692}
   m_Layer: 0
   m_Name: spearman
   m_TagString: Untagged
@@ -2442,3 +2443,16 @@ MonoBehaviour:
   leftHandContainer: {fileID: 4755175435078722}
   shieldContainer: {fileID: 4385923282017734}
   headContainer: {fileID: 4850557998719562}
+--- !u!136 &136587160548239692
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1525479918118276}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.25, z: 0}

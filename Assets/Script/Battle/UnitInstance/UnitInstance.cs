@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitInstance : MonoBehaviour {
     public UnitHealthBar unitHealthBar;
     public UnitAnimation unitAnimation;
-    public CharacterController characterController;
+    public CharacterController controller;
     public string enemyTag;
     public enum State { Alive, Dead, Ready }
     public State currentState;
@@ -21,8 +21,8 @@ public class UnitInstance : MonoBehaviour {
     public float attackSpeed;
 
     public const float attackCooltime = 1.0f;
-    private float attackCooldown;
-    const float unitSize = 0.15f;
+    [SerializeField] private float attackCooldown;
+    const float unitSize = 0.25f;    
 
     public float CurrentHP
     {
@@ -83,6 +83,7 @@ public class UnitInstance : MonoBehaviour {
         attackSpeed = (float)unit.AttackSpeed;
         SetupEnemyTag();
         currentState = State.Ready;
+        controller = GetComponent<CharacterController>();
     }
 
     private void SetupEnemyTag()
@@ -177,22 +178,14 @@ public class UnitInstance : MonoBehaviour {
         
     private void MoveTo(Transform target)
     {
-        RotateTo(target);
-        MoveForward();
-    }
-
-    private void RotateTo(Transform target)
-    {
-        Vector3 targetDir = target.position - transform.position;
-        float step = movementSpeed * Time.deltaTime;
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
-        transform.rotation = Quaternion.LookRotation(newDir);
-    }
-
-    private void MoveForward()
-    {
-        transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed / 2);
-        unitAnimation.Play(UnitAnimation.Actions.Move, movementSpeed);
+        // if (controller.isGrounded)
+        {
+            Vector3 moveDir = target.position - transform.position;
+            moveDir.Normalize();
+            controller.Move(moveDir * Time.deltaTime * movementSpeed / 2);
+            unitAnimation.Play(UnitAnimation.Actions.Move, movementSpeed);
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        }
     }
 
     private void Attack(UnitInstance target)
@@ -213,9 +206,23 @@ public class UnitInstance : MonoBehaviour {
 
     private UnitAnimation.Actions GetAttackAction()
     {
-        UnitAnimation.Actions action = UnitAnimation.Actions.Attack;
-        if (unitClass == Unit.ClassType.Archer)
-            action = UnitAnimation.Actions.Shoot;
+        UnitAnimation.Actions action;
+        switch (unitClass)
+        {
+            case Unit.ClassType.Archer:
+                action = UnitAnimation.Actions.Shoot;
+                break;
+            case Unit.ClassType.Knight:
+                action = UnitAnimation.Actions.GuardAttack;
+                break;
+            case Unit.ClassType.Dark:
+            case Unit.ClassType.Paladin:
+                action = UnitAnimation.Actions.JumpAttack;
+                break;
+            default:
+                action = UnitAnimation.Actions.Attack;
+                break;
+        }
         return action;
     }
 

@@ -13,6 +13,7 @@
 		</Range>
 		<Cooltime>3</Cooltime>
 		<Target>EnemyUnit</Target>
+		<Description>기본 스펠</Description>
 	</Spell>
 	<Spell>
 		<Id>1</Id>
@@ -23,10 +24,11 @@
 			<Duration>3</Duration>
 		</Attribute>
 		<Range>
-			<Radius>3</Radius>
+			<Radius>2</Radius>
 		</Range>
 		<Cooltime>5</Cooltime>
 		<Target>EnemyUnit</Target>
+		<Description>번개 스펠. 지속적으로 적들을 공격한다. </Description>
 	</Spell>
 	<Spell>
 		<Id>2</Id>
@@ -34,13 +36,14 @@
 		<Attribute>
 			<Type>Attack</Type>
 			<Damage>20</Damage>
-			<Duration>3</Duration>
+			<Duration>1</Duration>
 		</Attribute>
 		<Range>
 			<Radius>2</Radius>
 		</Range>
-		<Cooltime>6</Cooltime>
+		<Cooltime>5</Cooltime>
 		<Target>EnemyUnit</Target>
+		<Description>화염 스펠. 적당한 데미지와 범위를 갖고 있다. </Description>
 	</Spell>
 	<Spell>
 		<Id>3</Id>
@@ -51,10 +54,11 @@
 			<Duration>1</Duration>
 		</Attribute>
 		<Range>
-			<Radius>1</Radius>
+			<Radius>3</Radius>
 		</Range>
-		<Cooltime>7</Cooltime>
+		<Cooltime>5</Cooltime>
 		<Target>EnemyUnit</Target>
+		<Description>물의 스펠. 넓은 범위를 가진 공격 스펠이다. </Description>
 	</Spell>
 	<Spell>
 		<Id>4</Id>
@@ -67,8 +71,9 @@
 		<Range>
 			<Radius>0.5</Radius>
 		</Range>
-		<Cooltime>8</Cooltime>
+		<Cooltime>10</Cooltime>
 		<Target>EnemyUnit</Target>
+		<Description>죽음의 스펠. 좁은 범위의 적을 강하게 공격한다. </Description>
 	</Spell>
 	<Spell>
 		<Id>5</Id>
@@ -83,6 +88,7 @@
 		</Range>
 		<Cooltime>10</Cooltime>
 		<Target>AllyUnit</Target>
+		<Description>아군의 속도를 상승시킨다. </Description>
 	</Spell>
 	<Spell>
 		<Id>6</Id>
@@ -97,20 +103,22 @@
 		</Range>
 		<Cooltime>10</Cooltime>
 		<Target>EnemyUnit</Target>
+		<Description>적군의 이동을 막는다. </Description>
 	</Spell>
 	<Spell>
 		<Id>7</Id>
 		<SpellName>Heal</SpellName>
 		<Attribute>
 			<Type>Assist</Type>
-			<Damage>-100</Damage>
+			<Damage>100</Damage>
 			<Duration>1</Duration>
 		</Attribute>
 		<Range>
-			<Radius>2</Radius>
+			<Radius>1.5</Radius>
 		</Range>
 		<Cooltime>15</Cooltime>
 		<Target>AllyUnit</Target>
+		<Description>아군 유닛들의 체력을 회복한다. </Description>
 	</Spell>
 	<Spell>
 		<Id>8</Id>
@@ -125,6 +133,7 @@
 		</Range>
 		<Cooltime>15</Cooltime>
 		<Target>AllyUnit</Target>
+		<Description>모든 방해효과를 제거한다. </Description>
 	</Spell>
 	<Spell>
 		<Id>9</Id>
@@ -139,6 +148,7 @@
 		</Range>
 		<Cooltime>15</Cooltime>
 		<Target>EnemyUnit</Target>
+		<Description>적군을 스턴 상태로 만든다. </Description>
 	</Spell>
 	<Spell>
 		<Id>10</Id>
@@ -146,13 +156,14 @@
 		<Attribute>
 			<Type>Assist</Type>
 			<Damage>0</Damage>
-			<Duration>1</Duration>
+			<Duration>10</Duration>
 		</Attribute>
 		<Range>
 			<Radius>2</Radius>
 		</Range>
 		<Cooltime>20</Cooltime>
 		<Target>EnemyUnit</Target>
+		<Description>적군의 최대 체력을 감소시킨다. </Description>
 	</Spell>
 	<Spell>
 		<Id>11</Id>
@@ -167,6 +178,7 @@
 		</Range>
 		<Cooltime>30</Cooltime>
 		<Target>EnemyPlayer</Target>
+		<Description>없음</Description>
 	</Spell>
 	<Spell>
 		<Id>12</Id>
@@ -181,5 +193,6 @@
 		</Range>
 		<Cooltime>30</Cooltime>
 		<Target>AllyPlayer</Target>
+		<Description>없음</Description>
 	</Spell>
 </BYData>

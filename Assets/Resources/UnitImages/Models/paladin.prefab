@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 95885314205161620}
   - component: {fileID: 114325392949399142}
   - component: {fileID: 114477908304415570}
+  - component: {fileID: 136968728604892704}
   m_Layer: 0
   m_Name: paladin
   m_TagString: Untagged
@@ -2442,3 +2443,16 @@ MonoBehaviour:
   leftHandContainer: {fileID: 4964658066244026}
   shieldContainer: {fileID: 4309534890043562}
   headContainer: {fileID: 4723764890493180}
+--- !u!136 &136968728604892704
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1249912936205876}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.25, z: 0}
