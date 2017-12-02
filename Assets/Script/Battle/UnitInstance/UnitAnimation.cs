@@ -9,7 +9,7 @@ public class UnitAnimation : MonoBehaviour
 
     public enum Actions
     {
-        Idle = 1, Alert, Victory, Damage = 5, Die = 7, Attack = 11, Shoot = 14, Move = 15,
+        Idle = 1, Alert, Victory, Damage = 5, Die = 7, Attack = 11, GuardAttack = 12, JumpAttack=13,Shoot = 14, Move = 15,
     }
     [SerializeField] private Actions action;
     [SerializeField] private float speed;

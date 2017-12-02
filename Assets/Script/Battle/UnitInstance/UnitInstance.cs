@@ -206,9 +206,23 @@ public class UnitInstance : MonoBehaviour {
 
     private UnitAnimation.Actions GetAttackAction()
     {
-        UnitAnimation.Actions action = UnitAnimation.Actions.Attack;
-        if (unitClass == Unit.ClassType.Archer)
-            action = UnitAnimation.Actions.Shoot;
+        UnitAnimation.Actions action;
+        switch (unitClass)
+        {
+            case Unit.ClassType.Archer:
+                action = UnitAnimation.Actions.Shoot;
+                break;
+            case Unit.ClassType.Knight:
+                action = UnitAnimation.Actions.GuardAttack;
+                break;
+            case Unit.ClassType.Dark:
+            case Unit.ClassType.Paladin:
+                action = UnitAnimation.Actions.JumpAttack;
+                break;
+            default:
+                action = UnitAnimation.Actions.Attack;
+                break;
+        }
         return action;
     }
 
