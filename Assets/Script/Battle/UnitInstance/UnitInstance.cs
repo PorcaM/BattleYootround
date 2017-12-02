@@ -95,6 +95,13 @@ public class UnitInstance : MonoBehaviour {
             Debug.Log("Invalid unit tag");
     }
 
+    public void Recovery(float amount)
+    {
+        CurrentHP += amount;
+        if (FloatingTextController.isWorking)
+            FloatingTextController.CreateFloatingText(amount.ToString(), transform, "#4CAF50FF");
+    }
+
     public void UnderAttack(float damage)
     {
         damage -= armor;

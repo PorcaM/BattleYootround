@@ -15,7 +15,7 @@ public class FloatingTextController : MonoBehaviour {
         FloatingTextController.parent = parent;
     }
 
-    public static void CreateFloatingText(string text, Transform location)
+    public static void CreateFloatingText(string text, Transform location, string colorText = "")
     {
         FloatingText instance = Instantiate(popupText);
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(location.position);
@@ -24,6 +24,8 @@ public class FloatingTextController : MonoBehaviour {
         instance.transform.position = randomPosition;
         instance.Init();
         instance.SetText(text);
+        if (colorText != "")
+            instance.SetColor(colorText);
     }
 
     private static float GetRandom()

@@ -59,7 +59,7 @@ public class UnitHealthBar : MonoBehaviour {
     public void Draw()
     {
         screenPos = Camera.main.WorldToScreenPoint(transform.position);
-        float top = Screen.height - screenPos.y;
+        float top = Screen.height - screenPos.y - 20;
         float left = screenPos.x;
         float width = 50;
         float height = 5;

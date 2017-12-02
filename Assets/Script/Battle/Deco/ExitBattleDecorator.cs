@@ -14,8 +14,11 @@ public class ExitBattleDecorator : MonoBehaviour {
         GameObject[] alives = GameObject.FindGameObjectsWithTag(aliveTag);
         AnimateAlives(alives);
         Vector3 offset = new Vector3(0, 1, 1);
-        Camera.main.transform.position = alives[0].transform.position + offset;
+        Vector3 closeupPos = alives[0].transform.position + offset;
+        Vector3 backupPos = Camera.main.transform.position;
+        Camera.main.transform.position = closeupPos;
         Camera.main.transform.LookAt(alives[0].transform.position);
+        Camera.main.gameObject.AddComponent<HorseAnimator>().Init(backupPos, closeupPos, 1.0f);
         ToastManager.Show("Player " + winner + " Win!!");
     }
 

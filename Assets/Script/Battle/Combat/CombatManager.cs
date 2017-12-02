@@ -25,6 +25,7 @@ public class CombatManager : MonoBehaviour
     public void Init()
     {
         FloatingTextController.Init(floatingText, damagesParent);
+        UnitHealthBar.Init();
         cameraHandler.Init();
         unitManager.Init();
         state = State.Idle;

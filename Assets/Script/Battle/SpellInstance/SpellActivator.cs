@@ -51,14 +51,6 @@ public class SpellActivator : MonoBehaviour {
 
     private void ApplySpellEffect()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyUnit");
-        foreach(GameObject enemy in enemies)
-        {
-            float distance = Vector3.Distance(enemy.transform.position, createdArea.transform.position);
-            if (distance <= selectedSpell.radius)
-            {
-                enemy.GetComponent<UnitInstance>().UnderAttack(selectedSpell.damage);
-            }
-        }
+        SpellManifestator.AllySpell(createdArea.transform.position, selectedSpell.id);
     }
 }

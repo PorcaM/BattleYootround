@@ -103,7 +103,7 @@
 		<SpellName>Heal</SpellName>
 		<Attribute>
 			<Type>Assist</Type>
-			<Damage>100</Damage>
+			<Damage>-100</Damage>
 			<Duration>1</Duration>
 		</Attribute>
 		<Range>

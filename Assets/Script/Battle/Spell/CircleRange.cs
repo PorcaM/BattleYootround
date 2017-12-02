@@ -30,8 +30,23 @@ public class CircleRange : Range
         Radius = radius;
     }
 
-    public override List<UnitInstance> SelectTarget()
+    public override List<UnitInstance> SelectTarget(Vector3 pos)
     {
-        return new List<UnitInstance>();
+        List<UnitInstance> targets = new List<UnitInstance>();
+        GameObject[] allies = GameObject.FindGameObjectsWithTag("AllyUnit");
+        foreach (GameObject ally in allies)
+        {
+            float distance = Vector3.Distance(ally.transform.position, pos);
+            if (distance <= radius)
+                targets.Add(ally.GetComponent<UnitInstance>());
+        }
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyUnit");
+        foreach (GameObject enemy in enemies)
+        {
+            float distance = Vector3.Distance(enemy.transform.position, pos);
+            if (distance <= radius)
+                targets.Add(enemy.GetComponent<UnitInstance>());
+        }
+        return targets;
     }
 }
