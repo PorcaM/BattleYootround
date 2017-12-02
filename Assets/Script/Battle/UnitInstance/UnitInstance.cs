@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitInstance : MonoBehaviour {
     public UnitHealthBar unitHealthBar;
     public UnitAnimation unitAnimation;
-    public CharacterController characterController;
+    public CharacterController controller;
     public string enemyTag;
     public enum State { Alive, Dead, Ready }
     public State currentState;
@@ -83,6 +83,7 @@ public class UnitInstance : MonoBehaviour {
         attackSpeed = (float)unit.AttackSpeed;
         SetupEnemyTag();
         currentState = State.Ready;
+        controller = GetComponent<CharacterController>();
     }
 
     private void SetupEnemyTag()
@@ -191,7 +192,8 @@ public class UnitInstance : MonoBehaviour {
 
     private void MoveForward()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed / 2);
+        controller.Move(transform.forward * Time.deltaTime * movementSpeed / 2);
+        //transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed / 2);
         unitAnimation.Play(UnitAnimation.Actions.Move, movementSpeed);
     }
 
