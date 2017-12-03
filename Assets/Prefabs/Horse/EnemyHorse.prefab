@@ -126,4 +126,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horse: {fileID: 0}
+  childHorse: {fileID: 1401933818573702, guid: 29adaa0cc38c66c45835377638eaba95, type: 2}
   children: []

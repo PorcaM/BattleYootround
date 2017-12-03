@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Horse))]
 public class HorseModel : MonoBehaviour {
     public Horse horse;
+    public GameObject childHorse;
     public List<GameObject> children;
     private const float size = 0.5f;
 
@@ -23,7 +24,7 @@ public class HorseModel : MonoBehaviour {
         for (int i = 0; i < numNewChild; ++i)
         {
             int childID = i + numChild;
-            GameObject child = Instantiate(gameObject, transform);
+            GameObject child = Instantiate(childHorse, transform);
             Destroy(child.GetComponent<HorseModel>());
             Destroy(child.GetComponent<HorseAnimator>());
             Destroy(child.GetComponent<Horse>());
