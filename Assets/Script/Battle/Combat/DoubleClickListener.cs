@@ -32,28 +32,35 @@ public class DoubleClickListener : MonoBehaviour
     void Update()
     {
         if (isChecking)
-        {
-            if(Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase == TouchPhase.Began)
-            {
+            if (IsInput())
                 if (!isPrev)
-                {
-                    isPrev = true;
-                    lastTime = Time.time;
-                }
+                    OnFirst();
                 else
-                {
-                    if(Time.time -lastTime<timeInterval)
-                    {
-                        isPrev = false;
-                        action.Invoke();
-                    }
-                    else
-                    {
-                        isPrev = true;
-                        lastTime = Time.time;
-                    }
-                }
-            }
-        }
+                    if (Time.time - lastTime < timeInterval)
+                    OnSecond();
+                else
+                    OnFirst();
+    }
+
+    private bool IsInput()
+    {
+        bool input = false;
+        if (Input.GetMouseButtonDown(0))
+            input = true;
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            input = true;
+        return input;
+    }
+
+    private void OnFirst()
+    {
+        isPrev = true;
+        lastTime = Time.time;
+    }
+
+    private void OnSecond()
+    {
+        isPrev = false;
+        action.Invoke();
     }
 }
