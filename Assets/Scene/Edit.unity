@@ -1090,6 +1090,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 217032002}
+--- !u!1 &237958844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 237958845}
+  - component: {fileID: 237958846}
+  m_Layer: 0
+  m_Name: EquipParser
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &237958845
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 237958844}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1651926088}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &237958846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 237958844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c348158684db98a4e94f53a0e4e457dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipFile: {fileID: 0}
+  equipment: {fileID: 0}
 --- !u!1 &252062501
 GameObject:
   m_ObjectHideFlags: 0
@@ -9575,6 +9617,7 @@ MonoBehaviour:
   tempEquip: {fileID: 0}
   spellUIIntializer: {fileID: 1596665423}
   unitUIInitializer: {fileID: 1596665424}
+  equipParser: {fileID: 237958846}
 --- !u!4 &1651926088
 Transform:
   m_ObjectHideFlags: 0
@@ -9587,6 +9630,7 @@ Transform:
   m_Children:
   - {fileID: 1227693876}
   - {fileID: 1596665420}
+  - {fileID: 237958845}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

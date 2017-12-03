@@ -12,10 +12,17 @@ public class PopupPreview : MonoBehaviour {
     public void Init(TurnProcessor turnProcessor)
     {
         this.turnProcessor = turnProcessor;
+        
         rawImage = transform.GetChild(1).GetComponent<RawImage>();
         button = GetComponent<Button>();
         button.onClick.AddListener(turnProcessor.RecvAck);
         Destroy(gameObject, lifetime);
+
+        RawImage bg = transform.GetChild(0).GetComponent<RawImage>();
+        string color = "g";
+        if (turnProcessor.owner.playerID == 1)
+            color = "r";
+        bg.texture = Resources.Load("PreviewIcons/" + color + "background", typeof(Texture2D)) as Texture2D;
     }
 
     public void SetImage(string name)

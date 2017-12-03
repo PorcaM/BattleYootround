@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class EquipParser : MonoBehaviour
 {
     public TextAsset equipFile;
     public Equipment equipment;
 
+    private const string path = "Assets/Resources/Data/equipment.txt";
+
     public Equipment Init()
     {
         string[] pairs = equipFile.text.Split(' ');
         List<int> list = new List<int>();
-        foreach(string pair in pairs)
+        foreach (string pair in pairs)
         {
             int item;
             if (int.TryParse(pair, out item))
@@ -23,5 +26,27 @@ public class EquipParser : MonoBehaviour
         equipment.name = "Equipment";
         equipment.Init(list);
         return equipment;
+    }
+
+    public void Save(Equipment equipment)
+    {
+        string data = "";
+        foreach (Spell spell in equipment.spellbook.spells)
+            data += spell.Id.ToString() + " ";
+        foreach (Unit unit in equipment.deck.units)
+            data += unit.Id.ToString() + " ";
+        FileStream fs = new FileStream(path, FileMode.Truncate);
+        fs.Close();
+        StreamWriter writer = new StreamWriter(path, true);
+        if (writer != null)
+        {
+            Debug.Log("Write " + data);
+            writer.WriteLine(data);
+            writer.Close();
+        }
+        else
+        {
+            Debug.Log("No equip file");
+        }
     }
 }
