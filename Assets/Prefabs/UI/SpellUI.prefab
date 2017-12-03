@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 224403424217577146}
   - component: {fileID: 222743656482976218}
   - component: {fileID: 114355555129178150}
-  - component: {fileID: 114015374255883250}
   - component: {fileID: 61072600865778754}
+  - component: {fileID: 114015374255883250}
   m_Layer: 5
   m_Name: SpellUI
   m_TagString: Untagged

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MaterialUI;
 
 public class EquipUIHandler: MonoBehaviour {
     public bool isInited = false;
@@ -37,6 +38,7 @@ public class EquipUIHandler: MonoBehaviour {
         if (tempEquip.IsIntegrity())
         {
             Debug.Log("Good");
+            DialogManager.ShowAlert("Pass the integrity test!", "Equip", MaterialIconHelper.GetIcon(MaterialIconEnum.DATA_USAGE));
             equipment.Init(tempEquip);
             equipParser.Save(tempEquip);
             End();

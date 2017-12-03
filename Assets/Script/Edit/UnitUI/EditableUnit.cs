@@ -10,6 +10,7 @@ public class EditableUnit : MonoBehaviour {
 
     private Vector3 downPosition;
     private float dragMinDistance = 100.0f;
+    private const int unitPage = 1;
 
     public void Init(DeckUI deckUI, bool upside)
     {
@@ -20,23 +21,27 @@ public class EditableUnit : MonoBehaviour {
 
     void OnMouseDown()
     {
-        downPosition = Input.mousePosition;
+        if (tabView.currentPage == unitPage)
+            downPosition = Input.mousePosition;
     }
 
     void OnMouseUp()
     {
-        Unit unit = GetComponent<UnitUI>().unit;
-        Vector3 upPosition = Input.mousePosition;
-        float delta = upPosition.y - downPosition.y;
-        if (delta > dragMinDistance && upside)
+        if (tabView.currentPage == unitPage)
         {
-            Debug.Log("up");
-            deckUI.Add(unit);
-        }
-        if (delta < -dragMinDistance && !upside)
-        {
-            Debug.Log("down");
-            deckUI.Remove(GetComponent<UnitUI>());
+            Unit unit = GetComponent<UnitUI>().unit;
+            Vector3 upPosition = Input.mousePosition;
+            float delta = upPosition.y - downPosition.y;
+            if (delta > dragMinDistance && upside)
+            {
+                Debug.Log("up");
+                deckUI.Add(unit);
+            }
+            if (delta < -dragMinDistance && !upside)
+            {
+                Debug.Log("down");
+                deckUI.Remove(GetComponent<UnitUI>());
+            }
         }
     }
 }

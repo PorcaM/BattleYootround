@@ -35,9 +35,8 @@ public class EquipParser : MonoBehaviour
             data += spell.Id.ToString() + " ";
         foreach (Unit unit in equipment.deck.units)
             data += unit.Id.ToString() + " ";
-        FileStream fs = new FileStream(path, FileMode.Truncate);
-        fs.Close();
-        StreamWriter writer = new StreamWriter(path, true);
+        FileStream fs = new FileStream(path, FileMode.Truncate, FileAccess.Write);
+        StreamWriter writer = new StreamWriter(fs);
         if (writer != null)
         {
             Debug.Log("Write " + data);
