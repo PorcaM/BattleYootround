@@ -10,6 +10,7 @@ public class CameraHandler : MonoBehaviour
     public bool isCloseup;
     public float closeupHeight = 2.0f;
     public GameObject UI;
+    public DoubleClickListener doubleClickListener;
 
     private float doubleClickTimeLimit = 0.25f;
     [SerializeField] private Vector3 backupPosition;
@@ -20,12 +21,13 @@ public class CameraHandler : MonoBehaviour
         backupPosition = Camera.main.transform.position;
         backupRotation = Camera.main.transform.rotation;
         basicPosition = new Vector3(center.position.x, height, center.position.z - 1);
+        doubleClickListener.Init(DoubleClick);
     }
 
     public void Cleanup()
     {
         Recover();
-        StopAllCoroutines();
+        doubleClickListener.Cleanup();
     }
 
     private void Recover()
@@ -39,7 +41,7 @@ public class CameraHandler : MonoBehaviour
     public void Setup()
     {
         GoBattleField();
-        StartCoroutine(InputListener());
+        doubleClickListener.Setup();
         isCloseup = false;
     }
 
@@ -73,43 +75,6 @@ public class CameraHandler : MonoBehaviour
         Destroy(cameraDrag);
         FloatingTextController.isWorking = true;
         isCloseup = false;
-    }
-
-    // Update is called once per frame
-    private IEnumerator InputListener()
-    {
-        while (enabled)
-        { //Run as long as this is activ
-
-            if (Input.GetMouseButtonDown(0))
-                yield return ClickEvent();
-
-            yield return null;
-        }
-    }
-
-    private IEnumerator ClickEvent()
-    {
-        //pause a frame so you don't pick up the same mouse down event.
-        yield return new WaitForEndOfFrame();
-
-        float count = 0f;
-        while (count < doubleClickTimeLimit)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                DoubleClick();
-                yield break;
-            }
-            count += Time.deltaTime;// increment counter by change in time between frames
-            yield return null; // wait for the next frame
-        }
-        SingleClick();
-    }
-
-    private void SingleClick()
-    {
-        //
     }
 
     private void DoubleClick()

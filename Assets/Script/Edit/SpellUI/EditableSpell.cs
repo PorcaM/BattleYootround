@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MaterialUI;
 
 public class EditableSpell : MonoBehaviour {
     public SpellbookUI spellbookUI;
     public bool upside;
+    public TabView tabView;
 
     private Vector3 downPosition;
     private float dragMinDistance = 100.0f;
@@ -13,6 +15,7 @@ public class EditableSpell : MonoBehaviour {
     {
         this.spellbookUI = spellbookUI;
         this.upside = upside;
+        tabView = GameObject.Find("Tab View").GetComponent<TabView>();
     }
 
     void OnMouseDown()
