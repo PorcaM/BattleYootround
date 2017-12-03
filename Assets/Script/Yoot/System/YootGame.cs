@@ -13,18 +13,27 @@ public class YootGame : MonoBehaviour {
     public static bool isNetwork;
     public enum YootCount { Nak, Do, Gae, Gul, Yoot, Mo, BackDo = -1 };
 
-
     public YootInitializer yootInitializer;
-    public BattleManager battleManager;
+    public BattleGame battleGame;
     public GameStateUI gameStateUI;
     public PlayerManager playerManager;
     public TurnManager turnManager;
     public HorseTranslator horseTranslator;
     
     public TurnNetworkSendProcess turnSend;
+
+    public YootGameResult original;
     
     void Start()
     {
+        YootGameResult result = Instantiate(original);
+        result.name = "YootGameResult";
+        DontDestroyOnLoad(result);
+
+        GameObject titleScene = GameObject.Find("TitleScene");
+        if (titleScene)
+            titleScene.GetComponent<TitleScene>().TempInit();
+
         GameInfo gameInfo;
         if (GameObject.Find("GameInfo"))
             gameInfo = GameObject.Find("GameInfo").GetComponent<GameInfo>();
@@ -56,7 +65,7 @@ public class YootGame : MonoBehaviour {
     public void Init()
     {
         yootInitializer.Init();
-        battleManager.Init();
+        battleGame.Init();
         playerManager.Init();
         turnManager.Init(this);
     }
@@ -93,6 +102,7 @@ public class YootGame : MonoBehaviour {
     public void HandleWin(int winner)
     {
         Debug.Log("Player " + winner + " Win!!");
+        GameObject.Find("YootGameResult").GetComponent<YootGameResult>().winner = winner;
         SceneManager.LoadScene("Result");
     }
 }

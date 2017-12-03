@@ -69,15 +69,15 @@ public class ResultManager : MonoBehaviour
     private YootGame.YootCount GetResult()
     {
         YootGame.YootCount yootCount;
-        int numUpside = GetNumUpside();
-        if (numUpside == 0)
+        int numDownside = GetNumDownside();
+        if (numDownside == 0)
         {
             yootCount = YootGame.YootCount.Mo;
         }
         else
         {
-            yootCount = (YootGame.YootCount)numUpside;
-            if (numUpside == 1 &&
+            yootCount = (YootGame.YootCount)numDownside;
+            if (numDownside == 1 &&
                 targets[0].GetComponent<DetectDownside>().isDownside)
             {
                 yootCount = YootGame.YootCount.BackDo;
@@ -86,12 +86,12 @@ public class ResultManager : MonoBehaviour
         return yootCount;
     }
 
-    private int GetNumUpside()
+    private int GetNumDownside()
     {
         int count = 0;
         foreach (GameObject target in targets)
         {
-            if (!target.GetComponent<DetectDownside>().isDownside)
+            if (target.GetComponent<DetectDownside>().isDownside)
                 count++;
         }
         return count;

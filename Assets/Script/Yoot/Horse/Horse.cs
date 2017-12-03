@@ -59,6 +59,7 @@ public class Horse : MonoBehaviour
     {
         weight += partner.weight;
         owner.horseManager.RemoveHorse(partner);
+        GetComponent<HorseModel>().AddChildren();
     }
 
     void OnDestroy()

@@ -13,9 +13,9 @@ public class DetectDownside : MonoBehaviour {
 
     private void Detect()
     {
-        if (Vector3.Dot(transform.up, Vector3.down) >= dotThreshold)
-            isDownside = true;
-        else
+        if (Vector3.Dot(transform.up, Vector3.up) >= dotThreshold)
             isDownside = false;
+        else
+            isDownside = true;
     }
 }

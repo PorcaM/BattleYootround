@@ -10,9 +10,7 @@ public class YootInitializer : MonoBehaviour {
     public void Init()
     {
         yootBoard.Init();
-
         HorseRoute.Init();
-        UnitHealthBar.Init();
         PopupPreviewController.Init(popupPreview, previewParent);
     }
 

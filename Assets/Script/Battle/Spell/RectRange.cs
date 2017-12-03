@@ -26,7 +26,7 @@ public class RectRange : Range
         range = _range;
     }
 
-    public override List<UnitInstance> SelectTarget()
+    public override List<UnitInstance> SelectTarget(Vector3 pos)
     {
         return new List<UnitInstance>();
     }

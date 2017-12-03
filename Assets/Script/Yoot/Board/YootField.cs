@@ -7,14 +7,11 @@ public class YootField : MonoBehaviour
     public int id;
     public List<Horse> guests;
     public HorseRoute.Type milestone;
-
-    private BattleManager battleManager;
     private DecoEnterBattle deco;
 
-    public void Init(int id, BattleManager battleManager)
+    public void Init(int id)
     {
         this.id = id;
-        this.battleManager = battleManager;
         guests = new List<Horse>();
         milestone = HorseRoute.Type.Summer;
         deco = GameObject.Find("Decos").GetComponent<DecoEnterBattle>();
@@ -93,10 +90,11 @@ public class YootField : MonoBehaviour
 
     private void EnterBattle()
     {
-        battleManager.StartBattle(this);
+        BattleGame battleGame = GameObject.Find("BattleGame").GetComponent<BattleGame>();
+        battleGame.StartGame(this);
     }
 
-    public void RecvBattlResult(int winner)
+    public void RetireHorsesButWinner(int winner)
     {
         foreach (Horse horse in guests)
         {
