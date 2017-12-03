@@ -15,7 +15,7 @@ public class SpellManifestator : MonoBehaviour {
 
     public static void EnemySpell(Vector3 pos, int spellId)
     {
-        pos = new Vector3(pos.x, pos.y, -pos.z);
+        pos = new Vector3(pos.x, pos.y, -(pos.z + 30.0f) - 30.0f);
         Spell spell = SpellRecord.spells[spellId];
         List<UnitInstance> targets = spell.Range.SelectTarget(pos);
         string targetTag = "AllyUnit";
