@@ -13,6 +13,7 @@ TagManager:
   - YootField
   - DeadUnit
   - Match
+  - TurnProcessor
   layers:
   - Default
   - TransparentFX

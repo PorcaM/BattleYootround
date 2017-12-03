@@ -164,7 +164,7 @@ public class TurnProcessor : MonoBehaviour
         {
             if (owner.playerID == 0)
             {
-                Debug.Log("Send HorseAck! horseID = ");
+                Debug.Log("Send HorseAck!");
                 BYMessage.HorseMessage msg = new BYMessage.HorseMessage
                 {
                     horseID = -1

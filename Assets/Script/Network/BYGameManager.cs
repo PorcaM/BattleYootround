@@ -31,6 +31,7 @@ public class BYGameManager : MonoBehaviour {
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowForce, OnThrowForce);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.TurnEnd, OnTurnEnd);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleOccur, OnBattleOccur);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleReady, OnBattleReady);
 
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.SelectHorse, OnSelectHorse);
@@ -94,7 +95,6 @@ public class BYGameManager : MonoBehaviour {
     {
         // 유저 턴 선택
         int turn = Random.Range(1, 2);
-        BYServer.debugMessage1 = string.Format("{0}", turn);
         if (turn == 1)
         {
             startPlayer = player1;
@@ -105,6 +105,12 @@ public class BYGameManager : MonoBehaviour {
             startPlayer = player2;
             nextPlayer = player1;
         }
+        StartCoroutine(StartMessage());
+    }
+    private void GameContinue(int start, int next)
+    {
+        startPlayer = start;
+        nextPlayer = next;
         StartCoroutine(StartMessage());
     }
 
@@ -124,7 +130,7 @@ public class BYGameManager : MonoBehaviour {
     {
         BYMessage.EquipmentMessage msg = netMsg.ReadMessage<BYMessage.EquipmentMessage>();
 
-        BYServer.debugMessage1 = string.Format("OnEquipment()");
+        BYServer.debugMessage1 = "OnEquipment()";
         
         int player = netMsg.conn.connectionId;
         if (player == player1)
@@ -161,12 +167,14 @@ public class BYGameManager : MonoBehaviour {
     {
         int player = netMsg.conn.connectionId;
         BYMessage.ThrowForceMessage msg = netMsg.ReadMessage<BYMessage.ThrowForceMessage>();
+        /*
         Debug.Log("=====Torques======");
         for(int i=0; i<4; i++)
         {
             Debug.Log(msg.torques[i]);
         }
         Debug.Log("==================");
+        */
         if (player == player1)
         {
             Debug.Log(player1 + " throw force: " + msg.force);
@@ -213,16 +221,17 @@ public class BYGameManager : MonoBehaviour {
 
     private void OnBattleOccur(NetworkMessage netMsg)
     {
+        // Battle occur 메세지를 준 클라이언트가 현재 턴의 플레이어
+        // TODO: 배틀 승패에 따라 startPlayer, nextPlayer swap 후 GameStart함수 호출
         startPlayer = netMsg.ReadMessage<BYMessage.PlayerInfo>().PlayerNum;
         nextPlayer = (startPlayer == player2) ? player1 : player2;
 
         BYServer.debugMessage1 = string.Format("{0} player turn Battle occured!!", startPlayer);
         // TODO: 각 플레이어들의 유닛 position 랜덤 생성
         // TODO: BYMessage.UnitPositionMessage 정의 후, 해당 클래스로 생성된 position넣어서 Send
-        // Battle Unit들 hp 싱크 맞출수 있는 방법 찾아보기 ( [SyncVars] 비슷한거 본 것 같음 )
-        // TODO: 배틀 사이사이 스펠 사용하는 것 Receive register하고 Send
 
         StartCoroutine(WaitPlayersForBattle());
+        
     }
 
     IEnumerator WaitPlayersForBattle()
@@ -236,7 +245,8 @@ public class BYGameManager : MonoBehaviour {
     private void BattleStart()
     {
         Debug.Log("Battle Start!");
-        // 
+        // TODO: Battle Unit들 hp 싱크 맞출수 있는 방법 찾아보기 ( [SyncVars] 비슷한거 본 것 같음 )
+        // TODO: 배틀 사이사이 스펠 사용하는 것 Receive register하고 Send
     }
 
     private void OnBattleReady(NetworkMessage netMsg)

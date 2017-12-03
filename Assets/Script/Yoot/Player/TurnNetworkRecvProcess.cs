@@ -27,12 +27,17 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     private void RegisterHandlers()
     {
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.Equipment, OnEquipment);
+
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.TurnWait, OnTurnWait);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.TurnEnd, OnTurnEnd);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowForce, OnThrowForce);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
+
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorse, OnSelectHorse);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorseAck, OnSelectHorseAck);
+
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleOccurReady, OnBattleOccurReady);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleStart, OnBattleStart);
     }
     private void OnEquipment(NetworkMessage netMsg)
     {
@@ -92,9 +97,20 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     }
     private void OnSelectHorseAck(NetworkMessage netMsg)
     {
-        //BYMessage.HorseMessage msg = netMsg.ReadMessage<BYMessage.HorseMessage>();
         Debug.Log("Horse Select message Recieved: ");
         turnProcessor.RecvAck();
     }
 
+    private void OnBattleOccurReady(NetworkMessage netMsg)
+    {
+        Debug.Log("Server send battle occur ready message...");
+        BattleGame battle = GameObject.Find("BattleGame").GetComponent<BattleGame>();
+        battle.StartGame();
+        Debug.Log("Ready battle function successfully called");
+        
+    }
+    private void OnBattleStart(NetworkMessage netMsg)
+    {
+
+    }
 }

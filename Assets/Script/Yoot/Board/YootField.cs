@@ -68,7 +68,37 @@ public class YootField : MonoBehaviour
     private void HandleEncounter(Horse horse)
     {
         if (horse.IsEnemyWith(Guest(0)))
-            ReadyBattle();
+        {
+            if(!YootGame.isNetwork)
+                ReadyBattle();
+            else
+            {
+                GameObject[] tmp = GameObject.FindGameObjectsWithTag("TurnProcessor");
+                Debug.Log("---tmp[0]---");
+                Debug.Log(tmp[0].GetComponent<TurnProcessor>().currentState);
+                Debug.Log(tmp[0].GetComponent<TurnProcessor>().owner.playerID);
+                Debug.Log("---tmp[1]---");
+                Debug.Log(tmp[1].GetComponent<TurnProcessor>().currentState);
+                Debug.Log(tmp[1].GetComponent<TurnProcessor>().owner.playerID);
+
+                if (tmp[0].GetComponent<TurnProcessor>().currentState != TurnProcessor.ProcessState.Wait && tmp[0].GetComponent<TurnProcessor>().owner.playerID == 0)
+                {
+                    Debug.Log("Network battle Occur!!");
+                    bool check = BYClient.myClient.Send(BYMessage.MyMsgType.BattleOccur, new BYMessage.EmptyMessage());
+                    Debug.Log("Send state : " + check);
+                }
+                else if(tmp[1].GetComponent<TurnProcessor>().currentState != TurnProcessor.ProcessState.Wait && tmp[1].GetComponent<TurnProcessor>().owner.playerID == 0)
+                {
+                    Debug.Log("Network battle Occur!!");
+                    bool check = BYClient.myClient.Send(BYMessage.MyMsgType.BattleOccur, new BYMessage.EmptyMessage());
+                    Debug.Log("Send state : " + check);
+                }
+                else
+                {
+                    Debug.Log("Network battle occur, but waiting battle occur message from server...");
+                }
+            }
+        }
         else
         {
             horse.CarryHorse(Guest(0));
@@ -81,7 +111,7 @@ public class YootField : MonoBehaviour
         horse.owner.turnProcessor.RecvEnd();
     }
 
-    private void ReadyBattle()
+    public void ReadyBattle()
     {
         const float timerInterval = 1.5f;
         deco.action = new System.Action(EnterBattle);
