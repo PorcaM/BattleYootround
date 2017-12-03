@@ -285,7 +285,7 @@ public class BYGameManager : MonoBehaviour {
         Debug.Log(player + "player using spell");
         Debug.Log(msg.pos);
         Debug.Log(msg.spellID);
-        BYServer.debugMessage1 = string.Format("{0} player using spell", player);
+        BYServer.debugMessage1 = string.Format("{0} player using spell. pos: {1}, id: {2}", player, msg.pos, msg.spellID);
 
         NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.SpellUse, msg);
     }

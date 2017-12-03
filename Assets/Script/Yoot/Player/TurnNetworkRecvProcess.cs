@@ -118,6 +118,8 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     {
         BYMessage.SpellMessage msg = netMsg.ReadMessage<BYMessage.SpellMessage>();
         Debug.Log("Opponent spell use message received!!");
+        Debug.Log(msg.pos);
+        Debug.Log(msg.spellID);
         SpellManifestator.EnemySpell(msg.pos, msg.spellID);
     }
 }
