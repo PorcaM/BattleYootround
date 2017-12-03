@@ -38,6 +38,7 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
 
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleOccurReady, OnBattleOccurReady);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleStart, OnBattleStart);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.SpellUse, OnSpellUse);
     }
     private void OnEquipment(NetworkMessage netMsg)
     {
@@ -112,5 +113,11 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     private void OnBattleStart(NetworkMessage netMsg)
     {
 
+    }
+    private void OnSpellUse(NetworkMessage netMsg)
+    {
+        BYMessage.SpellMessage msg = netMsg.ReadMessage<BYMessage.SpellMessage>();
+        Debug.Log("Opponent spell use message received!!");
+        SpellManifestator.EnemySpell(msg.pos, msg.spellID);
     }
 }

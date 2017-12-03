@@ -34,6 +34,8 @@ public class BYGameManager : MonoBehaviour {
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleOccur, OnBattleOccur);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleReady, OnBattleReady);
 
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.SpellUse, OnSpellUse);
+
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.SelectHorse, OnSelectHorse);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.SelectHorseAck, OnSelectHorseAck);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.GameWin, OnGameWin);
@@ -219,6 +221,11 @@ public class BYGameManager : MonoBehaviour {
         }
     }
 
+    /************************************************
+     * 
+     *                  Battle
+     *          
+     ************************************************/
     private void OnBattleOccur(NetworkMessage netMsg)
     {
         // Battle occur 메세지를 준 클라이언트가 현재 턴의 플레이어
@@ -245,6 +252,10 @@ public class BYGameManager : MonoBehaviour {
     private void BattleStart()
     {
         Debug.Log("Battle Start!");
+        BYServer.debugMessage1 = "Battle Start!!";
+
+        NetworkServer.SendToClient(player1, BYMessage.MyMsgType.BattleOccurReady, EmptyMsg);
+        NetworkServer.SendToClient(player2, BYMessage.MyMsgType.BattleOccurReady, EmptyMsg);
         // TODO: Battle Unit들 hp 싱크 맞출수 있는 방법 찾아보기 ( [SyncVars] 비슷한거 본 것 같음 )
         // TODO: 배틀 사이사이 스펠 사용하는 것 Receive register하고 Send
     }
@@ -264,6 +275,26 @@ public class BYGameManager : MonoBehaviour {
             player2_battle_ready = true;
         }
     }
+
+    private void OnSpellUse(NetworkMessage netMsg)
+    {
+        int player = netMsg.conn.connectionId;
+        int opponent = (player == player2) ? player1 : player2;
+        BYMessage.SpellMessage msg = netMsg.ReadMessage<BYMessage.SpellMessage>();
+
+        Debug.Log(player + "player using spell");
+        Debug.Log(msg.pos);
+        Debug.Log(msg.spellID);
+        BYServer.debugMessage1 = string.Format("{0} player using spell", player);
+
+        NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.SpellUse, msg);
+    }
+
+    /************************************************
+     * 
+     *                      Horse
+     *                      
+     ************************************************/
     private void OnSelectHorse(NetworkMessage netMsg)
     {
         BYMessage.HorseMessage msg = netMsg.ReadMessage<BYMessage.HorseMessage>();
@@ -282,6 +313,12 @@ public class BYGameManager : MonoBehaviour {
         NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.SelectHorseAck, msg);
         Debug.Log("select horse ack message Successfully sended!!");
     }
+
+    /***************************************************
+     * 
+     *                  Result
+     * 
+     * *************************************************/
     private void OnGameWin(NetworkMessage netMsg)
     {
         int winner = netMsg.conn.connectionId;

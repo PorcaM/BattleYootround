@@ -52,5 +52,16 @@ public class SpellActivator : MonoBehaviour {
     private void ApplySpellEffect()
     {
         SpellManifestator.AllySpell(createdArea.transform.position, selectedSpell.id);
+        if (YootGame.isNetwork)
+        {
+            Debug.Log("Send spell use message");
+            BYMessage.SpellMessage msg = new BYMessage.SpellMessage
+            {
+                pos = createdArea.transform.position,
+                spellID = selectedSpell.id
+            };
+            bool check = BYClient.myClient.Send(BYMessage.MyMsgType.SpellUse, msg);
+            Debug.Log("Send check = " + check);
+        }
     }
 }

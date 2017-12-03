@@ -29,6 +29,12 @@ public class BYMessage : MonoBehaviour {
     {
         public YootGame.YootCount yootCount;
     }
+    // 스펠 사용
+    public class SpellMessage : MessageBase
+    {
+        public Vector3 pos;
+        public int spellID;
+    }
     public class PlayerInfo : MessageBase
     {
         public int PlayerNum;
