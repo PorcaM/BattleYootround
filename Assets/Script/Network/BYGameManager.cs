@@ -278,10 +278,10 @@ public class BYGameManager : MonoBehaviour {
 
         for (int i = 0; i < 5; i++)
             for (int j = 0; j < 3; j++)
-                player1_pos[i * 3 + j] = getPos.GetPosition(j, player1_unit.row[i]);
+                player1_pos[i * 3 + j] = getPos.GetPosition(j, player1_unit.row[i], 1);
         for (int i = 0; i < 5; i++)
             for (int j = 0; j < 3; j++)
-                player2_pos[i * 3 + j] = getPos.GetPosition(j, player2_unit.row[i]);
+                player2_pos[i * 3 + j] = getPos.GetPosition(j, player2_unit.row[i], 1);
 
         if(startPlayer == player1)
         {

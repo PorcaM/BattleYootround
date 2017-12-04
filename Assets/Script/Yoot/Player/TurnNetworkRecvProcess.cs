@@ -104,10 +104,11 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
 
     private void OnResultUnitPosition(NetworkMessage netMsg)
     {
+        Debug.Log("<Result unit position> message received");
         BYMessage.UnitPositionMessage msg = netMsg.ReadMessage<BYMessage.UnitPositionMessage>();
 
         battle.Init();
-        battle.StartGame(msg);
+        battle.StartNetworkGame(msg);
 
         UnitInstanceFactory AFactory = GameObject.Find("AFactory").GetComponent<UnitInstanceFactory>();
         UnitInstanceFactory EFactory = GameObject.Find("EFactory").GetComponent<UnitInstanceFactory>();

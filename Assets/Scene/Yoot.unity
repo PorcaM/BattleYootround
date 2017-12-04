@@ -1645,10 +1645,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d19d786a315ed304d8f359d5086b42c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Client: {fileID: 0}
   turnManager: {fileID: 97350427}
   turnProcessor: {fileID: 1989086004}
   yootThrowManager: {fileID: 554260822}
+  battle: {fileID: 0}
 --- !u!4 &226173209
 Transform:
   m_ObjectHideFlags: 0
@@ -3714,6 +3714,48 @@ Transform:
   m_Father: {fileID: 386429160}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &503078248
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1446608759}
+    m_Modifications:
+    - target: {fileID: 4918917710371998, guid: 0d9c34d1b7ef3c345b285c28b32a7858, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918917710371998, guid: 0d9c34d1b7ef3c345b285c28b32a7858, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918917710371998, guid: 0d9c34d1b7ef3c345b285c28b32a7858, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918917710371998, guid: 0d9c34d1b7ef3c345b285c28b32a7858, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918917710371998, guid: 0d9c34d1b7ef3c345b285c28b32a7858, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918917710371998, guid: 0d9c34d1b7ef3c345b285c28b32a7858, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918917710371998, guid: 0d9c34d1b7ef3c345b285c28b32a7858, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918917710371998, guid: 0d9c34d1b7ef3c345b285c28b32a7858, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 0d9c34d1b7ef3c345b285c28b32a7858, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &503894367
 GameObject:
   m_ObjectHideFlags: 0
@@ -5728,7 +5770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7b359e181b6c646a6be0bc0daa54f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Client: {fileID: 0}
   turnManager: {fileID: 97350427}
   yootThrowManager: {fileID: 0}
   equipment: {fileID: 0}
@@ -5937,34 +5978,11 @@ MonoBehaviour:
   center: {fileID: 778965640}
   modellessUnit: {fileID: 1017676419839580, guid: 30a90f7226e8d2c419d081cc1a824193,
     type: 2}
---- !u!1 &778965639
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 778965640}
-  m_Layer: 0
-  m_Name: center
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &778965640
+--- !u!4 &778965640 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 778965639}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1446608759}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_PrefabParentObject: {fileID: 4918917710371998, guid: 0d9c34d1b7ef3c345b285c28b32a7858,
+    type: 2}
+  m_PrefabInternal: {fileID: 503078248}
 --- !u!1 &800012035
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,7 +74,6 @@ public class TurnNetworkSendProcess : MonoBehaviour {
         int row_i = 0;
         foreach (Unit unit in equipment.deck.Units)
             msg.row[row_i] = unit.position;
-
         BYClient.myClient.Send(BYMessage.MyMsgType.UnitPosition, msg);
     }
 }

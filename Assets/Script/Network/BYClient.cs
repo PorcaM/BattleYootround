@@ -93,7 +93,7 @@ public class BYClient : MonoBehaviour
     // BUG 얘는 강제종료될때 호출이 안되는것같은데 잘 모르겠음
     private void OnApplicationQuit()
     {
-        if (myClient.isConnected)
+        if (myClient != null && myClient.isConnected)
             myClient.Send(BYMessage.MyMsgType.Disconnect, EmptyMsg);
 
     }

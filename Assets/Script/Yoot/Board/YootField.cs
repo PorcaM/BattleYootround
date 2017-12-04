@@ -95,7 +95,7 @@ public class YootField : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Network battle occur, but waiting battle occur message from server...");
+                    Debug.Log("Network battle occur, but waiting <give me unit info> message from server...");
                 }
             }
         }

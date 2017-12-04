@@ -49,6 +49,8 @@ public class YootGame : MonoBehaviour {
         if (!isNetwork)
         {
             Debug.Log("Game Start on local");
+            //battleGame.Init();
+            //battleGame.StartGame();
             StartGame();
         }
         else

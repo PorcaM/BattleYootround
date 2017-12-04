@@ -37,7 +37,16 @@ public class BattleGame : MonoBehaviour
         StartGame();
     }
 
-    public void StartGame(BYMessage.UnitPositionMessage msg = default(BYMessage.UnitPositionMessage))
+    public void StartGame()
+    {
+        SoundManager.Instance().PlayMusic(1);
+        battleUIManager.OnEnterBattle();
+        combatManager.Setup();
+        decoratorManager.OnEnterBattle();
+        state = State.Standby;
+        StartCoroutine(StartActionAfterSeconds(StartBattle, 3.0f));
+    }
+    public void StartNetworkGame(BYMessage.UnitPositionMessage msg = default(BYMessage.UnitPositionMessage))
     {
         SoundManager.Instance().PlayMusic(1);
         battleUIManager.OnEnterBattle();
@@ -47,10 +56,10 @@ public class BattleGame : MonoBehaviour
             combatManager.Setup(msg);
         decoratorManager.OnEnterBattle();
         state = State.Standby;
-        if(!YootGame.isNetwork)
+        if (!YootGame.isNetwork)
             StartCoroutine(StartActionAfterSeconds(StartBattle, 3.0f));
     }
-    
+
     private void StartBattle()
     {
         combatManager.StartBattle();

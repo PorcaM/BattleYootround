@@ -72,4 +72,16 @@ public class UnitInstanceFactory : MonoBehaviour
         Vector3 position = localPosition + center.position;
         return position;
     }
+    public Vector3 GetPosition(int num, int row, int check)
+    {
+        const float xInterval = .5f;
+        const float zInterval = .5f;
+        float dir = spanwPosZ / Mathf.Abs(spanwPosZ);
+        float x = (num - 1) * xInterval + Random.Range(-.1f, .1f);
+        float z = row * dir * zInterval + Random.Range(-.1f, .1f);
+        Vector3 localPosition = new Vector3(x, 0, z);
+        localPosition.z += spanwPosZ;
+        Vector3 position = localPosition + GameObject.Find("center").transform.position;
+        return position;
+    }
 }
