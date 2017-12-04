@@ -10,6 +10,7 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     public ThrowProcessor yootThrowManager;
 
     public BattleGame battle;
+    public enum BattleState { Idle, Standby, OnBattle, Finished }
 
     public void Init()
     {
@@ -106,7 +107,7 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
         BYMessage.UnitPositionMessage msg = netMsg.ReadMessage<BYMessage.UnitPositionMessage>();
 
         battle.Init();
-        battle.setup
+        battle.StartGame(msg);
 
         UnitInstanceFactory AFactory = GameObject.Find("AFactory").GetComponent<UnitInstanceFactory>();
         UnitInstanceFactory EFactory = GameObject.Find("EFactory").GetComponent<UnitInstanceFactory>();
@@ -119,8 +120,8 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     private void OnBattleOccurReady(NetworkMessage netMsg)
     {
         Debug.Log("Server send <battle occur ready> message...");
-         
-        battle.StartGame();
+        battle.combatManager.StartBattle();
+        battle.state = BattleGame.State.OnBattle;
         Debug.Log("Ready battle function successfully called");
         
     }

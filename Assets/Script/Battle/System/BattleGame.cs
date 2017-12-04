@@ -47,7 +47,8 @@ public class BattleGame : MonoBehaviour
             combatManager.Setup(msg);
         decoratorManager.OnEnterBattle();
         state = State.Standby;
-        StartCoroutine(StartActionAfterSeconds(StartBattle, 3.0f));
+        if(!YootGame.isNetwork)
+            StartCoroutine(StartActionAfterSeconds(StartBattle, 3.0f));
     }
     
     private void StartBattle()

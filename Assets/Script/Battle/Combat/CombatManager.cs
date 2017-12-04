@@ -36,7 +36,7 @@ public class CombatManager : MonoBehaviour
         if (!YootGame.isNetwork)
             unitManager.Setup();
         else
-            unitManager.Setup(pos);
+            unitManager.Setup(msg);
         cameraHandler.Setup();
         state = State.Setup;
     }
