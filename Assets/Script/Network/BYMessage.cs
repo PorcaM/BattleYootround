@@ -29,6 +29,13 @@ public class BYMessage : MonoBehaviour {
     {
         public YootGame.YootCount yootCount;
     }
+    // 유닛 위치 (client/server 공용으로 사용)
+    public class UnitPositionMessage : MessageBase
+    {
+        public int[] row = new int[5];
+        public Vector3[] ally_pos = new Vector3[15];
+        public Vector3[] enemy_pos = new Vector3[15];
+    }
     // 스펠 사용
     public class SpellMessage : MessageBase
     {

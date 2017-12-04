@@ -14,6 +14,10 @@ public class UnitInstanceFactory : MonoBehaviour
 
     public GameObject modellessUnit;
 
+    // for network
+    BYMessage.UnitPositionMessage msg = new BYMessage.UnitPositionMessage();
+    int row_i = 0;
+
     public void CreateUnits()
     {
         foreach (Unit unit in equipment.deck.Units)
@@ -23,7 +27,25 @@ public class UnitInstanceFactory : MonoBehaviour
         }
     }
 
-    private void CreateUnit(Unit unit, int num)
+    // 네트워크일땐 SendRows()함수에서 row position을 서버로 보내주고, 서버에서 온 pos로 CreateUnits(int[])함수에서 초기화
+    public void SendRows()
+    {
+        row_i = 0;
+        foreach (Unit unit in equipment.deck.Units)
+            msg.row[row_i] = unit.position;
+
+        BYClient.myClient.Send(BYMessage.MyMsgType.UnitPosition, msg);
+    }
+    public void CreateUnits(Vector3[] pos)
+    {
+        foreach(Unit unit in equipment.deck.Units)
+        {
+            for (int i = 0; i < instancePerUnit; ++i)
+                CreateUnit(unit, i, msg.ally_pos[i]);
+        }
+    }
+
+    private void CreateUnit(Unit unit, int num, Vector3 pos = default(Vector3))
     {
         GameObject unitObj = Instantiate(modellessUnit, UnitParent);
         GameObject model = CreateModel(unit, unitObj.transform);
@@ -31,11 +53,10 @@ public class UnitInstanceFactory : MonoBehaviour
         unitObj.tag = unitTag;
         unitObj.GetComponent<UnitInstance>().Init(unit);
         unitObj.GetComponent<UnitAnimation>().Init(model);
-        if(YootGame.isNetwork)
-        {
-
-        }
-        unitObj.transform.position = GetPosition(num, unit.position);
+        if (!YootGame.isNetwork)
+            unitObj.transform.position = GetPosition(num, unit.position);
+        else
+            unitObj.transform.position = pos;
         unitObj.transform.LookAt(center);
     }
 

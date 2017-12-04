@@ -21,7 +21,8 @@ public class UnitManager : MonoBehaviour {
 
     public void Setup()
     {
-        CreateUnits();
+        if(!YootGame.isNetwork)
+            CreateUnits();
     }
 
     private void CreateUnits()
