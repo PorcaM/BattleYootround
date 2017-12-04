@@ -40,7 +40,7 @@ public class EquipUIHandler: MonoBehaviour {
             Debug.Log("Good");
             DialogManager.ShowAlert("Pass the integrity test!", "Equip", MaterialIconHelper.GetIcon(MaterialIconEnum.DATA_USAGE));
             equipment.Init(tempEquip);
-            // equipParser.Save(tempEquip);
+            equipParser.Save(tempEquip);
             End();
         }
         else

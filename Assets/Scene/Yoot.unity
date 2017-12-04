@@ -1306,6 +1306,7 @@ MonoBehaviour:
   equipFile: {fileID: 4900000, guid: 300da81612451f74db09c32ad0bfb801, type: 3}
   equipment: {fileID: 114280473558465880, guid: 10892fba46dcb2948a742ec3e7db4e53,
     type: 2}
+  folder: 
 --- !u!4 &213570255
 Transform:
   m_ObjectHideFlags: 0
