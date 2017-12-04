@@ -7,24 +7,35 @@ public class EquipParser : MonoBehaviour
 {
     public TextAsset equipFile;
     public Equipment equipment;
-
-    private const string path = "Assets/Resources/Data/equipment.txt";
+    public string folder;
 
     public Equipment Init()
     {
-        string[] pairs = equipFile.text.Split(' ');
-        List<int> list = new List<int>();
-        foreach (string pair in pairs)
+        int[] data;
+        string path = equipFilePath();
+        try
         {
-            int item;
-            if (int.TryParse(pair, out item))
-                list.Add(item);
+            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+            StreamReader reader = new StreamReader(fs);
+            
+            string[] pairs = reader.ReadLine().Split(' ');
+            List<int> list = new List<int>();
+            foreach (string pair in pairs)
+            {
+                int item;
+                if (int.TryParse(pair, out item))
+                    list.Add(item);
+            }
+            data = list.ToArray();
         }
-        if (list.Count != 9)
-            Debug.Log("List count is not 9!!");
+        catch (FileNotFoundException e)
+        {
+            int[] temp = { 1, 2, 3, 4, 1, 2, 3, 4, 5 };
+            data = temp;
+        }
         equipment = Instantiate(equipment, GameObject.Find("Data").transform);
         equipment.name = "Equipment";
-        equipment.Init(list);
+        equipment.Init(data);
         return equipment;
     }
 
@@ -35,7 +46,9 @@ public class EquipParser : MonoBehaviour
             data += spell.Id.ToString() + " ";
         foreach (Unit unit in equipment.deck.units)
             data += unit.Id.ToString() + " ";
-        FileStream fs = new FileStream(path, FileMode.Truncate, FileAccess.Write);
+        string path = equipFilePath();
+        Debug.Log("path: " + path);
+        FileStream fs = new FileStream(path, FileMode.CreateNew, FileAccess.Write);
         StreamWriter writer = new StreamWriter(fs);
         if (writer != null)
         {
@@ -47,5 +60,28 @@ public class EquipParser : MonoBehaviour
         {
             Debug.Log("No equip file");
         }
+    }
+
+    private string equipFilePath()
+    {
+        // 안드로이드 경로
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            folder = Application.persistentDataPath;
+            folder = folder.Substring(0, folder.LastIndexOf('/'));
+            folder = Path.Combine(folder, "equipment");
+        }
+        // 유니티 경로
+        else if (Application.isEditor)
+        {
+            folder = Application.dataPath;
+            var stringPath = folder + "/..";
+            folder = Path.GetFullPath(stringPath);
+            folder = Path.Combine(folder, "equipment");
+        }
+        System.IO.Directory.CreateDirectory(folder);
+
+        string fileName = string.Format("{0}/equipData.txt", folder);
+        return fileName;
     }
 }
