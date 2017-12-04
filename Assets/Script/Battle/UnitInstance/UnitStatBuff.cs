@@ -23,6 +23,7 @@ public class UnitStatBuff : MonoBehaviour {
     public void Activate()
     {
         Apply();
+        unitInstance.unitAnimation.Play(UnitAnimation.Actions.Damage, 1.0f);
         StartCoroutine(RecoverAfter(duration));
     }
 

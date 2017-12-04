@@ -28,7 +28,8 @@ public class HorseModel : MonoBehaviour {
             Destroy(child.GetComponent<HorseModel>());
             Destroy(child.GetComponent<HorseAnimator>());
             Destroy(child.GetComponent<Horse>());
-            const float angle = -15.0f;
+            const float angleInterval = -45.0f;
+            float angle = angleInterval * Mathf.Deg2Rad;
             child.transform.localPosition = new Vector3(5 * Mathf.Cos(childID * angle), 0, 5 * Mathf.Sin(childID * angle));
             child.transform.localScale = new Vector3(size, size, size);
             children.Add(child);
