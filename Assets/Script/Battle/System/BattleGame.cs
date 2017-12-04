@@ -37,11 +37,14 @@ public class BattleGame : MonoBehaviour
         StartGame();
     }
 
-    public void StartGame()
+    public void StartGame(BYMessage.UnitPositionMessage msg = default(BYMessage.UnitPositionMessage))
     {
         SoundManager.Instance().PlayMusic(1);
         battleUIManager.OnEnterBattle();
-        combatManager.Setup();
+        if (!YootGame.isNetwork)
+            combatManager.Setup();
+        else
+            combatManager.Setup(msg);
         decoratorManager.OnEnterBattle();
         state = State.Standby;
         StartCoroutine(StartActionAfterSeconds(StartBattle, 3.0f));

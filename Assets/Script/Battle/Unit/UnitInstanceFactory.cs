@@ -27,15 +27,7 @@ public class UnitInstanceFactory : MonoBehaviour
         }
     }
 
-    // 네트워크일땐 SendRows()함수에서 row position을 서버로 보내주고, 서버에서 온 pos로 CreateUnits(int[])함수에서 초기화
-    public void SendRows()
-    {
-        row_i = 0;
-        foreach (Unit unit in equipment.deck.Units)
-            msg.row[row_i] = unit.position;
-
-        BYClient.myClient.Send(BYMessage.MyMsgType.UnitPosition, msg);
-    }
+    // 서버에서 온 pos로 CreateUnits(int[])함수에서 초기화
     public void CreateUnits(Vector3[] pos)
     {
         foreach(Unit unit in equipment.deck.Units)

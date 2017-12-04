@@ -14,6 +14,10 @@ public class BYGameManager : MonoBehaviour {
     private bool player2_equip_ready;
     private bool player1_yoot_ready;
     private bool player2_yoot_ready;
+    private bool player1_unit_info;
+    private bool player2_unit_info;
+    BYMessage.UnitPositionMessage player1_unit = new BYMessage.UnitPositionMessage();
+    BYMessage.UnitPositionMessage player2_unit = new BYMessage.UnitPositionMessage();
     private bool player1_battle_ready;
     private bool player2_battle_ready;
     
@@ -32,6 +36,7 @@ public class BYGameManager : MonoBehaviour {
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.TurnEnd, OnTurnEnd);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleOccur, OnBattleOccur);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.UnitPosition, OnUnitPosition);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleReady, OnBattleReady);
 
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.SpellUse, OnSpellUse);
@@ -234,13 +239,70 @@ public class BYGameManager : MonoBehaviour {
         nextPlayer = (startPlayer == player2) ? player1 : player2;
 
         BYServer.debugMessage1 = string.Format("{0} player turn Battle occured!!", startPlayer);
-        // TODO: 각 플레이어들의 유닛 position 랜덤 생성
-        // TODO: BYMessage.UnitPositionMessage 정의 후, 해당 클래스로 생성된 position넣어서 Send
+        NetworkServer.SendToClient(player1, BYMessage.MyMsgType.GiveMeUnitInfo, EmptyMsg);
+        NetworkServer.SendToClient(player2, BYMessage.MyMsgType.GiveMeUnitInfo, EmptyMsg);
 
-        StartCoroutine(WaitPlayersForBattle());
-        
+        StartCoroutine(WaitPlayersForUnitInfo());
     }
 
+    IEnumerator WaitPlayersForUnitInfo()
+    {
+        Debug.Log("Wait players for unit info");
+        BYServer.debugMessage1 = "Wait players for unit info";
+        yield return new WaitWhile(() => player1_unit_info == false || player2_unit_info == false);
+        Debug.Log("All players unit info received!");
+        BYServer.debugMessage1 = "All players unit info received!";
+
+        GetRandomUnitPosition();
+    }
+
+    private void OnUnitPosition(NetworkMessage netMsg)
+    {
+        int player = netMsg.conn.connectionId;
+        if(player == player1)
+        {
+            player1_unit = netMsg.ReadMessage<BYMessage.UnitPositionMessage>();
+            player1_unit_info = true;
+        }
+        else
+        {
+            player2_unit = netMsg.ReadMessage<BYMessage.UnitPositionMessage>();
+            player2_unit_info = true;
+        }
+    }
+    private void GetRandomUnitPosition()
+    {
+        UnitInstanceFactory getPos = new UnitInstanceFactory();
+        Vector3[] player1_pos = new Vector3[15];
+        Vector3[] player2_pos = new Vector3[15];
+
+        for (int i = 0; i < 5; i++)
+            for (int j = 0; j < 3; j++)
+                player1_pos[i * 3 + j] = getPos.GetPosition(j, player1_unit.row[i]);
+        for (int i = 0; i < 5; i++)
+            for (int j = 0; j < 3; j++)
+                player2_pos[i * 3 + j] = getPos.GetPosition(j, player2_unit.row[i]);
+
+        if(startPlayer == player1)
+        {
+            player1_unit.ally_pos = player1_pos;
+            player1_unit.enemy_pos = player2_pos;
+            player2_unit.ally_pos = player2_pos;
+            player2_unit.enemy_pos = player1_pos;
+            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.ResultUnitPosition, player1_unit);
+            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.ResultUnitPosition, player2_unit);
+        }
+        else
+        {
+            player2_unit.ally_pos = player1_pos;
+            player2_unit.enemy_pos = player2_pos;
+            player1_unit.ally_pos = player2_pos;
+            player1_unit.enemy_pos = player1_pos;
+            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.ResultUnitPosition, player1_unit);
+            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.ResultUnitPosition, player2_unit);
+        }
+        StartCoroutine(WaitPlayersForBattle());
+    }
     IEnumerator WaitPlayersForBattle()
     {
         Debug.Log("Wait players for Battle...");

@@ -71,6 +71,7 @@ public class BYMessage : MonoBehaviour {
         // Battle occur(client) -> unitposition -> ready(client) -> start -> spell and Win & Lose
         public static short BattleOccur = MsgType.Highest + 50;
         public static short BattleOccurReady = MsgType.Highest + 55;
+        public static short GiveMeUnitInfo = MsgType.Highest + 56;      // server -> client (클라이언트에게 유닛 정보 요청)
         public static short UnitPosition = MsgType.Highest + 57;        // client -> server (유닛들의 row위치 전달)
         public static short ResultUnitPosition = MsgType.Highest + 58;  // server -> client (플레이어/적 유닛 위치 전달)
         public static short BattleReady = MsgType.Highest + 60;

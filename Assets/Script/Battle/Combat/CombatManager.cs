@@ -31,9 +31,12 @@ public class CombatManager : MonoBehaviour
         state = State.Idle;
     }
 
-    public void Setup()
+    public void Setup(BYMessage.UnitPositionMessage msg = default(BYMessage.UnitPositionMessage))
     {
-        unitManager.Setup();
+        if (!YootGame.isNetwork)
+            unitManager.Setup();
+        else
+            unitManager.Setup(pos);
         cameraHandler.Setup();
         state = State.Setup;
     }

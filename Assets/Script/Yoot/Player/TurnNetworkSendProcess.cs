@@ -4,26 +4,30 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class TurnNetworkSendProcess : MonoBehaviour {
-    public BYClient Client;
     public BYMessage.EmptyMessage EmptyMsg;
     public TurnManager turnManager;
     public ThrowProcessor yootThrowManager;
+    public Equipment equipment;
 
     private bool equip_state;
 
     public void Init()
     {
-        //turnManager = GameObject.Find("TurnManager").GetComponent<YootGame>().turnManager;
         equip_state = false;
 
-        Client = GameObject.Find("ClientManager").GetComponent<BYClient>();
-        Debug.Log("TurnNetwork Send process init()... Client=" + Client);
+        equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
 
         EmptyMsg = new BYMessage.EmptyMessage
         {
             str = ""
         };
         RegisterHandlers();
+    }
+    private void RegisterHandlers()
+    {
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.TurnStart, OnTurnStart);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.EquipmentReady, OnEquipmentReady);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.GiveMeUnitInfo, OnGiveMeUnitInfo);
     }
 
     public void Ready()
@@ -54,11 +58,6 @@ public class TurnNetworkSendProcess : MonoBehaviour {
         yield return new WaitForSeconds(1.0f);
         BYClient.myClient.Send(BYMessage.MyMsgType.YootReady, EmptyMsg);
     }
-    private void RegisterHandlers()
-    {
-        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.TurnStart, OnTurnStart);
-        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.EquipmentReady, OnEquipmentReady);
-    }
 
     private void OnEquipmentReady(NetworkMessage netMsg)
     {
@@ -69,5 +68,13 @@ public class TurnNetworkSendProcess : MonoBehaviour {
         Debug.Log("Turn Start Message Recieved!");
         turnManager.StartTurn(0);
     }
-    
+    private void OnGiveMeUnitInfo(NetworkMessage netMsg)
+    {
+        BYMessage.UnitPositionMessage msg = new BYMessage.UnitPositionMessage();
+        int row_i = 0;
+        foreach (Unit unit in equipment.deck.Units)
+            msg.row[row_i] = unit.position;
+
+        BYClient.myClient.Send(BYMessage.MyMsgType.UnitPosition, msg);
+    }
 }

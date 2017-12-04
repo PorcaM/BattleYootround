@@ -4,18 +4,16 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class TurnNetworkRecvProcess : MonoBehaviour {
-    public BYClient Client;
     public BYMessage.EmptyMessage EmptyMsg;
     public TurnManager turnManager;
     public TurnProcessor turnProcessor;
     public ThrowProcessor yootThrowManager;
 
+    public BattleGame battle;
+
     public void Init()
     {
-        //turnManager = GameObject.Find("TurnManager").GetComponent<YootGame>().turnManager;
-
-        Client = GameObject.Find("ClientManager").GetComponent<BYClient>();
-        Debug.Log("TurnNetwork Recv process init()... Client=" + Client);
+        battle = GameObject.Find("BattleGame").GetComponent<BattleGame>();
 
         EmptyMsg = new BYMessage.EmptyMessage
         {
@@ -37,6 +35,7 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.SelectHorseAck, OnSelectHorseAck);
 
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleOccurReady, OnBattleOccurReady);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.ResultUnitPosition, OnResultUnitPosition);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleStart, OnBattleStart);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.SpellUse, OnSpellUse);
     }
@@ -102,10 +101,25 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
         turnProcessor.RecvAck();
     }
 
+    private void OnResultUnitPosition(NetworkMessage netMsg)
+    {
+        BYMessage.UnitPositionMessage msg = netMsg.ReadMessage<BYMessage.UnitPositionMessage>();
+
+        battle.Init();
+        battle.setup
+
+        UnitInstanceFactory AFactory = GameObject.Find("AFactory").GetComponent<UnitInstanceFactory>();
+        UnitInstanceFactory EFactory = GameObject.Find("EFactory").GetComponent<UnitInstanceFactory>();
+        AFactory.CreateUnits(msg.ally_pos);
+        EFactory.CreateUnits(msg.enemy_pos);
+        Debug.Log("Unit result position received...");
+
+        BYClient.myClient.Send(BYMessage.MyMsgType.BattleReady, EmptyMsg);
+    }
     private void OnBattleOccurReady(NetworkMessage netMsg)
     {
-        Debug.Log("Server send battle occur ready message...");
-        BattleGame battle = GameObject.Find("BattleGame").GetComponent<BattleGame>();
+        Debug.Log("Server send <battle occur ready> message...");
+         
         battle.StartGame();
         Debug.Log("Ready battle function successfully called");
         

@@ -19,16 +19,26 @@ public class UnitManager : MonoBehaviour {
         enemyUnitInstanceFactory.equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
     }
 
-    public void Setup()
+    public void Setup(BYMessage.UnitPositionMessage msg = default(BYMessage.UnitPositionMessage))
     {
-        if(!YootGame.isNetwork)
+        if (!YootGame.isNetwork)
             CreateUnits();
+        else
+            CreateUnits(msg);
     }
 
-    private void CreateUnits()
+    private void CreateUnits(BYMessage.UnitPositionMessage msg = default(BYMessage.UnitPositionMessage))
     {
-        allyUnitInstanceFactory.CreateUnits();       
-        enemyUnitInstanceFactory.CreateUnits();
+        if (!YootGame.isNetwork)
+        {
+            allyUnitInstanceFactory.CreateUnits();
+            enemyUnitInstanceFactory.CreateUnits();
+        }
+        else
+        {
+            allyUnitInstanceFactory.CreateUnits(msg.ally_pos);
+            enemyUnitInstanceFactory.CreateUnits(msg.enemy_pos);
+        }
     }
 
     public void Cleanup()
