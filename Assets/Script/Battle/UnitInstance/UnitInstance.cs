@@ -1,20 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class UnitInstance : MonoBehaviour {
+public class UnitInstance : NetworkBehaviour {
     public UnitHealthBar unitHealthBar;
     public UnitAnimation unitAnimation;
     public CharacterController controller;
     public string enemyTag;
     public enum State { Alive, Dead, Ready }
     public State currentState;
-    
+
     public Unit.ClassType unitClass;
     public int id;
     public float damage;
     public float armor;
     public float range;
+    [SyncVar]
     public float currentHP;
     private float maxHp;
     public float movementSpeed;

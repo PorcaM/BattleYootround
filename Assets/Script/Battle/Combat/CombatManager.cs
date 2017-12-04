@@ -53,7 +53,7 @@ public class CombatManager : MonoBehaviour
 
     public void CheckBattleOver()
     {
-        if (IsBattleOver())
+        if (IsBattleOver() && !YootGame.isNetwork)
             FinishBattle();
     }
 
@@ -97,6 +97,12 @@ public class CombatManager : MonoBehaviour
         Debug.Log("Battle over");
         BattleGame battleGame = BattleGame.Instance();
         battleGame.FinishBattle(winner);
+    }
+    public void FinishBattleNetwork(int win)
+    {
+        Debug.Log("Battle over");
+        BattleGame battleGame = BattleGame.Instance();
+        battleGame.FinishBattle(win);
     }
 
     public void CleanupBattle()

@@ -60,10 +60,7 @@ public class SpellActivator : MonoBehaviour {
                 pos = createdArea.transform.position,
                 spellID = selectedSpell.id
             };
-            Debug.Log(msg.pos);
-            Debug.Log(msg.spellID);
             bool check = BYClient.myClient.Send(BYMessage.MyMsgType.SpellUse, msg);
-            Debug.Log("Send check = " + check);
         }
     }
 }

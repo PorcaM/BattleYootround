@@ -356,8 +356,7 @@ public class BYGameManager : MonoBehaviour {
         int loser = (winner == player2) ? player1 : player2;
         NetworkServer.SendToClient(winner, BYMessage.MyMsgType.BattleWin, EmptyMsg);
         NetworkServer.SendToClient(loser, BYMessage.MyMsgType.BattleLose, EmptyMsg);
-        startPlayer = winner;
-        nextPlayer = loser;
+        GameContinue(winner, loser);
     }
 
     /************************************************

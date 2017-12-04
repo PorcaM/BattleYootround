@@ -140,9 +140,11 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     private void OnBattleWin(NetworkMessage netMsg)
     {
         Debug.Log("<Battle win> message received");
+        battle.combatManager.FinishBattleNetwork(0);
     }
     private void OnBattleLose(NetworkMessage netMsg)
     {
         Debug.Log("<Battle lose> message received");
+        battle.combatManager.FinishBattleNetwork(1);
     }
 }
