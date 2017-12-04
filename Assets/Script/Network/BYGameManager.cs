@@ -35,14 +35,16 @@ public class BYGameManager : MonoBehaviour {
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowForce, OnThrowForce);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.ThrowResult, OnThrowResult);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.TurnEnd, OnTurnEnd);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.SelectHorse, OnSelectHorse);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.SelectHorseAck, OnSelectHorseAck);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleOccur, OnBattleOccur);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.UnitPosition, OnUnitPosition);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleReady, OnBattleReady);
 
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.SpellUse, OnSpellUse);
 
-        NetworkServer.RegisterHandler(BYMessage.MyMsgType.SelectHorse, OnSelectHorse);
-        NetworkServer.RegisterHandler(BYMessage.MyMsgType.SelectHorseAck, OnSelectHorseAck);
+        NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleWin, OnBattleWin);
+
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.GameWin, OnGameWin);
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.GameLose, OnGameLose);
     }
@@ -277,30 +279,23 @@ public class BYGameManager : MonoBehaviour {
         Vector3[] player2_pos = new Vector3[15];
 
         for (int i = 0; i < 5; i++)
+        {
             for (int j = 0; j < 3; j++)
-                player1_pos[i * 3 + j] = getPos.GetPosition(j, player1_unit.row[i], 1);
+            {
+                player1_unit.ally_pos[i * 3 + j] = getPos.GetPosition(j, player1_unit.row[i], -1);
+                player2_unit.enemy_pos[i * 3 + j] = getPos.GetPosition(j, player1_unit.row[i], 1);
+            }
+        }
         for (int i = 0; i < 5; i++)
+        {
             for (int j = 0; j < 3; j++)
-                player2_pos[i * 3 + j] = getPos.GetPosition(j, player2_unit.row[i], 1);
-
-        if(startPlayer == player1)
-        {
-            player1_unit.ally_pos = player1_pos;
-            player1_unit.enemy_pos = player2_pos;
-            player2_unit.ally_pos = player2_pos;
-            player2_unit.enemy_pos = player1_pos;
-            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.ResultUnitPosition, player1_unit);
-            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.ResultUnitPosition, player2_unit);
+            {
+                player1_unit.enemy_pos[i * 3 + j] = getPos.GetPosition(j, player1_unit.row[i], 1);
+                player2_unit.ally_pos[i * 3 + j] = getPos.GetPosition(j, player1_unit.row[i], -1);
+            }
         }
-        else
-        {
-            player2_unit.ally_pos = player1_pos;
-            player2_unit.enemy_pos = player2_pos;
-            player1_unit.ally_pos = player2_pos;
-            player1_unit.enemy_pos = player1_pos;
-            NetworkServer.SendToClient(player1, BYMessage.MyMsgType.ResultUnitPosition, player1_unit);
-            NetworkServer.SendToClient(player2, BYMessage.MyMsgType.ResultUnitPosition, player2_unit);
-        }
+        NetworkServer.SendToClient(player1, BYMessage.MyMsgType.ResultUnitPosition, player1_unit);
+        NetworkServer.SendToClient(player2, BYMessage.MyMsgType.ResultUnitPosition, player2_unit);
         StartCoroutine(WaitPlayersForBattle());
     }
     IEnumerator WaitPlayersForBattle()
@@ -320,7 +315,10 @@ public class BYGameManager : MonoBehaviour {
         NetworkServer.SendToClient(player2, BYMessage.MyMsgType.BattleOccurReady, EmptyMsg);
         // TODO: Battle Unit들 hp 싱크 맞출수 있는 방법 찾아보기 ( [SyncVars] 비슷한거 본 것 같음 )
         // TODO: 배틀 사이사이 스펠 사용하는 것 Receive register하고 Send
+
+        
     }
+
 
     private void OnBattleReady(NetworkMessage netMsg)
     {
@@ -350,6 +348,16 @@ public class BYGameManager : MonoBehaviour {
         BYServer.debugMessage1 = string.Format("{0} player using spell. pos: {1}, id: {2}", player, msg.pos, msg.spellID);
 
         NetworkServer.SendToClient(opponent, BYMessage.MyMsgType.SpellUse, msg);
+    }
+
+    private void OnBattleWin(NetworkMessage netMsg)
+    {
+        int winner = netMsg.conn.connectionId;
+        int loser = (winner == player2) ? player1 : player2;
+        NetworkServer.SendToClient(winner, BYMessage.MyMsgType.BattleWin, EmptyMsg);
+        NetworkServer.SendToClient(loser, BYMessage.MyMsgType.BattleLose, EmptyMsg);
+        startPlayer = winner;
+        nextPlayer = loser;
     }
 
     /************************************************

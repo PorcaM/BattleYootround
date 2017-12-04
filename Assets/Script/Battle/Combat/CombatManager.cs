@@ -36,7 +36,11 @@ public class CombatManager : MonoBehaviour
         if (!YootGame.isNetwork)
             unitManager.Setup();
         else
+        {
+            Debug.Log("CombatManager.Setup()");
+            Debug.Log(msg.ally_pos[0]);
             unitManager.Setup(msg);
+        }
         cameraHandler.Setup();
         state = State.Setup;
     }
@@ -55,18 +59,37 @@ public class CombatManager : MonoBehaviour
 
     private bool IsBattleOver()
     {
-        if (unitManager.AllyUnitCount() == 0)
+        if (!YootGame.isNetwork)
         {
-            winner = 1;
-            return true;
-        }
-        else if (unitManager.EnemyUnitCount() == 0)
-        {
-            winner = 0;
-            return true;
+            if (unitManager.AllyUnitCount() == 0)
+            {
+                winner = 1;
+                return true;
+            }
+            else if (unitManager.EnemyUnitCount() == 0)
+            {
+                winner = 0;
+                return true;
+            }
+            else
+                return false;
         }
         else
-            return false;
+        {
+            if (unitManager.AllyUnitCount() == 0)
+            {
+                winner = 1;
+                return true;
+            }
+            else if (unitManager.EnemyUnitCount() == 0)
+            {
+                winner = 0;
+                BYClient.myClient.Send(BYMessage.MyMsgType.BattleWin, new BYMessage.EmptyMessage());
+                return true;
+            }
+            else
+                return false;
+        }
     }
 
     private void FinishBattle()

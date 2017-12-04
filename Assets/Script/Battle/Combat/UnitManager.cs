@@ -24,7 +24,9 @@ public class UnitManager : MonoBehaviour {
         if (!YootGame.isNetwork)
             CreateUnits();
         else
+        {
             CreateUnits(msg);
+        }
     }
 
     private void CreateUnits(BYMessage.UnitPositionMessage msg = default(BYMessage.UnitPositionMessage))

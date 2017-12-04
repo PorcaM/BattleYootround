@@ -39,6 +39,8 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.ResultUnitPosition, OnResultUnitPosition);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleStart, OnBattleStart);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.SpellUse, OnSpellUse);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleWin, OnBattleWin);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleLose, OnBattleLose);
     }
     private void OnEquipment(NetworkMessage netMsg)
     {
@@ -108,22 +110,19 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
         BYMessage.UnitPositionMessage msg = netMsg.ReadMessage<BYMessage.UnitPositionMessage>();
 
         battle.Init();
+        Debug.Log(msg.ally_pos[0]);
         battle.StartNetworkGame(msg);
 
-        UnitInstanceFactory AFactory = GameObject.Find("AFactory").GetComponent<UnitInstanceFactory>();
-        UnitInstanceFactory EFactory = GameObject.Find("EFactory").GetComponent<UnitInstanceFactory>();
-        AFactory.CreateUnits(msg.ally_pos);
-        EFactory.CreateUnits(msg.enemy_pos);
-        Debug.Log("Unit result position received...");
+        //UnitInstanceFactory AFactory = GameObject.Find("AFactory").GetComponent<UnitInstanceFactory>();
+        //UnitInstanceFactory EFactory = GameObject.Find("EFactory").GetComponent<UnitInstanceFactory>();
+        //AFactory.CreateUnits(msg.ally_pos);
+        //EFactory.CreateUnits(msg.enemy_pos);
 
         BYClient.myClient.Send(BYMessage.MyMsgType.BattleReady, EmptyMsg);
     }
     private void OnBattleOccurReady(NetworkMessage netMsg)
     {
-        Debug.Log("Server send <battle occur ready> message...");
-        battle.combatManager.StartBattle();
-        battle.state = BattleGame.State.OnBattle;
-        Debug.Log("Ready battle function successfully called");
+
         
     }
     private void OnBattleStart(NetworkMessage netMsg)
@@ -137,5 +136,13 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
         Debug.Log(msg.pos);
         Debug.Log(msg.spellID);
         SpellManifestator.EnemySpell(msg.pos, msg.spellID);
+    }
+    private void OnBattleWin(NetworkMessage netMsg)
+    {
+        Debug.Log("<Battle win> message received");
+    }
+    private void OnBattleLose(NetworkMessage netMsg)
+    {
+        Debug.Log("<Battle lose> message received");
     }
 }
