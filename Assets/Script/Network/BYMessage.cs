@@ -61,9 +61,11 @@ public class BYMessage : MonoBehaviour {
         public static short SelectHorseAck = MsgType.Highest + 40;
 
 
-        // Battle Ready, start, spell, and Win & Lose
+        // Battle occur(client) -> unitposition -> ready(client) -> start -> spell and Win & Lose
         public static short BattleOccur = MsgType.Highest + 50;
         public static short BattleOccurReady = MsgType.Highest + 55;
+        public static short UnitPosition = MsgType.Highest + 57;        // client -> server (유닛들의 row위치 전달)
+        public static short ResultUnitPosition = MsgType.Highest + 58;  // server -> client (플레이어/적 유닛 위치 전달)
         public static short BattleReady = MsgType.Highest + 60;
         public static short BattleStart = MsgType.Highest + 70;
 

@@ -31,6 +31,10 @@ public class UnitInstanceFactory : MonoBehaviour
         unitObj.tag = unitTag;
         unitObj.GetComponent<UnitInstance>().Init(unit);
         unitObj.GetComponent<UnitAnimation>().Init(model);
+        if(YootGame.isNetwork)
+        {
+
+        }
         unitObj.transform.position = GetPosition(num, unit.position);
         unitObj.transform.LookAt(center);
     }
@@ -43,7 +47,7 @@ public class UnitInstanceFactory : MonoBehaviour
         return model;
     }
 
-    private Vector3 GetPosition(int num, int row)
+    public Vector3 GetPosition(int num, int row)
     {
         const float xInterval = .5f;
         const float zInterval = .5f;
