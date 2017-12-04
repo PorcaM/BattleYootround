@@ -15,9 +15,12 @@ public class EquipParser : MonoBehaviour
         string path = equipFilePath();
         try
         {
+            if(!System.IO.File.Exists(path))
+            {
+                throw new FileNotFoundException();
+            }
             FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
             StreamReader reader = new StreamReader(fs);
-            
             string[] pairs = reader.ReadLine().Split(' ');
             List<int> list = new List<int>();
             foreach (string pair in pairs)
@@ -48,7 +51,7 @@ public class EquipParser : MonoBehaviour
             data += unit.Id.ToString() + " ";
         string path = equipFilePath();
         Debug.Log("path: " + path);
-        FileStream fs = new FileStream(path, FileMode.CreateNew, FileAccess.Write);
+        FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
         StreamWriter writer = new StreamWriter(fs);
         if (writer != null)
         {
@@ -79,9 +82,12 @@ public class EquipParser : MonoBehaviour
             folder = Path.GetFullPath(stringPath);
             folder = Path.Combine(folder, "equipment");
         }
+        string debugMessage2 = string.Format("myPath: {0}", folder);
+        Debug.Log(debugMessage2);
         System.IO.Directory.CreateDirectory(folder);
 
         string fileName = string.Format("{0}/equipData.txt", folder);
+        //System.IO.File.Create(fileName);
         return fileName;
     }
 }
