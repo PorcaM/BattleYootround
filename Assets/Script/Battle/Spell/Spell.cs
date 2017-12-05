@@ -117,15 +117,15 @@ public class Spell {
         duration = spell.Duration;
         cooltime = spell.Cooltime;
     }
-    
+
     public new string ToString()
     {
         string info = "";
-        info += "Name: " + spellName + "\n";
+        info += spellName + "\n\n";
         info += description + "\n";
-        info += "Type: " + type + "\n";
-        info += "Amount: " + Damage + "\n";
-        info += "Cooltime: " + cooltime + "\n";
+        info += "타입:\t" + type + "\n";
+        info += "효과량:\t" + Damage + "\n";
+        info += "쿨타임:\t" + cooltime + "초";
         return info;
     }
 }

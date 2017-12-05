@@ -14,7 +14,7 @@ public class Unit
     private double movementSpeed;
     private double attackSpeed;
     public int position;
-    
+
 
     public int Id
     {
@@ -133,13 +133,13 @@ public class Unit
     public new string ToString()
     {
         string info = "";
-        info += "Class: " + UnitClass.ToString() + "\n";
-        info += "Damage: " + Damage + "\n";
-        info += "Armor: " + Armor + "\n";
-        info += "Range: " + Range + "\n";
-        info += "Hp: " + Hp + "\n";
-        info += "MovementSpeed: " + MovementSpeed + "\n";
-        info += "AttackSpeed: " + AttackSpeed + "\n";
+        info += UnitClass.ToString() + "\n\n";
+        info += "체력: " + Hp + "\n";
+        info += "공격력: " + Damage + "\n";
+        info += "방어력: " + Armor + "\n";
+        info += "사거리: " + Range + "\n";
+        info += "공격속도: " + AttackSpeed + "\n";
+        info += "이동속도: " + MovementSpeed + "\n";
         return info;
     }
 }

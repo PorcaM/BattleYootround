@@ -20,7 +20,7 @@ public class SpellUI : MonoBehaviour
         const string path = "SkillIcons/";
         rawImage.texture = Resources.Load(path + spell.SpellName, typeof(Texture2D)) as Texture2D;
         text.text = spell.SpellName;
-        infoText = GameObject.Find("SpellInfo").transform.GetChild(0).GetComponent<Text>();
+        infoText = GameObject.Find("SpellInfo").transform.GetChild(1).GetComponent<Text>();
         spellbookUI = GameObject.Find("EquipUI").GetComponent<SpellbookUI>();
     }
 

@@ -19,7 +19,7 @@ public class UnitUI : MonoBehaviour {
         const string path = "UnitImages/thumbnail/";
         rawImage.texture = Resources.Load(path + unit.UnitClass.ToString().ToLower(), typeof(Texture2D)) as Texture2D;
         text.text = unit.UnitClass.ToString();
-        infoText = GameObject.Find("UnitInfo").transform.GetChild(0).GetComponent<Text>();
+        infoText = GameObject.Find("UnitInfo").transform.GetChild(1).GetComponent<Text>();
         deckUI = GameObject.Find("EquipUI").GetComponent<DeckUI>();
     }
 
