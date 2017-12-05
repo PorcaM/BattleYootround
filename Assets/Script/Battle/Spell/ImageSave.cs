@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Net;
 
 // Screen Recorder will save individual images of active scene in any resolution and of a specific image format
 // including raw, jpg, png, and ppm.  Raw and PPM are the fastest image formats for saving.
@@ -47,6 +49,7 @@ public class ImageSave : MonoBehaviour
     // 그려진 Trail을 Clear하기 위한 용도
     private GameObject[] Trails;
 
+    enum Spell { Fire, Water, Storm, Death, SteamPack, Grasping, Heal, Cleanse, Infection, Stun, Silence, Reflection };
     private void Start()
     {
         debugText1.enabled = false;
@@ -81,11 +84,10 @@ public class ImageSave : MonoBehaviour
 
         // count number of files of specified format in folder
         string mask = string.Format("screen_{0}x{1}*.{2}", width, height, format.ToString().ToLower());
-        counter = Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length;
 
 
         // use width, height, and counter for unique file name
-        var filename = string.Format("{0}/screen_{1}x{2}_{3}.{4}", folder, width, height, counter, format.ToString().ToLower());
+        var filename = string.Format("{0}/screen_{1}x{2}.{3}", folder, width, height, format.ToString().ToLower());
 
         // return unique filename
         return filename;
@@ -175,6 +177,60 @@ public class ImageSave : MonoBehaviour
 
         Clear();
 
+    }
+
+
+    public void UploadButton()
+    {
+        int width = 360;
+        int height = 640;
+        // 안드로이드 경로
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            folder = Application.persistentDataPath;
+            folder = folder.Substring(0, folder.LastIndexOf('/'));
+            folder = Path.Combine(folder, "screenshots");
+            folder = Path.Combine(folder, SpellName.text);
+        }
+        // 유니티 경로
+        else if (Application.isEditor)
+        {
+            folder = Application.dataPath;
+            var stringPath = folder + "/..";
+            folder = Path.GetFullPath(stringPath);
+            folder = Path.Combine(folder, "screenshots");
+            folder = Path.Combine(folder, SpellName.text);
+        }
+        // count number of files of specified format in folder
+        string mask = string.Format("screen_{0}x{1}*.{2}", width, height, format.ToString().ToLower());
+        // use width, height, and counter for unique file name
+        var filename = string.Format("{0}/screen_{1}x{2}.{3}", folder, width, height, format.ToString().ToLower());
+
+
+        StartCoroutine(Upload(filename));
+    }
+    IEnumerator Upload(string jpgPath)
+    {
+        byte[] bytes = File.ReadAllBytes(jpgPath);
+
+        WWWForm form = new WWWForm();
+        form.AddBinaryData("file", bytes, "test.jpg", "image/jpeg");
+
+        string URL = "address";
+
+        WWW www = new WWW(URL, form);
+
+        yield return www;
+        Debug.Log(www.text);
+        spell_print(www.text);
+    }
+
+    private void spell_print(string str)
+    {
+        string spellID = string.Format("{0}", str[1]);
+        Spell spell = (Spell)System.Enum.Parse(typeof(Spell), spellID);
+
+        Debug.Log(spell.ToString());
     }
 
     void Update()
