@@ -17,8 +17,8 @@ public class SpellbookUIController : MonoBehaviour {
             RawImage rawImage = spellbookUI.GetChild(i).GetChild(0).GetComponent<RawImage>();
             const string path = "SkillIcons/";
             rawImage.texture = Resources.Load(path + spell.SpellName, typeof(Texture2D)) as Texture2D;
-            MaterialButton button = spellbookUI.GetChild(i).GetChild(1).GetComponent<MaterialButton>();
-            button.textText = spell.SpellName;
+            Text text = spellbookUI.GetChild(i).GetChild(1).GetComponent<Text>();
+            text.text = spell.SpellName;
         }
     }
 }
