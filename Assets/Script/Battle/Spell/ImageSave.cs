@@ -49,7 +49,7 @@ public class ImageSave : MonoBehaviour
     // 그려진 Trail을 Clear하기 위한 용도
     private GameObject[] Trails;
 
-    enum Spell { Fire, Water, Storm, Death, SteamPack, Grasping, Heal, Cleanse, Infection, Stun, Silence, Reflection };
+    enum SpellName { Fire, Water, Storm, Death, SteamPack, Grasping, Heal, Cleanse, Infection, Stun, Silence, Reflection };
     private void Start()
     {
         //debugText1.enabled = false;
@@ -185,9 +185,9 @@ public class ImageSave : MonoBehaviour
         var filename = uniqueFilename(360, 640);
         Debug.Log("filename: " + filename);
 
-        StartCoroutine(Upload(filename));
+        StartCoroutine(UploadAndActivate(filename));
     }
-    IEnumerator Upload(string jpgPath)
+    IEnumerator UploadAndActivate(string jpgPath)
     {
         byte[] bytes = File.ReadAllBytes(jpgPath);
 
@@ -202,6 +202,34 @@ public class ImageSave : MonoBehaviour
         Debug.Log(www.text);
         string spellID = spell_print(www.text);
 
+        if (SpellActivate(spellID))
+        {
+            Debug.Log("Spell activate success!!");
+        }
+        else
+        {
+            Debug.Log("Spell activate fail...");
+        }
+    }
+    private bool SpellActivate(string spellID)
+    {
+        int resultSpellID = int.Parse(spellID);
+        string resultSpellName = ((SpellName)System.Enum.Parse(typeof(SpellName), spellID)).ToString();
+
+        Equipment equipment = GameObject.Find("Equipment").GetComponent<Equipment>();
+        SpellManager spellManager = GameObject.Find("SpellManager").GetComponent<SpellManager>();
+        int spell_pos = 0;
+        foreach(Spell spell in equipment.spellbook.spells)
+        {
+            Debug.Log(spell.SpellName);
+            if(spell.SpellName == resultSpellName)
+            {
+                spellManager.Select(spellManager.spells[spell_pos]);
+                return true;
+            }
+            spell_pos++;
+        }
+        return false;
     }
 
     private string spell_print(string str)
@@ -212,7 +240,7 @@ public class ImageSave : MonoBehaviour
             return null;
         }
         string spellID = string.Format("{0}", str[1]);
-        Spell spell = (Spell)System.Enum.Parse(typeof(Spell), spellID);
+        SpellName spell = (SpellName)System.Enum.Parse(typeof(SpellName), spellID);
 
         Debug.Log(spell.ToString());
 
