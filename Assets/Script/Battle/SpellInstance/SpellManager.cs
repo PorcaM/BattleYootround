@@ -33,7 +33,7 @@ public class SpellManager : MonoBehaviour {
         {
             SpellButton button = panel.transform.GetChild(i).GetComponent<SpellButton>();
             button.Init(spells[i]);
-            spells[i].GetComponent<SpellCooldown>().image = button.transform.GetChild(1).GetComponent<UnityEngine.UI.Image>();
+            spells[i].GetComponent<SpellCooldown>().image = button.transform.GetChild(2).GetComponent<UnityEngine.UI.Image>();
         }
     }
 

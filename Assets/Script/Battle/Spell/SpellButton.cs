@@ -15,7 +15,7 @@ public class SpellButton : MonoBehaviour {
     
     private void InitIconTexture()
     {
-        RawImage iconImage = transform.GetChild(0).GetComponent<RawImage>();
+        RawImage iconImage = transform.GetChild(1).GetComponent<RawImage>();
         const string path = "SkillIcons/";
         iconImage.texture = Resources.Load(path + spellInstance.spellName, typeof(Texture2D)) as Texture2D;
     }
