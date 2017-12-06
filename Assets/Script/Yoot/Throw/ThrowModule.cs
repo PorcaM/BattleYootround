@@ -48,7 +48,8 @@ public class ThrowModule : MonoBehaviour
     {
         this.throwProcessor = throwProcessor;
         state = State.WaitTouch;
-        backupPos = Camera.main.transform.position;
+        Vector3 yootCameraPos = new Vector3(0, 15, 0.84f);
+        backupPos = yootCameraPos;
         maxHeight = 0.0f;
     }
 
