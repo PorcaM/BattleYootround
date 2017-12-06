@@ -21,7 +21,7 @@ public class ImageSave : MonoBehaviour
     public UnityEngine.UI.Text debugText3;
     private string debugMessage3 = "ImageNum";
 
-    public InputField SpellName;
+    //public InputField SpellName;
 
     // 4k = 3840 x 2160   1080p = 1920 x 1080
     public int captureWidth = 360;
@@ -66,7 +66,7 @@ public class ImageSave : MonoBehaviour
             folder = Application.persistentDataPath;
             folder = folder.Substring(0, folder.LastIndexOf('/'));
             folder = Path.Combine(folder, "screenshots");
-            folder = Path.Combine(folder, SpellName.text);
+            //folder = Path.Combine(folder, SpellName.text);
         }
         // 유니티 경로
         else if (Application.isEditor)
@@ -75,7 +75,7 @@ public class ImageSave : MonoBehaviour
             var stringPath = folder + "/..";
             folder = Path.GetFullPath(stringPath);
             folder = Path.Combine(folder, "screenshots");
-            folder = Path.Combine(folder, SpellName.text);
+            //folder = Path.Combine(folder, SpellName.text);
         }
         debugMessage2 = string.Format("myPath: {0}", folder);
         Debug.Log(debugMessage2);
@@ -190,7 +190,7 @@ public class ImageSave : MonoBehaviour
             folder = Application.persistentDataPath;
             folder = folder.Substring(0, folder.LastIndexOf('/'));
             folder = Path.Combine(folder, "screenshots");
-            folder = Path.Combine(folder, SpellName.text);
+            //folder = Path.Combine(folder, SpellName.text);
         }
         // 유니티 경로
         else if (Application.isEditor)
@@ -199,7 +199,7 @@ public class ImageSave : MonoBehaviour
             var stringPath = folder + "/..";
             folder = Path.GetFullPath(stringPath);
             folder = Path.Combine(folder, "screenshots");
-            folder = Path.Combine(folder, SpellName.text);
+            //folder = Path.Combine(folder, SpellName.text);
         }
         // count number of files of specified format in folder
         string mask = string.Format("screen_{0}x{1}*.{2}", width, height, format.ToString().ToLower());
@@ -235,9 +235,12 @@ public class ImageSave : MonoBehaviour
 
     void Update()
     {
-        UpdateDebug1Text(debugMessage1);
-        UpdateDebug2Text(debugMessage2);
-        UpdateDebug3Text(debugMessage3);
+        if (debugText1 != null)
+        {
+            UpdateDebug1Text(debugMessage1);
+            UpdateDebug2Text(debugMessage2);
+            UpdateDebug3Text(debugMessage3);
+        }
     }
 
     private void UpdateDebug1Text(string message)
