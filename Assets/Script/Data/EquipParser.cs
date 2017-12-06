@@ -82,6 +82,12 @@ public class EquipParser : MonoBehaviour
             folder = Path.GetFullPath(stringPath);
             folder = Path.Combine(folder, "equipment");
         }
+        else
+        {
+            folder = Application.persistentDataPath;
+            folder = folder.Substring(0, folder.LastIndexOf('/'));
+            folder = Path.Combine(folder, "equipment");
+        }
         string debugMessage2 = string.Format("myPath: {0}", folder);
         Debug.Log(debugMessage2);
         System.IO.Directory.CreateDirectory(folder);
