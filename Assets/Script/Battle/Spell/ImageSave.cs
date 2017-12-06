@@ -52,7 +52,7 @@ public class ImageSave : MonoBehaviour
     enum Spell { Fire, Water, Storm, Death, SteamPack, Grasping, Heal, Cleanse, Infection, Stun, Silence, Reflection };
     private void Start()
     {
-        debugText1.enabled = false;
+        //debugText1.enabled = false;
     }
 
     // create a unique filename using a one-up variable

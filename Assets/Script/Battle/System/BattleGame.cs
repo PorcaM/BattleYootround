@@ -13,7 +13,7 @@ public class BattleGame : MonoBehaviour
     public DecoratorManager decoratorManager;
     public YootGame yootGame;
 
-    [SerializeField] private YootField battleField;
+    [SerializeField] public YootField battleField;
     [SerializeField] private int winner;
 
     private static BattleGame instance;
@@ -86,9 +86,11 @@ public class BattleGame : MonoBehaviour
     {
         if (battleField)
         {
+            Debug.Log(battleField.id);
             battleField.RetireHorsesButWinner(winner);
             yootGame.HandleBattleResult(winner);
         }
+        
     }
 
     private IEnumerator StartActionAfterSeconds(Action action, float duration)

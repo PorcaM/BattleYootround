@@ -69,10 +69,15 @@ public class YootField : MonoBehaviour
     {
         if (horse.IsEnemyWith(Guest(0)))
         {
-            if(!YootGame.isNetwork)
+            if (!YootGame.isNetwork)
+            {
                 ReadyBattle();
+            }
             else
             {
+                BattleGame battleGame = GameObject.Find("BattleGame").GetComponent<BattleGame>();
+                battleGame.battleField = this;
+
                 GameObject[] tmp = GameObject.FindGameObjectsWithTag("TurnProcessor");
                 Debug.Log("---tmp[0]---");
                 Debug.Log(tmp[0].GetComponent<TurnProcessor>().currentState);
@@ -87,7 +92,7 @@ public class YootField : MonoBehaviour
                     bool check = BYClient.myClient.Send(BYMessage.MyMsgType.BattleOccur, new BYMessage.EmptyMessage());
                     Debug.Log("Send state : " + check);
                 }
-                else if(tmp[1].GetComponent<TurnProcessor>().currentState != TurnProcessor.ProcessState.Wait && tmp[1].GetComponent<TurnProcessor>().owner.playerID == 0)
+                else if (tmp[1].GetComponent<TurnProcessor>().currentState != TurnProcessor.ProcessState.Wait && tmp[1].GetComponent<TurnProcessor>().owner.playerID == 0)
                 {
                     Debug.Log("Network battle Occur!!");
                     bool check = BYClient.myClient.Send(BYMessage.MyMsgType.BattleOccur, new BYMessage.EmptyMessage());

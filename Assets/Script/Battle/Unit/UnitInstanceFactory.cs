@@ -84,7 +84,7 @@ public class UnitInstanceFactory : MonoBehaviour
         Debug.Log("spawnPosZ: " + _spawnPosZ + ", z: " + z);
         z += -30 + _spawnPosZ;
         Vector3 localPosition = new Vector3(x, 0, z);
-        localPosition.z += spanwPosZ;
+        localPosition.z += _spawnPosZ;
         Vector3 position = localPosition + GameObject.Find("center").transform.position;
         return position;
     }
