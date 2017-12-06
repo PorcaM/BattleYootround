@@ -182,30 +182,8 @@ public class ImageSave : MonoBehaviour
 
     public void UploadButton()
     {
-        int width = 360;
-        int height = 640;
-        // 안드로이드 경로
-        if (Application.platform == RuntimePlatform.Android)
-        {
-            folder = Application.persistentDataPath;
-            folder = folder.Substring(0, folder.LastIndexOf('/'));
-            folder = Path.Combine(folder, "screenshots");
-            //folder = Path.Combine(folder, SpellName.text);
-        }
-        // 유니티 경로
-        else if (Application.isEditor)
-        {
-            folder = Application.dataPath;
-            var stringPath = folder + "/..";
-            folder = Path.GetFullPath(stringPath);
-            folder = Path.Combine(folder, "screenshots");
-            //folder = Path.Combine(folder, SpellName.text);
-        }
-        // count number of files of specified format in folder
-        string mask = string.Format("screen_{0}x{1}*.{2}", width, height, format.ToString().ToLower());
-        // use width, height, and counter for unique file name
-        var filename = string.Format("{0}/screen_{1}x{2}.{3}", folder, width, height, format.ToString().ToLower());
-
+        var filename = uniqueFilename(360, 640);
+        Debug.Log("filename: " + filename);
 
         StartCoroutine(Upload(filename));
     }
@@ -222,15 +200,23 @@ public class ImageSave : MonoBehaviour
 
         yield return www;
         Debug.Log(www.text);
-        spell_print(www.text);
+        string spellID = spell_print(www.text);
+
     }
 
-    private void spell_print(string str)
+    private string spell_print(string str)
     {
+        if(str == "")
+        {
+            Debug.Log("str is empty!!");
+            return null;
+        }
         string spellID = string.Format("{0}", str[1]);
         Spell spell = (Spell)System.Enum.Parse(typeof(Spell), spellID);
 
         Debug.Log(spell.ToString());
+
+        return spellID;
     }
 
     void Update()
