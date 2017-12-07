@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MaterialUI;
 
 public class ExitBattleDecorator : MonoBehaviour {
+    public Text BattleResultText;
+
     public void ShowVictory(int winner)
     {
         string aliveTag;
@@ -19,6 +22,10 @@ public class ExitBattleDecorator : MonoBehaviour {
         Camera.main.transform.position = closeupPos;
         Camera.main.transform.LookAt(alives[0].transform.position);
         Camera.main.gameObject.AddComponent<HorseAnimator>().Init(backupPos, closeupPos, 1.0f);
+        BattleResultText.enabled = true;
+        BattleResultText.text = "Your Win!\n^^";
+        if (winner == 1)
+            BattleResultText.text = "Your loss\nㅠㅠ";
         ToastManager.Show("Player " + winner + " Win!!");
     }
 
