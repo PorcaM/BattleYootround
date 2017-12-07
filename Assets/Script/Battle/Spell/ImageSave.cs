@@ -194,21 +194,31 @@ public class ImageSave : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddBinaryData("file", bytes, "test.jpg", "image/jpeg");
 
-        string URL = "address";
+        string URL = "165.246.42.24/upload.php";
 
         WWW www = new WWW(URL, form);
 
         yield return www;
         Debug.Log(www.text);
         string spellID = spell_print(www.text);
-
-        if (SpellActivate(spellID))
+        if(spellID == null)
         {
-            Debug.Log("Spell activate success!!");
+            debugMessage1 = "server error";
         }
         else
         {
-            Debug.Log("Spell activate fail...");
+            debugMessage1 = "spell activated";
+            if (GameObject.Find("Equipment"))
+            {
+                if (SpellActivate(spellID))
+                {
+                    Debug.Log("Spell activate success!!");
+                }
+                else
+                {
+                    Debug.Log("Spell activate fail...");
+                }
+            }
         }
     }
     private bool SpellActivate(string spellID)
@@ -224,6 +234,7 @@ public class ImageSave : MonoBehaviour
             Debug.Log(spell.SpellName);
             if(spell.SpellName == resultSpellName)
             {
+                debugMessage2 = spell.SpellName;
                 spellManager.Select(spellManager.spells[spell_pos]);
                 return true;
             }
@@ -236,25 +247,21 @@ public class ImageSave : MonoBehaviour
     {
         if(str == "")
         {
-            Debug.Log("str is empty!!");
             return null;
         }
-        string spellID = string.Format("{0}", str[1]);
-        SpellName spell = (SpellName)System.Enum.Parse(typeof(SpellName), spellID);
+        SpellName spell = (SpellName)System.Enum.Parse(typeof(SpellName), str);
 
         Debug.Log(spell.ToString());
+        debugMessage2 = spell.ToString();
 
-        return spellID;
+        return str;
     }
 
     void Update()
     {
-        if (debugText1 != null)
-        {
-            UpdateDebug1Text(debugMessage1);
-            UpdateDebug2Text(debugMessage2);
-            UpdateDebug3Text(debugMessage3);
-        }
+        UpdateDebug1Text(debugMessage1);
+        UpdateDebug2Text(debugMessage2);
+        //UpdateDebug3Text(debugMessage3);
     }
 
     private void UpdateDebug1Text(string message)
