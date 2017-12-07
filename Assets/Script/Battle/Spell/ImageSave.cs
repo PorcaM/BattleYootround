@@ -200,6 +200,8 @@ public class ImageSave : MonoBehaviour
 
         yield return www;
         Debug.Log(www.text);
+        debugMessage1 = www.text;
+
         string spellID = spell_print(www.text);
         if(spellID == null)
         {
