@@ -8,6 +8,7 @@ public class ResultManager : MonoBehaviour
     public GameObject[] targets = new GameObject[4];
     public bool isThrowed;
     public bool isAllStop;
+    public bool isEnoughHeight = false;
 
     public void StartDetect()
     {
@@ -22,8 +23,24 @@ public class ResultManager : MonoBehaviour
 
     private void Detect()
     {
+        DetectHeight();
         DetectNak();
         DetectNormalResult();
+    }
+
+    private void DetectHeight()
+    {
+        if (!isEnoughHeight)
+        {
+            foreach (GameObject target in targets)
+            {
+                if (target.GetComponent<DetectMinHeight>().enough)
+                {
+                    isEnoughHeight = true;
+                    break;
+                }
+            }
+        }
     }
 
     private void DetectNak()
@@ -38,8 +55,13 @@ public class ResultManager : MonoBehaviour
 
     private void SendResult(YootGame.YootCount result)
     {
-        throwManager.RecvThrowResult(result);
-        isThrowed = false;
+        if (isEnoughHeight)
+        {
+            throwManager.RecvThrowResult(result);
+            isThrowed = false;
+        }
+        else
+            throwManager.throwProcessor.ThrowAgain();
     }
 
     private void DetectNormalResult()

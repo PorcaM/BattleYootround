@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 114418233257153850}
   - component: {fileID: 114071684846254370}
   - component: {fileID: 114454413127454776}
+  - component: {fileID: 114711605510134542}
   m_Layer: 0
   m_Name: Yoot (3)
   m_TagString: Untagged
@@ -189,6 +190,7 @@ GameObject:
   - component: {fileID: 114632304592727320}
   - component: {fileID: 114828338871864316}
   - component: {fileID: 114864293162857610}
+  - component: {fileID: 114990879404989210}
   m_Layer: 0
   m_Name: Yoot (1)
   m_TagString: Untagged
@@ -208,6 +210,7 @@ GameObject:
   - component: {fileID: 114205033774578764}
   - component: {fileID: 114976084755419006}
   - component: {fileID: 114196398651199526}
+  - component: {fileID: 114978482875132756}
   m_Layer: 0
   m_Name: Yoot (2)
   m_TagString: Untagged
@@ -308,6 +311,7 @@ GameObject:
   - component: {fileID: 114584819412546888}
   - component: {fileID: 114084494262523714}
   - component: {fileID: 114800612219467672}
+  - component: {fileID: 114754426128251910}
   m_Layer: 0
   m_Name: Yoot
   m_TagString: Untagged
@@ -1325,6 +1329,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDownside: 0
+--- !u!114 &114711605510134542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1456163741995400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720f4702dca884c49877f41c2d7075f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enough: 0
+  minHeight: 10
+--- !u!114 &114754426128251910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612444886859740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720f4702dca884c49877f41c2d7075f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enough: 0
+  minHeight: 10
 --- !u!114 &114800612219467672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1356,6 +1386,7 @@ MonoBehaviour:
   - {fileID: 1456163741995400}
   isThrowed: 0
   isAllStop: 0
+  isEnoughHeight: 0
 --- !u!114 &114828338871864316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1412,3 +1443,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFallen: 0
+--- !u!114 &114978482875132756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1487857808718548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720f4702dca884c49877f41c2d7075f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enough: 0
+  minHeight: 10
+--- !u!114 &114990879404989210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1458213252692084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720f4702dca884c49877f41c2d7075f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enough: 0
+  minHeight: 10
