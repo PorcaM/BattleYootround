@@ -154,7 +154,7 @@ public class BYServer : MonoBehaviour
     private void UpdateDebug1Text(string message)
     {
         debugText1.text = message;
-        debugText1.fontSize = 20;
+        debugText1.fontSize = 35;
     }
     void Update()
     {

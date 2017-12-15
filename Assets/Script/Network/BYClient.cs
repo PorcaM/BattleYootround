@@ -9,8 +9,8 @@ public class BYClient : MonoBehaviour
 {
     public static NetworkClient myClient;
     int serverPort = 7000;
-    //string serverIP = "address";
-    string serverIP = "127.0.0.1";
+    string serverIP = "165.246.42.24";
+    //string serverIP = "127.0.0.1";
 
     static bool isMatch;
     private BYMessage.EmptyMessage EmptyMsg;

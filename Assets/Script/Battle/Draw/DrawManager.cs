@@ -23,6 +23,7 @@ public class DrawManager : MonoBehaviour {
         imageSave.Save();
         imageSave.Clear();
         imageSave.UploadButton();
+        imageSave.UploadButton();
         imageDrawing.enabled = false;
         drawUI.SetActive(false);
     }

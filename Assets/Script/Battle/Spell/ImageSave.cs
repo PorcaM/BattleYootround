@@ -261,9 +261,12 @@ public class ImageSave : MonoBehaviour
 
     void Update()
     {
-        UpdateDebug1Text(debugMessage1);
-        UpdateDebug2Text(debugMessage2);
-        //UpdateDebug3Text(debugMessage3);
+        if (debugText1 != null)
+        {
+            UpdateDebug1Text(debugMessage1);
+            UpdateDebug2Text(debugMessage2);
+            //UpdateDebug3Text(debugMessage3);
+        }
     }
 
     private void UpdateDebug1Text(string message)
