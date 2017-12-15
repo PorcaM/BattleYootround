@@ -12,12 +12,21 @@ public class ThrowProcessor : MonoBehaviour {
     public ThrowModule throwModule;
     public ThrowModule createdModule;
 
-    private DecoThrowResult deco;
+    private DecoThrowResult decoResult;
+    private DecoThrowAgain decoAgain;
 
     void Start()
     {
         currentState = ProcessState.Wait;
-        deco = GameObject.Find("Decos").GetComponent<DecoThrowResult>();
+        decoResult = GameObject.Find("Decos").GetComponent<DecoThrowResult>();
+        decoAgain = GameObject.Find("Decos").GetComponent<DecoThrowAgain>();
+    }
+
+    public void ThrowAgain()
+    {
+        decoAgain.Show(1.5f);
+        createdModule.End();
+        StartThrow();
     }
 
     public void StartThrow()
@@ -41,7 +50,7 @@ public class ThrowProcessor : MonoBehaviour {
 
     private void HandleThrowResult(YootGame.YootCount result)
     {
-        deco.Show(result, 1.5f);
+        decoResult.Show(result, 1.5f);
         createdModule.End();
         turnManager.RecvThrowResult(result);
         currentState = ProcessState.Wait;
