@@ -61,7 +61,9 @@ public class ResultManager : MonoBehaviour
             isThrowed = false;
         }
         else
+        {
             throwManager.throwProcessor.ThrowAgain();
+        }
     }
 
     private void DetectNormalResult()

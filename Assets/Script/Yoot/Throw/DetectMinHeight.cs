@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DetectMinHeight : MonoBehaviour {
     public bool enough = false;
-    public float minHeight = 10.0f;
+    public float minHeight = 3.0f;
 
 	// Use this for initialization
 	void Start () {

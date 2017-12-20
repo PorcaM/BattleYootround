@@ -123,7 +123,7 @@ public class ThrowModule : MonoBehaviour
 
     private bool IsMobile()
     {
-        if (Input.touchCount > 0 || accelManager.MaxMagnitude() > 5000.0f)
+        if (Input.touchCount > 0 && accelManager.MaxMagnitude() > 3.0f)
             return Input.GetTouch(0).phase == TouchPhase.Ended;
         else
             return false;
