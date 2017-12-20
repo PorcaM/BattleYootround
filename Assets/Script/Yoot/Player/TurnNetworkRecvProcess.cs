@@ -41,6 +41,9 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.SpellUse, OnSpellUse);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleWin, OnBattleWin);
         BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.BattleLose, OnBattleLose);
+
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.GameWin, OnGameWin);
+        BYClient.myClient.RegisterHandler(BYMessage.MyMsgType.GameLose, OnGameLose);
     }
     private void OnEquipment(NetworkMessage netMsg)
     {
@@ -146,5 +149,22 @@ public class TurnNetworkRecvProcess : MonoBehaviour {
     {
         Debug.Log("<Battle lose> message received");
         battle.combatManager.FinishBattleNetwork(1);
+    }
+
+    private void OnGameWin(NetworkMessage netMsg)
+    {
+        Debug.Log("<Game win> message received");
+        Destroy(GameObject.Find("Opponent Equipment"));
+        BYClient.myClient.Disconnect();
+        GameObject.Find("YootGameResult").GetComponent<YootGameResult>().winner = 0;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
+    }
+    private void OnGameLose(NetworkMessage netMsg)
+    {
+        Debug.Log("<Game lose> message received");
+        Destroy(GameObject.Find("Opponent Equipment"));
+        BYClient.myClient.Disconnect();
+        GameObject.Find("YootGameResult").GetComponent<YootGameResult>().winner = 1;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
     }
 }

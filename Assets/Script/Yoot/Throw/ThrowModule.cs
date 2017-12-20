@@ -110,7 +110,7 @@ public class ThrowModule : MonoBehaviour
         bool mobile = IsMobile();
         if (mobile)
         {
-            const float powerDrag = 3.0f;
+            const float powerDrag = 2.0f;
             forceGenerator.userPower = accelManager.MaxMagnitude() / powerDrag;
         }
         return computer || mobile;
@@ -123,7 +123,7 @@ public class ThrowModule : MonoBehaviour
 
     private bool IsMobile()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 || accelManager.MaxMagnitude() > 5000.0f)
             return Input.GetTouch(0).phase == TouchPhase.Ended;
         else
             return false;

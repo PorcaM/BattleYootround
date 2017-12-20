@@ -85,29 +85,9 @@ public class BYClient : MonoBehaviour
     {
         ToastManager.Show("Match Success!");
         Debug.Log("Match Success!");
-        // TODO: sleep 추가
         SceneLoad a = GameObject.Find("SceneManager").GetComponent<SceneLoad>();
+        isMatch = false;
         a.LoadScene("Yoot");
     }
     
-    // BUG 얘는 강제종료될때 호출이 안되는것같은데 잘 모르겠음
-    private void OnApplicationQuit()
-    {
-        if (myClient != null && myClient.isConnected)
-            myClient.Send(BYMessage.MyMsgType.Disconnect, EmptyMsg);
-
-    }
-    
-    /*
-     *  나중에 안드로이드로 빌드할 때 Pause 걸리면 네트워크 끊어지도록 구현??
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-        {
-            SendMessage(BYMessage.MyMsgType.Disconnect, new BYMessage.MyMessage());
-        }
-    }
-    */
-
-
 }

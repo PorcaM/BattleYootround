@@ -72,9 +72,7 @@ public class BYServer : MonoBehaviour
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.MatchCancel, OnCancel);
 
     }
-    // 클라이언트와 연결되었을 때 호출됨
-    // TODO: 클라이언트 접속종료 때 호출되는 함수 필요
-    // TODO: 기존 클라이언트 접속종료 시, NetworkServer.connections의 indexing이 변함 이거 처리해야함
+
     private void OnConnected(NetworkMessage netMsg)
     {
 

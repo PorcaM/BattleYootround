@@ -46,7 +46,6 @@ public class BYGameManager : MonoBehaviour {
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.BattleWin, OnBattleWin);
 
         NetworkServer.RegisterHandler(BYMessage.MyMsgType.GameWin, OnGameWin);
-        NetworkServer.RegisterHandler(BYMessage.MyMsgType.GameLose, OnGameLose);
     }
 
     public void GameInit(Pair<int, int> room)
@@ -125,7 +124,7 @@ public class BYGameManager : MonoBehaviour {
 
     IEnumerator StartMessage()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.3f);
         Debug.Log(startPlayer + " player start!");
         BYServer.debugMessage1 = string.Format("{0} player start!", startPlayer);
         BYMessage.PlayerInfo playerInfo = new BYMessage.PlayerInfo();
@@ -354,6 +353,7 @@ public class BYGameManager : MonoBehaviour {
     {
         int winner = netMsg.conn.connectionId;
         int loser = (winner == player2) ? player1 : player2;
+        BYServer.debugMessage1 = string.Format("{0} player win", winner);
         NetworkServer.SendToClient(winner, BYMessage.MyMsgType.BattleWin, EmptyMsg);
         NetworkServer.SendToClient(loser, BYMessage.MyMsgType.BattleLose, EmptyMsg);
         GameContinue(winner, loser);
@@ -392,13 +392,7 @@ public class BYGameManager : MonoBehaviour {
     {
         int winner = netMsg.conn.connectionId;
         int loser = (winner == player1) ? player2 : player1;
-        NetworkServer.SendToClient(winner, BYMessage.MyMsgType.GameWin, EmptyMsg);
-        NetworkServer.SendToClient(loser, BYMessage.MyMsgType.GameLose, EmptyMsg);
-    }
-    private void OnGameLose(NetworkMessage netMsg)
-    {
-        int winner = netMsg.conn.connectionId;
-        int loser = (winner == player1) ? player2 : player1;
+        BYServer.debugMessage1 = string.Format("{0} player game win!!", winner);
         NetworkServer.SendToClient(winner, BYMessage.MyMsgType.GameWin, EmptyMsg);
         NetworkServer.SendToClient(loser, BYMessage.MyMsgType.GameLose, EmptyMsg);
     }

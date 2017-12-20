@@ -26,9 +26,16 @@ public class ResultSceneManager : MonoBehaviour
     {
         GameObject YGR = GameObject.Find("YootGameResult");
         if (YGR)
+        {
+            Debug.Log("WIIIIIIIIIIIIIIIIIIIIIIIN");
             winner = GameObject.Find("YootGameResult").GetComponent<YootGameResult>().winner;
+        }
         else
+        {
+            Debug.Log("LOOOOOOOOOOOOOOOOOOOOOOSE");
             winner = 1;
+        }
+
         if (winner == 0)
             isWin = true;
         else

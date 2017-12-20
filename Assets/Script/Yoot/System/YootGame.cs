@@ -104,7 +104,12 @@ public class YootGame : MonoBehaviour {
     public void HandleWin(int winner)
     {
         Debug.Log("Player " + winner + " Win!!");
-        GameObject.Find("YootGameResult").GetComponent<YootGameResult>().winner = winner;
-        SceneManager.LoadScene("Result");
+        if (!isNetwork)
+        {
+            GameObject.Find("YootGameResult").GetComponent<YootGameResult>().winner = winner;
+            SceneManager.LoadScene("Result");
+        }
+        else
+            BYClient.myClient.Send(BYMessage.MyMsgType.GameWin, new BYMessage.EmptyMessage());
     }
 }

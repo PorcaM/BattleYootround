@@ -85,9 +85,7 @@ public class BYMessage : MonoBehaviour {
         // Game Win & Lose
         public static short GameWin = MsgType.Highest + 100;
         public static short GameLose = MsgType.Highest + 110;
-
-        // Disconnect
-        public static short Disconnect = MsgType.Highest + 150;
+        
     }
     
 }

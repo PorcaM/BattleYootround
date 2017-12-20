@@ -55,7 +55,7 @@ public class TurnNetworkSendProcess : MonoBehaviour {
     }
     IEnumerator ReadyMessage()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         BYClient.myClient.Send(BYMessage.MyMsgType.YootReady, EmptyMsg);
     }
 
