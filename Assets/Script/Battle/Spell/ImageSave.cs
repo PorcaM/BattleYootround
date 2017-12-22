@@ -194,7 +194,7 @@ public class ImageSave : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddBinaryData("file", bytes, "test.jpg", "image/jpeg");
 
-        string URL = "165.246.42.24/upload.php";
+        string URL = "address";
 
         WWW www = new WWW(URL, form);
 
